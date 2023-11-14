@@ -4,7 +4,7 @@ import { useFormik } from 'formik'
 import Swal from 'sweetalert2'
 import { useNavigate } from 'react-router-dom'
 import { doctorSchema } from '../../../validations/doctor/signupValidation'
-import doctorSignup from "../../../Api/doctorApi"
+import { doctorSignup } from "../../../Api/doctorApi"
 
 
 
@@ -16,10 +16,36 @@ const LoginPage = () => {
 
     const onSubmit = async () => {
         try {
+            console.log(values)
+            
             const response = await doctorSignup({ ...values, photo, certificates })
+            console.log(response,"1212121212121212121212121212121")
+           
+            const { doctorData, otpId } = response.data
+            if (response.data.status) {
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 5000,
+                    timerProgressBar: true,
+                    didOpen: (toast) => {
+                      toast.onmouseenter = Swal.stopTimer;
+                      toast.onmouseleave = Swal.resumeTimer;
+                    },
+                  });
+          
+                  Toast.fire({
+                    icon: 'info',
+                    title: 'Enter the OTP',
+                  });
+                navigate("/doctor/doctorotp", {
+                    state: { doctorId: doctorData._id, otpId: otpId }
+                })
+            }
 
         } catch (error) {
-            console.log(error.messsage)
+            console.log(error.message)
         }
     }
 
@@ -59,6 +85,7 @@ const LoginPage = () => {
             name: "",
             mobile: "",
             email: "",
+            speciality: "",
             password1: "",
             password2: "",
 
@@ -68,9 +95,7 @@ const LoginPage = () => {
 
     })
 
-    console.log(values, "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff")
-    console.log(photo, "iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii")
-    console.log(certificates, "ooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo")
+
 
     return (
         <>
@@ -96,6 +121,9 @@ const LoginPage = () => {
                                     onChange={handleChange}
                                     onBlur={handleBlur}
                                 />
+                                {errors.name && touched.name && (
+                                    <p className="text-red-600">{errors.name}</p>
+                                )}
                             </div>
 
                             <div className="form-control">
@@ -112,6 +140,9 @@ const LoginPage = () => {
                                     onBlur={handleBlur}
 
                                 />
+                                {errors.mobile && touched.mobile && (
+                                    <p className="text-red-600">{errors.mobile}</p>
+                                )}
                             </div>
 
                             <div className="form-control">
@@ -128,6 +159,28 @@ const LoginPage = () => {
                                     onBlur={handleBlur}
 
                                 />
+                                {errors.email && touched.email && (
+                                    <p className="text-red-600">{errors.email}</p>
+                                )}
+                            </div>
+
+                            <div className="form-control">
+                                <label className="label">
+                                    <span className="label-text">Speciality</span>
+                                </label>
+                                <input
+                                    name="speciality"
+                                    type="text"
+                                    placeholder="speciality"
+                                    className="input input-bordered"
+                                    value={values.speciality}
+                                    onChange={handleChange}
+                                    onBlur={handleBlur}
+
+                                />
+                                {errors.speciality && touched.speciality && (
+                                    <p className="text-red-600">{errors.speciality}</p>
+                                )}
                             </div>
 
                             <div className="form-control">
@@ -144,6 +197,9 @@ const LoginPage = () => {
                                     onBlur={handleBlur}
 
                                 />
+                                {errors.password1 && touched.password1 && (
+                                    <p className="text-red-600">{errors.password1}</p>
+                                )}
                             </div>
 
                             <div className="form-control">
@@ -159,6 +215,9 @@ const LoginPage = () => {
                                     onBlur={handleBlur}
 
                                 />
+                                {errors.password2 && touched.password2 && (
+                                    <p className="text-red-600">{errors.password2}</p>
+                                )}
                             </div>
 
                             <div>

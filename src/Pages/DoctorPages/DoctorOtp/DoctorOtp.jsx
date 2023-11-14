@@ -1,27 +1,28 @@
 import React, { useRef } from 'react';
 import { useFormik } from 'formik';
 import { useNavigate, useLocation } from 'react-router-dom';
+import { otpResend, otpVerify } from '../../../Api/doctorApi';
 import { otpSchema } from '../../../validations/user/otpValidation';
-import { otpVerify, otpResend } from '../../../Api/userApi';
 import Swal from 'sweetalert2';
 
-const Otp = () => {
+const DoctorOtp = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const { userId, otpId } = location.state;
-
-  const otpInputRefs = [useRef(), useRef(), useRef(), useRef()];
+  const { doctorId, otpId } = location.state;
+  const inputRefs = useRef([]);
 
   const onSubmit = async () => {
     try {
-      const combinedOTP = Object.values(values).join('');
-      const response = await otpVerify(combinedOTP, otpId, userId);
+      const combinedOTP = Object.values(values).join("");
+      console.log(combinedOTP,"0000000000000000000000000000000000000000000")
+      const response = await otpVerify(combinedOTP, otpId, doctorId)
+      console.log(response,"qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq")
       if (response?.data?.status) {
         const Toast = Swal.mixin({
           toast: true,
           position: 'top-end',
           showConfirmButton: false,
-          timer: 3000,
+          timer: 5000,
           timerProgressBar: true,
           didOpen: (toast) => {
             toast.onmouseenter = Swal.stopTimer;
@@ -34,13 +35,16 @@ const Otp = () => {
           title: 'Login now',
         });
 
-        navigate('/login', { state: 'Email verified' });
+        // Focus on the first input after successful verification
+        inputRefs.current[0].focus();
+
+        navigate("/doctor/login", { state: "Email verified" });
       } else {
         const Toast = Swal.mixin({
           toast: true,
           position: 'top-end',
           showConfirmButton: false,
-          timer: 3000,
+          timer: 5000,
           timerProgressBar: true,
           didOpen: (toast) => {
             toast.onmouseenter = Swal.stopTimer;
@@ -50,23 +54,23 @@ const Otp = () => {
 
         Toast.fire({
           icon: 'error',
-          title: 'Wrong OTP',
+          title: 'Error',
         });
       }
     } catch (error) {
-      console.log(error.message);
+      console.log(error.message)
     }
-  };
+  }
 
   const resendOtp = async () => {
     try {
-      const response = await otpResend(userId);
+      const response = await otpResend(doctorId)
       if (response.status === 200) {
         const Toast = Swal.mixin({
           toast: true,
           position: 'top-end',
           showConfirmButton: false,
-          timer: 3000,
+          timer: 5000,
           timerProgressBar: true,
           didOpen: (toast) => {
             toast.onmouseenter = Swal.stopTimer;
@@ -75,23 +79,14 @@ const Otp = () => {
         });
 
         Toast.fire({
-          icon: 'success',
-          title: 'OTP resent',
+          icon: 'info',
+          title: 'OTP resended',
         });
       }
     } catch (error) {
       console.log(error.message);
     }
-  };
-
-  const handleOtpChange = (index, e) => {
-    handleChange(e);
-
-    // Move focus to the next input field
-    if (e.target.value !== '' && index < otpInputRefs.length - 1) {
-      otpInputRefs[index + 1].current.focus();
-    }
-  };
+  }
 
   const { values, errors, touched, handleChange, handleSubmit } = useFormik({
     initialValues: {
@@ -119,19 +114,25 @@ const Otp = () => {
               <form onSubmit={handleSubmit}>
                 <div className="flex flex-col space-y-16">
                   <div className="flex flex-row items-center justify-between mx-auto w-full max-w-xs">
-                    {Array.from({ length: 4 }).map((_, index) => (
-                      <div key={index} className="w-16 h-16">
+                    {Object.keys(values).map((fieldName, index) => (
+                      <div key={fieldName} className="w-16 h-16">
                         <input
-                          ref={otpInputRefs[index]}
+                          ref={(input) => (inputRefs.current[index] = input)}
                           className="w-full h-full flex flex-col items-center justify-center text-center px-5 outline-none rounded-xl border border-gray-200 text-lg bg-white focus:bg-gray-50 focus:ring-1 ring-blue-700"
                           type="text"
-                          name={`otp${index + 1}`}
-                          value={values[`otp${index + 1}`]}
-                          onChange={(e) => handleOtpChange(index, e)}
+                          name={fieldName}
+                          value={values[fieldName]}
+                          onChange={(e) => {
+                            handleChange(e);
+                            // Focus on the next input when a digit is entered
+                            if (e.target.value.length === 1 && index < inputRefs.current.length - 1) {
+                              inputRefs.current[index + 1].focus();
+                            }
+                          }}
                           maxLength={1}
                         />
-                        {errors[`otp${index + 1}`] && touched[`otp${index + 1}`] && (
-                          <p className="text-red-600">{errors[`otp${index + 1}`]}</p>
+                        {errors[fieldName] && touched[fieldName] && (
+                          <p className="text-red-600">{errors[fieldName]}</p>
                         )}
                       </div>
                     ))}
@@ -145,10 +146,7 @@ const Otp = () => {
                     </div>
 
                     <div className="flex flex-row items-center justify-center text-center text-sm font-medium space-x-1 text-gray-500">
-                      <p>Didn't receive code?</p>{' '}
-                      <a className="flex flex-row items-center text-blue-600" onClick={resendOtp}>
-                        Resend
-                      </a>
+                      <p>Didn't receive code?</p> <a className="flex flex-row items-center text-blue-600" onClick={resendOtp} >Resend</a>
                     </div>
                   </div>
                 </div>
@@ -159,6 +157,6 @@ const Otp = () => {
       </div>
     </>
   );
-};
+}
 
-export default Otp;
+export default DoctorOtp;

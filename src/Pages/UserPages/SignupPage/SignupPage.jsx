@@ -17,20 +17,45 @@ const SignupPage = () => {
     try {
           
       const response = await userSignup(values)
-      console.log(response,"my love");
       console.log(response.data.otpId);
       const {userData,otpId} = response.data
       if (response.data.status) {
-        Swal.fire({
-          position: "top-end",
-          icon: "success",
-          title: "Enter the OTP",
+        const Toast = Swal.mixin({
+          toast: true,
+          position: 'top-end',
           showConfirmButton: false,
-          timer: 3000
+          timer: 5000,
+          timerProgressBar: true,
+          didOpen: (toast) => {
+            toast.onmouseenter = Swal.stopTimer;
+            toast.onmouseleave = Swal.resumeTimer;
+          },
+        });
+
+        Toast.fire({
+          icon: 'info',
+          title: 'Enter the OTP',
         });
         navigate("/userotp",{
           state:{userId: userData._id, otpId: otpId} 
         })
+      }else{
+        const Toast = Swal.mixin({
+          toast: true,
+          position: 'top-end',
+          showConfirmButton: false,
+          timer: 5000,
+          timerProgressBar: true,
+          didOpen: (toast) => {
+            toast.onmouseenter = Swal.stopTimer;
+            toast.onmouseleave = Swal.resumeTimer;
+          },
+        });
+
+        Toast.fire({
+          icon: 'error',
+          title: 'Error',
+        });
       }
 
     } catch (error) {
@@ -118,7 +143,7 @@ const SignupPage = () => {
 
                 <input
                   name='password1'
-                  type="password1"
+                  type="password"
                   placeholder="Type password"
                   className="input input-bordered w-96"
                   value={values.password1}
@@ -136,7 +161,7 @@ const SignupPage = () => {
 
                 <input
                   name='password2'
-                  type="password2"
+                  type="password"
                   placeholder="Retype password"
                   className="input input-bordered w-96"
                   value={values.password2}

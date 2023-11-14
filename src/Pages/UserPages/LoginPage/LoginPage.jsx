@@ -21,48 +21,59 @@ const LoginPage = () => {
     try {
       const response = await userLogin(values);
 
-      localStorage.setItem("token", response.data.token);
-
+      localStorage.setItem("usertoken", response.data.usertoken);
+    
       if (response?.status === 200) {
         const userData = response.data.userData;
-
         dispatch(
           setUser({
             user: userData,
           })
         );
+  
         const Toast = Swal.mixin({
           toast: true,
-          position: "top-end",
+          position: 'top-end',
           showConfirmButton: false,
           timer: 3000,
           timerProgressBar: true,
           didOpen: (toast) => {
             toast.onmouseenter = Swal.stopTimer;
             toast.onmouseleave = Swal.resumeTimer;
-          }
+          },
         });
+  
         Toast.fire({
-          icon: "success",
-          title: "Logged in successfully"
+          icon: 'success',
+          title: 'Logged in successfully',
         });
-
-        // toast.success(response?.data?.message); // Corrected usage here
+  
         navigate("/");
       }
-
     } catch (error) {
-      Swal.fire({
-        position: "top-end",
-        icon: "error",
-        title: "Wrong password",
+      const errorMessage = error.response?.data?.message || 'An error occurred';
+      
+      const Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
         showConfirmButton: false,
-        timer: 2000
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.onmouseenter = Swal.stopTimer;
+          toast.onmouseleave = Swal.resumeTimer;
+        },
       });
-      // toast.error(error.response?.data?.message); // Corrected usage here
+  
+      Toast.fire({
+        icon: 'error',
+        title: errorMessage,
+      });
+  
       console.error(error, "response in error");
     }
   }
+  
 
   const { values, errors, touched, handleChange, handleBlur, handleSubmit } = useFormik({
     initialValues: {

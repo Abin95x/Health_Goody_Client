@@ -4,13 +4,15 @@ import { persistStore } from 'redux-persist';
 import { configureStore } from '@reduxjs/toolkit';
 import { combineReducers } from '@reduxjs/toolkit';
 import userReducer from '../Redux/UserSlice/UserSlice'
+import doctorReducer from '../Redux/DoctorSlice/DoctorSlice'
 
 const persistConfig = {
     key: 'root',
     storage,
   };
   const reducer = combineReducers({
-    userReducer
+    userReducer,
+    doctorReducer
   })
   
   const Persisted = persistReducer(persistConfig, reducer);

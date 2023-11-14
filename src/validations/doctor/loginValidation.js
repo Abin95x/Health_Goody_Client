@@ -5,7 +5,7 @@ export const loginSchema = yup.object().shape({
   email:yup.string().email("Please enter a valid email").required("Required"),
   
   password: yup
-  .string()
-  // .matches(passwordRule, "Password must contain at least one digit and be 6 characters long")
-  .required("Required"),
+    .string()
+    // .matches(passwordRule, "Password must contain at least one digit and be 6 characters long")
+    .required("Required"),
 })

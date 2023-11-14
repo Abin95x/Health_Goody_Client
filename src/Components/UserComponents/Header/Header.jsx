@@ -6,7 +6,7 @@ import Swal from 'sweetalert2'
 
 const Header = () => {
 
-  let token = localStorage.getItem("token")
+  let token = localStorage.getItem("usertoken")
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const handleLogout = () => {
@@ -26,7 +26,7 @@ const Header = () => {
       title: "Logged out successfully"
     });
 
-    localStorage.removeItem("token")
+    localStorage.removeItem("usertoken")
     dispatch(userLogout({
       user: ""
     }))
