@@ -20,14 +20,8 @@ const DoctorList = () => {
 
     const handleClick = async (id) => {
         try {
-            console.log(id,"iooioioioioioi");
-            const response = await doctorDetails(id);
-            console.log(response,"ieieieieieieieie")
-            const details = response.data.details
-            console.log(details,"djfhdjfhdjfhjfdfd")
-
-            // Pass the response data as a parameter when navigating
-            navigate("/admin/doctordetails", { state: { doctorData: details } });
+            console.log(id,"111111111111111111111111111111one")
+            navigate(`/admin/doctordetails/${id}`);
         } catch (error) {
             console.log(error.message);
         }

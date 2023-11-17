@@ -9,7 +9,6 @@ export async function adminLogin(signupData){
 
 export async function userList(){
     const data = await adminAxiosInstance.get("/userList")
-    console.log(data,'ppipppppppppiiiiiiiiiiiiiiiipppppppppppppppppppppppppiiiiiiiii')
     return data
 }
 
@@ -26,15 +25,14 @@ export async function userBlockUnblock(id){
 
 //doctor 
 
-export async function doctorList(id){
+export async function doctorList(){
     const data = await adminAxiosInstance.get("/doctorList")
     return data
 }
 
 export async function doctorDetails(id){
-    console.log(id,"lllllllllllllllllllllllllllllllll")
     const data = await adminAxiosInstance.post("/doctorDetails",{id})
-    console.log(data,'mymymy')
+    console.log(data)
     return data
 }
 
@@ -46,6 +44,7 @@ export async function unVerifiedList(){
 
 export async function doctorBlockUnblock(id){
     const data = await adminAxiosInstance.patch("/doctorblockUnblock",{id})
+    console.log(data)
     return data 
 }
 

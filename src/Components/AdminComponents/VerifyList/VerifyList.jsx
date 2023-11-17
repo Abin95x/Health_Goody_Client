@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import { unVerifiedList } from '../../../Api/adminApi';
-import { doctorDetails } from '../../../Api/adminApi';
+
 
 
 const VerifyList = () => {
@@ -20,27 +20,21 @@ const VerifyList = () => {
     }, []);
 
 
-    const handleClick = async (id) =>{
-        try{
-            const response = await doctorDetails(id);
-            const details = response.data.details
-            // Pass the response data as a parameter when navigating
-            navigate("/admin/doctordetails", { state: { doctorData: details } });
-
-        }catch(error){
+    const handleClick = async (id) => {
+        try {
+            navigate(`/admin/doctordetails/${id}`);
+        } catch (error) {
             console.log(error.message)
         }
     }
     return (
         <>
-         <div className="text-sm breadcrumbs">
-            
+            <div className="text-sm breadcrumbs">
                 <ul>
                     <li><a>DASHBOARD</a></li>
                     <li><a>VERIFY DOCTORS</a></li>
                 </ul>
             </div>
-          
 
             <div className="overflow-x-auto">
                 <table className="table">
@@ -66,16 +60,10 @@ const VerifyList = () => {
                                 <td>{doctor.mobile}</td>
                                 <td>{doctor.speciality}</td>
                                 <td>{doctor.is_blocked ? 'No' : 'Yes'}</td>
-
-
-
                                 <td>
-
                                     <button type='button' onClick={() => handleClick(doctor._id)}>
                                         More Info
-                                
                                     </button>
-
                                 </td>
                             </tr>
                         ))}

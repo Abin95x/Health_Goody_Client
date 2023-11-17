@@ -10,21 +10,21 @@ import VerifyDoctor from '../../Pages/AdminPages/VerifyDoctor/VerifyDoctor'
 import DoctorDetailsPage from '../../Pages/AdminPages/DoctorDetailsPage/DoctorDetailsPage'
 import Appointment from '../../Pages/AdminPages/Appointment/Appointment'
 
+import AdminProtect from './AdminProtect'
+import AdminPublic from './AdminPublic'
 
 
 const AdminRoute = () => {
   return (
     <Routes>
-        <Route path='/adminlogin' element={<LoginPage/>}/>
-        <Route path='/dashboard' element={<Dashboard/>}/>
-        <Route path='/userlist' element={<UserListPage/>}/>
-        <Route path='/userdetails' element={<UserDetailsPage/>}/>
-        <Route path='/doctorlist' element={<DoctorListPage/>}/>
-        <Route path='/verifydoctors' element={<VerifyDoctor/>}/>
-        <Route path='/appointments' element={<Appointment />}/>
-        <Route path='/doctordetails' element={<DoctorDetailsPage />}/>
-
-
+        <Route path='/adminlogin' element={<AdminPublic><LoginPage/></AdminPublic>}/>
+        <Route path='/dashboard' element={<AdminProtect><Dashboard/></AdminProtect>}/>
+        <Route path='/userlist' element={<AdminProtect><UserListPage/></AdminProtect>}/>
+        <Route path='/userdetails/:id' element={<AdminProtect><UserDetailsPage/></AdminProtect>}/>
+        <Route path='/doctorlist' element={<AdminProtect><DoctorListPage/></AdminProtect>}/>
+        <Route path='/verifydoctors' element={<AdminProtect><VerifyDoctor/></AdminProtect>}/>
+        <Route path='/appointments' element={<AdminProtect><Appointment /></AdminProtect>}/>
+        <Route path='/doctordetails/:id' element={<AdminProtect><DoctorDetailsPage /></AdminProtect>}/>
     </Routes>
     
   )

@@ -8,8 +8,6 @@ import VerifyList from '../../../Components/AdminComponents/VerifyList/VerifyLis
 
 const VerifyDoctor = () => {
 
-
-
     return (
         <>
             <Header />

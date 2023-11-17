@@ -9,17 +9,17 @@ import { doctorLogin } from '../../../Api/doctorApi'
 import { setDoctor } from '../../../Redux/DoctorSlice/DoctorSlice'
 
 
-const SignupPage = () => {
+const LoginPage = () => {
     const dispatch = useDispatch();
-    const navigate = useNavigate(); // Ensure you are using the correct hook for your routing library
+    const navigate = useNavigate(); 
   
     const onSubmit = async (values) => {
         try {
-            // Assuming `doctorLogin` is an asynchronous function that handles login
-            const response = await doctorLogin(values);
-            localStorage.setItem("doctortoken", response.data.doctortoken);
 
-            console.log(response, "xxxxxxxxxxxxxxxxx");
+            const response = await doctorLogin(values);
+            console.log(response,"rrrrssssppppppiooo")
+
+            localStorage.setItem("doctortoken", response.data.doctortoken);
 
             if (response.status === 200) {
                 const doctorData = response.data.doctorData;
@@ -44,10 +44,10 @@ const SignupPage = () => {
                     title: 'Logged in successfully',
                 });
 
-                // Assuming you are using react-router for navigation
                 navigate('/doctor/dashboard');
             } else {
-                // Handle errors here
+
+             
                 const Toast = Swal.mixin({
                     toast: true,
                     position: 'top-end',
@@ -66,9 +66,9 @@ const SignupPage = () => {
                 });
             }
         } catch (error) {
+          console.log(error,"eeeeeeeeerrrrrrrrrroooooorrrrrrrrrrrr")
             console.error(error.message);
 
-            // Display a SweetAlert for the error case
             const Toast = Swal.mixin({
                 toast: true,
                 position: 'top-end',
@@ -102,11 +102,12 @@ const SignupPage = () => {
         <div className="hero min-h-screen bg-base-200" style={{ backgroundImage: `url(${doctorsignup})` }}>
           <div className="hero-overlay bg-opacity-60"></div>
           <div className="hero-content flex-col lg:flex-row-reverse items-center lg:items-start">
-            <div className="text-center lg:text-left">
-              <h1 className="text-5xl font-bold">Login now!</h1>
-              <p className="py-6">Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem quasi. In deleniti eaque aut repudiandae et a id nisi.</p>
-            </div>
             <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
+              <div>
+                <br />
+              
+                <h1 className="text-xl font-bold text-center">DOCTOR LOGIN</h1>
+              </div>
               <form className="card-body" onSubmit={handleSubmit}>
                 <div className="form-control">
                   <label className="label">
@@ -153,4 +154,4 @@ const SignupPage = () => {
     )
 }
 
-export default SignupPage
+export default LoginPage

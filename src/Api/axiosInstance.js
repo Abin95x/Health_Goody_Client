@@ -18,7 +18,7 @@ const createAxiosInstance = (baseURL) => {
 const attachToken = (req, tokenName) => {
   let authToken = localStorage.getItem(tokenName);
   if (authToken) {
-    req.headers.Authorization = `Bearer ${authToken}`;
+    req.headers.Authorization = authToken;
   }
   return req;
 };

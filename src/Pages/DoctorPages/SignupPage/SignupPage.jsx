@@ -8,19 +8,23 @@ import { doctorSignup } from "../../../Api/doctorApi"
 
 
 
-const LoginPage = () => {
+const SignupPage = () => {
     const navigate = useNavigate()
     const [photo, setPhoto] = useState(null);
     const [certificates, setCertificates] = useState([]);
 
+    const [loading, setLoading] = useState(false)
+
 
     const onSubmit = async () => {
         try {
+            setLoading(true)
             console.log(values)
-            
+
             const response = await doctorSignup({ ...values, photo, certificates })
-            console.log(response,"1212121212121212121212121212121")
-           
+            console.log(response, "1212121212121212121212121212121")
+            setLoading(false)
+
             const { doctorData, otpId } = response.data
             if (response.data.status) {
                 const Toast = Swal.mixin({
@@ -30,15 +34,15 @@ const LoginPage = () => {
                     timer: 5000,
                     timerProgressBar: true,
                     didOpen: (toast) => {
-                      toast.onmouseenter = Swal.stopTimer;
-                      toast.onmouseleave = Swal.resumeTimer;
+                        toast.onmouseenter = Swal.stopTimer;
+                        toast.onmouseleave = Swal.resumeTimer;
                     },
-                  });
-          
-                  Toast.fire({
+                });
+
+                Toast.fire({
                     icon: 'info',
                     title: 'Enter the OTP',
-                  });
+                });
                 navigate("/doctor/doctorotp", {
                     state: { doctorId: doctorData._id, otpId: otpId }
                 })
@@ -103,7 +107,9 @@ const LoginPage = () => {
                 <div className="hero-overlay bg-opacity-60"></div>
                 <div className="hero-content flex-col lg:flex-row-reverse">
                     <div className="text-center lg:text-left">
-                        <h1 className="text-5xl font-bold">Signup now!</h1>
+                        <h1 className="text-5xl font-bold">Signup now!
+                            {loading && <span className="loading loading-spinner loading-lg text-primary"></span>}
+                        </h1>
                         <p className="py-6">Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem quasi. In deleniti eaque aut repudiandae et a id nisi.</p>
                     </div>
                     <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
@@ -121,9 +127,7 @@ const LoginPage = () => {
                                     onChange={handleChange}
                                     onBlur={handleBlur}
                                 />
-                                {errors.name && touched.name && (
-                                    <p className="text-red-600">{errors.name}</p>
-                                )}
+                                {errors.name && touched.name && <p className="text-red-600">{errors.name}</p>}
                             </div>
 
                             <div className="form-control">
@@ -138,11 +142,8 @@ const LoginPage = () => {
                                     value={values.mobile}
                                     onChange={handleChange}
                                     onBlur={handleBlur}
-
                                 />
-                                {errors.mobile && touched.mobile && (
-                                    <p className="text-red-600">{errors.mobile}</p>
-                                )}
+                                {errors.mobile && touched.mobile && <p className="text-red-600">{errors.mobile}</p>}
                             </div>
 
                             <div className="form-control">
@@ -157,11 +158,8 @@ const LoginPage = () => {
                                     value={values.email}
                                     onChange={handleChange}
                                     onBlur={handleBlur}
-
                                 />
-                                {errors.email && touched.email && (
-                                    <p className="text-red-600">{errors.email}</p>
-                                )}
+                                {errors.email && touched.email && <p className="text-red-600">{errors.email}</p>}
                             </div>
 
                             <div className="form-control">
@@ -176,11 +174,8 @@ const LoginPage = () => {
                                     value={values.speciality}
                                     onChange={handleChange}
                                     onBlur={handleBlur}
-
                                 />
-                                {errors.speciality && touched.speciality && (
-                                    <p className="text-red-600">{errors.speciality}</p>
-                                )}
+                                {errors.speciality && touched.speciality && <p className="text-red-600">{errors.speciality}</p>}
                             </div>
 
                             <div className="form-control">
@@ -195,80 +190,63 @@ const LoginPage = () => {
                                     value={values.password1}
                                     onChange={handleChange}
                                     onBlur={handleBlur}
-
                                 />
-                                {errors.password1 && touched.password1 && (
-                                    <p className="text-red-600">{errors.password1}</p>
-                                )}
+                                {errors.password1 && touched.password1 && <p className="text-red-600">{errors.password1}</p>}
                             </div>
 
                             <div className="form-control">
                                 <label className="label">
-                                    <span className="label-text">Password agaim </span>
+                                    <span className="label-text">Password again</span>
                                 </label>
                                 <input
                                     name="password2"
-                                    type="password" placeholder=" password again"
+                                    type="password"
+                                    placeholder="password again"
                                     className="input input-bordered"
                                     value={values.password2}
                                     onChange={handleChange}
                                     onBlur={handleBlur}
-
                                 />
-                                {errors.password2 && touched.password2 && (
-                                    <p className="text-red-600">{errors.password2}</p>
-                                )}
+                                {errors.password2 && touched.password2 && <p className="text-red-600">{errors.password2}</p>}
                             </div>
 
                             <div>
                                 <label className="label">
-                                    <span className="label-text">Upload your photo </span>
+                                    <span className="label-text">Upload your photo</span>
                                 </label>
                                 <input
                                     type="file"
                                     className="file-input file-input-bordered file-input-primary w-full max-w-xs"
                                     onChange={handlePhotoChange}
-                                    accept="image/*" // Allow only image files
+                                    accept="image/*"
                                     required
                                 />
                             </div>
-                            {/* <p>Selected Photo: {photo ? photo.name : 'None'}</p> */}
+
                             <div>
                                 <label className="label">
-                                    <span className="label-text">Upload your certificates </span>
+                                    <span className="label-text">Upload your certificates</span>
                                 </label>
                                 <input
                                     type="file"
                                     className="file-input file-input-bordered file-input-info w-full max-w-xs"
                                     onChange={handleCertificatesChange}
-                                    // accept=".pdf,.doc,.docx"
                                     multiple
                                     required
                                 />
                             </div>
-                            <div>
-                                {/* 
-                                <p>Selected Certificates:</p>
-                                <ul>
-                                    {certificates.length > 0 &&
-                                        Array.from(certificates).map((file, index) => (
-                                            <li key={index}>{file.name}</li>
-                                        ))}
-                                </ul>
-                                 */}
-                            </div>
 
                             <div className="form-control mt-6">
-                                {/* <button className="btn btn-primary">Login</button> */}
-                                <button type='submit' className="btn btn-outline btn-accent" >sign up</button>
+                                <button type="submit" className="btn btn-outline btn-accent">
+                                    Sign up
+                                </button>
                             </div>
                         </form>
                     </div>
                 </div>
             </div>
-
         </>
     )
 }
 
-export default LoginPage
+export default SignupPage

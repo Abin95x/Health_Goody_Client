@@ -1,40 +1,62 @@
-import React from 'react';
-import { useLocation } from 'react-router-dom';
-import { doctorBlockUnblock } from '../../../Api/adminApi';
+import React, { useEffect, useState } from 'react';
+import { doctorDetails, doctorBlockUnblock } from '../../../Api/adminApi';
+import { useParams } from 'react-router-dom';
 
 const DoctorDetails = () => {
-  const location = useLocation();
-  const doctorData = location.state && location.state.doctorData;
 
-  const handleClick=  async (id) =>{
-    try{
-      console.log(id)
-      const data = doctorBlockUnblock(id)
+  const [doctorData, setDoctorData] = useState(null)
+  const { id } = useParams()
 
-    }catch(error){
+  useEffect(() => {
+    doctorDetails(id)
+      .then((res) => {
+        setDoctorData(res?.data?.details)
+      })
+      .catch((error) => {
+        console.log(error.message)
+      })
+
+  }, [])
+
+  const handleClick = async (userId) => {
+    try {
+      await doctorBlockUnblock(userId);
+      const res = await doctorDetails(id);
+      setDoctorData(res?.data?.details);
+
+    } catch (error) {
       console.log(error.message)
     }
   }
+
   return (
     <>
-      <div className="card w-[400px] bg-black shadow-xl mx-10 mt-9 rounded-xl">
-        <figure className="px-10 pt-10">
-          <img src={doctorData.photo} alt={doctorData.name} className="rounded-xl" />
-        </figure>
-        <div className="card-body  ">
-          <h2 className="card-title text-3xl font-bold mb-4">Dr . {doctorData.name}</h2>
-          <p className="text-gray-300">Email: {doctorData.email}</p>
-          <p className="text-gray-300">Mobile: {doctorData.mobile}</p>
-          <p className="text-gray-300">Speciality: {doctorData.speciality}</p>
-          <p className="text-gray-300">OTP Verified: {doctorData.otp_verified ? 'Yes' : 'No'}</p>
-          <p className="text-gray-300">Blocked: {doctorData.is_blocked ? 'Yes' : 'No'}</p>
-        </div>
-        <div className="card-actions mx-[147px]">
-            <button   className="btn btn-primary" onClick={()=>handleClick(doctorData._id)} >APPROVE</button>
+      {doctorData && (
+        <div className="card w-[400px] bg-black shadow-xl mx-10 mt-9 rounded-xl flex flex-col items-center"> {/* Updated styles here */}
+          <figure className="px-10 pt-10">
+            <img src={doctorData.photo} alt={doctorData.name} className="rounded-xl" />
+          </figure>
+          <div className="card-body">
+            <h2 className="card-title text-3xl font-bold mb-4">Dr. {doctorData.name}</h2>
+            <p className="text-gray-300">Email: {doctorData.email}</p>
+            <p className="text-gray-300">Mobile: {doctorData.mobile}</p>
+            <p className="text-gray-300">Speciality: {doctorData.speciality}</p>
+            <p className="text-gray-300">OTP Verified: {doctorData.otp_verified ? 'Yes' : 'No'}</p>
+            <p className="text-gray-300">Blocked: {doctorData.is_blocked ? 'Yes' : 'No'}</p>
+          </div>
+          <div className="card-actions">
+            <button
+              className={`btn btn-${doctorData.is_blocked ? 'success' : 'success'}`}
+              onClick={() => handleClick(doctorData._id)}
+            >
+              {doctorData.is_blocked ? 'UNBLOCK' : 'BLOCK'}
+            </button>
           </div>
           <br />
-      </div>
+        </div>
+      )}
     </>
+
   );
 };
 

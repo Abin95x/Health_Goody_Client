@@ -23,4 +23,4 @@ const DoctorRoute = () => {
     )
 }
 
-export default DoctorRoute
+export default DoctorRoute  

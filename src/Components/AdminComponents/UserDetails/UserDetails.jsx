@@ -1,44 +1,62 @@
-import React from 'react';
-import { useLocation,useNavigate } from 'react-router-dom';
-import { userBlockUnblock } from '../../../Api/adminApi';
+import React, { useEffect, useState } from 'react';
+import { userDetails, userBlockUnblock } from '../../../Api/adminApi';
+import { useParams } from 'react-router-dom';
 
 const UserDetails = () => {
-    const location = useLocation();
-    const userData = location.state && location.state.userData;
-    console.log(userData,'ddddddddddddddddddddddddddddddddddddddddddddd')
-    const navigate = useNavigate()
+    console.log("user details")
 
-    const blockUnblock = async (id) => {
-        try{
-            console.log(id)
-            const response = userBlockUnblock(id)
-        // navigate("/admin/userdetails",{ state: { userData: userData } })
+    const [userData, setUserData] = useState(null);
+    const { id } = useParams();
 
-        }catch(error){
+   
+    useEffect(()=>{
+        userDetails(id)
+        .then((res)=>{
+            setUserData(res?.data?.details)
+        })
+        .catch((error)=>{
+            console.log(error.message)
+        })
+
+    },[id])
+
+    const blockUnblock = async (userId) => {
+        try {
+            if (userData.is_blocked) {
+                await userBlockUnblock(userId);
+            } else {
+                await userBlockUnblock(userId);
+            }
+            const res = await userDetails(id);
+            setUserData(res?.data?.details);
+
+        } catch (error) {
             console.log(error.message)
         }
     }
 
     return (
         <>
-            <div className='flex-grow'>
-                <div className="card w-[500px] h-[600px] bg-black text-white shadow-lg mx-8 mt-9 rounded-lg">
-                    <div className="card-body p-8">
-                        <h2 className="text-3xl font-bold mb-4">{userData.name}</h2>
+            {userData && (
+                <div className="card w-[400px] bg-black shadow-xl mx-10 mt-9 rounded-xl">
+                    <div className="card-body ">
+                        <h2 className="card-title text-3xl font-bold mb-4">{userData.name}</h2>
                         <p className="text-gray-300">Id : {userData._id}</p>
                         <p className="text-gray-300">Email : {userData.email}</p>
                         <p className="text-gray-300">Mobile : {userData.mobile}</p>
                         <p className="text-gray-300">OTP Verified : {userData.otp_verified ? 'Yes' : 'No'}</p>
                         <p className="text-gray-300">Blocked : {userData.is_blocked ? 'Yes' : 'No'}</p>
-                        <div className="flex justify-end mt-6">
-                            <button className="btn bg-blue-500 hover:bg-blue-700 text-white mr-4">PREVIOUS APPOINTMENT</button>
-                            <button className="btn bg-red-500 hover:bg-red-700 text-white" onClick={() => blockUnblock(userData._id)}>BLOCK</button>
-                        </div>
                     </div>
+                    <div className="card-actions mx-[147px]">
+                        <button className="btn btn-primary" onClick={() => blockUnblock(userData._id)}>
+                            {userData.is_blocked ? 'UNBLOCK' : 'BLOCK'}
+                        </button>
+                    </div>
+                    <br />
                 </div>
-            </div>
+            )}
         </>
-    )
-}
+    );
+};
 
-export default UserDetails
+export default UserDetails;
