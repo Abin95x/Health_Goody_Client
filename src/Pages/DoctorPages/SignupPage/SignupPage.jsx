@@ -19,10 +19,9 @@ const SignupPage = () => {
     const onSubmit = async () => {
         try {
             setLoading(true)
-            console.log(values)
+        
 
             const response = await doctorSignup({ ...values, photo, certificates })
-            console.log(response, "1212121212121212121212121212121")
             setLoading(false)
 
             const { doctorData, otpId } = response.data
@@ -83,6 +82,7 @@ const SignupPage = () => {
             };
         }
     };
+    console.log(certificates,"hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhiiiiiiiiiiiiiiiii")
 
     const { values, errors, touched, handleChange, handleBlur, handleSubmit } = useFormik({
         initialValues: {

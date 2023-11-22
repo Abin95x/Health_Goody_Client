@@ -83,7 +83,27 @@ const handleAxiosError = (error) => {
         title: "404 - Resource Not Found"
       });
       
-    } else if (error.response.status === 500) {
+    } else if(error.response.status === 403){
+      console.log(error)
+
+      const Toast = Swal.mixin({
+        toast: true,
+        position: "top-end",
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.onmouseenter = Swal.stopTimer;
+          toast.onmouseleave = Swal.resumeTimer;
+        }
+      });
+      Toast.fire({
+        icon: "error",
+        title: "403"
+      });
+
+    }
+    else if (error.response.status === 500) {
       
       const Toast = Swal.mixin({
         toast: true,

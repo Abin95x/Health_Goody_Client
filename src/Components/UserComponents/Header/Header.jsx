@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch } from "react-redux";
 import { userLogout } from '../../../Redux/UserSlice/UserSlice'
 import Swal from 'sweetalert2'
+// import good from '../../../Assets/icon/good.svg'
 
 const Header = () => {
 
@@ -34,7 +35,7 @@ const Header = () => {
   }
 
   return (
-    <div className="navbar bg-black">
+    <div className="navbar bg-white text-black border-b-2 " >
       <div className="navbar-start">
         <div className="dropdown">
           <label tabIndex={0} className="btn btn-ghost lg:hidden">
@@ -55,7 +56,8 @@ const Header = () => {
           <ul className="menu menu-horizontal px-1">
             <li><Link to="/">HOME</Link></li>
             <li><Link to="">APPOINTMENTS</Link></li>
-            <li><Link to="">HEALTH RECORDS</Link></li>
+            {/* <li><Link to="">HEALTH RECORDS</Link></li> */}
+            <li><Link to="/doctorlist">DOCTORS</Link></li>
           </ul>
         </div>
 
@@ -76,8 +78,8 @@ const Header = () => {
                   <img src="icon.jpg" />
                 </div>
               </label>
-              <ul tabIndex={0} className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52">
-                <li><a className="justify-between">Profile</a></li>
+              <ul tabIndex={0} className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-white rounded-box w-52">
+                <li><Link to="/profile">Profile</Link></li>
                 <li><a onClick={handleLogout}>Logout</a></li>
               </ul>
             </div>

@@ -19,7 +19,7 @@ const persistConfig = {
   
   const Store = configureStore({
     reducer: {
-      user: Persisted 
+      reducer: Persisted 
     }
   });
   

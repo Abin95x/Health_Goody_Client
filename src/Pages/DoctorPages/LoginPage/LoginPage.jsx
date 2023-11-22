@@ -10,148 +10,152 @@ import { setDoctor } from '../../../Redux/DoctorSlice/DoctorSlice'
 
 
 const LoginPage = () => {
-    const dispatch = useDispatch();
-    const navigate = useNavigate(); 
-  
-    const onSubmit = async (values) => {
-        try {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-            const response = await doctorLogin(values);
-            console.log(response,"rrrrssssppppppiooo")
+  const onSubmit = async (values) => {
+    try {
 
-            localStorage.setItem("doctortoken", response.data.doctortoken);
+      const response = await doctorLogin(values);
 
-            if (response.status === 200) {
-                const doctorData = response.data.doctorData;
-                console.log(doctorData);
 
-                dispatch(setDoctor({ doctor: doctorData }));
+      localStorage.setItem("doctortoken", response.data.doctortoken);
 
-                const Toast = Swal.mixin({
-                    toast: true,
-                    position: 'top-end',
-                    showConfirmButton: false,
-                    timer: 3000,
-                    timerProgressBar: true,
-                    didOpen: (toast) => {
-                        toast.onmouseenter = Swal.stopTimer;
-                        toast.onmouseleave = Swal.resumeTimer;
-                    },
-                });
+      if (response.status === 200) {
+        const doctorData = response.data.doctorData;
+      
 
-                Toast.fire({
-                    icon: 'success',
-                    title: 'Logged in successfully',
-                });
+        dispatch(
+          setDoctor({
+            doctor: doctorData
+          })
+        );
 
-                navigate('/doctor/dashboard');
-            } else {
+        const Toast = Swal.mixin({
+          toast: true,
+          position: 'top-end',
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+          didOpen: (toast) => {
+            toast.onmouseenter = Swal.stopTimer;
+            toast.onmouseleave = Swal.resumeTimer;
+          },
+        });
 
-             
-                const Toast = Swal.mixin({
-                    toast: true,
-                    position: 'top-end',
-                    showConfirmButton: false,
-                    timer: 3000,
-                    timerProgressBar: true,
-                    didOpen: (toast) => {
-                        toast.onmouseenter = Swal.stopTimer;
-                        toast.onmouseleave = Swal.resumeTimer;
-                    },
-                });
+        Toast.fire({
+          icon: 'success',
+          title: 'Logged in successfully',
+        });
 
-                Toast.fire({
-                    icon: 'error',
-                    title: 'Error',
-                });
-            }
-        } catch (error) {
-          console.log(error,"eeeeeeeeerrrrrrrrrroooooorrrrrrrrrrrr")
-            console.error(error.message);
+        navigate('/doctor/dashboard');
+      } else {
 
-            const Toast = Swal.mixin({
-                toast: true,
-                position: 'top-end',
-                showConfirmButton: false,
-                timer: 3000,
-                timerProgressBar: true,
-                didOpen: (toast) => {
-                    toast.onmouseenter = Swal.stopTimer;
-                    toast.onmouseleave = Swal.resumeTimer;
-                },
-            });
 
-            Toast.fire({
-                icon: 'error',
-                title: 'An error occurred',
-            });
-        }
-    };
+        const Toast = Swal.mixin({
+          toast: true,
+          position: 'top-end',
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+          didOpen: (toast) => {
+            toast.onmouseenter = Swal.stopTimer;
+            toast.onmouseleave = Swal.resumeTimer;
+          },
+        });
 
-    const { values, errors, touched, handleChange, handleBlur, handleSubmit } = useFormik({
-        initialValues: {
-            email: "",
-            password: "",
+        Toast.fire({
+          icon: 'error',
+          title: 'Error',
+        });
+      }
+    } catch (error) {
+      console.error(error.message);
+
+      const Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.onmouseenter = Swal.stopTimer;
+          toast.onmouseleave = Swal.resumeTimer;
         },
-        validationSchema: loginSchema,
-        onSubmit
-    });
+      });
 
-    return (
-        <>
-        <div className="hero min-h-screen bg-base-200" style={{ backgroundImage: `url(${doctorsignup})` }}>
-          <div className="hero-overlay bg-opacity-60"></div>
-          <div className="hero-content flex-col lg:flex-row-reverse items-center lg:items-start">
-            <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
-              <div>
-                <br />
-              
-                <h1 className="text-xl font-bold text-center">DOCTOR LOGIN</h1>
-              </div>
-              <form className="card-body" onSubmit={handleSubmit}>
-                <div className="form-control">
-                  <label className="label">
-                    <span className="label-text">Email</span>
-                  </label>
-                  <input
-                    type="email"
-                    name="email"
-                    placeholder="Email"
-                    className="input input-bordered w-full"
-                    value={values.email}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                  />
-                  {errors.email && touched.email && <p className="text-red-600">{errors.email}</p>}
-                </div>
-                <div className="form-control mt-4">
-                  <label className="label">
-                    <span className="label-text">Password</span>
-                  </label>
-                  <input
-                    type="password"
-                    name="password"
-                    placeholder="Password"
-                    className="input input-bordered w-full"
-                    value={values.password}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                  />
-                  {errors.password && touched.password && <p className="text-red-600">{errors.password}</p>}
-                  <label className="label mt-2">
-                    <a href="#" className="label-text-alt link link-hover">Forgot password?</a>
-                  </label>
-                </div>
-                <div className="form-control mt-6">
-                  <button type="submit" className="btn btn-primary w-full">Login</button>
-                </div>
-              </form>
+      Toast.fire({
+        icon: 'error',
+        title: 'An error occurred',
+      });
+    }
+  };
+
+  const { values, errors, touched, handleChange, handleBlur, handleSubmit } = useFormik({
+    initialValues: {
+      email: "",
+      password: "",
+    },
+    validationSchema: loginSchema,
+    onSubmit
+  });
+
+  return (
+    <>
+      <div className="hero min-h-screen bg-base-200" style={{ backgroundImage: `url(${doctorsignup})` }}>
+        <div className="hero-overlay bg-opacity-60"></div>
+        <div className="hero-content flex-col lg:flex-row-reverse items-center lg:items-start">
+          <div className="card flex-shrink-0 w-96 max-w-sm shadow-2xl bg-base-100">
+            <div>
+              <br />
+
+              <h1 className="text-xl font-bold text-center">DOCTOR LOGIN</h1>
             </div>
+            <form className="card-body" onSubmit={handleSubmit}>
+              <div className="form-control">
+                <label className="label">
+                  <span className="label-text">Email</span>
+                </label>
+                <input
+                  type="email"
+                  name="email"
+                  placeholder="Email"
+                  className="input input-bordered w-full"
+                  value={values.email}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                />
+                {errors.email && touched.email && <p className="text-red-600">{errors.email}</p>}
+              </div>
+              <div className="form-control mt-4">
+                <label className="label">
+                  <span className="label-text">Password</span>
+                </label>
+                <input
+                  type="password"
+                  name="password"
+                  placeholder="Password"
+                  className="input input-bordered w-full"
+                  value={values.password}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                />
+                {errors.password && touched.password && <p className="text-red-600">{errors.password}</p>}
+                <label className="label mt-2">
+                  <a href="#" className="label-text-alt link link-hover">Forgot password?</a>
+                </label>
+              </div>
+              <div className="form-control mt-6">
+                <button type="submit" className="btn btn-primary w-full">Login</button>
+              </div>
+            </form>
           </div>
         </div>
-      </>
-      
-    )
+      </div>
+    </>
+    
+
+  )
 }
 
 export default LoginPage

@@ -4,7 +4,6 @@ import { Route,Routes } from 'react-router-dom'
 import LoginPage from '../../Pages/AdminPages/LoginPage/LoginPage'
 import Dashboard from '../../Pages/AdminPages/Dashboard/Dashboard'
 import UserListPage from '../../Pages/AdminPages/UserListPage/UserListPage'
-import UserDetailsPage from '../../Pages/AdminPages/UserDetailsPage/UserDetailsPage'
 import DoctorListPage from '../../Pages/AdminPages/DoctorListPage/DoctorListPage'
 import VerifyDoctor from '../../Pages/AdminPages/VerifyDoctor/VerifyDoctor'
 import DoctorDetailsPage from '../../Pages/AdminPages/DoctorDetailsPage/DoctorDetailsPage'
@@ -20,7 +19,6 @@ const AdminRoute = () => {
         <Route path='/adminlogin' element={<AdminPublic><LoginPage/></AdminPublic>}/>
         <Route path='/dashboard' element={<AdminProtect><Dashboard/></AdminProtect>}/>
         <Route path='/userlist' element={<AdminProtect><UserListPage/></AdminProtect>}/>
-        <Route path='/userdetails/:id' element={<AdminProtect><UserDetailsPage/></AdminProtect>}/>
         <Route path='/doctorlist' element={<AdminProtect><DoctorListPage/></AdminProtect>}/>
         <Route path='/verifydoctors' element={<AdminProtect><VerifyDoctor/></AdminProtect>}/>
         <Route path='/appointments' element={<AdminProtect><Appointment /></AdminProtect>}/>

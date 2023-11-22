@@ -48,10 +48,14 @@ const DoctorDetails = () => {
             <button
               className={`btn btn-${doctorData.is_blocked ? 'success' : 'success'}`}
               onClick={() => handleClick(doctorData._id)}
+              style={{ backgroundColor: doctorData.is_blocked ? 'green' : 'red' }}
             >
               {doctorData.is_blocked ? 'UNBLOCK' : 'BLOCK'}
             </button>
+
+            <button className="btn btn-active btn-secondary">Certificates</button>
           </div>
+          
           <br />
         </div>
       )}

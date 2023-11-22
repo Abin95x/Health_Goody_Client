@@ -8,6 +8,7 @@ import DoctorOtp from '../../Pages/DoctorPages/DoctorOtp/DoctorOtp'
 import Dashboard from '../../Pages/DoctorPages/Dashboard/Dashboard'
 import DoctorProtect from './DoctorProtect'
 import DoctorPublic from './DoctorPublic'
+import DoctorProfile from '../../Pages/DoctorPages/DoctorProfile/DoctorProfile'
 
 const DoctorRoute = () => {
     return (
@@ -17,6 +18,8 @@ const DoctorRoute = () => {
             <Route path='/login' element={<DoctorPublic><LoginPage/></DoctorPublic>}/>
             <Route path='/doctorotp' element={<DoctorPublic><DoctorOtp/></DoctorPublic>}/>
             <Route path='/dashboard' element={<DoctorProtect><Dashboard/></DoctorProtect>}/>
+            <Route path='/doctorprofile' element={<DoctorProtect><DoctorProfile/></DoctorProtect>}/>
+
 
            
         </Routes>

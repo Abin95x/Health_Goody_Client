@@ -1,8 +1,9 @@
 import { userAxiosInstance } from "./axiosInstance"
 
 export async function userSignup(signupData) {
+  console.log(signupData)
   
-    const data = await userAxiosInstance.post("/userSignup", signupData)
+    const data = await userAxiosInstance.post("/userSignup",signupData)
     return data
 }
 
@@ -21,5 +22,25 @@ export async function otpResend(userId) {
 export async function userLogin(loginData) {
 
     const data = await userAxiosInstance.post("/userLogin", loginData)
+    return data
+}
+export async function getUserDetails(id){
+    const data = await userAxiosInstance.get(`/profileData/${id}`)
+    return data
+}
+
+export async function setDetails(values){
+    console.log(values,"valuresssssss")
+    const data = await userAxiosInstance.post("/setDetails",values)
+    return data
+}
+
+export async function doctorList(){
+    const data  = await userAxiosInstance. get("/doctorList")
+    return data
+} 
+export async function doctorDetails(id){
+
+    const data = await userAxiosInstance.get(`/doctorDetails/${id}`)
     return data
 }

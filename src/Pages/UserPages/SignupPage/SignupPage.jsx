@@ -1,4 +1,4 @@
-// import React, { useState } from 'react'
+import React, { useState } from 'react'
 import Header from '../../../Components/UserComponents/Header/Header'
 import Footer from '../../../Components/UserComponents/Footer/Footer'
 import { Link, useNavigate } from 'react-router-dom'
@@ -6,19 +6,21 @@ import { userSignup } from '../../../Api/userApi'
 import { useFormik } from "formik"
 import { userSchema } from "../../../validations/user/signupValidation"
 import Swal from 'sweetalert2'
+import backgroundImage from "../../../Assets/image/loginImg.jpg"
+
 
 
 
 const SignupPage = () => {
 
+  const [photo, setPhoto] = useState(null);
   const navigate = useNavigate()
-
+  
   async function onSubmit() {
     try {
-          
-      const response = await userSignup(values)
+      const response = await userSignup({...values,photo})
       console.log(response.data.otpId);
-      const {userData,otpId} = response.data
+      const { userData, otpId } = response.data
       if (response.data.status) {
         const Toast = Swal.mixin({
           toast: true,
@@ -36,10 +38,10 @@ const SignupPage = () => {
           icon: 'info',
           title: 'Enter the OTP',
         });
-        navigate("/userotp",{
-          state:{userId: userData._id, otpId: otpId} 
+        navigate("/userotp", {
+          state: { userId: userData._id, otpId: otpId }
         })
-      }else{
+      } else {
         const Toast = Swal.mixin({
           toast: true,
           position: 'top-end',
@@ -62,6 +64,20 @@ const SignupPage = () => {
       console.log(error.message)
     }
   }
+  const handlePhotoChange = (e) => {
+    const selectedPhoto = e.target.files[0];
+    setPhotoToBase(selectedPhoto);
+  };
+
+  const setPhotoToBase = (file) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onloadend = () => {
+      setPhoto(reader.result);
+    };
+  };
+  // console.log(photo)
+
 
   const { values, errors, touched, handleChange, handleBlur, handleSubmit } = useFormik({
     initialValues: {
@@ -70,7 +86,7 @@ const SignupPage = () => {
       mobile: "",
       password1: "",
       password2: "",
-      
+
     },
     validationSchema: userSchema,
     onSubmit
@@ -80,8 +96,8 @@ const SignupPage = () => {
     <div>
       <Header />
 
-      <div className="hero min-h-screen  bg-teal-700">
-        <div className="card flex-shrink-0 w-full max-w-md shadow-2xl bg-base-100">
+      <div className="hero min-h-screen flex flex-1 flex-col justify-center px-6 py-12 lg:px-8 bg-white h-screen" style={{ backgroundImage: `url(${backgroundImage})`, backgroundSize: 'cover' }}>
+        <div className="card flex-shrink-0 w-full max-w-md shadow-2xl bg-transparent">
           <div className="card-body">
             <div className="text-center lg:text-left">
               <h1 className="text-5xl font-bold">Register now!</h1>
@@ -93,7 +109,7 @@ const SignupPage = () => {
                   name='name'
                   type="text"
                   placeholder="Type name"
-                  className="input input-bordered w-96"
+                  className="block  rounded-md border-0 py-1.5 text-white  shadow-sm ring-1 ring-inset ring-black placeholder:text-white focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 input input-bordered w-full"
                   value={values.name}
                   onChange={handleChange}
                   onBlur={handleBlur}
@@ -110,7 +126,7 @@ const SignupPage = () => {
                   name='mobile'
                   type="text"
                   placeholder="Type number"
-                  className="input input-bordered w-96"
+                  className="block  rounded-md border-0 py-1.5 text-white  shadow-sm ring-1 ring-inset  ring-black placeholder:text-white focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 input input-bordered w-full"
                   value={values.mobile}
                   onChange={handleChange}
                   onBlur={handleBlur}
@@ -127,7 +143,7 @@ const SignupPage = () => {
                   name='email'
                   type="email"
                   placeholder="Type email"
-                  className="input input-bordered w-96"
+                  className="block  rounded-md border-0 py-1.5 text-white  shadow-sm ring-1 ring-inset  ring-black placeholder:text-white focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 input input-bordered w-full"
                   value={values.email}
                   onChange={handleChange}
                   onBlur={handleBlur}
@@ -145,7 +161,7 @@ const SignupPage = () => {
                   name='password1'
                   type="password"
                   placeholder="Type password"
-                  className="input input-bordered w-96"
+                  className="block  rounded-md border-0 py-1.5 text-white  shadow-sm ring-1 ring-inset  ring-black placeholder:text-white focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 input input-bordered w-full"
                   value={values.password1}
                   onChange={handleChange}
                   onBlur={handleBlur}
@@ -163,7 +179,7 @@ const SignupPage = () => {
                   name='password2'
                   type="password"
                   placeholder="Retype password"
-                  className="input input-bordered w-96"
+                  className="block  rounded-md border-0 py-1.5 text-white  shadow-sm ring-1 ring-inset  ring-black placeholder:text-white focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 input input-bordered w-full"
                   value={values.password2}
                   onChange={handleChange}
                   onBlur={handleBlur}
@@ -173,6 +189,18 @@ const SignupPage = () => {
                     <p className="text-red-600">{errors.password2}</p>
                   )}
                 </div>
+              </div>
+              <div>
+                <label className="label">
+                  <span className="label-text">Upload your photo</span>
+                </label>
+                <input
+                  type="file"
+                  className="file-input file-input-bordered file-input-primary w-full "
+                  onChange={handlePhotoChange}
+                  accept="image/*"
+                  // required
+                />
               </div>
 
               <div className="form-control mt-6">

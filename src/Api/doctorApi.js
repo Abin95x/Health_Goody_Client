@@ -14,18 +14,11 @@ export async function otpResend(doctorId) {
     
         const data = await doctorAxiosInstance.post("/doctorResendOtp", { doctorId });
         return data
-    
-        
-    
-}
 
+}
 
 export async function doctorLogin(loginData) {
-    try {
         const data = await doctorAxiosInstance.post("/doctorLogin", loginData);
         return data
-    } catch (error) {
-            console.log('hreohffusf');
-            return  {otpVerfication: true}
-        }
 }
+

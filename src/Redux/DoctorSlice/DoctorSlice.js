@@ -3,7 +3,7 @@ import {createSlice} from "@reduxjs/toolkit"
 const doctorSlice = createSlice({
   name:"doctor",
   initialState:{
-    user:null
+    doctor:null
   },
   reducers:{
     setDoctor:(state,action) => {
@@ -11,7 +11,6 @@ const doctorSlice = createSlice({
     },
     doctorLogout:(state) => {
       state.doctor = null
-  
     }
   }
 })

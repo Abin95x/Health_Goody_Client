@@ -17,6 +17,7 @@ const DoctorList = () => {
                 console.log(error);
             });
     }, []);
+    console.log(doctors,'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxsssssssssssssssss')
 
     const handleClick = async (id) => {
         try {
