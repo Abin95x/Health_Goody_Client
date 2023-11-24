@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { userList } from '../../../Api/adminApi';
-import { userDetails } from '../../../Api/adminApi';
+import { userDetails, userBlockUnblock } from '../../../Api/adminApi';
+
 
 export const UserList = () => {
   const [users, setUsers] = useState([]);
@@ -25,6 +26,22 @@ export const UserList = () => {
       console.log(error.message);
     }
   };
+
+  const blockUnblock = async (id) => {
+    try {
+      if (userData.is_blocked) {
+        await userBlockUnblock(id);
+      } else {
+        await userBlockUnblock(id);
+      }
+      const res = await userDetails(id);
+      setUserData(res?.data?.details);
+
+    } catch (error) {
+      console.log(error.message)
+    }
+  }
+
 
   return (
     <>
@@ -53,7 +70,8 @@ export const UserList = () => {
                 <td>{user.email}</td>
                 <td>{user.mobile}</td>
                 <td>
-                  <button type='button' onClick={() => { document.getElementById('my_modal_5').showModal(); handleClick(user._id); }}>
+                  {/* <button type='button' onClick={() => { document.getElementById('my_modal_5').showModal(); handleClick(user._id); }}> */}
+                    <button ctype='button' onClick={() =>{ document.getElementById('my_modal_3').showModal(); handleClick(user._id);}}>
                     More Info
                   </button>
                 </td>
@@ -63,15 +81,19 @@ export const UserList = () => {
         </table>
       </div>
 
-      <dialog id="my_modal_5" className="modal modal-bottom sm:modal-middle">
-        <div className="modal-box">
-          <h3 className="font-bold text-lg">Hello!</h3>
-          <p className="py-4">Press ESC key or click the button below to close</p>
-          <div className="modal-action">
-            <form method="dialog">
-              <div className="card-body">
+      {/* You can open the modal using document.getElementById('ID').showModal() method */}
+      <dialog id="my_modal_3" className="modal">
+        <div className="modal-box rounded-none">
+          <form method="dialog">
+           
+            <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+            <div className="card-body">
                 {userData ? (
+
                   <>
+                    <div className=''>
+                      <img src={userData.photo} alt="" />
+                    </div>
                     <h2 className="card-title text-3xl font-bold mb-4">{userData.name}</h2>
                     <p className="text-gray-300">Id : {userData._id}</p>
                     <p className="text-gray-300">Email : {userData.email}</p>
@@ -80,16 +102,28 @@ export const UserList = () => {
                     <p className="text-gray-300">Blocked : {userData.is_blocked ? 'Yes' : 'No'}</p>
                     <p className="text-gray-300">Age : {userData.age || 'Not Added'}</p>
                     <p className="text-gray-300">Gender : {userData.gender || 'Not Added'}</p>
+
+                    <div className="card-actions mx-[147px]">
+                      <button
+                        className="btn btn-primary"
+                        onClick={() => blockUnblock(userData._id)}
+                        style={{ backgroundColor: userData.is_blocked ? 'green' : 'red' }}
+                      >
+                        {userData.is_blocked ? 'UNBLOCK' : 'BLOCK'}
+                      </button>
+
+                    </div>
+                    <br />
                   </>
                 ) : (
                   <p>Loading user data...</p>
                 )}
               </div>
-              <button className="btn">Close</button>
-            </form>
-          </div>
+          </form>
         </div>
       </dialog>
+
+      
     </>
   );
 };

@@ -125,15 +125,15 @@ const Profile = () => {
               </div>
               <hr />
               <div className='mb-4'>
-                <p className='text-lg font-semibold'>Mobile: <span className='text-blue-500 px-16'>{mobile}</span></p>
+                <p className='text-lg font-semibold'>Mobile: <span className='text-blue-500 px-[70px]'>{mobile}</span></p>
               </div>
               <hr />
               <div className='mb-4'>
-                <p className='text-lg font-semibold'>Age: <span className='text-blue-500 px-[90px]'>{age}</span></p>
+                <p className='text-lg font-semibold'>Age: <span className='text-blue-500 px-[95px]'>{age}</span></p>
               </div>
               <hr />
               <div className='mb-4'>
-                <p className='text-lg font-semibold'>Gender: <span className='text-blue-500 px-16'>{gender}</span></p>
+                <p className='text-lg font-semibold'>Gender: <span className='text-blue-500 px-[67px]'>{gender}</span></p>
               </div>
               <hr />
             </div>
@@ -151,7 +151,7 @@ const Profile = () => {
 
       {isEditModalOpen && (
         <dialog open id="my_modal_1" className="modal">
-          <div className="modal-box bg-white h-8500px] text-black">
+          <div className="modal-box bg-white h-[500px ] text-black">
             <h3 className="font-bold text-lg">Edit User Details</h3>
             <br />
             <form onSubmit={handleSubmit} >

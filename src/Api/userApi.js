@@ -1,46 +1,41 @@
-import { userAxiosInstance } from "./axiosInstance"
+import { userAxiosInstance } from './axiosInstance';
 
-export async function userSignup(signupData) {
-  console.log(signupData)
-  
-    const data = await userAxiosInstance.post("/userSignup",signupData)
-    return data
+export async function userSignup (signupData) {
+  const data = await userAxiosInstance.post('/userSignup',signupData);
+  return data;
 }
 
-export async function otpVerify(otp, otpId, userId) {
-
-    const data = await userAxiosInstance.post("/otpVerify", { otp, otpId, userId })
-    return data
+export async function otpVerify (otp, otpId, userId) {
+  const data = await userAxiosInstance.post('/otpVerify', { otp, otpId, userId });
+  return data;
 }
 
-export async function otpResend(userId) {
+export async function otpResend (userId) {
 
-    const data = await userAxiosInstance.post("/resendOtp", { userId })
-    return data
+  const data = await userAxiosInstance.post('/resendOtp', { userId });
+  return data;
 }
 
-export async function userLogin(loginData) {
+export async function userLogin (loginData) {
 
-    const data = await userAxiosInstance.post("/userLogin", loginData)
-    return data
+  const data = await userAxiosInstance.post('/userLogin', loginData);
+  return data;
 }
-export async function getUserDetails(id){
-    const data = await userAxiosInstance.get(`/profileData/${id}`)
-    return data
-}
-
-export async function setDetails(values){
-    console.log(values,"valuresssssss")
-    const data = await userAxiosInstance.post("/setDetails",values)
-    return data
+export async function getUserDetails (id){
+  const data = await userAxiosInstance.get(`/profileData/${id}`);
+  return data;
 }
 
-export async function doctorList(){
-    const data  = await userAxiosInstance. get("/doctorList")
-    return data
+export async function setDetails (values){
+  const data = await userAxiosInstance.post('/setDetails',values);
+  return data;
+}
+
+export async function doctorList (){
+  const data  = await userAxiosInstance. get('/doctorList');
+  return data;
 } 
-export async function doctorDetails(id){
-
-    const data = await userAxiosInstance.get(`/doctorDetails/${id}`)
-    return data
+export async function doctorDetails (id){
+  const data = await userAxiosInstance.get(`/doctorDetails/${id}`);
+  return data;
 }

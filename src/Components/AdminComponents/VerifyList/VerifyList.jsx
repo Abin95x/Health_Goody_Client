@@ -22,7 +22,7 @@ const VerifyList = () => {
 
     const handleClick = async (id) => {
         try {
-            navigate(`/admin/doctordetails/${id}`);
+            navigate(`/admin/verifiedDetails/${id}`);
         } catch (error) {
             console.log(error.message)
         }

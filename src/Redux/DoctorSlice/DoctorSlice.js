@@ -1,18 +1,18 @@
-import {createSlice} from "@reduxjs/toolkit"
+import {createSlice} from '@reduxjs/toolkit';
 
 const doctorSlice = createSlice({
-  name:"doctor",
+  name:'doctor',
   initialState:{
-    doctor:null
+    doctor:null,
   },
   reducers:{
     setDoctor:(state,action) => {
-      state.doctor = action.payload.doctor
+      state.doctor = action.payload.doctor;
     },
     doctorLogout:(state) => {
-      state.doctor = null
-    }
-  }
-})
-export const {setDoctor,doctorLogout} = doctorSlice.actions
-export default doctorSlice.reducer
+      state.doctor = null;
+    },
+  },
+});
+export const {setDoctor,doctorLogout} = doctorSlice.actions;
+export default doctorSlice.reducer;

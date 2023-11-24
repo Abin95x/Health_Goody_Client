@@ -22,9 +22,10 @@ const LoginPage = () => {
     try {
       const response = await userLogin(values);
 
-      localStorage.setItem("usertoken", response.data.usertoken);
 
       if (response?.status === 200) {
+
+        localStorage.setItem("usertoken", response.data.usertoken);
         const userData = response.data.userData;
         dispatch(
           setUser({
@@ -52,26 +53,7 @@ const LoginPage = () => {
         navigate("/");
       }
     } catch (error) {
-      const errorMessage = error.response?.data?.message || 'An error occurred';
-
-      const Toast = Swal.mixin({
-        toast: true,
-        position: 'top-end',
-        showConfirmButton: false,
-        timer: 3000,
-        timerProgressBar: true,
-        didOpen: (toast) => {
-          toast.onmouseenter = Swal.stopTimer;
-          toast.onmouseleave = Swal.resumeTimer;
-        },
-      });
-
-      Toast.fire({
-        icon: 'error',
-        title: errorMessage,
-      });
-
-      console.error(error, "response in error");
+      console.log(error.message)
     }
   }
 

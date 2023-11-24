@@ -1,7 +1,7 @@
-import axios from "axios";
-import Swal from "sweetalert2";
+import axios from 'axios';
+import Swal from 'sweetalert2';
 
-const baseURL = "http://localhost:3001/";
+const baseURL = 'http://localhost:3001/';
 const userBaseURL = baseURL;
 const doctorBaseURL = `${baseURL}doctor`;
 const adminBaseURL = `${baseURL}admin`;
@@ -10,7 +10,7 @@ const createAxiosInstance = (baseURL) => {
   const instance = axios.create({
     baseURL,
     timeout: 200000,
-    timeoutErrorMessage: "Request Timeout... Please try again!..",
+    timeoutErrorMessage: 'Request Timeout... Please try again!..',
   });
   return instance;
 };
@@ -26,136 +26,138 @@ const attachToken = (req, tokenName) => {
 
 export const userAxiosInstance = createAxiosInstance(userBaseURL);
 userAxiosInstance.interceptors.request.use(async (req) => {
-  const modifiedReq = attachToken(req, "usertoken");
+  const modifiedReq = attachToken(req, 'usertoken');
   return modifiedReq;
 });
 
-export const doctorAxiosInstance = createAxiosInstance(doctorBaseURL); 
+export const doctorAxiosInstance = createAxiosInstance(doctorBaseURL);
 doctorAxiosInstance.interceptors.request.use(async (req) => {
-  const modifiedReq = attachToken(req, "doctortoken");
+  const modifiedReq = attachToken(req, 'doctortoken');
   return modifiedReq;
 });
 
 export const adminAxiosInstance = createAxiosInstance(adminBaseURL);
 adminAxiosInstance.interceptors.request.use(async (req) => {
-  const modifiedReq = attachToken(req, "admintoken");
+  const modifiedReq = attachToken(req, 'admintoken');
   return modifiedReq;
 });
 
 userAxiosInstance.interceptors.response.use(
   (response) => response,
-  (error) => handleAxiosError(error)
+  (error) => handleAxiosError(error),
 );
 
 adminAxiosInstance.interceptors.response.use(
   (response) => response,
-  (error) => handleAxiosError(error)
+  (error) => handleAxiosError(error),
 );
 
-doctorAxiosInstance.interceptors.response.use( 
+doctorAxiosInstance.interceptors.response.use(
   (response) => response,
-  (error) => handleAxiosError(error)
+  (error) => handleAxiosError(error),
 );
 
 const handleAxiosError = (error) => {
-  console.log("errrorororororxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx")
-  const errorMessage = error.response
-    ? error.response.data.message
-    : "An error occurred while request.";
+  // const errorMessage = error.response?error.response.data.message : 'An error occurred while request.';
 
   if (error.response) {
     if (error.response.status === 404) {
-      console.log(error)
-
       const Toast = Swal.mixin({
         toast: true,
-        position: "top-end",
+        position: 'top-end',
         showConfirmButton: false,
         timer: 3000,
         timerProgressBar: true,
         didOpen: (toast) => {
           toast.onmouseenter = Swal.stopTimer;
           toast.onmouseleave = Swal.resumeTimer;
-        }
+        },
       });
       Toast.fire({
-        icon: "error",
-        title: "404 - Resource Not Found"
+        icon: 'error',
+        // title: "404 - Resource Not Found"
+        title: error.response.data.message,
+
       });
-      
-    } else if(error.response.status === 403){
-      console.log(error)
+
+    } else if (error.response.status === 401) {
 
       const Toast = Swal.mixin({
         toast: true,
-        position: "top-end",
+        position: 'top-end',
         showConfirmButton: false,
         timer: 3000,
         timerProgressBar: true,
         didOpen: (toast) => {
           toast.onmouseenter = Swal.stopTimer;
           toast.onmouseleave = Swal.resumeTimer;
-        }
+        },
       });
       Toast.fire({
-        icon: "error",
-        title: "403"
+        icon: 'error',
+        title: error.response.data.message,
+
       });
+
 
     }
     else if (error.response.status === 500) {
-      
+
       const Toast = Swal.mixin({
         toast: true,
-        position: "top-end",
+        position: 'top-end',
         showConfirmButton: false,
         timer: 3000,
         timerProgressBar: true,
         didOpen: (toast) => {
           toast.onmouseenter = Swal.stopTimer;
           toast.onmouseleave = Swal.resumeTimer;
-        }
+        },
       });
       Toast.fire({
-        icon: "error",
-        title: "500 - Internal Server Error"
+        icon: 'error',
+        // title: "500 - Internal Server Error",
+        title: error.response.data.message,
       });
-      
+
     } else {
-        const Toast = Swal.mixin({
-            toast: true,
-            position: "top-end",
-            showConfirmButton: false,
-            timer: 3000,
-            timerProgressBar: true,
-            didOpen: (toast) => {
-              toast.onmouseenter = Swal.stopTimer;
-              toast.onmouseleave = Swal.resumeTimer;
-            }
-          });
-          Toast.fire({
-            icon: "error",
-            title: "error"
-          });
-          console.log(errorMessage)
+      const Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.onmouseenter = Swal.stopTimer;
+          toast.onmouseleave = Swal.resumeTimer;
+        },
+      });
+      Toast.fire({
+        icon: 'error',
+        // title: "error"
+        title: error.response.data.message,
+
+      });
     }
   } else {
-    
+
     const Toast = Swal.mixin({
-        toast: true,
-        position: "top-end",
-        showConfirmButton: false,
-        timer: 3000,
-        timerProgressBar: true,
-        didOpen: (toast) => {
-          toast.onmouseenter = Swal.stopTimer;
-          toast.onmouseleave = Swal.resumeTimer;
-        }
-      });
-      Toast.fire({
-        icon: "error",
-        title: "error"
-      });
-      console.log(errorMessage)
+      toast: true,
+      position: 'top-end',
+      showConfirmButton: false,
+      timer: 3000,
+      timerProgressBar: true,
+      didOpen: (toast) => {
+        toast.onmouseenter = Swal.stopTimer;
+        toast.onmouseleave = Swal.resumeTimer;
+      },
+    });
+    Toast.fire({
+      icon: 'error',
+      // title: "error"
+      title: error.response.data.message,
+
+    });
+
   }
 };

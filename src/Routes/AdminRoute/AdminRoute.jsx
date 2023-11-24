@@ -8,6 +8,7 @@ import DoctorListPage from '../../Pages/AdminPages/DoctorListPage/DoctorListPage
 import VerifyDoctor from '../../Pages/AdminPages/VerifyDoctor/VerifyDoctor'
 import DoctorDetailsPage from '../../Pages/AdminPages/DoctorDetailsPage/DoctorDetailsPage'
 import Appointment from '../../Pages/AdminPages/Appointment/Appointment'
+import VerifyDetailsPage from '../../Pages/AdminPages/VerifyDetailsPage/verifyDetailsPage'
 
 import AdminProtect from './AdminProtect'
 import AdminPublic from './AdminPublic'
@@ -23,6 +24,8 @@ const AdminRoute = () => {
         <Route path='/verifydoctors' element={<AdminProtect><VerifyDoctor/></AdminProtect>}/>
         <Route path='/appointments' element={<AdminProtect><Appointment /></AdminProtect>}/>
         <Route path='/doctordetails/:id' element={<AdminProtect><DoctorDetailsPage /></AdminProtect>}/>
+        <Route path='/verifiedDetails/:id' element={<AdminProtect><VerifyDetailsPage /></AdminProtect>}/>
+
     </Routes>
     
   )

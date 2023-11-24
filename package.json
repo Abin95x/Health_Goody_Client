@@ -31,13 +31,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
+    "eject": "react-scripts eject",
+    "lint": "eslint .",
+    "lint:fix":"eslint . --fix"
   },
   "browserslist": {
     "production": [
@@ -53,6 +49,8 @@
   },
   "devDependencies": {
     "daisyui": "^3.9.4",
+    "eslint": "^8.54.0",
+    "eslint-plugin-react": "^7.33.2",
     "tailwindcss": "^3.3.5"
   }
 }

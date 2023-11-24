@@ -18,12 +18,9 @@ const LoginPage = () => {
 
       const response = await doctorLogin(values);
 
-
-      localStorage.setItem("doctortoken", response.data.doctortoken);
-
-      if (response.status === 200) {
-        const doctorData = response.data.doctorData;
-      
+      if (response?.status === 200) {
+        localStorage.setItem("doctortoken", response?.data?.doctortoken);
+        const doctorData = response.data.doctorData
 
         dispatch(
           setDoctor({
@@ -49,45 +46,11 @@ const LoginPage = () => {
         });
 
         navigate('/doctor/dashboard');
-      } else {
-
-
-        const Toast = Swal.mixin({
-          toast: true,
-          position: 'top-end',
-          showConfirmButton: false,
-          timer: 3000,
-          timerProgressBar: true,
-          didOpen: (toast) => {
-            toast.onmouseenter = Swal.stopTimer;
-            toast.onmouseleave = Swal.resumeTimer;
-          },
-        });
-
-        Toast.fire({
-          icon: 'error',
-          title: 'Error',
-        });
       }
     } catch (error) {
-      console.error(error.message);
 
-      const Toast = Swal.mixin({
-        toast: true,
-        position: 'top-end',
-        showConfirmButton: false,
-        timer: 3000,
-        timerProgressBar: true,
-        didOpen: (toast) => {
-          toast.onmouseenter = Swal.stopTimer;
-          toast.onmouseleave = Swal.resumeTimer;
-        },
-      });
+      console.log(error.message);
 
-      Toast.fire({
-        icon: 'error',
-        title: 'An error occurred',
-      });
     }
   };
 
@@ -153,7 +116,7 @@ const LoginPage = () => {
         </div>
       </div>
     </>
-    
+
 
   )
 }

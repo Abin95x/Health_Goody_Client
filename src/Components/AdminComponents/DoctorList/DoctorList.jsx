@@ -17,11 +17,9 @@ const DoctorList = () => {
                 console.log(error);
             });
     }, []);
-    console.log(doctors,'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxsssssssssssssssss')
 
     const handleClick = async (id) => {
         try {
-            console.log(id,"111111111111111111111111111111one")
             navigate(`/admin/doctordetails/${id}`);
         } catch (error) {
             console.log(error.message);
