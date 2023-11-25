@@ -54,6 +54,16 @@ export async function adminVerify (id){
   return data;
 }
 
+export async function addSpeciality (value){
+  const data = await adminAxiosInstance.post('/addSpeciality',{value})
+  return data
+}
+
+export async function specialityList(){
+  const data = await adminAxiosInstance.get("/specialityList")
+    return data
+
+}
 
 
 

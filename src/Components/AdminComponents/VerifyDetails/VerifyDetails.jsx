@@ -24,19 +24,14 @@ const VerifiedDetails = () => {
 
   const handleClick = async (id) => {
     try {
-      console.log("first")
       await adminVerify(id);
-      console.log("second")
       const res = await unVerifiedDetails(id);
-      console.log(res,'ressssssssss')
-
       setDoctorData(res?.data?.details);
-
     } catch (error) {
       console.log(error.message)
     }
   }
-  console.log(doctorData,"22222222")
+
 
   return (
     <>

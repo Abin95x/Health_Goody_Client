@@ -69,6 +69,7 @@ const SignupPage = () => {
     setPhotoToBase(selectedPhoto);
   };
 
+
   const setPhotoToBase = (file) => {
     const reader = new FileReader();
     reader.readAsDataURL(file);
