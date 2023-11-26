@@ -6,6 +6,7 @@ import Typography from '@mui/material/Typography';
 import { useNavigate } from 'react-router-dom';
 import banner from "../../../Assets/image/home.jpeg"
 import Review from '../../../Components/UserComponents/Review/Review'
+import Speciality from '../../../Components/UserComponents/Speciality/Speciality';
 
 
 const Body = () => {
@@ -155,12 +156,12 @@ const Body = () => {
           </div>
         </div>
       </div>
-      <div>
-        <div className='bg-white h-96 text-center'>
-          <br />
-          <h1 class="text-3xl font-bold text-black h-96 mb-4">Specialities</h1>
-        </div>
-      </div>
+
+      
+            <Speciality/>
+      
+    
+     
       <Review />
 
       {/* Doctors */}

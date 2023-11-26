@@ -39,3 +39,8 @@ export async function doctorDetails (id){
   const data = await userAxiosInstance.get(`/doctorDetails/${id}`);
   return data;
 }
+
+export async function userSpecialityList () {
+  const data = await userAxiosInstance.get("/specialityList")
+  return data
+}
