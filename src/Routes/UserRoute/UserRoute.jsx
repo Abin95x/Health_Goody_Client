@@ -1,16 +1,16 @@
 import React from 'react'
 import { Routes, Route } from "react-router-dom";
 
-import Home from '../Pages/UserPages/Home/Home'
-import LoginPage from '../Pages/UserPages/LoginPage/LoginPage';
-import SignupPage from '../Pages/UserPages/SignupPage/SignupPage';
-import Otp from '../Pages/UserPages/Otp/Otp';
-import ForgotPassword from '../Pages/UserPages/ForgotPassword/ForgotPassword';
-import ResetPassword from '../Pages/UserPages/ResetPassword/ResetPassword';
-import Profile from '../Pages/UserPages/Profile/Profile';
+import Home from '../../Pages/UserPages/Home/Home'
+import LoginPage from '../../Pages/UserPages/LoginPage/LoginPage';
+import SignupPage from '../../Pages/UserPages/SignupPage/SignupPage';
+import Otp from '../../Pages/UserPages/Otp/Otp';
+import ForgotPassword from '../../Pages/UserPages/ForgotPassword/ForgotPassword';
+import ResetPassword from '../../Pages/UserPages/ResetPassword/ResetPassword';
+import Profile from '../../Pages/UserPages/Profile/Profile';
 import UserPublic from './UserPublic';
-import DoctorListPage from '../Pages/UserPages/DocoterListPage/DoctorListPage';
-import DoctorDetailsPage from '../Pages/UserPages/DoctorDetailsPage/DoctorDetailsPage';
+import DoctorListPage from '../../Pages/UserPages/DocoterListPage/DoctorListPage';
+import DoctorDetailsPage from '../../Pages/UserPages/DoctorDetailsPage/DoctorDetailsPage';
 
 import UserProtect from './UserProtect';
 

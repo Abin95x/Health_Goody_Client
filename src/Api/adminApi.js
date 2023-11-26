@@ -1,70 +1,80 @@
 import { adminAxiosInstance } from './axiosInstance';
 
-export async function adminLogin (signupData){
-  const data = await adminAxiosInstance.post('/adminLogin',signupData);
+export async function adminLogin(signupData) {
+  const data = await adminAxiosInstance.post('/adminLogin', signupData);
   return data;
 }
 
 //user
 
-export async function userList (){
+export async function userList() {
   const data = await adminAxiosInstance.get('/userList');
   return data;
 }
 
-export async function userDetails (id){
-  const data = await adminAxiosInstance.post('/userDetails',{id});
+export async function userDetails(id) {
+  const data = await adminAxiosInstance.post('/userDetails', { id });
   return data;
 }
 
-export async function userBlockUnblock (id){
-  const data = await adminAxiosInstance.post('/blockUnblock',{id});
+export async function userBlockUnblock(id) {
+  const data = await adminAxiosInstance.post('/blockUnblock', { id });
   return data;
 }
 
 //doctor 
 
-export async function doctorList (){
+export async function doctorList() {
   const data = await adminAxiosInstance.get('/doctorList');
   return data;
 }
 
-export async function doctorDetails (id){
-  const data = await adminAxiosInstance.post('/doctorDetails',{id});
+export async function doctorDetails(id) {
+  const data = await adminAxiosInstance.post('/doctorDetails', { id });
   return data;
 }
 
-export async function doctorBlockUnblock (id){
-  const data = await adminAxiosInstance.patch('/doctorblockUnblock',{id});
-  return data; 
+export async function doctorBlockUnblock(id) {
+  const data = await adminAxiosInstance.patch('/doctorblockUnblock', { id });
+  return data;
 }
 
-export async function unVerifiedList (){
+export async function unVerifiedList() {
   const data = await adminAxiosInstance.get('/unVerifiedList');
   return data;
 }
 
-export async function unVerifiedDetails (id) {
+export async function unVerifiedDetails(id) {
   const data = await adminAxiosInstance.get(`/unVerifiedDetails?id=${id}`);
   return data;
 }
 
-export async function adminVerify (id){ 
+export async function adminVerify(id) {
   const data = await adminAxiosInstance.patch(`/adminVerify?id=${id}`);
   return data;
 }
 
-export async function addSpeciality (value){
-  const data = await adminAxiosInstance.post('/addSpeciality',{value})
+//speciality
+
+export async function addSpeciality(value) {
+  const data = await adminAxiosInstance.post('/addSpeciality', { value })
   return data
 }
 
-export async function specialityList(){
+export async function specialityList() {
   const data = await adminAxiosInstance.get("/specialityList")
-    return data
-
+  return data
 }
 
+export async function listUnlist(id) {
+  const data = await adminAxiosInstance.patch(`/listUnlist?id=${id}`)
+  return data
+}
+
+export async function editSpeciality(values) {
+  const data = await adminAxiosInstance.patch("/editSpeciality",{values})
+  return data
+}
 
 
 
