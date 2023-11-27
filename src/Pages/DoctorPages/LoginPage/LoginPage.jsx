@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import doctorsignup from "../../../Assets/image/doctorsignup.jpg"
 import { useFormik } from 'formik'
 import Swal from 'sweetalert2'
@@ -10,6 +10,8 @@ import { setDoctor } from '../../../Redux/DoctorSlice/DoctorSlice'
 
 
 const LoginPage = () => {
+
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -62,6 +64,8 @@ const LoginPage = () => {
     validationSchema: loginSchema,
     onSubmit
   });
+
+  
 
   return (
     <>

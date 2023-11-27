@@ -1,10 +1,12 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import doctorsignup from "../../../Assets/image/doctorsignup.jpg"
 import { useFormik } from 'formik'
 import Swal from 'sweetalert2'
 import { useNavigate } from 'react-router-dom'
 import { doctorSchema } from '../../../validations/doctor/signupValidation'
 import { doctorSignup } from "../../../Api/doctorApi"
+import { specialityName } from '../../../Api/doctorApi'
+
 
 
 
@@ -13,13 +15,14 @@ const SignupPage = () => {
     const [photo, setPhoto] = useState(null);
     const [certificates, setCertificates] = useState([]);
 
+    const [speciality, setSpeciality] = useState()
     const [loading, setLoading] = useState(false)
 
 
     const onSubmit = async () => {
         try {
             setLoading(true)
-        
+
 
             const response = await doctorSignup({ ...values, photo, certificates })
             setLoading(false)
@@ -56,7 +59,7 @@ const SignupPage = () => {
         const selectedPhoto = e.target.files[0];
         setPhotoToBase(selectedPhoto);
     };
-    //  read the contents of the selected image and certificates files as data URLs 
+
     const setPhotoToBase = (file) => {
         const reader = new FileReader();
         reader.readAsDataURL(file);
@@ -82,7 +85,7 @@ const SignupPage = () => {
             };
         }
     };
-    console.log(certificates,"hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhiiiiiiiiiiiiiiiii")
+
 
     const { values, errors, touched, handleChange, handleBlur, handleSubmit } = useFormik({
         initialValues: {
@@ -98,6 +101,16 @@ const SignupPage = () => {
         onSubmit
 
     })
+
+    useEffect(() => {
+        specialityName().then((res) => {
+            setSpeciality(res.data.data)
+        }).catch((error) => {
+            console.log(error.message)
+        })
+
+    }, [])
+
 
 
 
@@ -166,15 +179,20 @@ const SignupPage = () => {
                                 <label className="label">
                                     <span className="label-text">Speciality</span>
                                 </label>
-                                <input
+                                <select
                                     name="speciality"
-                                    type="text"
-                                    placeholder="speciality"
                                     className="input input-bordered"
                                     value={values.speciality}
                                     onChange={handleChange}
                                     onBlur={handleBlur}
-                                />
+                                >
+                                    <option value="" disabled>Select a speciality</option>
+                                    {speciality && speciality.map((speciality) => (
+                                        <option key={speciality.id} value={speciality.speciality}>
+                                            {speciality.speciality}
+                                        </option>
+                                    ))}
+                                </select>
                                 {errors.speciality && touched.speciality && <p className="text-red-600">{errors.speciality}</p>}
                             </div>
 

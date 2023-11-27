@@ -42,7 +42,7 @@ const DoctorProfile = () => {
               </p>
              
             </div>
-            {userData.certificates && (
+            {/* {userData.certificates && (
               <div className='mt-4'>
                 <p>
                   <span className='font-semibold'>Certificates:</span>{' '}
@@ -51,7 +51,7 @@ const DoctorProfile = () => {
                   ))}
                 </p>
               </div>
-            )}
+            )} */}
             {userData.languages && (
               <div className='mt-4'>
                 <p>

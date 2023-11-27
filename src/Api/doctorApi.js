@@ -1,7 +1,9 @@
 import { doctorAxiosInstance } from './axiosInstance';
 
 export async function doctorSignup (signupData) {
+  console.log(signupData,"muttteeeeee")
   const data = await doctorAxiosInstance.post('/doctorSignup', signupData);
+  console.log(data,"kuaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
   return data;
 }
 
@@ -21,3 +23,8 @@ export async function doctorLogin (loginData) {
     return data;
 }
 
+export async function specialityName(){
+  console.log('api loggeddddddddssssssdddddsd')
+  const data = await doctorAxiosInstance.get("/specialityName")
+  return data
+}

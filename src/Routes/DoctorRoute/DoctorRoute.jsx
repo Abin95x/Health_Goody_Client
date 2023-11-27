@@ -19,9 +19,6 @@ const DoctorRoute = () => {
             <Route path='/doctorotp' element={<DoctorPublic><DoctorOtp/></DoctorPublic>}/>
             <Route path='/dashboard' element={<DoctorProtect><Dashboard/></DoctorProtect>}/>
             <Route path='/doctorprofile' element={<DoctorProtect><DoctorProfile/></DoctorProtect>}/>
-
-
-           
         </Routes>
     )
 }

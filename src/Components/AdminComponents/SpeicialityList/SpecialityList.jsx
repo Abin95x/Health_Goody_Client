@@ -50,7 +50,7 @@ const SpecialityList = () => {
             setData(speciality);
             setEdit(speciality.speciality);
 
-            document.getElementById('my_modal_1');
+            document.getElementById('my_modal');
         } catch (error) {
             console.log(error);
         }
@@ -120,7 +120,7 @@ const SpecialityList = () => {
 
     useEffect(() => {
         if (data) {
-            document.getElementById('my_modal_1').showModal();
+            document.getElementById('my_modal').showModal();
         }
     }, [data]);
 
@@ -132,8 +132,6 @@ const SpecialityList = () => {
                     <br />
                     <div >
                         <button className="btn btn-success mx-5 " onClick={() => document.getElementById('my_modal_1').showModal()}>Add Speciality</button>
-                       
-
                     </div>
                     <br />
                     <table className="table">
@@ -212,7 +210,7 @@ const SpecialityList = () => {
                                 className="file-input file-input-bordered file-input-primary w-full max-w-xs"
                             />
 
-                            <br />
+                            <br />  
                             <br />
                             <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
                             <button onClick={handleClick} className="btn btn-success">ADD</button>
@@ -225,7 +223,7 @@ const SpecialityList = () => {
             </dialog>
 
             {data && (
-                <dialog id="my_modal_1" className="modal">
+                <dialog id="my_modal" className="modal">
                     <div className="modal-box">
                         <h1>Edit Speciality</h1>
                         <form method="dialog">
