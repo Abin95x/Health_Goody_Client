@@ -194,7 +194,7 @@ const Profile = () => {
 
               <label htmlFor="mobile">Age:</label>
               <input
-                className='mx-[100px] text-white'
+                className='mx-[95px] text-white'
                 type="text"
                 name="age"
                 placeholder='age'
@@ -211,7 +211,7 @@ const Profile = () => {
 
               <label htmlFor="gender">Gender:</label>
               <select
-                className='mx-[75px] text-white'
+                className='mx-[72px] text-gray-500'
                 name="gender"
                 value={values.gender}
                 onChange={handleChange}

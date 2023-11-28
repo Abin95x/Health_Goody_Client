@@ -10,6 +10,14 @@ const SpecialityList = () => {
     const [rerender, setRerender] = useState(false);
     const [data, setData] = useState(null);
 
+    const [search, setSearch] = useState()
+    const [filteredSpeciality, setFilteredSpeciality] = useState();
+
+
+
+    const [currentPage, setCurrentPage] = useState(1)
+    const [noOfSpeciality, setNoOfSpeciality] = useState(6)
+
     const handleClick = async () => {
         const response = await addSpeciality({ speciality, photo });
         if (response) {
@@ -108,6 +116,7 @@ const SpecialityList = () => {
         }
     };
 
+
     useEffect(() => {
         specialityList()
             .then((response) => {
@@ -125,6 +134,30 @@ const SpecialityList = () => {
     }, [data]);
 
 
+
+    const handleChange = (e) => {
+        try {
+            setSearch(e.target.value)
+            setCurrentPage(1)
+
+        } catch (error) {
+            console.log(error.message)
+        }
+    }
+
+    useEffect(() => {
+        const filtered = slist.filter(
+            (speciality) =>
+                speciality.speciality.toLowerCase().includes(search?.toLowerCase() || '')
+        );
+        console.log(filtered,'dfhjhdfdjhfueshdafjhdfoiuyqwefsadfj')
+        
+
+        setFilteredSpeciality(filtered);
+    }, [search, slist]);
+
+
+
     return (
         <>
             <div>
@@ -132,6 +165,14 @@ const SpecialityList = () => {
                     <br />
                     <div >
                         <button className="btn btn-success mx-5 " onClick={() => document.getElementById('my_modal_1').showModal()}>Add Speciality</button>
+                    </div>
+                    <div>
+                        <input
+                            type="text"
+                            placeholder='search'
+                            value={search}
+                            onChange={handleChange}
+                        />
                     </div>
                     <br />
                     <table className="table">
@@ -149,8 +190,8 @@ const SpecialityList = () => {
                         </thead>
 
                         <tbody>
-                            {slist &&
-                                slist.map((specialityItem, index) => (
+                            {filteredSpeciality &&
+                                filteredSpeciality.map((specialityItem, index) => (
                                     <tr key={specialityItem._id}>
                                         <th>{index + 1}</th>
                                         <td>{specialityItem.speciality}</td>
@@ -188,37 +229,37 @@ const SpecialityList = () => {
 
             <dialog id="my_modal_1" className="modal">
                 <div className="modal-box">
-                <h3 className="font-bold text-lg">Add Speciality</h3>
+                    <h3 className="font-bold text-lg">Add Speciality</h3>
+                    <br />
+
+                    <form method="dialog">
+                        <input
+                            onChange={(e) => setSpeciality(e.target.value)}
+                            value={speciality}
+                            type="text"
+                            placeholder="Type here"
+                            className="input input-bordered input-primary w-full "
+                        />
+
+                        <br />
                         <br />
 
-                        <form method="dialog">
-                            <input
-                                onChange={(e) => setSpeciality(e.target.value)}
-                                value={speciality}
-                                type="text"
-                                placeholder="Type here"
-                                className="input input-bordered input-primary w-full "
-                            />
+                        <input
+                            accept='image/*'
+                            onChange={handlePhoto}
+                            type="file"
+                            className="file-input file-input-bordered file-input-primary w-full max-w-xs"
+                        />
 
-                            <br />
-                            <br />
+                        <br />
+                        <br />
+                        <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+                        <button onClick={handleClick} className="btn btn-success">ADD</button>
 
-                            <input
-                                accept='image/*'
-                                onChange={handlePhoto}
-                                type="file"
-                                className="file-input file-input-bordered file-input-primary w-full max-w-xs"
-                            />
+                        <br />
 
-                            <br />  
-                            <br />
-                            <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
-                            <button onClick={handleClick} className="btn btn-success">ADD</button>
+                    </form>
 
-                            <br />
-
-                        </form>
-                   
                 </div>
             </dialog>
 
