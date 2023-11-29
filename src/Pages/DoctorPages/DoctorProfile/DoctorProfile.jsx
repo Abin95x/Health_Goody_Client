@@ -1,100 +1,169 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
+import { Button, Modal } from 'flowbite-react';
 import Header from '../../../Components/DoctorComponents/Header/Header';
 import Footer from '../../../Components/DoctorComponents/Footer/Footer';
-import { useSelector } from 'react-redux/es/hooks/useSelector';
+import { slotDetails } from '../../../Api/doctorApi';
 
 const DoctorProfile = () => {
   const doctor = useSelector((state) => state.reducer);
-  const userData = doctor.doctorReducer.doctor;
+  const doctorData = doctor.doctorReducer.doctor;
+
+  
+  const id = doctorData._id
+
+  const [formData, setFormData] = useState({
+    startTime: '',
+    endTime: '',
+    slotDuration: '',
+    date: '',
+  });
+  console.log(formData,'hhhhhhhhhhhhhhhhhhhiiiiiiiiiiiiiiiiiw')
+
+  const [openModal, setOpenModal] = useState(false);
+
+  const handleSubmit = async() => {
+    
+    try {
+     const response = slotDetails({id,formData})
+     console.log(response,'ssssssssssssssssssssssdddddddddddddddf')
+
+      
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
+  const handleChange = (e) => {
+    try {
+      const { name, value } = e.target;
+      setFormData((prevData) => ({ ...prevData, [name]: value }));
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
 
   return (
     <>
       <Header />
-      
 
-      <div className='bg-white h-screen text-slate-950'>
-        <br />
-        <br />
-        <div className='container mx-auto p-4'>
-          <div className='max-w-2xl mx-auto bg-white p-6 rounded-md shadow-2xl'>
-            <h1 className='text-2xl font-bold mb-4'>Doctor Profile</h1>
+      <div className="min-h-screen bg-white">
+        <div className="flex justify-center bg-white">
+          <div className="bg-white w-96 h-96 rounded-3xl m-32 mx-6 shadow-2xl border border-black text-center">
             <div>
               <img
-                src={userData.photo || 'placeholder_image_url'}
-                alt='Doctor Profile'
-                className='rounded-full h-36 w-36 mx-auto mb-4'
+                src={doctorData.photo || 'placeholder_image_url'}
+                alt="Doctor Profile"
+                className="rounded-lg h-36 w-36 mx-auto m-10"
               />
-              <p className='text-lg font-semibold'>
-                <span className='font-semibold'>Name:</span> {userData.name || 'Not added'}
+              <p className="text-lg font-semibold">
+                <span className="font-semibold">Name:</span> {doctorData.name || 'Not added'}
               </p>
-              <p className='text-black'>
-                <span className='font-semibold'>Speciality:</span> {userData.speciality || 'Not added'}
-              </p>
-            </div>
-            <div className='mt-4'>
-            <div className='mt-4'>
-              <p>
-                <span className='font-semibold'>Email:</span> {userData.email || 'Not added'}
+              <p className="text-black">
+                <span className="font-semibold">Speciality:</span> {doctorData.speciality || 'Not added'}
               </p>
               <p>
-                <span className='font-semibold'>Mobile:</span> {userData.mobile || 'Not added'}
+                Experience : <span className="text-black m-5">{doctorData.experience || 'Not added'}</span>
               </p>
-             
-            </div>
-            {/* {userData.certificates && (
-              <div className='mt-4'>
-                <p>
-                  <span className='font-semibold'>Certificates:</span>{' '}
-                  {userData.certificates.map((certificate, index) => (
-                    <span key={index}>{certificate}, </span>
-                  ))}
-                </p>
+              <p>
+                Languages : <span className="text-black m-5">{doctorData.languages || 'Not added'}</span>
+              </p>
+              <div className="rating">
+                <input type="radio" name="rating-2" className="mask mask-star-2 bg-orange-400" />
+                <input type="radio" name="rating-2" className="mask mask-star-2 bg-orange-400" checked />
+                <input type="radio" name="rating-2" className="mask mask-star-2 bg-orange-400" />
+                <input type="radio" name="rating-2" className="mask mask-star-2 bg-orange-400" />
+                <input type="radio" name="rating-2" className="mask mask-star-2 bg-orange-400" />
               </div>
-            )} */}
-            {userData.languages && (
-              <div className='mt-4'>
-                <p>
-                  <span className='font-semibold'>Languages:</span>{' '}
-                  {userData.languages.map((language, index) => (
-                    <span key={index}>{language}, </span>
-                  ))}
-                </p>
+            </div>
+          </div>
+
+          <div className="bg-white w-[600px] h-96 m-32 mx-2 p-24 rounded-3xl shadow-2xl border border-black bor flex flex-col justify-center">
+            <div>
+              <span>Name</span>
+              <div className="border border-black h-10 w-96">
+                <span className="text-black m-5">{doctorData.name || 'Not added'}</span>
               </div>
-            )}
-            <div className='mt-4'>
-              <p>
-                <span className='font-semibold'>Experience:</span>{' '}
-                {userData.experience || 'Not added'}
-              </p>
-              <p>
-                <span className='font-semibold'>Languages:</span> {userData.languages || 'Not added'}
-              </p>
-            
-              <p>
-                <span className='font-semibold'>Rating:</span> {userData.rating || 'Not added'}
-              </p>
-            </div>
-            <br />
-            <div className=' bg-slate-400 h-40'>
-                
-            <p>
-                <span className='font-semibold'>Bio:</span> {userData.bio || 'Not added'}
-              </p>
 
-            </div>
-            </div>
-            <br />  
+              <span>Email</span>
+              <div className="border border-black h-10 w-96">
+                <span className="text-black m-5">{doctorData.email || 'Not added'}</span>
+              </div>
 
-            <Link to='/edit-profile'>
-              <button className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'>
-                Edit Profile
-              </button>
-            </Link>
+              <span>Mobile</span>
+              <div className="border border-black h-10 w-96">
+                <span className="text-black m-5">{doctorData.mobile || 'Not added'}</span>
+              </div>
 
+              <span>Bio</span>
+              <div className="border border-black h-10 w-96">
+                <span className="text-black m-5">{doctorData.bio || 'Not added'}</span>
+              </div>
+            </div>
           </div>
         </div>
+
+        <div className="flex justify-center space-x-5">
+          <button className="btn btn-primary">EDIT</button>
+          <Button onClick={() => setOpenModal(true)}>Create Slots</Button>
+        </div>
       </div>
+
+      <Modal show={openModal} onClose={() => setOpenModal(false)}>
+        <Modal.Header>Create Slots</Modal.Header>
+        <Modal.Body>
+          <form onSubmit={handleSubmit}>
+            <div className="space-y-6 flex justify-center flex-col">
+              <label htmlFor="startTime">Start Time:</label>
+              <input
+                type="time"
+                id="startTime"
+                name="startTime"
+                value={formData.startTime}
+                onChange={handleChange}
+                required
+              />
+
+              <label htmlFor="endTime">Ending Time:</label>
+              <input
+                type="time"
+                id="endTime"
+                name="endTime"
+                value={formData.endTime}
+                onChange={handleChange}
+                required
+              />
+
+              <label htmlFor="eventDate">Date:</label>
+              <input
+                type="date"
+                id="date"
+                name="date"
+                value={formData.date}
+                onChange={handleChange}
+                required
+              />
+
+              <label htmlFor="eventDuration">Duration (in minutes):</label>
+              <input
+                type="number"
+                id="slotDuration"
+                name="slotDuration"
+                min="1"
+                value={formData.slotDuration}
+                onChange={handleChange}
+                required
+              />
+            </div>
+            <Modal.Footer>
+              <Button type="submit">create</Button>
+              <Button color="gray" onClick={() => setOpenModal(false)}>
+                Decline
+              </Button>
+            </Modal.Footer>
+          </form>
+        </Modal.Body>
+      </Modal>
 
       <Footer />
     </>
