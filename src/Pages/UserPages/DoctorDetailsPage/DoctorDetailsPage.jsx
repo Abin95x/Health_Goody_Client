@@ -5,11 +5,11 @@ import DoctorDetails from '../../../Components/UserComponents/DoctorDetails/Doct
 
 const DoctorDetailsPage = () => {
     return (
-        <div>
+        <>
             <Header />
             <DoctorDetails />
             <Footer />
-        </div>
+        </>
 
     )
 }

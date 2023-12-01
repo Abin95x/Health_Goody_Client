@@ -10,7 +10,7 @@ const DoctorList = () => {
     const [select, setSelect] = useState('');
     const [filteredDoctors, setFilteredDoctors] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
-    const [noOfDoctors, setNoOfDoctors] = useState(4);
+    const [noOfDoctors, setNoOfDoctors] = useState(8);
 
     useEffect(() => {
         doctorList()
@@ -91,26 +91,24 @@ const DoctorList = () => {
                     />
                 </div>
 
-                <div className='max-w-screen-xl mx-auto p-4 '>
-                    <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 '>
+                <div className='max-w-screen-xl mx-auto p-4'>
+                    <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4'>
                         {currentDoctors.map((doctor) => (
                             <Link to={`/doctordetails/${doctor._id}`} key={doctor._id}>
                                 <div className='bg-white shadow-lg border rounded-lg overflow-hidden transition-transform transform hover:scale-105'>
-                                    <div classNafirstItemIndexme='p-4 text-gray-900'>
+                                    <div className='p-4 text-gray-900'>
                                         <img
                                             src={doctor.photo}
                                             alt={doctor.name}
-                                            className='w-24 h-24 rounded-full mb-4 mx-auto'
+                                            className='w-24 h-24 rounded-full mb-4 mx-auto object-cover'
                                         />
                                         <h3 className='text-lg font-semibold text-center mb-2'>Dr. {doctor.name}</h3>
-                                        <p className='mb-2'>Education: {doctor.education ? doctor.education : 'Not added'}</p>
+                                        {/* <p className='mb-2'>Education: {doctor.education ? doctor.education : 'Not added'}</p> */}
                                         <p className='mb-2'>Price: ₹299</p>
                                     </div>
                                     <div className='border-t p-4 text-black'>
                                         <p className='mb-2'>Speciality: {doctor.speciality}</p>
-                                        <p className='mb-2'>
-                                            Experience: {doctor.experience ? doctor.experience : 'Not added'}
-                                        </p>
+                                        <p className='mb-2'>Experience: {doctor.experience ? doctor.experience : 'Not added'}</p>
                                         <p className='mb-2'>
                                             Languages:{' '}
                                             {doctor.languages && doctor.languages.length > 0
@@ -118,9 +116,10 @@ const DoctorList = () => {
                                                 : 'Not added'}
                                         </p>
                                         <div className='flex items-center justify-center'>
-                                            <button className='btn text-white btn-sm bg-blue-500'>
-                                                BOOK VIDEO CONSULT
-                                            </button>
+                                            {/* <button className='btn text-white btn-sm bg-blue-500 hover:bg-blue-600'>
+                BOOK VIDEO CONSULT
+              </button> */}
+
                                         </div>
                                     </div>
                                 </div>
@@ -128,16 +127,17 @@ const DoctorList = () => {
                         ))}
                     </div>
                 </div>
-                 {/* Pagination */}
-            <div className='flex justify-center mt-4 bg-white'>
-                {Array.from({ length: Math.ceil(filteredDoctors.length / noOfDoctors) }, (_, index) => (
-                    <button key={index + 1} onClick={() => paginate(index + 1)} className='pagination-btn border w-10 border-black'>
-                        {index + 1}
-                    </button>
-                ))}
+
+                {/* Pagination */}
+                <div className='flex justify-center mt-4 bg-white'>
+                    {Array.from({ length: Math.ceil(filteredDoctors.length / noOfDoctors) }, (_, index) => (
+                        <button key={index + 1} onClick={() => paginate(index + 1)} className='pagination-btn border w-10 border-black'>
+                            {index + 1}
+                        </button>
+                    ))}
+                </div>
             </div>
-            </div>
-           
+
         </>
     );
 };

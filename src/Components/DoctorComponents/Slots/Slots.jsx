@@ -23,14 +23,14 @@ const Slots = () => {
             });
     }, [id]);
 
-    const handeClick =(id)=>{
-        try{
+    const handeClick = (id) => {
+        try {
             const selectedSlot = slots.find((slot) => slot._id === id);
             setSelectedSlot(selectedSlot);
 
             setOpenModal(true)
 
-        }catch(error){
+        } catch (error) {
             console.log(error.message)
         }
     }
@@ -60,7 +60,7 @@ const Slots = () => {
                                     <td>{slot.endTime}</td>
                                     <td>{slot.slotDuration}</td>
                                     <td>
-                                        <button onClick={()=>handeClick(slot._id)}>details</button>
+                                        <button onClick={() => handeClick(slot._id)}>details</button>
                                     </td>
                                 </tr>
                             ))}
@@ -70,25 +70,32 @@ const Slots = () => {
             </div>
 
             <Modal show={openModal} onClose={() => setOpenModal(false)}>
-        <Modal.Header>Time Slots</Modal.Header>
-        <Modal.Body>
-            {/* Display details of the selected slot */}
-            {selectedSlot && (
-                <div className='border'>
-                    <p>Slot {slots.indexOf(selectedSlot) + 1}</p>
+    <Modal.Header className="bg-white text-white">Time Slots</Modal.Header>
+    <Modal.Body>
+        {selectedSlot && (
+            <div>
+                <p className="text-lg font-bold mb-4">Slot {slots.indexOf(selectedSlot) + 1}</p>
+                <div className='grid gap-4'>
                     {selectedSlot.timeSlots.map((time, timeIndex) => (
-                        <div key={timeIndex}>{time}</div>
+                        <div key={timeIndex} className="bg-white p-4 border rounded-md">
+                            <p className="text-xl font-semibold mb-2">Time: {time.start} - {time.end}</p>
+                            <p>Booked: {time.booked ? 'Yes' : 'No'}</p>
+                            {/* <p>Object ID: {time.objectId}</p> */}
+                        </div>
                     ))}
                 </div>
-            )}
-        </Modal.Body>
-        <Modal.Footer>
-            <Button onClick={() => setOpenModal(false)}>Done</Button>
-            <Button color="gray" onClick={() => setOpenModal(false)}>
-                Cancel
-            </Button>
-        </Modal.Footer>
-    </Modal>
+            </div>
+        )}
+    </Modal.Body>
+    <Modal.Footer className="bg-whitep-4">
+        <Button className="bg-blue-500 text-white" onClick={() => setOpenModal(false)}>Close</Button>
+        {/* <Button className="text-gray-700 border border-gray-300" onClick={() => setOpenModal(false)}>
+            Cancel
+        </Button> */}
+    </Modal.Footer>
+</Modal>
+
+
 
 
         </>

@@ -44,3 +44,8 @@ export async function userSpecialityList () {
   const data = await userAxiosInstance.get("/specialityList")
   return data
 }
+
+export async function slotList(drId, date) {
+  const data = await userAxiosInstance.get(`/slotList?id=${drId}&date=${date}`);
+  return data;
+}
