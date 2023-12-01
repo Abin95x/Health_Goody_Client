@@ -27,7 +27,11 @@ export async function specialityName(){
 }
 
 export async function slotDetails(slotData){
-  console.log(slotData,"iiiiiiiiiiiiiiiiiiii")
   const data = await doctorAxiosInstance.post("/slotDetails",slotData)
+  return data
+}
+
+export async function slotList(id){
+  const data = await doctorAxiosInstance.get(`/slotList?id=${id}`)
   return data
 }

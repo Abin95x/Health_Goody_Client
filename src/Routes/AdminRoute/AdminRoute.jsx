@@ -27,8 +27,7 @@ const AdminRoute = () => {
         <Route path='/doctordetails/:id' element={<AdminProtect><DoctorDetailsPage /></AdminProtect>}/>
         <Route path='/verifiedDetails/:id' element={<AdminProtect><VerifyDetailsPage /></AdminProtect>}/>
         <Route path='/speciality' element={<AdminProtect><Speciality /></AdminProtect>}/>
-
-
+        
     </Routes>
     
   )

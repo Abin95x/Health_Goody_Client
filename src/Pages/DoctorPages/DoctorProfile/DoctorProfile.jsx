@@ -4,12 +4,16 @@ import { Button, Modal } from 'flowbite-react';
 import Header from '../../../Components/DoctorComponents/Header/Header';
 import Footer from '../../../Components/DoctorComponents/Footer/Footer';
 import { slotDetails } from '../../../Api/doctorApi';
+import Calendar from 'react-calendar';
+import 'react-calendar/dist/Calendar.css';
+import Swal from 'sweetalert2'
+
 
 const DoctorProfile = () => {
   const doctor = useSelector((state) => state.reducer);
   const doctorData = doctor.doctorReducer.doctor;
 
-  
+
   const id = doctorData._id
 
   const [formData, setFormData] = useState({
@@ -18,21 +22,62 @@ const DoctorProfile = () => {
     slotDuration: '',
     date: '',
   });
-  console.log(formData,'hhhhhhhhhhhhhhhhhhhiiiiiiiiiiiiiiiiiw')
+  console.log(formData)
 
   const [openModal, setOpenModal] = useState(false);
 
-  const handleSubmit = async() => {
-    
+  const handleSubmit = async (event) => {
     try {
-     const response = slotDetails({id,formData})
-     console.log(response,'ssssssssssssssssssssssdddddddddddddddf')
+      event.preventDefault(); // Prevent default form submission
 
-      
+      const response = await slotDetails({ id, formData });
+      console.log(response)
+      if (response.data.success === true) {
+        const Toast = Swal.mixin({
+          toast: true,
+          position: 'top-end',
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+          didOpen: (toast) => {
+            toast.onmouseenter = Swal.stopTimer;
+            toast.onmouseleave = Swal.resumeTimer;
+          },
+        });
+
+        Toast.fire({
+          icon: 'success',
+          title: response.data.message,
+        });
+        setOpenModal(false)
+
+
+      } else {
+        const Toast = Swal.mixin({
+          toast: true,
+          position: 'top-end',
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+          didOpen: (toast) => {
+            toast.onmouseenter = Swal.stopTimer;
+            toast.onmouseleave = Swal.resumeTimer;
+          },
+        });
+
+        Toast.fire({
+          icon: 'info',
+          title: response.data.message,
+        });
+
+      }
+
+
     } catch (error) {
-      console.log(error.message);
+      console.error('Error:', error.message);
     }
   };
+
 
   const handleChange = (e) => {
     try {
@@ -114,6 +159,20 @@ const DoctorProfile = () => {
         <Modal.Body>
           <form onSubmit={handleSubmit}>
             <div className="space-y-6 flex justify-center flex-col">
+
+              <label htmlFor="eventDate">Date:</label>
+              {/* <input
+                type="date"
+                id="date"
+                name="date"
+                value={formData.date}
+                onChange={handleChange}
+                required
+              /> */}
+              <div className='flex justify-center ' >
+                <Calendar onChange={(date) => handleChange({ target: { name: "date", value: date } })} value={formData.date} />
+
+              </div>
               <label htmlFor="startTime">Start Time:</label>
               <input
                 type="time"
@@ -121,6 +180,7 @@ const DoctorProfile = () => {
                 name="startTime"
                 value={formData.startTime}
                 onChange={handleChange}
+                className='bg-slate-500 text-white'
                 required
               />
 
@@ -131,18 +191,11 @@ const DoctorProfile = () => {
                 name="endTime"
                 value={formData.endTime}
                 onChange={handleChange}
+                className='bg-slate-500 text-white'
                 required
               />
 
-              <label htmlFor="eventDate">Date:</label>
-              <input
-                type="date"
-                id="date"
-                name="date"
-                value={formData.date}
-                onChange={handleChange}
-                required
-              />
+
 
               <label htmlFor="eventDuration">Duration (in minutes):</label>
               <input
@@ -152,8 +205,23 @@ const DoctorProfile = () => {
                 min="1"
                 value={formData.slotDuration}
                 onChange={handleChange}
+                className='bg-slate-500 text-white'
                 required
               />
+              {/* <label htmlFor="eventDuration">Duration (in minutes):</label>
+              <select
+                id="slotDuration"
+                name="slotDuration"
+                value={formData.slotDuration}
+                onChange={handleChange}
+                className='bg-slate-500 text-white'
+                required
+              >
+                <option value="5">5 minutes</option>
+                <option value="10">10 minutes</option>
+                <option value="15">15 minutes</option>
+              </select> */}
+
             </div>
             <Modal.Footer>
               <Button type="submit">create</Button>
