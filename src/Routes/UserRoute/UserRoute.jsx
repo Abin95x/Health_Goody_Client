@@ -11,8 +11,11 @@ import Profile from '../../Pages/UserPages/Profile/Profile';
 import UserPublic from './UserPublic';
 import DoctorListPage from '../../Pages/UserPages/DocoterListPage/DoctorListPage';
 import DoctorDetailsPage from '../../Pages/UserPages/DoctorDetailsPage/DoctorDetailsPage';
-
+import PaymentSuccess from '../../Pages/UserPages/PaymentSuccess/PaymentSuccess';
+import Cancel from '../../Pages/UserPages/Cancel';
 import UserProtect from './UserProtect';
+
+
 
 
 const userRoute = () => {
@@ -26,7 +29,10 @@ const userRoute = () => {
       <Route path="/resetpassword" element={<UserPublic><ResetPassword /></UserPublic>} />
       <Route path="/doctorlist" element={<UserProtect><DoctorListPage /></UserProtect>} />
       <Route path="/doctordetails/:id" element={<UserProtect><DoctorDetailsPage /></UserProtect>} />
+      <Route path="/success" element={<UserProtect><PaymentSuccess /></UserProtect> }/>
+      <Route path="/cancel" element={<Cancel/> }/>
      
+
 
 
       <Route path="/profile" element={<UserProtect><Profile/></UserProtect>}/>

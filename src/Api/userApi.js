@@ -49,3 +49,15 @@ export async function slotList(drId, date) {
   const data = await userAxiosInstance.get(`/slotList?id=${drId}&date=${date}`);
   return data;
 }
+
+export async function makePayment(values){
+  const data = await userAxiosInstance.post("/makePayment",values)
+  return data
+}
+
+export async function makeAppointment(values){
+  console.log(values,"apiiii appopopopo")
+  const data = await userAxiosInstance.post("/makeAppointment",values)
+  return data
+}
+

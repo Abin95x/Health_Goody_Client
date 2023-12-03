@@ -6,6 +6,8 @@ import { slotList } from '../../../Api/userApi';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import Swal from 'sweetalert2';
+import { useSelector } from 'react-redux/es/hooks/useSelector';
+import { makePayment } from '../../../Api/userApi';
 
 
 const DoctorDetails = () => {
@@ -14,9 +16,19 @@ const DoctorDetails = () => {
     const [openModal, setOpenModal] = useState(false);
     const [slots, setSlots] = useState([]);
     const [drId, setDrId] = useState();
-    const [selectedDate, setSelectedDate] = useState(new Date());
-    const [selectedSlots, setSelectedSlots] = useState([]);
-    // console.log(selectedDate)
+    const [select, setSelect] = useState([null])
+    const [date, setDate] = useState()
+    const { _id } = useSelector((state) => state.reducer.userReducer.user);
+    // const [work,setWork] = useState(false)
+    console.log(date)
+
+
+    const price = {
+        id: "price_1OJ8AOSGxvp5pPKvCJFkai6w",
+        amount: 299,
+
+    }
+
 
     useEffect(() => {
         doctorDetails(id)
@@ -29,30 +41,83 @@ const DoctorDetails = () => {
             });
     }, [id]);
 
-    // useEffect(() => {
-    //     if (drId) {
-    //         slotList(drId,selectedDate)
-    //             .then((response) => {
-    //                 setSlots(response.data.data);
-    //             })
-    //             .catch((error) => {
-    //                 console.log(error);
-    //             });
-    //     }
-    // }, [drId]);
-
-   
 
     const handleChange = async (date) => {
         try {
-        
-            const response =  await slotList(drId,date)
-            console.log(response)
-            
+            setDate(date);
+            const response = await slotList(drId, date);
+    
+            const availableSlots = response.data.availableSlots;
+    
+            if (availableSlots && availableSlots.length > 0) {
+                let allAvailableSlots = [];    
+                availableSlots.forEach(slot => {
+                    // Check each time slot in the current slot
+                    slot.timeSlots.forEach(timeSlot => {
+                        if (timeSlot.booked === false) {
+                            // This time slot is not booked
+                            console.log(`Time slot ${timeSlot.start} - ${timeSlot.end} is available.`);
+                            allAvailableSlots.push(timeSlot);
+                        } else {
+                            // This time slot is booked
+                            console.log(`Time slot ${timeSlot.start} - ${timeSlot.end} is already booked.`);
+                        }
+                    });
+                });
+    
+                setSlots(allAvailableSlots);
+            } else {
+                console.log("No available slots for the given date.");
+                setSlots([]);
+            }
         } catch (error) {
-            console.log(error)
+            console.log(error);
         }
-    }
+    };
+    
+    
+
+    const handleSelect = async (slotId) => {
+        try {
+            
+            if (select === slotId) {
+                setSelect(null);
+         
+            } else {
+                setSelect(slotId);
+               
+
+            }
+        } catch (error) {
+            console.log(error.message);
+        }
+    };
+
+    const handlePayment = async () => {
+        try {
+            
+          
+            if(select){
+                const response = await makePayment({ price, drId, select, date, _id })
+                if (response.status === 200) {
+                    console.log(response.data)
+                    window.location.href = response.data.session.url
+                }
+
+            }
+
+           
+
+
+
+        } catch (error) {
+            console.log(error.mesage)
+        }
+    };
+
+
+
+
 
     return (
         <div>
@@ -86,27 +151,41 @@ const DoctorDetails = () => {
                     <div className="space-y-6">
                         <label htmlFor="datePicker">Select Date:</label>
                         <div className='flex justify-center'>
-                            
-                            <Calendar onChange={(date) => {
-                                // setSelectedDate(date.getDate());
-                                handleChange(date.getDate());
-                            }}/>
-
+                            <Calendar onChange={(date) => handleChange(date)} />
                         </div>
                         <p>Available Slots:</p>
-                        <ul>
-                            {/* {selectedSlots.map((slot, index) => (
-                                <li key={index}>
-                                    {`Start Time: ${slot.start}, End Time: ${slot.end}`}
-                                </li>
-                            ))} */}
-                        </ul>
+                        {slots.length > 0 ? (
+                            <ul className="flex flex-wrap justify-center">
+                                {slots.map((slot, index) => (
+                                    <li key={index} className={`flex items-center h-10 w-36 bg-blue-500 m-2 p-2 rounded-xl text-white ${select === slot.objectId ? 'bg-green-500' : ''}`}>
+                                        <input
+                                            type="checkbox"
+                                            id={`slot-${index}`}
+                                            className="mr-2"
+                                            checked={select === slot.objectId}
+                                            onChange={() => handleSelect(slot.objectId)}
+                                        />
+                                        <label htmlFor={`slot-${index}`} className="flex-1">{`${slot.start} - ${slot.end}`}</label>
+                                    </li>
+                                ))}
+                            </ul>
+                        ) : (
+                            <p className='text-orange-600'>No available slots for the selected date.</p>
+                        )}
                     </div>
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button onClick={() => setOpenModal(false)}>Close</Button>
+                    {slots.length > 0 && select !== null && (
+                        <div className=''>
+                            <button className="btn btn-outline btn-primary" onClick={handlePayment}>
+                                PAYMENT
+                            </button>
+                        </div>
+                    )}
                 </Modal.Footer>
+
             </Modal>
+
         </div>
     );
 };

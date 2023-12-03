@@ -150,8 +150,8 @@ const SpecialityList = () => {
             (speciality) =>
                 speciality.speciality.toLowerCase().includes(search?.toLowerCase() || '')
         );
-        console.log(filtered,'dfhjhdfdjhfueshdafjhdfoiuyqwefsadfj')
-        
+        console.log(filtered, 'dfhjhdfdjhfueshdafjhdfoiuyqwefsadfj')
+
 
         setFilteredSpeciality(filtered);
     }, [search, slist]);
@@ -161,19 +161,24 @@ const SpecialityList = () => {
     return (
         <>
             <div>
-                <div className="overflow-x-auto">
+                <div className="overflow-x-auto ">
                     <br />
-                    <div >
-                        <button className="btn btn-success mx-5 " onClick={() => document.getElementById('my_modal_1').showModal()}>Add Speciality</button>
+                    <div className='flex justify-between'>
+                        <div >
+                            <button className="btn btn-success mx-5 " onClick={() => document.getElementById('my_modal_1').showModal()}>Add Speciality</button>
+                        </div>
+                        <div className=' pr-6 '>
+                            <input
+                                type="text"
+                                placeholder='search'
+                                value={search}
+                                onChange={handleChange}
+                                className='rounded-lg'
+                            />
+                        </div>
+
                     </div>
-                    <div>
-                        <input
-                            type="text"
-                            placeholder='search'
-                            value={search}
-                            onChange={handleChange}
-                        />
-                    </div>
+
                     <br />
                     <table className="table">
                         {/* head */}
