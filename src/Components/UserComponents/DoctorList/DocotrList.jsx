@@ -104,17 +104,18 @@ const DoctorList = () => {
                                         />
                                         <h3 className='text-lg font-semibold text-center mb-2'>Dr. {doctor.name}</h3>
                                         {/* <p className='mb-2'>Education: {doctor.education ? doctor.education : 'Not added'}</p> */}
-                                        <p className='mb-2'>Price: ₹299</p>
+
                                     </div>
                                     <div className='border-t p-4 text-black'>
+                                        <p className='mb-2'>Price: ₹299</p>
                                         <p className='mb-2'>Speciality: {doctor.speciality}</p>
                                         <p className='mb-2'>Experience: {doctor.experience ? doctor.experience : 'Not added'}</p>
-                                        <p className='mb-2'>
+                                        {/* <p className='mb-2'>
                                             Languages:{' '}
                                             {doctor.languages && doctor.languages.length > 0
                                                 ? doctor.languages.join(', ')
                                                 : 'Not added'}
-                                        </p>
+                                        </p> */}
                                         <div className='flex items-center justify-center'>
                                             {/* <button className='btn text-white btn-sm bg-blue-500 hover:bg-blue-600'>
                 BOOK VIDEO CONSULT

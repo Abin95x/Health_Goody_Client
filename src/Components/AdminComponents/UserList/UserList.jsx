@@ -51,7 +51,13 @@ export const UserList = () => {
           <li><a>USER LIST</a></li>
         </ul>
       </div>
-      <div className="overflow-x-auto">
+
+      {users.length === 0 ? (
+        <div className='flex justify-center text-2xl text-yellow-200'>
+          <p> No Users Found.</p>
+        </div>
+
+      ) : (< div className="overflow-x-auto">
         <table className="table">
           <thead>
             <tr>
@@ -71,7 +77,7 @@ export const UserList = () => {
                 <td>{user.mobile}</td>
                 <td>
                   {/* <button type='button' onClick={() => { document.getElementById('my_modal_5').showModal(); handleClick(user._id); }}> */}
-                    <button ctype='button' onClick={() =>{ document.getElementById('my_modal_3').showModal(); handleClick(user._id);}}>
+                  <button ctype='button' onClick={() => { document.getElementById('my_modal_3').showModal(); handleClick(user._id); }}>
                     More Info
                   </button>
                 </td>
@@ -79,51 +85,52 @@ export const UserList = () => {
             ))}
           </tbody>
         </table>
-      </div>
+      </div >)}
+
 
       {/* You can open the modal using document.getElementById('ID').showModal() method */}
-      <dialog id="my_modal_3" className="modal">
+      < dialog id="my_modal_3" className="modal" >
         <div className="modal-box rounded-none">
           <form method="dialog">
-           
+
             <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
             <div className="card-body">
-                {userData ? (
+              {userData ? (
 
-                  <>
-                    <div className=''>
-                      <img src={userData.photo} alt="" />
-                    </div>
-                    <h2 className="card-title text-3xl font-bold mb-4">{userData.name}</h2>
-                    <p className="text-gray-300">Id : {userData._id}</p>
-                    <p className="text-gray-300">Email : {userData.email}</p>
-                    <p className="text-gray-300">Mobile : {userData.mobile}</p>
-                    <p className="text-gray-300">OTP Verified : {userData.otp_verified ? 'Yes' : 'No'}</p>
-                    <p className="text-gray-300">Blocked : {userData.is_blocked ? 'Yes' : 'No'}</p>
-                    <p className="text-gray-300">Age : {userData.age || 'Not Added'}</p>
-                    <p className="text-gray-300">Gender : {userData.gender || 'Not Added'}</p>
+                <>
+                  <div className=''>
+                    <img src={userData.photo} alt="" />
+                  </div>
+                  <h2 className="card-title text-3xl font-bold mb-4">{userData.name}</h2>
+                  <p className="text-gray-300">Id : {userData._id}</p>
+                  <p className="text-gray-300">Email : {userData.email}</p>
+                  <p className="text-gray-300">Mobile : {userData.mobile}</p>
+                  <p className="text-gray-300">OTP Verified : {userData.otp_verified ? 'Yes' : 'No'}</p>
+                  <p className="text-gray-300">Blocked : {userData.is_blocked ? 'Yes' : 'No'}</p>
+                  <p className="text-gray-300">Age : {userData.age || 'Not Added'}</p>
+                  <p className="text-gray-300">Gender : {userData.gender || 'Not Added'}</p>
 
-                    <div className="card-actions mx-[147px]">
-                      <button
-                        className="btn btn-primary"
-                        onClick={() => blockUnblock(userData._id)}
-                        style={{ backgroundColor: userData.is_blocked ? 'green' : 'red' }}
-                      >
-                        {userData.is_blocked ? 'UNBLOCK' : 'BLOCK'}
-                      </button>
+                  <div className="card-actions mx-[147px]">
+                    <button
+                      className="btn btn-primary"
+                      onClick={() => blockUnblock(userData._id)}
+                      style={{ backgroundColor: userData.is_blocked ? 'green' : 'red' }}
+                    >
+                      {userData.is_blocked ? 'UNBLOCK' : 'BLOCK'}
+                    </button>
 
-                    </div>
-                    <br />
-                  </>
-                ) : (
-                  <p>Loading user data...</p>
-                )}
-              </div>
+                  </div>
+                  <br />
+                </>
+              ) : (
+                <p>Loading user data...</p>
+              )}
+            </div>
           </form>
         </div>
-      </dialog>
+      </dialog >
 
-      
+
     </>
   );
 };

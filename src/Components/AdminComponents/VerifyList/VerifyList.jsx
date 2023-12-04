@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Swal from 'sweetalert2';
 import { unVerifiedList } from '../../../Api/adminApi';
 
 
@@ -24,9 +23,9 @@ const VerifyList = () => {
         try {
             navigate(`/admin/verifiedDetails/${id}`);
         } catch (error) {
-            console.log(error.message)
+            console.log(error.message);
         }
-    }
+    };
     return (
         <>
             <div className="text-sm breadcrumbs">
@@ -37,41 +36,48 @@ const VerifyList = () => {
             </div>
 
             <div className="overflow-x-auto">
-                <table className="table">
-                    {/* head */}
-                    <thead>
-                        <tr>
-                            <th>No</th>
-                            <th>Name</th>
-                            <th>Email</th>
-                            <th>Mobile</th>
-                            <th>Speciality</th>
-                            <th>Listed</th>
-                            <th>More</th>
-                        </tr>
-                    </thead>
-                    <tbody>
+                {doctors.length === 0 ? (
+                    <div className='flex justify-center text-2xl text-yellow-200'>
+                        <p> No Doctors Found.</p>
+                    </div>
 
-                        {doctors.map((doctor, index) => (
-                            <tr key={index} className="hover">
-                                <th>{index + 1}</th>
-                                <td>{doctor.name}</td>
-                                <td>{doctor.email}</td>
-                                <td>{doctor.mobile}</td>
-                                <td>{doctor.speciality}</td>
-                                <td>{doctor.is_blocked ? 'No' : 'Yes'}</td>
-                                <td>
-                                    <button type='button' onClick={() => handleClick(doctor._id)}>
-                                        More Info
-                                    </button>
-                                </td>
+                ) : (
+                    <table className="table">
+                        {/* head */}
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Mobile</th>
+                                <th>Speciality</th>
+                                <th>Listed</th>
+                                <th>More</th>
                             </tr>
-                        ))}
-                    </tbody>
-                </table>
-            </div>
+                        </thead>
+                        <tbody>
+                            {doctors.map((doctor, index) => (
+                                <tr key={index} className="hover">
+                                    <th>{index + 1}</th>
+                                    <td>{doctor.name}</td>
+                                    <td>{doctor.email}</td>
+                                    <td>{doctor.mobile}</td>
+                                    <td>{doctor.speciality}</td>
+                                    <td>{doctor.is_blocked ? 'No' : 'Yes'}</td>
+                                    <td>
+                                        <button type='button' onClick={() => handleClick(doctor._id)}>
+                                            More Info
+                                        </button>
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                )}
+            </div >
         </>
-    )
-}
 
-export default VerifyList
+    );
+};
+
+export default VerifyList;

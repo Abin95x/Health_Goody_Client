@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Swal from 'sweetalert2';
-import { doctorDetails, doctorList } from '../../../Api/adminApi';
+import { doctorList } from '../../../Api/adminApi';
 
 
 const DoctorList = () => {
@@ -35,8 +34,12 @@ const DoctorList = () => {
                     <li><a>DOCTOR LIST</a></li>
                 </ul>
             </div>
+            {doctors.length === 0 ? (
+                <div className='flex justify-center text-2xl text-yellow-200'>
+                    <p> No Doctors Found.</p>
+                </div>
 
-            <div className="overflow-x-auto">
+            ) : (< div className="overflow-x-auto">
                 <table className="table">
                     {/* head */}
                     <thead>
@@ -72,7 +75,9 @@ const DoctorList = () => {
                         ))}
                     </tbody>
                 </table>
-            </div>
+            </div >)}
+
+
         </>
 
 

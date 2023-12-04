@@ -16,18 +16,18 @@ const DoctorDetails = () => {
     const [openModal, setOpenModal] = useState(false);
     const [slots, setSlots] = useState([]);
     const [drId, setDrId] = useState();
-    const [select, setSelect] = useState()
-    const [date, setDate] = useState()
+    const [select, setSelect] = useState();
+    const [date, setDate] = useState();
     const { _id } = useSelector((state) => state.reducer.userReducer.user);
     // const [work,setWork] = useState(false)
-    
+
 
 
     const price = {
-        id: "price_1OJ8AOSGxvp5pPKvCJFkai6w",
+        id: 'price_1OJ8AOSGxvp5pPKvCJFkai6w',
         amount: 299,
 
-    }
+    };
 
 
     useEffect(() => {
@@ -44,13 +44,25 @@ const DoctorDetails = () => {
 
     const handleChange = async (date) => {
         try {
+            const currentDate = new Date(); // Get the current date
+            currentDate.setHours(0, 0, 0, 0); // Set hours, minutes, seconds, and milliseconds to 0 for accurate date comparison
+
+            if (date <= currentDate) {
+                // Selected date is less than or equal to the current date
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Invalid Date',
+                    text: 'Please select a date in the future.',
+                });
+                return; // Stop execution if the date is invalid
+            }
             setDate(date);
             const response = await slotList(drId, date);
-    
+
             const availableSlots = response.data.availableSlots;
-    
+
             if (availableSlots && availableSlots.length > 0) {
-                let allAvailableSlots = [];    
+                let allAvailableSlots = [];
                 availableSlots.forEach(slot => {
                     // Check each time slot in the current slot
                     slot.timeSlots.forEach(timeSlot => {
@@ -64,28 +76,28 @@ const DoctorDetails = () => {
                         }
                     });
                 });
-    
+
                 setSlots(allAvailableSlots);
             } else {
-                console.log("No available slots for the given date.");
+                console.log('No available slots for the given date.');
                 setSlots([]);
             }
         } catch (error) {
             console.log(error);
         }
     };
-    
-    
+
+
 
     const handleSelect = async (slotId) => {
         try {
-            
+
             if (select === slotId) {
                 setSelect(null);
-         
+
             } else {
                 setSelect(slotId);
-               
+
 
             }
         } catch (error) {
@@ -95,19 +107,19 @@ const DoctorDetails = () => {
 
     const handlePayment = async () => {
         try {
-            
-          
-            if(select){
-                const response = await makePayment({ price, drId, select, date, _id })
+
+
+            if (select) {
+                const response = await makePayment({ price, drId, select, date, _id });
                 if (response.status === 200) {
-                    console.log(response.data)
-                    window.location.href = response.data.session.url
+                    console.log(response.data);
+                    window.location.href = response.data.session.url;
                 }
 
             }
 
         } catch (error) {
-            console.log(error.mesage)
+            console.log(error.mesage);
         }
     };
 
@@ -124,14 +136,18 @@ const DoctorDetails = () => {
                                 className="mx-auto mb-4 h-40 w-40 rounded-full shadow-2xl"
                                 src={doctor.photo}
                                 alt={`Doctor ${doctor.name}`}
+
                             />
                         </div>
                         <h2 className='text-3xl text-center text-black'>{`Dr. ${doctor.name}`}</h2>
+                        <p className='text-base text-center mb-4'>{`Bio: ${doctor.bio}`}</p>
+
                         <hr className='my-6 border-t border-gray-300' />
-                        <div className='text-gray-700'>
+                        <div className='text-gray-700 text-xl'>
+                            <p className='mb-4'>Price: ₹299</p>
                             <p className='text-base mb-4'>{`Speciality: ${doctor.speciality}`}</p>
-                            <p className='text-base mb-4'>{`Language: ${doctor.language}`}</p>
                             <p className='text-base mb-4'>{`Experience: ${doctor.experience}`}</p>
+
                         </div>
                         <div className="flex justify-center">
                             <Button onClick={() => setOpenModal(true)}>View Slots</Button>
@@ -170,7 +186,7 @@ const DoctorDetails = () => {
                     </div>
                 </Modal.Body>
                 <Modal.Footer>
-                    {slots.length > 0 && select  && (
+                    {slots.length > 0 && select && (
                         <div className=''>
                             <button className="btn btn-outline btn-primary" onClick={handlePayment}>
                                 PAYMENT

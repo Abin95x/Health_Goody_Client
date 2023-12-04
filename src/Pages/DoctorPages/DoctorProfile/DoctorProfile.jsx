@@ -22,8 +22,8 @@ const DoctorProfile = () => {
   const [openModal2, setOpenModal2] = useState(false);
   const id = doctorData._id
   const [photo, setPhoto] = useState(null);
-  const[render ,setRender] = useState(false)
-  const [loading,setLoading]=useState(false)
+  const [render, setRender] = useState(false)
+  const [loading, setLoading] = useState(false)
 
   useEffect(() => {
     doctorDetails(id).then((res) => {
@@ -32,7 +32,7 @@ const DoctorProfile = () => {
     }).catch((error) => {
       console.log(error)
     })
-  }, [render,doc])
+  }, [render, doc])
 
   const [formData, setFormData] = useState({
     startTime: '',
@@ -47,7 +47,7 @@ const DoctorProfile = () => {
     try {
       event.preventDefault(); // Prevent default form submission
 
-      const response = await slotDetails({ id, formData  });
+      const response = await slotDetails({ id, formData });
 
       if (response.data.success === true) {
         const Toast = Swal.mixin({
@@ -106,7 +106,7 @@ const DoctorProfile = () => {
 
   const onSubmit = async () => {
     setLoading(true)
-    const response = await editProfile({ ...values, id ,photo})
+    const response = await editProfile({ ...values, id })
     setRender(true)
     setLoading(false)
     setOpenModal2(false)
@@ -236,7 +236,7 @@ const DoctorProfile = () => {
                 className='bg-slate-500 text-white'
                 required
               />
-              
+
 
               <label htmlFor="endTime">Ending Time:</label>
               <input
@@ -284,7 +284,7 @@ const DoctorProfile = () => {
                 value={values.name}
                 onChange={handleChange}
                 onBlur={handleBlur} />
-                <div>
+              <div>
                 {errors.name && touched.name && (
                   <p className="text-red-600">{errors.name}</p>
                 )}
@@ -297,7 +297,7 @@ const DoctorProfile = () => {
                 value={values.mobile}
                 onChange={handleChange}
                 onBlur={handleBlur} />
-                <div>
+              <div>
                 {errors.mobile && touched.mobile && (
                   <p className="text-red-600">{errors.mobile}</p>
                 )}
@@ -310,7 +310,7 @@ const DoctorProfile = () => {
                 value={values.experience}
                 onChange={handleChange}
                 onBlur={handleBlur} />
-                <div>
+              <div>
                 {errors.experience && touched.experience && (
                   <p className="text-red-600">{errors.experience}</p>
                 )}
@@ -331,7 +331,7 @@ const DoctorProfile = () => {
                 value={values.speciality}
                 onChange={handleChange}
                 onBlur={handleBlur} />
-                <div>
+              <div>
                 {errors.speciality && touched.speciality && (
                   <p className="text-red-600">{errors.speciality}</p>
                 )}
@@ -344,34 +344,34 @@ const DoctorProfile = () => {
                 value={values.bio}
                 onChange={handleChange}
                 onBlur={handleBlur}></textarea>
-                <div>
+              <div>
                 {errors.bio && touched.bio && (
                   <p className="text-red-600">{errors.bio}</p>
                 )}
               </div>
               <br />
 
-              <label htmlFor="photo">Upload Photo:</label>
+              {/* <label htmlFor="photo">Upload Photo:</label>
               <br />
-              <input type="file" id="photo" name="photo" accept="image/*" className='w-full'
+              <input type="file" id="photo" name="photo" accept="image/ * " className='w-full'
                 value={values.photo}
                 onChange={handlePhoto}
-                 />
-                <br />
-                <br />
-                
-                <div className=' flex justify-center'>
+              />
+              <br /> */}
+              <br />
+
+              <div className=' flex justify-center'>
                 {loading && <span className="loading loading-dots loading-lg"></span>}
-                
-                </div>
-                <button type="submit" className="btn bg-green-500 text-white"  >
-                  Save Changes
-                </button>
+
+              </div>
+              <button type="submit" className="btn bg-green-500 text-white"  >
+                Save Changes
+              </button>
 
 
             </form>
           </div>
-        </Modal.Body>
+        </Modal.Body >
         {/* <Modal.Footer>
          
                  <Button type='submit' onClick={() => setOpenModal2(false)}>Done</Button>
@@ -379,7 +379,7 @@ const DoctorProfile = () => {
             Decline
           </Button>
         </Modal.Footer> */}
-      </Modal>
+      </Modal >
       <Footer />
     </>
   );

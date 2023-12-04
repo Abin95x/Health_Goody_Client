@@ -76,13 +76,14 @@ export async function editSpeciality(values) {
     return data;
 }
 
-
-
-
 export async function counts() {
-    const data = await adminAxiosInstance.get("/counts")
+    const data = await adminAxiosInstance.get('/counts');
     return data;
 }
 
+export async function appointmentList() {
+    const data = await adminAxiosInstance.get('/appointmentList');
+    return data;
+}
 
 
