@@ -13,13 +13,22 @@ const SpecialityList = () => {
     const [search, setSearch] = useState()
     const [filteredSpeciality, setFilteredSpeciality] = useState();
 
+    const [loading,setLoading]=useState(false)
+ 
+  
+
 
 
     const [currentPage, setCurrentPage] = useState(1)
     const [noOfSpeciality, setNoOfSpeciality] = useState(6)
 
     const handleClick = async () => {
+        setLoading(true)
+
         const response = await addSpeciality({ speciality, photo });
+        
+        setLoading(false)
+
         if (response) {
             const Toast = Swal.mixin({
                 toast: true,
@@ -262,6 +271,8 @@ const SpecialityList = () => {
                         <button onClick={handleClick} className="btn btn-success">ADD</button>
 
                         <br />
+                         <br />
+                            {loading && <span className="loading loading-dots loading-lg"></span>}
 
                     </form>
 
@@ -300,6 +311,7 @@ const SpecialityList = () => {
                             <button onClick={() => handleEdit(data._id)} className="btn btn-warning">
                                 Done
                             </button>
+                           
 
                             <br />
                             <br />

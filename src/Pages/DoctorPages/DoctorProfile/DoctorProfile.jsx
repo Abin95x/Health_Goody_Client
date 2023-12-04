@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Button, Modal } from 'flowbite-react';
 import Header from '../../../Components/DoctorComponents/Header/Header';
@@ -7,14 +7,32 @@ import { slotDetails } from '../../../Api/doctorApi';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import Swal from 'sweetalert2'
+import { useFormik } from 'formik';
+import { doctorDetails } from '../../../Api/doctorApi';
+import { editProfile } from '../../../Api/doctorApi';
+import { drEditSchema } from '../../../validations/doctor/editValidation';
+
 
 
 const DoctorProfile = () => {
   const doctor = useSelector((state) => state.reducer);
   const doctorData = doctor.doctorReducer.doctor;
-
-
+  const [doc, setDoc] = useState()
+  const [openModal, setOpenModal] = useState(false);
+  const [openModal2, setOpenModal2] = useState(false);
   const id = doctorData._id
+  const [photo, setPhoto] = useState(null);
+  const[render ,setRender] = useState(false)
+  const [loading,setLoading]=useState(false)
+
+  useEffect(() => {
+    doctorDetails(id).then((res) => {
+      setDoc(res.data.doctor)
+
+    }).catch((error) => {
+      console.log(error)
+    })
+  }, [render,doc])
 
   const [formData, setFormData] = useState({
     startTime: '',
@@ -22,16 +40,15 @@ const DoctorProfile = () => {
     slotDuration: '',
     date: '',
   });
-  console.log(formData)
+  // console.log(formData)
 
-  const [openModal, setOpenModal] = useState(false);
 
-  const handleSubmit = async (event) => {
+  const handleSubmit2 = async (event) => {
     try {
       event.preventDefault(); // Prevent default form submission
 
-      const response = await slotDetails({ id, formData });
-      console.log(response)
+      const response = await slotDetails({ id, formData  });
+
       if (response.data.success === true) {
         const Toast = Swal.mixin({
           toast: true,
@@ -72,14 +89,12 @@ const DoctorProfile = () => {
 
       }
 
-
     } catch (error) {
       console.error('Error:', error.message);
     }
   };
 
-
-  const handleChange = (e) => {
+  const handleChange2 = (e) => {
     try {
       const { name, value } = e.target;
       setFormData((prevData) => ({ ...prevData, [name]: value }));
@@ -87,102 +102,141 @@ const DoctorProfile = () => {
       console.log(error.message);
     }
   };
+  const { name, mobile, experience, speciality, bio, languages } = doc || {};
+
+  const onSubmit = async () => {
+    setLoading(true)
+    const response = await editProfile({ ...values, id ,photo})
+    setRender(true)
+    setLoading(false)
+    setOpenModal2(false)
+
+  }
+  const handlePhoto = (e) => {
+    const selectedPhoto = e.target.files[0];
+    setPhotoToBase(selectedPhoto);
+  };
+
+  const setPhotoToBase = (file) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onloadend = () => {
+      setPhoto(reader.result);
+    };
+  };
+
+
+  const { values, errors, touched, handleChange, handleBlur, handleSubmit } = useFormik({
+    initialValues: {
+      name: name,
+      mobile: mobile,
+      experience: experience,
+      speciality: speciality,
+      languages: languages,
+      bio: bio,
+    },
+    validationSchema: drEditSchema,
+    onSubmit,
+    enableReinitialize: true,
+  });
+
+  console.log(values)
+
+
 
   return (
     <>
       <Header />
 
-      <div className="min-h-screen bg-white">
-        <div className="flex justify-center bg-white">
-          <div className="bg-white w-96 h-96 rounded-3xl m-32 mx-6 shadow-2xl border border-black text-center">
-            <div>
-              <img
-                src={doctorData.photo || 'placeholder_image_url'}
-                alt="Doctor Profile"
-                className="rounded-lg h-36 w-36 mx-auto m-10"
-              />
-              <p className="text-lg font-semibold">
-                <span className="font-semibold">Name:</span> {doctorData.name || 'Not added'}
-              </p>
-              <p className="text-black">
-                <span className="font-semibold">Speciality:</span> {doctorData.speciality || 'Not added'}
-              </p>
-              <p>
-                Experience : <span className="text-black m-5">{doctorData.experience || 'Not added'}</span>
-              </p>
-              <p>
-                Languages : <span className="text-black m-5">{doctorData.languages || 'Not added'}</span>
-              </p>
-              <div className="rating">
-                <input type="radio" name="rating-2" className="mask mask-star-2 bg-orange-400" />
-                <input type="radio" name="rating-2" className="mask mask-star-2 bg-orange-400" checked />
-                <input type="radio" name="rating-2" className="mask mask-star-2 bg-orange-400" />
-                <input type="radio" name="rating-2" className="mask mask-star-2 bg-orange-400" />
-                <input type="radio" name="rating-2" className="mask mask-star-2 bg-orange-400" />
+      {doc && (
+        <div className="min-h-screen bg-white">
+          <div className="flex justify-center bg-white">
+            <div className="bg-white w-96 h-96 rounded-3xl m-32 mx-6 shadow-2xl border border-black text-center">
+              <div>
+                <img
+                  src={doc.photo || 'placeholder_image_url'}
+                  alt="Doctor Profile"
+                  className="rounded-lg h-36 w-36 mx-auto m-10"
+                />
+                <p className="text-lg font-semibold">
+                  <span className="font-semibold">Name:</span> {doc.name || 'Not added'}
+                </p>
+                <p className="text-black">
+                  <span className="font-semibold">Speciality:</span> {doc.speciality || 'Not added'}
+                </p>
+                <p>
+                  Experience : <span className="text-black m-5">{doc.experience || 'Not added'}</span>
+                </p>
+                <p>
+                  {/* Languages : <span className="text-black m-5">{doc.languages || 'Not added'}</span> */}
+                </p>
+                <div className="rating">
+                  <input type="radio" name="rating-2" className="mask mask-star-2 bg-orange-400" />
+                  <input type="radio" name="rating-2" className="mask mask-star-2 bg-orange-400" checked />
+                  <input type="radio" name="rating-2" className="mask mask-star-2 bg-orange-400" />
+                  <input type="radio" name="rating-2" className="mask mask-star-2 bg-orange-400" />
+                  <input type="radio" name="rating-2" className="mask mask-star-2 bg-orange-400" />
+                </div>
+              </div>
+            </div>
+
+            <div className="bg-white w-[600px] h-96 m-32 mx-2 p-24 rounded-3xl shadow-2xl border border-black bor flex flex-col justify-center">
+              <div>
+                <span>Name</span>
+                <div className="border border-black h-10 w-96">
+                  <span className="text-black m-5">{doc.name || 'Not added'}</span>
+                </div>
+
+                <span>Email</span>
+                <div className="border border-black h-10 w-96">
+                  <span className="text-black m-5">{doc.email || 'Not added'}</span>
+                </div>
+
+                <span>Mobile</span>
+                <div className="border border-black h-10 w-96">
+                  <span className="text-black m-5">{doc.mobile || 'Not added'}</span>
+                </div>
+
+                <span>Bio</span>
+                <div className="border border-black h-10 w-96">
+                  <span className="text-black m-5">{doc.bio || 'Not added'}</span>
+                </div>
               </div>
             </div>
           </div>
 
-          <div className="bg-white w-[600px] h-96 m-32 mx-2 p-24 rounded-3xl shadow-2xl border border-black bor flex flex-col justify-center">
-            <div>
-              <span>Name</span>
-              <div className="border border-black h-10 w-96">
-                <span className="text-black m-5">{doctorData.name || 'Not added'}</span>
-              </div>
-
-              <span>Email</span>
-              <div className="border border-black h-10 w-96">
-                <span className="text-black m-5">{doctorData.email || 'Not added'}</span>
-              </div>
-
-              <span>Mobile</span>
-              <div className="border border-black h-10 w-96">
-                <span className="text-black m-5">{doctorData.mobile || 'Not added'}</span>
-              </div>
-
-              <span>Bio</span>
-              <div className="border border-black h-10 w-96">
-                <span className="text-black m-5">{doctorData.bio || 'Not added'}</span>
-              </div>
-            </div>
+          <div className="flex justify-center space-x-5">
+            <Button onClick={() => setOpenModal2(true)}>EDIT</Button>
+            <Button onClick={() => setOpenModal(true)}>Create Slots</Button>
           </div>
         </div>
+      )}
 
-        <div className="flex justify-center space-x-5">
-          <button className="btn btn-primary">EDIT</button>
-          <Button onClick={() => setOpenModal(true)}>Create Slots</Button>
-        </div>
-      </div>
+
+
 
       <Modal show={openModal} onClose={() => setOpenModal(false)}>
         <Modal.Header>Create Slots</Modal.Header>
         <Modal.Body>
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit2}>
             <div className="space-y-6 flex justify-center flex-col">
 
               <label htmlFor="eventDate">Date:</label>
-              {/* <input
-                type="date"
-                id="date"
-                name="date"
-                value={formData.date}
-                onChange={handleChange}
-                required
-              /> */}
               <div className='flex justify-center ' >
-                <Calendar onChange={(date) => handleChange({ target: { name: "date", value: date } })} value={formData.date} />
-
+                <Calendar onChange={(date) => handleChange2({ target: { name: "date", value: date } })} value={formData.date} />
               </div>
+
               <label htmlFor="startTime">Start Time:</label>
               <input
                 type="time"
                 id="startTime"
                 name="startTime"
                 value={formData.startTime}
-                onChange={handleChange}
+                onChange={handleChange2}
                 className='bg-slate-500 text-white'
                 required
               />
+              
 
               <label htmlFor="endTime">Ending Time:</label>
               <input
@@ -190,12 +244,10 @@ const DoctorProfile = () => {
                 id="endTime"
                 name="endTime"
                 value={formData.endTime}
-                onChange={handleChange}
+                onChange={handleChange2}
                 className='bg-slate-500 text-white'
                 required
               />
-
-
 
               <label htmlFor="eventDuration">Duration (in minutes):</label>
               <input
@@ -204,23 +256,10 @@ const DoctorProfile = () => {
                 name="slotDuration"
                 min="1"
                 value={formData.slotDuration}
-                onChange={handleChange}
+                onChange={handleChange2}
                 className='bg-slate-500 text-white'
                 required
               />
-              {/* <label htmlFor="eventDuration">Duration (in minutes):</label>
-              <select
-                id="slotDuration"
-                name="slotDuration"
-                value={formData.slotDuration}
-                onChange={handleChange}
-                className='bg-slate-500 text-white'
-                required
-              >
-                <option value="5">5 minutes</option>
-                <option value="10">10 minutes</option>
-                <option value="15">15 minutes</option>
-              </select> */}
 
             </div>
             <Modal.Footer>
@@ -233,6 +272,114 @@ const DoctorProfile = () => {
         </Modal.Body>
       </Modal>
 
+
+      <Modal show={openModal2} onClose={() => setOpenModal2(false)}>
+        <Modal.Header>Terms of Service</Modal.Header>
+        <Modal.Body>
+          <div className="space-y-6">
+            <form onSubmit={handleSubmit}>
+              <label htmlFor="name">Name:</label>
+              <br />
+              <input type="text" id="name" name="name" className='w-full'
+                value={values.name}
+                onChange={handleChange}
+                onBlur={handleBlur} />
+                <div>
+                {errors.name && touched.name && (
+                  <p className="text-red-600">{errors.name}</p>
+                )}
+              </div>
+              <br />
+
+              <label htmlFor="mobile">Mobile:</label>
+              <br />
+              <input type="text" id="mobile" name="mobile" className='w-full'
+                value={values.mobile}
+                onChange={handleChange}
+                onBlur={handleBlur} />
+                <div>
+                {errors.mobile && touched.mobile && (
+                  <p className="text-red-600">{errors.mobile}</p>
+                )}
+              </div>
+              <br />
+
+              <label htmlFor="experience">Experience:</label>
+              <br />
+              <input type="text" id="experience" name="experience" className='w-full'
+                value={values.experience}
+                onChange={handleChange}
+                onBlur={handleBlur} />
+                <div>
+                {errors.experience && touched.experience && (
+                  <p className="text-red-600">{errors.experience}</p>
+                )}
+              </div>
+              <br />
+
+              {/* <label htmlFor="languages">Languages:</label>
+              <br />
+              <input type="text" id="languages" name="languages" placeholder="" className='w-full'
+                value={values.languages}
+                onChange={handleChange}
+                onBlur={handleBlur} />
+              <br /> */}
+
+              <label htmlFor="speciality">Speciality:</label>
+              <br />
+              <input type="text" id="speciality" name="speciality" className='w-full'
+                value={values.speciality}
+                onChange={handleChange}
+                onBlur={handleBlur} />
+                <div>
+                {errors.speciality && touched.speciality && (
+                  <p className="text-red-600">{errors.speciality}</p>
+                )}
+              </div>
+              <br />
+
+              <label htmlFor="bio">Bio:</label>
+              <br />
+              <textarea id="bio" name="bio" className='w-full' rows="4"
+                value={values.bio}
+                onChange={handleChange}
+                onBlur={handleBlur}></textarea>
+                <div>
+                {errors.bio && touched.bio && (
+                  <p className="text-red-600">{errors.bio}</p>
+                )}
+              </div>
+              <br />
+
+              <label htmlFor="photo">Upload Photo:</label>
+              <br />
+              <input type="file" id="photo" name="photo" accept="image/*" className='w-full'
+                value={values.photo}
+                onChange={handlePhoto}
+                 />
+                <br />
+                <br />
+                
+                <div className=' flex justify-center'>
+                {loading && <span className="loading loading-dots loading-lg"></span>}
+                
+                </div>
+                <button type="submit" className="btn bg-green-500 text-white"  >
+                  Save Changes
+                </button>
+
+
+            </form>
+          </div>
+        </Modal.Body>
+        {/* <Modal.Footer>
+         
+                 <Button type='submit' onClick={() => setOpenModal2(false)}>Done</Button>
+          <Button color="gray" onClick={() => setOpenModal2(false)}>
+            Decline
+          </Button>
+        </Modal.Footer> */}
+      </Modal>
       <Footer />
     </>
   );

@@ -43,6 +43,7 @@ const DoctorDetails = () => {
             <p className="text-gray-300">Email: {doctorData.email}</p>
             <p className="text-gray-300">Mobile: {doctorData.mobile}</p>
             <p className="text-gray-300">Speciality: {doctorData.speciality}</p>
+            <p className="text-gray-300">Experience: {doctorData.experience}</p>
             <p className="text-gray-300">OTP Verified: {doctorData.otp_verified ? 'Yes' : 'No'}</p>
             <p className="text-gray-300">Blocked: {doctorData.is_blocked ? 'Yes' : 'No'}</p>
           </div>

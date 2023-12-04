@@ -21,27 +21,21 @@ const Profile = () => {
       const response = await setDetails({ ...values, _id })
 
       setUserData(response.data.user)
-      let timerInterval;
-      Swal.fire({
-        title: "Saving Changes",
-        html: "close in <b></b> milliseconds.",
-        timer: 2000,
+      const Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 5000,
         timerProgressBar: true,
-        didOpen: () => {
-          Swal.showLoading();
-          const timer = Swal.getPopup().querySelector("b");
-          timerInterval = setInterval(() => {
-            timer.textContent = `${Swal.getTimerLeft()}`;
-          }, 100);
+        didOpen: (toast) => {
+          toast.onmouseenter = Swal.stopTimer;
+          toast.onmouseleave = Swal.resumeTimer;
         },
-        willClose: () => {
-          clearInterval(timerInterval);
-        }
-      }).then((result) => {
-        /* Read more about handling dismissals below */
-        if (result.dismiss === Swal.DismissReason.timer) {
-          console.log("I was closed by the timer");
-        }
+      });
+
+      Toast.fire({
+        icon: 'success',
+        title: 'details edited',
       });
 
       closeModal()
@@ -78,15 +72,19 @@ const Profile = () => {
 
 
 
+
+
   const { values, errors, touched, handleChange, handleBlur, handleSubmit } = useFormik({
     initialValues: {
-      name: "",
-      mobile: "",
-      age: "",
-      gender: ""
+      name: name,
+      mobile: mobile,
+      age: age,
+      gender: gender
     },
     validationSchema: editSchema,
-    onSubmit
+    onSubmit,
+    enableReinitialize:true
+
   });
 
 
@@ -157,7 +155,7 @@ const Profile = () => {
             <form onSubmit={handleSubmit} >
               <label htmlFor="username">Username:</label>
               <input
-                className='mx-14 text-white'
+                className='mx-14 text-black'
                 name='name'
                 type="text"
                 placeholder="Type name"
@@ -176,7 +174,7 @@ const Profile = () => {
 
               <label htmlFor="mobile">Mobile:</label>
               <input
-                className='mx-20 text-white'
+                className='mx-20 text-black'
                 name='mobile'
                 type="text"
                 placeholder="Type number"
@@ -194,7 +192,7 @@ const Profile = () => {
 
               <label htmlFor="mobile">Age:</label>
               <input
-                className='mx-[95px] text-white'
+                className='mx-[95px] text-black'
                 type="text"
                 name="age"
                 placeholder='age'
@@ -231,7 +229,7 @@ const Profile = () => {
 
 
 
-              <div className="modal-action mt-28 text-white">
+              <div className="modal-action mt-28 text-black">
                 <button type="button" className="btn" onClick={closeModal}>
                   Close
                 </button>

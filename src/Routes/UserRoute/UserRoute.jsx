@@ -8,11 +8,14 @@ import Otp from '../../Pages/UserPages/Otp/Otp';
 import ForgotPassword from '../../Pages/UserPages/ForgotPassword/ForgotPassword';
 import ResetPassword from '../../Pages/UserPages/ResetPassword/ResetPassword';
 import Profile from '../../Pages/UserPages/Profile/Profile';
-import UserPublic from './UserPublic';
 import DoctorListPage from '../../Pages/UserPages/DocoterListPage/DoctorListPage';
 import DoctorDetailsPage from '../../Pages/UserPages/DoctorDetailsPage/DoctorDetailsPage';
 import PaymentSuccess from '../../Pages/UserPages/PaymentSuccess/PaymentSuccess';
-import Cancel from '../../Pages/UserPages/Cancel';
+// import Cancel from '../../Pages/UserPages/Cancel';
+
+
+
+import UserPublic from './UserPublic';
 import UserProtect from './UserProtect';
 
 
@@ -30,11 +33,7 @@ const userRoute = () => {
       <Route path="/doctorlist" element={<UserProtect><DoctorListPage /></UserProtect>} />
       <Route path="/doctordetails/:id" element={<UserProtect><DoctorDetailsPage /></UserProtect>} />
       <Route path="/success" element={<UserProtect><PaymentSuccess /></UserProtect> }/>
-      <Route path="/cancel" element={<Cancel/> }/>
-     
-
-
-
+      {/* <Route path="/cancel" element={<Cancel/> }/> */}
       <Route path="/profile" element={<UserProtect><Profile/></UserProtect>}/>
 
     </Routes>

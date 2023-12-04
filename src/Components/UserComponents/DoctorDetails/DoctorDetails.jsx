@@ -16,11 +16,11 @@ const DoctorDetails = () => {
     const [openModal, setOpenModal] = useState(false);
     const [slots, setSlots] = useState([]);
     const [drId, setDrId] = useState();
-    const [select, setSelect] = useState([null])
+    const [select, setSelect] = useState()
     const [date, setDate] = useState()
     const { _id } = useSelector((state) => state.reducer.userReducer.user);
     // const [work,setWork] = useState(false)
-    console.log(date)
+    
 
 
     const price = {
@@ -106,15 +106,10 @@ const DoctorDetails = () => {
 
             }
 
-           
-
-
-
         } catch (error) {
             console.log(error.mesage)
         }
     };
-
 
 
 
@@ -175,7 +170,7 @@ const DoctorDetails = () => {
                     </div>
                 </Modal.Body>
                 <Modal.Footer>
-                    {slots.length > 0 && select !== null && (
+                    {slots.length > 0 && select  && (
                         <div className=''>
                             <button className="btn btn-outline btn-primary" onClick={handlePayment}>
                                 PAYMENT

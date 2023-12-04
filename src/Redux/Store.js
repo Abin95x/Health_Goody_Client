@@ -7,20 +7,20 @@ import userReducer from '../Redux/UserSlice/UserSlice';
 import doctorReducer from '../Redux/DoctorSlice/DoctorSlice';
 
 const persistConfig = {
-  key: 'root',
-  storage,
+    key: 'root',
+    storage,
 };
 const reducer = combineReducers({
-  userReducer,
-  doctorReducer,
+    userReducer,
+    doctorReducer,
 });
   
 const Persisted = persistReducer(persistConfig, reducer);
   
 const Store = configureStore({
-  reducer: {
-    reducer: Persisted, 
-  },
+    reducer: {
+        reducer: Persisted, 
+    },
 });
   
 const persistor = persistStore(Store);
