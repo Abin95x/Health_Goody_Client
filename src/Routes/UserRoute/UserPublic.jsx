@@ -1,16 +1,16 @@
-import { Navigate } from "react-router-dom";
+import { Navigate } from 'react-router-dom';
 
  const UserPublic = (props) => {
   try {
-    const token =  localStorage.getItem('usertoken')
+    const token =  localStorage.getItem('usertoken');
     if(token){
-      return <Navigate to="/"/>
+      return <Navigate to='/'/>
     }else{
-      <Navigate to="/"/>
-      return props.children
+      <Navigate to='/'/>
+      return props.children;
     }
   } catch (error) {
-    console.log(error.message)
+    console.log(error.message);
   }
-}
+};
 export default UserPublic;

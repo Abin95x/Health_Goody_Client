@@ -1,7 +1,7 @@
-import React from 'react'
-import Header from '../../../Components/UserComponents/Header/Header'
-import Body from '../../../Components/UserComponents/Body/Body'
-import Footer from '../../../Components/UserComponents/Footer/Footer'
+import React from 'react';
+import Header from '../../../Components/UserComponents/Header/Header';
+import Body from '../../../Components/UserComponents/Body/Body';
+import Footer from '../../../Components/UserComponents/Footer/Footer';
 
 
 const Home = () => {
@@ -13,7 +13,7 @@ const Home = () => {
         <Footer/>
        
     </div>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;

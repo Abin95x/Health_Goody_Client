@@ -1,8 +1,8 @@
-import React from 'react'
-import Header from '../../../Components/AdminComponents/Header/Header'
-import SideNav from '../../../Components/AdminComponents/SideNav/SideNav'
-import Footer from '../../../Components/AdminComponents/Footer/Footer'
-import DoctorList from '../../../Components/AdminComponents/DoctorList/DoctorList'
+import React from 'react';
+import Header from '../../../Components/AdminComponents/Header/Header';
+import SideNav from '../../../Components/AdminComponents/SideNav/SideNav';
+import Footer from '../../../Components/AdminComponents/Footer/Footer';
+import DoctorList from '../../../Components/AdminComponents/DoctorList/DoctorList';
 
 
 const DoctorListPage = () => {
@@ -20,7 +20,7 @@ const DoctorListPage = () => {
             </div>
             <Footer/>
         </>
-    )
-}
+    );
+};
 
-export default DoctorListPage
+export default DoctorListPage;

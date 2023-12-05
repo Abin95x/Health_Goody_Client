@@ -19,16 +19,13 @@ const DoctorDetails = () => {
     const [select, setSelect] = useState();
     const [date, setDate] = useState();
     const { _id } = useSelector((state) => state.reducer.userReducer.user);
-    // const [work,setWork] = useState(false)
 
 
 
     const price = {
         id: 'price_1OJ8AOSGxvp5pPKvCJFkai6w',
         amount: 299,
-
     };
-
 
     useEffect(() => {
         doctorDetails(id)
@@ -41,20 +38,18 @@ const DoctorDetails = () => {
             });
     }, [id]);
 
-
     const handleChange = async (date) => {
         try {
-            const currentDate = new Date(); // Get the current date
-            currentDate.setHours(0, 0, 0, 0); // Set hours, minutes, seconds, and milliseconds to 0 for accurate date comparison
+            const currentDate = new Date();
+            currentDate.setHours(0, 0, 0, 0);
 
             if (date <= currentDate) {
-                // Selected date is less than or equal to the current date
                 Swal.fire({
                     icon: 'error',
                     title: 'Invalid Date',
                     text: 'Please select a date in the future.',
                 });
-                return; // Stop execution if the date is invalid
+                return;
             }
             setDate(date);
             const response = await slotList(drId, date);
@@ -64,16 +59,10 @@ const DoctorDetails = () => {
             if (availableSlots && availableSlots.length > 0) {
                 let allAvailableSlots = [];
                 availableSlots.forEach(slot => {
-                    // Check each time slot in the current slot
                     slot.timeSlots.forEach(timeSlot => {
                         if (timeSlot.booked === false) {
-                            // This time slot is not booked
-                            console.log(`Time slot ${timeSlot.start} - ${timeSlot.end} is available.`);
                             allAvailableSlots.push(timeSlot);
-                        } else {
-                            // This time slot is booked
-                            console.log(`Time slot ${timeSlot.start} - ${timeSlot.end} is already booked.`);
-                        }
+                        } 
                     });
                 });
 
@@ -87,18 +76,13 @@ const DoctorDetails = () => {
         }
     };
 
-
-
     const handleSelect = async (slotId) => {
         try {
 
             if (select === slotId) {
                 setSelect(null);
-
             } else {
                 setSelect(slotId);
-
-
             }
         } catch (error) {
             console.log(error.message);
@@ -107,23 +91,17 @@ const DoctorDetails = () => {
 
     const handlePayment = async () => {
         try {
-
-
             if (select) {
                 const response = await makePayment({ price, drId, select, date, _id });
                 if (response.status === 200) {
                     console.log(response.data);
                     window.location.href = response.data.session.url;
                 }
-
             }
-
         } catch (error) {
             console.log(error.mesage);
         }
     };
-
-
 
 
     return (

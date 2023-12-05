@@ -1,7 +1,7 @@
-import React from 'react'
-import DocotrList from '../../../Components/UserComponents/DoctorList/DocotrList'
-import Header  from '../../../Components/UserComponents/Header/Header'
-import Footer from '../../../Components/UserComponents/Footer/Footer'
+import React from 'react';
+import DocotrList from '../../../Components/UserComponents/DoctorList/DocotrList';
+import Header  from '../../../Components/UserComponents/Header/Header';
+import Footer from '../../../Components/UserComponents/Footer/Footer';
 const DoctorListPage = () => {
   return (
     <div>
@@ -9,7 +9,6 @@ const DoctorListPage = () => {
         <DocotrList/>
         <Footer/>
     </div>
-  )
-}
-
-export default DoctorListPage
+  );
+};
+export default DoctorListPage;

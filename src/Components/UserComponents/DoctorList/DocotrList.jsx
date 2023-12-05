@@ -10,7 +10,7 @@ const DoctorList = () => {
     const [select, setSelect] = useState('');
     const [filteredDoctors, setFilteredDoctors] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
-    const [noOfDoctors, setNoOfDoctors] = useState(8);
+    const [noOfDoctors, setNoOfDoctors] = useState(4);
 
     useEffect(() => {
         doctorList()

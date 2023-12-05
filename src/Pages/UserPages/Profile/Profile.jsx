@@ -7,20 +7,20 @@ import { getUserDetails, setDetails } from '../../../Api/userApi';
 import { useFormik } from 'formik';
 import { editSchema } from '../../../validations/user/editValidaton';
 import Swal from 'sweetalert2';
+import { Link } from 'react-router-dom';
 
 const Profile = () => {
 
-  const [userData, setUserData] = useState()
+  const [userData, setUserData] = useState();
   const { _id } = useSelector((state) => state.reducer.userReducer.user);
   const [isEditModalOpen, setEditModalOpen] = useState(false);
 
-  console.log(_id, "id0000000000000")
 
   const onSubmit = async () => {
     try {
-      const response = await setDetails({ ...values, _id })
+      const response = await setDetails({ ...values, _id });
 
-      setUserData(response.data.user)
+      setUserData(response.data.user);
       const Toast = Swal.mixin({
         toast: true,
         position: 'top-end',
@@ -38,12 +38,12 @@ const Profile = () => {
         title: 'details edited',
       });
 
-      closeModal()
+      closeModal();
     } catch (error) {
-      console.log(error.message)
+      console.log(error.message);
     }
 
-  }
+  };
 
 
   const openModal = () => {
@@ -56,11 +56,10 @@ const Profile = () => {
 
 
   useEffect(() => {
-    console.log("first")
-    console.log(_id, "iddddddddddddd")
+  
     getUserDetails(_id)
       .then((response) => {
-        setUserData(response?.data?.user)
+        setUserData(response?.data?.user);
       })
       .catch((error) => {
         console.log(error.message);
@@ -91,6 +90,7 @@ const Profile = () => {
   return (
     <div className='bg-white'>
       <Header />
+      
       <div className='h-screen bg-white container mx-auto flex items-center justify-center'>
         <div className='bg-white rounded-3xl shadow-2xl col-lg-9 col-md-9 col-sm-12 col-xs-12 shubham edit-input h-[700px] w-[1000px]'>
           <div className='w-[1000px] h-20 bg-green-300 rounded-t-3xl text-center '>
@@ -139,8 +139,8 @@ const Profile = () => {
             <div className='flex justify-between'>
               <button onClick={openModal} className="btn btn-info">Edit Details</button>
 
-
-              <button className="btn btn-primary">My Bookings</button>
+              {/* <button></button> */}
+              <Link className="btn btn-primary" to={'/appointments'}>My Appointments</Link>
               <button className="btn btn-warning">My Reports</button>
             </div>
           </div>

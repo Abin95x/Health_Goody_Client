@@ -17,12 +17,12 @@ const Speciality = () => {
     console.log(slist);
     const handleClick = async (id) => {
         try {
-            console.log(id)
+            console.log(id);
 
         } catch (error) {
-            console.log(error.message)
+            console.log(error.message);
         }
-    }
+    };
 
     return (
         <>
@@ -30,7 +30,7 @@ const Speciality = () => {
                 <div className='text-center bg-white'>
                     <h1 className="text-3xl font-bold text-black mb-4 ">Specialities</h1>
                 </div>
-                <div class="bg-white flex items-center justify-center h-96">
+                <div className="bg-white flex items-center justify-center h-96">
                     <div className="carousel  w-[1600px] flex flex-row border border-black rounded-lg bg-white">
                         <div className="carousel rounded-box">
                             {slist && slist.map((speciality) => (
@@ -61,4 +61,3 @@ const Speciality = () => {
 };
 
 export default Speciality;
-5

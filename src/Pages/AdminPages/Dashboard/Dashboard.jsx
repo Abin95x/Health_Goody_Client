@@ -3,20 +3,20 @@ import SideNav from '../../../Components/AdminComponents/SideNav/SideNav';
 import Header from '../../../Components/AdminComponents/Header/Header';
 import Footer from '../../../Components/AdminComponents/Footer/Footer';
 import { counts } from '../../../Api/adminApi';
-import { useActionData } from 'react-router-dom';
+
 
 const Dashboard = () => {
-  const [data, setData] = useState(null)
+  const [data, setData] = useState(null);
 
   useEffect(() => {
     counts().then((response) => {
-      console.log(response.data)
-      setData(response.data)
+      console.log(response.data);
+      setData(response.data);
     }).catch((error) => {
-      console.log(error.message)
-    })
+      console.log(error.message);
+    });
 
-  }, [])
+  }, []);
   return (
     <>
       <Header />

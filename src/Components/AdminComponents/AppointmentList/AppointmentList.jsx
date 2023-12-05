@@ -17,6 +17,15 @@ const AppointmentList = () => {
 
         fetchAppointments();
     }, []);
+    console.log(appointments, "jjjjjjj")
+
+    const handleClick = () => {
+        try {
+
+        } catch (error) {
+            console.log(error.message)
+        }
+    }
 
     return (
 
@@ -32,9 +41,57 @@ const AppointmentList = () => {
                     <p>No Appointments Found.</p>
                 </div>
             ) : (
-                <p>hello</p>
-            )}
-        </div>
+
+                < div className="overflow-x-auto">
+                    <table className="table">
+
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Consultation Date</th>
+                                <th>Booked Date</th>
+                                <th>Start Time</th>
+                                <th>End Time</th>
+                                <th>Status</th>
+                                {/* <th>Slot ID</th> */}
+                                <th>Appointment ID</th>
+                                <th>Paymet ID</th>
+                                <th>More</th>
+
+
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            {
+                                appointments.map((app, index) => (
+                                    <tr key={index} className="hover">
+                                        <th>{index + 1}</th>
+                                        <td>{app.consultationDate}</td>
+                                        <td>{app.createdAt}</td>
+                                        <td>{app.start}</td>
+                                        <td>{app.end}</td>
+                                        <td>{app.status}</td>
+                                        {/* <td>{app.slotId}</td> */}
+                                        <td>{app._id}</td>
+                                        <td>{app.paymentId}</td>
+
+
+                                        <td>
+                                            < button type='button' onClick={() => handleClick()}>
+                                                More Info
+                                            </button>
+
+                                        </td>
+                                    </tr>
+                                ))
+                            }
+                        </tbody>
+                    </table>
+                </div >
+            )
+            }
+        </div >
     );
 };
 

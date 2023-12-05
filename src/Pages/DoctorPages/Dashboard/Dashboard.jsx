@@ -1,6 +1,6 @@
-import React from 'react'
-import Header from '../../../Components/DoctorComponents/Header/Header'
-import Footer from '../../../Components/DoctorComponents/Footer/Footer'
+import React from 'react';
+import Header from '../../../Components/DoctorComponents/Header/Header';
+import Footer from '../../../Components/DoctorComponents/Footer/Footer';
 
 
 const Dashboard = () => {
@@ -18,7 +18,7 @@ const Dashboard = () => {
             </div>
             <Footer />
         </>
-    )
-}
+    );
+};
 
-export default Dashboard
+export default Dashboard;

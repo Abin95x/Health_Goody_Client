@@ -5,7 +5,7 @@ import DoctorRoute from './Routes/DoctorRoute/DoctorRoute';
 import AdminRoute from './Routes/AdminRoute/AdminRoute';
 // import 'semantic-ui-css/semantic.min.css'
 
-function App () {
+function App() {
   return (
     <Router>
       <Routes>

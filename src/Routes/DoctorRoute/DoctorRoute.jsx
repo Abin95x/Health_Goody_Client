@@ -1,15 +1,16 @@
-import React from 'react'
-import { Routes, Route } from 'react-router-dom'
+import React from 'react';
+import { Routes, Route } from 'react-router-dom';
 
-import DoctorSide from '../../Pages/DoctorPages/DoctorSide/DoctorSide'
-import SignupPage from '../../Pages/DoctorPages/SignupPage/SignupPage'
-import LoginPage from '../../Pages/DoctorPages/LoginPage/LoginPage'
-import DoctorOtp from '../../Pages/DoctorPages/DoctorOtp/DoctorOtp'
-import Dashboard from '../../Pages/DoctorPages/Dashboard/Dashboard'
-import DoctorProtect from './DoctorProtect'
-import DoctorPublic from './DoctorPublic'
-import DoctorProfile from '../../Pages/DoctorPages/DoctorProfile/DoctorProfile'
-import DoctorSlotsPage from '../../Pages/DoctorPages/DoctorSlotsPage/DoctorSlotsPage'
+import DoctorSide from '../../Pages/DoctorPages/DoctorSide/DoctorSide';
+import SignupPage from '../../Pages/DoctorPages/SignupPage/SignupPage';
+import LoginPage from '../../Pages/DoctorPages/LoginPage/LoginPage';
+import DoctorOtp from '../../Pages/DoctorPages/DoctorOtp/DoctorOtp';
+import Dashboard from '../../Pages/DoctorPages/Dashboard/Dashboard';
+import DoctorProtect from './DoctorProtect';
+import DoctorPublic from './DoctorPublic';
+import DoctorProfile from '../../Pages/DoctorPages/DoctorProfile/DoctorProfile';
+import DoctorSlotsPage from '../../Pages/DoctorPages/DoctorSlotsPage/DoctorSlotsPage';
+import AppointmentPage from '../../Pages/DoctorPages/AppointmentPage/AppointmentPage';
 
 
 const DoctorRoute = () => {
@@ -22,9 +23,10 @@ const DoctorRoute = () => {
             <Route path='/dashboard' element={<DoctorProtect><Dashboard /></DoctorProtect>} />
             <Route path='/doctorprofile' element={<DoctorProtect><DoctorProfile /></DoctorProtect>} />
             <Route path='/slots' element={<DoctorProtect><DoctorSlotsPage /></DoctorProtect>} />
+            <Route path='/appointment' element={<DoctorProtect><AppointmentPage /></DoctorProtect>} />
+
 
         </Routes>
-    )
-}
-
-export default DoctorRoute  
+    );
+};
+export default DoctorRoute  ;
