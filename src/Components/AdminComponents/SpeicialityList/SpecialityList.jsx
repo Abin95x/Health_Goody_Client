@@ -9,25 +9,26 @@ const SpecialityList = () => {
     const [slist, setSlist] = useState([]);
     const [rerender, setRerender] = useState(false);
     const [data, setData] = useState(null);
+    const [pagination, setPagination] = useState({});
 
-    const [search, setSearch] = useState()
+    const [search, setSearch] = useState();
     const [filteredSpeciality, setFilteredSpeciality] = useState();
 
-    const [loading,setLoading]=useState(false)
+    const [loading,setLoading]=useState(false);
  
   
 
 
 
-    const [currentPage, setCurrentPage] = useState(1)
-    const [noOfSpeciality, setNoOfSpeciality] = useState(6)
+    const [currentPage, setCurrentPage] = useState(1);
+    const limit = 5 ;
 
     const handleClick = async () => {
-        setLoading(true)
+        setLoading(true);
 
         const response = await addSpeciality({ speciality, photo });
         
-        setLoading(false)
+        setLoading(false);
 
         if (response) {
             const Toast = Swal.mixin({
@@ -125,16 +126,17 @@ const SpecialityList = () => {
         }
     };
 
-
     useEffect(() => {
-        specialityList()
+        specialityList(currentPage, limit)
             .then((response) => {
+                console.log(response);
                 setSlist(response.data.data);
+                setPagination(response.data.pagination);
             })
             .catch((error) => {
                 console.log(error.message);
             });
-    }, [rerender]);
+    }, [rerender, currentPage, limit]);
 
     useEffect(() => {
         if (data) {
@@ -146,20 +148,20 @@ const SpecialityList = () => {
 
     const handleChange = (e) => {
         try {
-            setSearch(e.target.value)
-            setCurrentPage(1)
+            setSearch(e.target.value);
+            // setCurrentPage(1);
 
         } catch (error) {
-            console.log(error.message)
+            console.log(error.message);
         }
-    }
+    };
 
     useEffect(() => {
         const filtered = slist.filter(
             (speciality) =>
                 speciality.speciality.toLowerCase().includes(search?.toLowerCase() || '')
         );
-        console.log(filtered, 'dfhjhdfdjhfueshdafjhdfoiuyqwefsadfj')
+       
 
 
         setFilteredSpeciality(filtered);
@@ -170,15 +172,15 @@ const SpecialityList = () => {
     return (
         <>
             <div>
-                <div className="overflow-x-auto ">
+                <div className='overflow-x-auto '>
                     <br />
                     <div className='flex justify-between'>
                         <div >
-                            <button className="btn btn-success mx-5 " onClick={() => document.getElementById('my_modal_1').showModal()}>Add Speciality</button>
+                            <button className='btn btn-success mx-5 ' onClick={() => document.getElementById('my_modal_1').showModal()}>Add Speciality</button>
                         </div>
                         <div className=' pr-6 '>
                             <input
-                                type="text"
+                                type='text'
                                 placeholder='search'
                                 value={search}
                                 onChange={handleChange}
@@ -189,7 +191,7 @@ const SpecialityList = () => {
                     </div>
 
                     <br />
-                    <table className="table">
+                    <table className='table'>
                         {/* head */}
                         <thead>
                             <tr>
@@ -216,7 +218,7 @@ const SpecialityList = () => {
                                                 style={{ maxWidth: '100px', maxHeight: '100px' }}
                                             />
                                         </td>
-                                        <td>{specialityItem.list ? "Yes" : "No"}</td>
+                                        <td>{specialityItem.list ? 'Yes' : 'No'}</td>
 
                                         <td>
                                             <button className='btn' onClick={() => handleModal(specialityItem)}>Edit</button>
@@ -238,21 +240,38 @@ const SpecialityList = () => {
                         </tbody>
                     </table>
                 </div>
+                <br />
+                <br />
+                {pagination && pagination.totalPages && (
+                    <div className="flex justify-center mt-4 bg-base-100">
+                    {Array.from({ length: pagination.totalPages }, (_, index) => (
+                        <button
+                        key={index + 1}
+                        onClick={() => setCurrentPage(index + 1)}
+                        className={`pagination-btn border w-10 ${
+                            index + 1 === currentPage ? 'border-green-500' : 'border-black'
+                        }`}
+                        >
+                        {index + 1}
+                        </button>
+                    ))}
+                </div>
+      )} 
             </div>
 
 
-            <dialog id="my_modal_1" className="modal">
-                <div className="modal-box">
-                    <h3 className="font-bold text-lg">Add Speciality</h3>
+            <dialog id='my_modal_1' className='modal'>
+                <div className='modal-box'>
+                    <h3 className='font-bold text-lg'>Add Speciality</h3>
                     <br />
 
-                    <form method="dialog">
+                    <form method='dialog'>
                         <input
                             onChange={(e) => setSpeciality(e.target.value)}
                             value={speciality}
-                            type="text"
-                            placeholder="Type here"
-                            className="input input-bordered input-primary w-full "
+                            type='text'
+                            placeholder='Type here'
+                            className='input input-bordered input-primary w-full '
                         />
 
                         <br />
@@ -261,18 +280,18 @@ const SpecialityList = () => {
                         <input
                             accept='image/*'
                             onChange={handlePhoto}
-                            type="file"
-                            className="file-input file-input-bordered file-input-primary w-full max-w-xs"
+                            type='file'
+                            className='file-input file-input-bordered file-input-primary w-full max-w-xs'
                         />
 
                         <br />
                         <br />
-                        <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
-                        <button onClick={handleClick} className="btn btn-success">ADD</button>
+                        <button className='btn btn-sm btn-circle btn-ghost absolute right-2 top-2'>✕</button>
+                        <button onClick={handleClick} className='btn btn-success'>ADD</button>
 
                         <br />
                          <br />
-                            {loading && <span className="loading loading-dots loading-lg"></span>}
+                            {loading && <span className='loading loading-dots loading-lg'></span>}
 
                     </form>
 
@@ -280,35 +299,35 @@ const SpecialityList = () => {
             </dialog>
 
             {data && (
-                <dialog id="my_modal" className="modal">
-                    <div className="modal-box">
+                <dialog id='my_modal' className='modal'>
+                    <div className='modal-box'>
                         <h1>Edit Speciality</h1>
-                        <form method="dialog">
-                            <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+                        <form method='dialog'>
+                            <button className='btn btn-sm btn-circle btn-ghost absolute right-2 top-2'>✕</button>
                             <br />
 
                             <input
                                 onChange={(e) => setEdit(e.target.value)}
                                 value={edit}
-                                type="text"
-                                placeholder="Type here"
-                                className="input input-bordered input-primary w-full"
+                                type='text'
+                                placeholder='Type here'
+                                className='input input-bordered input-primary w-full'
                             />
 
                             <br />
                             <br />
 
                             <input
-                                accept="image/*"
+                                accept='image/*'
                                 onChange={handlePhoto}
-                                type="file"
-                                className="file-input file-input-bordered file-input-primary w-full max-w-xs"
+                                type='file'
+                                className='file-input file-input-bordered file-input-primary w-full max-w-xs'
                             />
 
                             <br />
                             <br />
 
-                            <button onClick={() => handleEdit(data._id)} className="btn btn-warning">
+                            <button onClick={() => handleEdit(data._id)} className='btn btn-warning'>
                                 Done
                             </button>
                            
@@ -320,7 +339,7 @@ const SpecialityList = () => {
                 </dialog>
             )}
         </>
-    )
-}
+    );
+};
 
-export default SpecialityList
+export default SpecialityList;

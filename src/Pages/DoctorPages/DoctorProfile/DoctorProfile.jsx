@@ -151,77 +151,79 @@ const DoctorProfile = () => {
       <Header />
   
       {doc && (
-        <div className='min-h-screen bg-white'>
-              <div className=' flex justify-center'>
+  <div className='min-h-screen bg-blue-50'>
+    <div className='flex flex-col items-center'>
+      <div className='text-2xl text-gray-500 mt-5'>
+        <h1>Doctor Profile</h1>
+      </div>
+
+      <div className='flex flex-col md:flex-row bg-blue-50'>
+        <div className='bg-white w-full md:w-96 h-96 rounded-3xl m-2 md:m-32 mx-auto md:mx-6 shadow-2xl border text-center'>
+          <div>
+            <img
+              src={doc.photo || 'placeholder_image_url'}
+              alt='Doctor Profile'
+              className='rounded-lg h-36 w-36 mx-auto m-10'
+            />
+            <p className='text-lg font-semibold'>
+              <span className='font-semibold'>Name:</span> {doc.name || 'Not added'}
+            </p>
+            <p className='text-black'>
+              <span className='font-semibold'>Speciality:</span> {doc.speciality || 'Not added'}
+            </p>
+            <p>
+              Experience : <span className='text-black m-5'>{doc.experience || 'Not added'}</span>
+            </p>
+            <div className='rating'>
+             
+            <div className="rating rating-lg">
+              <input type="radio" name="rating-8" className="mask mask-star-2 bg-orange-400" />
+              <input type="radio" name="rating-8" className="mask mask-star-2 bg-orange-400" checked />
+              <input type="radio" name="rating-8" className="mask mask-star-2 bg-orange-400" />
+              <input type="radio" name="rating-8" className="mask mask-star-2 bg-orange-400" />
+              <input type="radio" name="rating-8" className="mask mask-star-2 bg-orange-400" />
+            </div>
             
-              <div className='text-2xl text-gray-500 mt-5'>
-                   <h1>Doctor Profile</h1>
-              </div>
-
-              </div>
-
-          <div className='flex justify-center bg-white'>
-            <div className='bg-white w-96 h-96 rounded-3xl m-32 mx-6 shadow-2xl border border-black text-center'>
-              <div>
-                <img
-                  src={doc.photo || 'placeholder_image_url'}
-                  alt='Doctor Profile'
-                  className='rounded-lg h-36 w-36 mx-auto m-10'
-                />
-                <p className='text-lg font-semibold'>
-                  <span className='font-semibold'>Name:</span> {doc.name || 'Not added'}
-                </p>
-                <p className='text-black'>
-                  <span className='font-semibold'>Speciality:</span> {doc.speciality || 'Not added'}
-                </p>
-                <p>
-                  Experience : <span className='text-black m-5'>{doc.experience || 'Not added'}</span>
-                </p>
-                <p>
-                  {/* Languages : <span className='text-black m-5'>{doc.languages || 'Not added'}</span> */}
-                </p>
-                <div className='rating'>
-                  <input type='radio' name='rating-2' className='mask mask-star-2 bg-orange-400' />
-                  <input type='radio' name='rating-2' className='mask mask-star-2 bg-orange-400' checked />
-                  <input type='radio' name='rating-2' className='mask mask-star-2 bg-orange-400' />
-                  <input type='radio' name='rating-2' className='mask mask-star-2 bg-orange-400' />
-                  <input type='radio' name='rating-2' className='mask mask-star-2 bg-orange-400' />
-                </div>
-              </div>
             </div>
-
-            <div className='bg-white w-[600px] h-96 m-32 mx-2 p-24 rounded-3xl shadow-2xl border border-black bor flex flex-col justify-center'>
-              <div>
-                <span>Name</span>
-                <div className='border border-zinc-500 rounded-xl h-10 w-96'>
-                  <span className='text-black m-5'>{doc.name || 'Not added'}</span>
-                </div>
-
-                <span>Email</span>
-                <div className='border border-zinc-500 rounded-xl h-10 w-96'>
-                  <span className='text-black m-5'>{doc.email || 'Not added'}</span>
-                </div>
-
-                <span>Mobile</span>
-                <div className='border border-zinc-500 rounded-xl h-10 w-96'>
-                  <span className='text-black m-5'>{doc.mobile || 'Not added'}</span>
-                </div>
-
-                <span>Bio</span>
-                <div className='border border-zinc-500 rounded-xl h-28 w-96'>
-                  <span className='text-black m-5'>{doc.bio || 'Not added'}</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className='flex justify-center space-x-5'>
-            <Button onClick={() => setOpenModal2(true)}>EDIT</Button>
-            <Button ><Link to='/doctor/appointment'>Appointments</Link></Button>
-            <Button onClick={() => setOpenModal(true)}>Create Slots</Button>
           </div>
         </div>
-      )}
+
+        <div className='bg-white w-full md:w-[600px] h-96 m-2 md:m-32 mx-auto md:mx-2 p-4 md:p-24 rounded-3xl shadow-2xl border flex flex-col justify-center'>
+          <div>
+            <span>Name</span>
+            <div className='border border-zinc-500 rounded-xl h-10 md:w-96 mx-auto'>
+              <span className='text-black m-2'>{doc.name || 'Not added'}</span>
+            </div>
+
+            <span>Email</span>
+            <div className='border border-zinc-500 rounded-xl h-10 md:w-96 mx-auto'>
+              <span className='text-black m-2'>{doc.email || 'Not added'}</span>
+            </div>
+
+            <span>Mobile</span>
+            <div className='border border-zinc-500 rounded-xl h-10 md:w-96 mx-auto'>
+              <span className='text-black m-2'>{doc.mobile || 'Not added'}</span>
+            </div>
+
+            <span>Bio</span>
+            <div className='border border-zinc-500 rounded-xl h-28 md:w-96 mx-auto'>
+              <span className='text-black m-2'>{doc.bio || 'Not added'}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className='flex flex-col md:flex-row justify-center  md:space-x-5'>
+        
+        <Button onClick={() => setOpenModal2(true)}>EDIT</Button>
+        <Button>
+          <Link to='/doctor/appointment'>Appointments</Link>
+        </Button>
+        <Button onClick={() => setOpenModal(true)}>Create Slots</Button>
+      </div>
+    </div>
+  </div>
+)}
 
 
 

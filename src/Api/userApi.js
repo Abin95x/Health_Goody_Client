@@ -61,8 +61,19 @@ export async function makeAppointment(values) {
     return data;
 }
 
-export async function appointmentList(id) {
+export async function appointmentList(id,page,limit) {
     console.log(id, 'apaaiiiiiiiiiid');
-    const data = await userAxiosInstance.get(`/appointmentList?id=${id}`);
+    const data = await userAxiosInstance.get(`/appointmentList?id=${id}`,{
+        params:{
+            page,
+            limit,
+        }
+    });
+    return data;
+}
+
+export async function drDataForAppointmentDetails(drId){
+    console.log(drId);
+    const data = await userAxiosInstance.get(`/drData?drId=${drId}`);
     return data;
 }

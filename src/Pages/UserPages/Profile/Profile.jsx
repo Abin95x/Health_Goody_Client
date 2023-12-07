@@ -88,10 +88,10 @@ const Profile = () => {
 
 
   return (
-    <div className='bg-white'>
+    <div className='bg-blue-50'>
       <Header />
       
-      <div className='h-screen bg-white container mx-auto flex items-center justify-center'>
+      <div className='h-screen bg-blue-50 container mx-auto flex items-center justify-center'>
         <div className='bg-white rounded-3xl shadow-2xl col-lg-9 col-md-9 col-sm-12 col-xs-12 shubham edit-input h-[700px] w-[1000px]'>
           <div className='w-[1000px] h-20 bg-green-300 rounded-t-3xl text-center '>
             <h1 className='p-7 text-slate-950 text-2xl font-mono'>Profile</h1>
@@ -137,11 +137,11 @@ const Profile = () => {
             </div>
             <br />
             <div className='flex justify-between'>
-              <button onClick={openModal} className="btn btn-info">Edit Details</button>
+              <button onClick={openModal} className="btn text-white bg-green-300">Edit Details</button>
 
               {/* <button></button> */}
-              <Link className="btn btn-primary" to={'/appointments'}>My Appointments</Link>
-              <button className="btn btn-warning">My Reports</button>
+              <Link className="btn text-white bg-green-300" to={'/appointments'}>My Appointments</Link>
+              <button className="btn text-white bg-green-300">My Reports</button>
             </div>
           </div>
         </div>

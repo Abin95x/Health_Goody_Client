@@ -9,9 +9,7 @@ const Slots = () => {
     const [slots, setSlots] = useState([]);
     const [openModal, setOpenModal] = useState(false);
     const id = doctorData._id;
-    console.log(slots)
     const [selectedSlot, setSelectedSlot] = useState(null);
-
 
     useEffect(() => {
         slotList(id)
@@ -27,78 +25,75 @@ const Slots = () => {
         try {
             const selectedSlot = slots.find((slot) => slot._id === id);
             setSelectedSlot(selectedSlot);
-
-            setOpenModal(true)
-
+            setOpenModal(true);
         } catch (error) {
-            console.log(error.message)
+            console.log(error.message);
         }
-    }
+    };
 
     return (
-        <>
-            <div className="min-h-screen bg-white">
-                <div className="overflow-x-auto">
-                    <table className="table">
-                        {/* head */}
-                        <thead>
-                            <tr className="text-black">
-                                <th>No</th>
-                                <th>Date</th>
-                                <th>Starting Time</th>
-                                <th>Ending Time</th>
-                                <th>Duration</th>
-                                <th>VIEW SLOTS</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {slots.map((slot, index) => (
-                                <tr key={slot._id} className="text-black">
-                                    <td>{index + 1}</td>
-                                    <td>{new Date(slot.date).toLocaleDateString()}</td>
-                                    <td>{slot.startTime}</td>
-                                    <td>{slot.endTime}</td>
-                                    <td>{slot.slotDuration}</td>
-                                    <td>
-                                        <button onClick={() => handeClick(slot._id)}>details</button>
-                                    </td>
+        <div className="min-h-screen bg-blue-50">
+            <br />
+            <div className='flex justify-center'>
+                <div className='w-full lg:w-[800px] bg-white min-h-[600px] rounded-xl shadow-2xl overflow-hidden'>
+                    <div className="overflow-x-auto">
+                        <table className="table w-full">
+                            {/* head */}
+                            <thead className='bg-amber-200 rounded-t-xl'>
+                                <tr className="text-black">
+                                    <th className="py-2">No</th>
+                                    <th className="py-2">Date</th>
+                                    <th className="py-2">Starting Time</th>
+                                    <th className="py-2">Ending Time</th>
+                                    <th className="py-2">Duration</th>
+                                    <th className="py-2">VIEW SLOTS</th>
                                 </tr>
-                            ))}
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                                {slots.map((slot, index) => (
+                                    <tr key={slot._id} className="text-black">
+                                        <td className="py-2">{index + 1}</td>
+                                        <td className="py-2">{new Date(slot.date).toLocaleDateString()}</td>
+                                        <td className="py-2">{slot.startTime}</td>
+                                        <td className="py-2">{slot.endTime}</td>
+                                        <td className="py-2">{slot.slotDuration}</td>
+                                        <td className="py-2">
+                                            <button onClick={() => handeClick(slot._id)} className="text-blue-500 hover:underline">Details</button>
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
 
+            <br />
             <Modal show={openModal} onClose={() => setOpenModal(false)}>
-    <Modal.Header className="bg-white text-white">Time Slots</Modal.Header>
-    <Modal.Body>
-        {selectedSlot && (
-            <div>
-                <p className="text-lg font-bold mb-4">Slot {slots.indexOf(selectedSlot) + 1}</p>
-                <div className='grid gap-4'>
-                    {selectedSlot.timeSlots.map((time, timeIndex) => (
-                        <div key={timeIndex} className="bg-white p-4 border rounded-md">
-                            <p className="text-xl font-semibold mb-2">Time: {time.start} - {time.end}</p>
-                            <p>Booked: {time.booked ? 'Yes' : 'No'}</p>
-                            {/* <p>Object ID: {time.objectId}</p> */}
+                <Modal.Header className="bg-white ">Time Slots</Modal.Header>
+                <Modal.Body>
+                    {selectedSlot && (
+                        <div>
+                            <p className="text-lg font-bold mb-4">Slot {slots.indexOf(selectedSlot) + 1}</p>
+                            <div className='grid gap-4'>
+                                {selectedSlot.timeSlots.map((time, timeIndex) => (
+                                    <div key={timeIndex} className="bg-white p-4 border rounded-md">
+                                        <p className="text-xl font-semibold mb-2">Time: {time.start} - {time.end}</p>
+                                        <p className={`text-${time.booked ? 'green' : 'red'}-600`}>
+                                             Booked: {time.booked ? 'Yes' : 'No'}
+                                        </p>
+
+                                    </div>
+                                ))}
+                            </div>
                         </div>
-                    ))}
-                </div>
-            </div>
-        )}
-    </Modal.Body>
-    <Modal.Footer className="bg-whitep-4">
-        <Button className="bg-blue-500 text-white" onClick={() => setOpenModal(false)}>Close</Button>
-        {/* <Button className="text-gray-700 border border-gray-300" onClick={() => setOpenModal(false)}>
-            Cancel
-        </Button> */}
-    </Modal.Footer>
-</Modal>
-
-
-
-
-        </>
+                    )}
+                </Modal.Body>
+                <Modal.Footer className="bg-white p-4">
+                    <Button className="bg-blue-500 text-white" onClick={() => setOpenModal(false)}>Close</Button>
+                </Modal.Footer>
+            </Modal>
+        </div>
     );
 };
 

@@ -10,7 +10,8 @@ const DoctorList = () => {
     const [select, setSelect] = useState('');
     const [filteredDoctors, setFilteredDoctors] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
-    const [noOfDoctors, setNoOfDoctors] = useState(4);
+    // const [noOfDoctors, setNoOfDoctors] = useState(4);
+    const noOfDoctors = 4;
 
     useEffect(() => {
         doctorList()
@@ -60,16 +61,16 @@ const DoctorList = () => {
 
     return (
         <>
-            <div className='bg-white min-h-screen'>
+            <div className='bg-blue-50 min-h-screen'>
                 <div className='flex justify-center space-x-4 p-4'>
                     {speciality && (
                         <div className='text-black'>
                             <select
                                 name="speciality"
                                 onChange={handleSelectChange}
-                                className="input input-bordered bg-white border-black rounded-none"
+                                className="input input-bordered bg-white border rounded-2xl"
                             >
-                                <option value="" disabled selected>
+                                <option value=""    >
                                     Select a speciality
                                 </option>
                                 {speciality.map((speciality) => (
@@ -87,15 +88,15 @@ const DoctorList = () => {
                         placeholder='Search'
                         value={searchQuery}
                         onChange={handleSearchChange}
-                        className='input input-bordered w-full md:w-64 bg-white border-black text-black rounded-none'
+                        className='input input-bordered w-full md:w-64 bg-white border  text-black rounded-2xl'
                     />
                 </div>
 
                 <div className='max-w-screen-xl mx-auto p-4'>
-                    <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4'>
+                    <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 '>
                         {currentDoctors.map((doctor) => (
                             <Link to={`/doctordetails/${doctor._id}`} key={doctor._id}>
-                                <div className='bg-white shadow-lg border rounded-lg overflow-hidden transition-transform transform hover:scale-105'>
+                                <div className='bg-white shadow-lg border h-96 rounded-lg overflow-hidden transition-transform transform hover:scale-105'>
                                     <div className='p-4 text-gray-900'>
                                         <img
                                             src={doctor.photo}
@@ -110,6 +111,7 @@ const DoctorList = () => {
                                         <p className='mb-2'>Price: ₹299</p>
                                         <p className='mb-2'>Speciality: {doctor.speciality}</p>
                                         <p className='mb-2'>Experience: {doctor.experience ? doctor.experience : 'Not added'}</p>
+                                        <p className='mb-2'>Language: English,malayalam</p>
                                         {/* <p className='mb-2'>
                                             Languages:{' '}
                                             {doctor.languages && doctor.languages.length > 0
@@ -130,7 +132,7 @@ const DoctorList = () => {
                 </div>
 
                 {/* Pagination */}
-                <div className='flex justify-center mt-4 bg-white'>
+                <div className='flex justify-center mt-4 bg-blue-50'>
                     {Array.from({ length: Math.ceil(filteredDoctors.length / noOfDoctors) }, (_, index) => (
                         <button key={index + 1} onClick={() => paginate(index + 1)} className='pagination-btn border w-10 border-black'>
                             {index + 1}

@@ -1,73 +1,124 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux/es/hooks/useSelector';
 import { appointmentList } from '../../../Api/userApi';
+// import { drDataForAppointmentDetails } from '../../../Api/userApi';
+import { Button, Modal } from 'flowbite-react';
 
 const AppointmentList = () => {
-    const [app, setApp] = useState();
-    const user = useSelector((state) => state.reducer); 
-    const userData = user.userReducer.user;
-    const id = userData._id;
+  const [openModal, setOpenModal] = useState(false);
+  const [appo, setAppo] = useState([]);
+  const [pagination, setPagination] = useState({});
+  const user = useSelector((state) => state.reducer);
+  const userData = user.userReducer.user;
+  const id = userData._id;
 
-    const formatDateTime = (dateTimeString) => {
-        return new Date(dateTimeString).toLocaleString('en-GB', {
-          day: 'numeric',
-          month: 'short',
-          year: 'numeric',
-          hour: 'numeric',
-          minute: 'numeric',
-          second: 'numeric',
-          timeZoneName: 'short',
-        });
-      };
+  
 
-    useEffect(() => {
-        appointmentList(id).then((res) => {
-            setApp(res.data);
-            
-        }).catch((error) => {
-            console.log(error.message);
-        });
+  const [currentPage, setCurrentPage] = useState(1);
+  const limit = 5;
 
-    }, []);
-    console.log(app,'appdatttttttttttttttttt');
+  useEffect(() => {
+    appointmentList(id, currentPage, limit)
+      .then((res) => {
+        setAppo(res.data.data);
+        setPagination(res.data.pagination);
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+  }, [id, currentPage, limit]);
+
+
+
     return (
-        <div>
-           <br />
-              <div className='flex justify-center text-4xl'>
-              <h1>Your Appointment</h1>
-           </div>
-          {app && app.length > 0 && (
-            <div className="flex flex-col gap-4">
-            
-              {app.map((item) => {
-                return (
-                  <div key={item._id} className="bg-white shadow-2xl  w-[700px] h-80 m-10 rounded-xl border">
-                    <div className='m-5'>
-                    <h1 className="text-blue-500 text-2xl font-bold mb-2">
-                      Consultation Date: {formatDateTime(item.consultationDate)}
-                    </h1>
-                    <br />
-                    <p className="text-gray-600">Booked Date: {formatDateTime(item.createdAt)}</p>
-                    <br />
-                    <p className="text-gray-600">Doctor: {}</p>
-                    <br />
-                    <p className="text-gray-600">Start Time: {item.start}</p>
-                    <br />
-                    <p className="text-gray-600">End Time: {item.end}</p>
-                    <button className="btn btn-active mx-[570px]">More</button>
-                    </div>
-                    <br />
-                   
 
-                  </div>
-                );
-              })}
+      
+      
+     
+      <div className='bg-blue-50 w-screen overflow-x-auto'>
+      <div className='min-h-[500px] flex justify-center '>
+        <div className='bg-white min-h-[500px] min-w-[900px] m-10 rounded-2xl shadow-2xl'>
+          <div className='text-center m-5'>
+            <h1 className='text-lg text-blue-600'>Appointments</h1>
+          </div>
+          <hr className="border border-blue-300 mx-5"  />
+          <div className="m-5 h-14 rounded-xl border flex justify-center overflow-x-auto">
+            <table className="table w-full text-black">
+              <tr className="">
+                <th className="p-2">Doctor</th>
+                <th className="p-2">Appo. Date</th>
+                <th className="p-2">Booked Date</th>
+                <th className="p-2">Amount</th>
+                <th className="p-2">Timing</th>
+                <th className="p-2">Status</th>
+                <th className="p-2">More</th>
+           
+              </tr>
+            </table>
+          </div>
+          <div className="m-5  min-h-[400px] rounded-xl border overflow-x-auto">
+            <div className="flex justify-center">
+              <table className="table w-full text-black ">
+                {appo.map((appointment) => (
+                  <tr key={appointment.id}>
+                    <td className="p-2">{appointment.doctorDetails.name}</td>
+                    <td className="p-2">{appointment.consultationDate}</td>
+                    <td className="p-2">{appointment.createdAt}</td>
+                    <td className="p-2">299</td>
+                    <td className="p-2">{appointment.start} - {appointment.end}</td>
+                    <td className="p-2">{appointment.status}</td>
+                    <td className="p-2 hover:cursor-pointer text-sky-600" onClick={() => setOpenModal(true)}>More</td>
+                  </tr>
+                ))}
+              </table>
             </div>
-          )}
+          </div>
+        </div>     
+      </div>
+      {pagination && pagination.totalPages && (
+        <div className="flex justify-center mt-4 bg-blue-50">
+          {Array.from({ length: pagination.totalPages }, (_, index) => (
+            <button
+              key={index + 1}
+              onClick={() => setCurrentPage(index + 1)}
+              className={`pagination-btn border w-10 ${
+                index + 1 === currentPage ? 'border-black' : 'border-gray-300'
+              }`}
+            >
+              {index + 1}
+            </button>
+          ))}
         </div>
-      );
-      
-      
+      )} 
+      <br />
+      <Modal show={openModal} onClose={() => setOpenModal(false)}>
+        <Modal.Header>Terms of Service</Modal.Header>
+        <Modal.Body>
+          <div className="space-y-6">
+            <p className="text-base leading-relaxed text-gray-500 dark:text-gray-400">
+              With less than a month to go before the European Union enacts new consumer privacy laws for its citizens,
+              companies around the world are updating their terms of service agreements to comply.
+            </p>
+            <p className="text-base leading-relaxed text-gray-500 dark:text-gray-400">
+              The European Union’s General Data Protection Regulation (G.D.P.R.) goes into effect on May 25 and is meant
+              to ensure a common set of data rights in the European Union. It requires organizations to notify users as
+              soon as possible of high-risk data breaches that could personally affect them.
+            </p>
+          </div>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button onClick={() => setOpenModal(false)}>I accept</Button>
+          <Button color="gray" onClick={() => setOpenModal(false)}>
+            Decline
+          </Button>
+        </Modal.Footer>
+      </Modal>
+    </div>
+    
+    );
+    
 };
 
 export default AppointmentList;
+
+

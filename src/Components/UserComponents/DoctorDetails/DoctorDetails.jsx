@@ -107,7 +107,7 @@ const DoctorDetails = () => {
     return (
         <div>
             {doctor && (
-                <div className="min-h-screen bg-white flex justify-center">
+                <div className="min-h-screen bg-blue-50 flex justify-center">
                     <div className='bg-white w-full md:w-[80%] lg:w-[70%] xl:w-[60%] 2xl:w-[50%] rounded-xl shadow-2xl p-8 h-[500px] m-20 '>
                         <div className='flex justify-center'>
                             <img

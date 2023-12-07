@@ -1,9 +1,9 @@
-import React from 'react'
+import React from 'react';
 
 const Footer = () => {
   return (
     <div>
-      <footer className="footer p-10 bg-white border-t-2  text-black">
+      <footer className="footer p-10 bg-white   text-black">
         <nav>
           <header className="footer-title">Services</header> 
           <a className="link link-hover">Branding</a> 
@@ -28,7 +28,7 @@ const Footer = () => {
         </nav>
       </footer>
     </div>
-  )
-}
+  );
+};
 
-export default Footer
+export default Footer;

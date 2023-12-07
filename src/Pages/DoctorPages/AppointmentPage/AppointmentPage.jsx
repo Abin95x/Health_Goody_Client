@@ -7,7 +7,7 @@ const AppointmentPage = () => {
   return (
     <div>
         <Header/>
-        <div className='min-h-screen bg-white'>
+        <div className='min-h-screen bg-blue-50'>
         <AppointmentList/>
 
         </div>

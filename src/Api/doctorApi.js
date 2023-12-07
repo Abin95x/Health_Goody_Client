@@ -43,7 +43,6 @@ export async function doctorDetails(id){
 
 
 export async function editProfile(values,){
-    console.log(values,'hiappppppppppiiiiiiiiiii');
     const data = await doctorAxiosInstance.post('/editProfile',values);
     return data;
 }

@@ -1,12 +1,12 @@
-import React from 'react'
+import React from 'react';
 
 
 const Review = () => {
   return (
     <div>
-        <div className='bg-white h-[400px]  text-center'>
+        <div className='bg-blue-50 h-[400px]  text-center'>
           <br />
-        <h1 class="text-3xl font-bold text-black mb-4">Reviews</h1>
+        <h1 className="text-3xl font-bold text-black mb-4">Reviews</h1>
         {/* <div className="card w-72 bg-base-100 shadow-xl">
             <figure className="px-10 pt-10">
                 <img src="icon.jpg" alt="" className="rounded-full" />
@@ -20,7 +20,7 @@ const Review = () => {
           
         </div>
     </div>
-  )
-}
+  );
+};
 
-export default Review
+export default Review;
