@@ -72,8 +72,8 @@ export async function appointmentList(id,page,limit) {
     return data;
 }
 
-export async function drDataForAppointmentDetails(drId){
-    console.log(drId);
-    const data = await userAxiosInstance.get(`/drData?drId=${drId}`);
+export async function cancelAppointment(id){
+    console.log(id,'api');
+    const data = await userAxiosInstance.patch(`cancelAppointment?id=${id}`);
     return data;
 }

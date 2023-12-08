@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux/es/hooks/useSelector';
 import { appointmentList } from '../../../Api/userApi';
 // import { drDataForAppointmentDetails } from '../../../Api/userApi';
 import { Button, Modal } from 'flowbite-react';
+import { cancelAppointment } from '../../../Api/userApi';
 
 const AppointmentList = () => {
   const [openModal, setOpenModal] = useState(false);
@@ -11,6 +12,12 @@ const AppointmentList = () => {
   const user = useSelector((state) => state.reducer);
   const userData = user.userReducer.user;
   const id = userData._id;
+  const [data,setData] = useState();
+  const [currentDate,setCurrentDate] = useState();
+  const [currentTime,setCurrentTime] = useState();
+
+
+  console.log(currentDate);
 
   
 
@@ -22,13 +29,30 @@ const AppointmentList = () => {
       .then((res) => {
         setAppo(res.data.data);
         setPagination(res.data.pagination);
+        setCurrentDate(res.data.currentDate);
+        setCurrentTime(res.data.currentTime);
       })
       .catch((error) => {
         console.log(error.message);
       });
   }, [id, currentPage, limit]);
 
+const handleCancel = async (id) =>{
+  try{
+    console.log(id);
+    const response = await cancelAppointment(id);
+    console.log(response,'resbro');
 
+  }catch(error){
+    console.log(error.message);
+  }
+};
+
+
+  const handleButtonClick = () =>{
+    
+  };
+console.log(data,'jfkdjf');
 
     return (
 
@@ -67,7 +91,10 @@ const AppointmentList = () => {
                     <td className="p-2">299</td>
                     <td className="p-2">{appointment.start} - {appointment.end}</td>
                     <td className="p-2">{appointment.status}</td>
-                    <td className="p-2 hover:cursor-pointer text-sky-600" onClick={() => setOpenModal(true)}>More</td>
+                    <td className="p-2 hover:cursor-pointer text-sky-600" onClick={() => {
+                      setOpenModal(true);
+                      setData(appointment);
+                    }}>More</td>
                   </tr>
                 ))}
               </table>
@@ -91,28 +118,50 @@ const AppointmentList = () => {
         </div>
       )} 
       <br />
-      <Modal show={openModal} onClose={() => setOpenModal(false)}>
-        <Modal.Header>Terms of Service</Modal.Header>
-        <Modal.Body>
-          <div className="space-y-6">
-            <p className="text-base leading-relaxed text-gray-500 dark:text-gray-400">
-              With less than a month to go before the European Union enacts new consumer privacy laws for its citizens,
-              companies around the world are updating their terms of service agreements to comply.
-            </p>
-            <p className="text-base leading-relaxed text-gray-500 dark:text-gray-400">
-              The European Union’s General Data Protection Regulation (G.D.P.R.) goes into effect on May 25 and is meant
-              to ensure a common set of data rights in the European Union. It requires organizations to notify users as
-              soon as possible of high-risk data breaches that could personally affect them.
-            </p>
-          </div>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button onClick={() => setOpenModal(false)}>I accept</Button>
-          <Button color="gray" onClick={() => setOpenModal(false)}>
-            Decline
-          </Button>
-        </Modal.Footer>
-      </Modal>
+      {data && (
+          <Modal show={openModal} onClose={() => setOpenModal(false)}>
+            <Modal.Header>Terms of Service</Modal.Header>
+            <Modal.Body>
+              <div className="space-y-6">
+                <p className="text-2xl leading-relaxed text-gray-500 dark:text-gray-400">
+                  Your appointment is scheduled for{' '}
+                  <span className="text-red-600">{data.consultationDate}</span> from{' '}
+                  <span className="text-red-600">{data.start}</span> to{' '}
+                  <span className="text-red-600">{data.end}</span>. Please be ready at
+                  that time for your consultation.
+                </p>
+                <br />
+                
+                <div className="space-y-6">
+                
+                
+                {currentDate === data.consultationDate && currentTime === data.start ? (
+                  <React.Fragment>
+                    <p className="text-xl text-green-500">
+                      Video call and online chat options will be available here during your
+                      scheduled appointment time.
+                    </p>
+                    <Button onClick={() => handleButtonClick()}>Your Button Text</Button>
+                  </React.Fragment>
+                ) : (
+                  <p className="text-xl text-red-500">
+                    Video call and online chat options will not be available outside your
+                    scheduled appointment time.
+                  </p>
+                )}
+              </div>
+              <br />
+              <button  className='btn btn-error w-full' onClick={()=>handleCancel(data._id)}  >Cancel Appointment</button>
+
+              </div>
+            </Modal.Body>
+            <Modal.Footer>
+              <Button onClick={() => setOpenModal(false)}>Close</Button>
+            </Modal.Footer>
+          </Modal>
+        )}
+
+
     </div>
     
     );
