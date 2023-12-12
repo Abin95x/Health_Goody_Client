@@ -142,7 +142,7 @@ const DoctorProfile = () => {
     enableReinitialize: true,
   });
 
-  console.log(values);
+  // console.log(values);
 
 
 

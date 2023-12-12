@@ -4,7 +4,7 @@ function UserProtect(props){
     if(localStorage.getItem('usertoken')){
         return props.children;
     }else{
-        return <Navigate to='/' />
+        return <Navigate to='/' />;
     }
 }
 

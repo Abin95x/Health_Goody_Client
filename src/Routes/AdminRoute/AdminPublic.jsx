@@ -4,9 +4,9 @@ import { Navigate } from 'react-router-dom';
   try {
     const token =  localStorage.getItem('admintoken');
     if(token){
-      return <Navigate to='/admin/dashboard'/>
+      return <Navigate to='/admin/dashboard'/>;
     }else{
-      <Navigate to='/admin/adminlogin'/>
+      <Navigate to='/admin/adminlogin'/>;
       return props.children;
     }
   } catch (error) {

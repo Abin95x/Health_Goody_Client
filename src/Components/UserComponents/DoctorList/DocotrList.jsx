@@ -1,27 +1,29 @@
 import React, { useEffect, useState } from 'react';
 import { doctorList } from '../../../Api/userApi';
-import { Link } from 'react-router-dom';
 import { specialityName } from '../../../Api/doctorApi';
+import { Link } from 'react-router-dom';
 
 const DoctorList = () => {
     const [doctors, setDoctors] = useState([]);
-    const [searchQuery, setSearchQuery] = useState('');
     const [speciality, setSpeciality] = useState([]);
     const [select, setSelect] = useState('');
-    const [filteredDoctors, setFilteredDoctors] = useState([]);
+    const [searchQuery, setSearchQuery] = useState('');
     const [currentPage, setCurrentPage] = useState(1);
-    // const [noOfDoctors, setNoOfDoctors] = useState(4);
+    const [totalCount,setTotalCount]=useState();
+    const [sort,setSort] = useState();
     const noOfDoctors = 4;
 
     useEffect(() => {
-        doctorList()
+        doctorList(select, searchQuery, currentPage, noOfDoctors,sort)
             .then((response) => {
                 setDoctors(response.data.doctors);
+                setTotalCount(response.data.totalCount); // Assuming you have a state variable for totalCount
             })
             .catch((error) => {
                 console.log(error);
             });
-    }, []);
+    }, [select, searchQuery, currentPage ,sort]);
+    
 
     const handleSearchChange = (e) => {
         setSearchQuery(e.target.value);
@@ -43,21 +45,14 @@ const DoctorList = () => {
             });
     }, []);
 
-    useEffect(() => {
-        const filtered = doctors.filter(
-            (doctor) =>
-                doctor.name.toLowerCase().includes(searchQuery.toLowerCase()) &&
-                (select ? doctor.speciality === select : true)
-        );
+    const handleSortChange = (e) => {
+        setSort(e.target.value);
+        setCurrentPage(1);
+    };
+    
+    
 
-        setFilteredDoctors(filtered);
-    }, [doctors, searchQuery, select]);
-
-    const lastItemIndex = currentPage * noOfDoctors;
-    const firstItemIndex = lastItemIndex - noOfDoctors;
-    const currentDoctors = filteredDoctors.slice(firstItemIndex, lastItemIndex);
-
-    const paginate = (pageNumber) => setCurrentPage(pageNumber);
+    const totalPages = Math.ceil(totalCount / noOfDoctors);
 
     return (
         <>
@@ -70,7 +65,7 @@ const DoctorList = () => {
                                 onChange={handleSelectChange}
                                 className="input input-bordered bg-white border rounded-2xl"
                             >
-                                <option value=""    >
+                                <option value="">
                                     Select a speciality
                                 </option>
                                 {speciality.map((speciality) => (
@@ -79,22 +74,32 @@ const DoctorList = () => {
                                     </option>
                                 ))}
                             </select>
-
                         </div>
                     )}
+
+                    <div className='text-black'>
+                        <select
+                            name="sort"
+                            onChange={handleSortChange}
+                            className="input input-bordered bg-white border rounded-2xl"
+                        >
+                            <option value="">Sort by</option>
+                            <option value="experience">Experience</option>
+                        </select>
+                    </div>
 
                     <input
                         type='text'
                         placeholder='Search'
                         value={searchQuery}
                         onChange={handleSearchChange}
-                        className='input input-bordered w-full md:w-64 bg-white border  text-black rounded-2xl'
+                        className='input input-bordered w-full md:w-64 bg-white border text-black rounded-2xl'
                     />
                 </div>
 
                 <div className='max-w-screen-xl mx-auto p-4'>
                     <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 '>
-                        {currentDoctors.map((doctor) => (
+                        {doctors.map((doctor) => (
                             <Link to={`/doctordetails/${doctor._id}`} key={doctor._id}>
                                 <div className='bg-white shadow-lg border h-96 rounded-lg overflow-hidden transition-transform transform hover:scale-105'>
                                     <div className='p-4 text-gray-900'>
@@ -104,43 +109,29 @@ const DoctorList = () => {
                                             className='w-24 h-24 rounded-full mb-4 mx-auto object-cover'
                                         />
                                         <h3 className='text-lg font-semibold text-center mb-2'>Dr. {doctor.name}</h3>
-                                        {/* <p className='mb-2'>Education: {doctor.education ? doctor.education : 'Not added'}</p> */}
-
                                     </div>
                                     <div className='border-t p-4 text-black'>
                                         <p className='mb-2'>Price: ₹299</p>
                                         <p className='mb-2'>Speciality: {doctor.speciality}</p>
                                         <p className='mb-2'>Experience: {doctor.experience ? doctor.experience : 'Not added'}</p>
                                         <p className='mb-2'>Language: English,malayalam</p>
-                                        {/* <p className='mb-2'>
-                                            Languages:{' '}
-                                            {doctor.languages && doctor.languages.length > 0
-                                                ? doctor.languages.join(', ')
-                                                : 'Not added'}
-                                        </p> */}
-                                        <div className='flex items-center justify-center'>
-                                            {/* <button className='btn text-white btn-sm bg-blue-500 hover:bg-blue-600'>
-                BOOK VIDEO CONSULT
-              </button> */}
-
-                                        </div>
                                     </div>
                                 </div>
                             </Link>
                         ))}
+                        
                     </div>
                 </div>
 
                 {/* Pagination */}
                 <div className='flex justify-center mt-4 bg-blue-50'>
-                    {Array.from({ length: Math.ceil(filteredDoctors.length / noOfDoctors) }, (_, index) => (
-                        <button key={index + 1} onClick={() => paginate(index + 1)} className='pagination-btn border w-10 border-black'>
+                    {Array.from({ length: totalPages }, (_, index) => (
+                        <button key={index + 1} onClick={() => setCurrentPage(index + 1)} className='pagination-btn border w-10 border-black'>
                             {index + 1}
                         </button>
                     ))}
                 </div>
             </div>
-
         </>
     );
 };

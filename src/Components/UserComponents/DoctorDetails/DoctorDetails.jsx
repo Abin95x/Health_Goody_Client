@@ -14,6 +14,7 @@ const DoctorDetails = () => {
     const { id } = useParams();
     const [doctor, setDoctor] = useState(null);
     const [openModal, setOpenModal] = useState(false);
+    const [openModalx, setOpenModalx] = useState(false);
     const [slots, setSlots] = useState([]);
     const [drId, setDrId] = useState();
     const [select, setSelect] = useState();
@@ -87,7 +88,7 @@ const DoctorDetails = () => {
         } catch (error) {
             console.log(error.message);
         }
-    };
+    }; 
 
     const handlePayment = async () => {
         try {
@@ -108,7 +109,7 @@ const DoctorDetails = () => {
         <div>
             {doctor && (
                 <div className="min-h-screen bg-blue-50 flex justify-center">
-                    <div className='bg-white w-full md:w-[80%] lg:w-[70%] xl:w-[60%] 2xl:w-[50%] rounded-xl shadow-2xl p-8 h-[500px] m-20 '>
+                    <div className='bg-white w-full md:w-[80%] lg:w-[70%] xl:w-[60%] 2xl:w-[50%] rounded-xl shadow-2xl p-8 h-[600px] m-20 '>
                         <div className='flex justify-center'>
                             <img
                                 className="mx-auto mb-4 h-40 w-40 rounded-full shadow-2xl"
@@ -129,6 +130,10 @@ const DoctorDetails = () => {
                         </div>
                         <div className="flex justify-center">
                             <Button onClick={() => setOpenModal(true)}>View Slots</Button>
+                        </div>
+                        <br />
+                        <div className="flex justify-center">
+                            <Button className='btn btn-primary' onClick={() => setOpenModalx(true)}>Connect</Button>
                         </div>
                     </div>
                 </div>
@@ -172,7 +177,29 @@ const DoctorDetails = () => {
                         </div>
                     )}
                 </Modal.Footer>
+            </Modal>
 
+            <Modal show={openModalx} onClose={() => setOpenModalx(false)}>
+                <Modal.Header>Terms of Service</Modal.Header>
+                <Modal.Body>
+                <div className="space-y-6">
+                    <p className="text-base leading-relaxed text-gray-500 dark:text-gray-400">
+                    With less than a month to go before the European Union enacts new consumer privacy laws for its citizens,
+                    companies around the world are updating their terms of service agreements to comply.
+                    </p>
+                    <p className="text-base leading-relaxed text-gray-500 dark:text-gray-400">
+                    The European Union’s General Data Protection Regulation (G.D.P.R.) goes into effect on May 25 and is meant
+                    to ensure a common set of data rights in the European Union. It requires organizations to notify users as
+                    soon as possible of high-risk data breaches that could personally affect them.
+                    </p>
+                </div>
+                </Modal.Body>
+                <Modal.Footer>
+                <Button onClick={() => setOpenModal(false)}>I accept</Button>
+                <Button color="gray" onClick={() => setOpenModal(false)}>
+                    Decline
+                </Button>
+                </Modal.Footer>
             </Modal>
 
         </div>

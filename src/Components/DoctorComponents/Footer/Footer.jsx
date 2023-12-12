@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 
 const Footer = () => {
   return (
@@ -28,7 +28,7 @@ const Footer = () => {
       <a className="link link-hover">Cookie policy</a>
     </nav>
   </footer></div>
-  )
-}
+  );
+};
 
-export default Footer
+export default Footer;

@@ -1,8 +1,8 @@
-import React from 'react'
-import Header from '../../../Components/AdminComponents/Header/Header'
-import SideNav from '../../../Components/AdminComponents/SideNav/SideNav'
-import Footer from '../../../Components/AdminComponents/Footer/Footer'
-import { UserList } from '../../../Components/AdminComponents/UserList/UserList'
+import React from 'react';
+import Header from '../../../Components/AdminComponents/Header/Header';
+import SideNav from '../../../Components/AdminComponents/SideNav/SideNav';
+import Footer from '../../../Components/AdminComponents/Footer/Footer';
+import { UserList } from '../../../Components/AdminComponents/UserList/UserList';
 
 const UserListPage = () => {
 
@@ -21,7 +21,7 @@ const UserListPage = () => {
             </div>
             <Footer/>
         </>
-    )
-}
+    );
+};
 
-export default UserListPage
+export default UserListPage;

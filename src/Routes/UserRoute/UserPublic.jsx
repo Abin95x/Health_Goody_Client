@@ -4,9 +4,9 @@ import { Navigate } from 'react-router-dom';
   try {
     const token =  localStorage.getItem('usertoken');
     if(token){
-      return <Navigate to='/'/>
+      return <Navigate to='/'/>;
     }else{
-      <Navigate to='/'/>
+      <Navigate to='/'/>;
       return props.children;
     }
   } catch (error) {

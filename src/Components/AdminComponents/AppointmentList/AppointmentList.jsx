@@ -17,15 +17,14 @@ const AppointmentList = () => {
 
         fetchAppointments();
     }, []);
-    console.log(appointments, "jjjjjjj")
 
-    const handleClick = () => {
-        try {
+    // const handleClick = () => {
+    //     try {
 
-        } catch (error) {
-            console.log(error.message)
-        }
-    }
+    //     } catch (error) {
+    //         console.log(error.message)
+    //     }
+    // }
 
     return (
 
@@ -78,9 +77,9 @@ const AppointmentList = () => {
 
 
                                         <td>
-                                            < button type='button' onClick={() => handleClick()}>
+                                            {/* < button type='button' onClick={() => handleClick()}>
                                                 More Info
-                                            </button>
+                                            </button> */}
 
                                         </td>
                                     </tr>

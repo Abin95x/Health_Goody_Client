@@ -4,7 +4,7 @@ function AdminProtect(props){
     if(localStorage.getItem('admintoken')){
         return props.children;
     }else{
-        return <Navigate to='/admin/dashboard' />
+        return <Navigate to='/admin/dashboard' />;
     }
 }
 

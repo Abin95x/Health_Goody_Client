@@ -1,24 +1,24 @@
 
 
-import React, { Children, useEffect, useState } from 'react';
+import React, {  useEffect, useState } from 'react';
 import { unVerifiedDetails, adminVerify } from '../../../Api/adminApi';
 import { useParams } from 'react-router-dom';
 
 const VerifiedDetails = () => {
-  const [doctorData, setDoctorData] = useState(null)
-  const { id } = useParams()
+  const [doctorData, setDoctorData] = useState(null);
+  const { id } = useParams();
   
 
   useEffect(() => {
     unVerifiedDetails(id)
       .then((res) => {
-        setDoctorData(res?.data?.details)
+        setDoctorData(res?.data?.details);
       })
       .catch((error) => {
-        console.log(error.message)
-      })
+        console.log(error.message);
+      });
 
-  }, [id])
+  }, [id]);
  
 
 
@@ -28,9 +28,9 @@ const VerifiedDetails = () => {
       const res = await unVerifiedDetails(id);
       setDoctorData(res?.data?.details);
     } catch (error) {
-      console.log(error.message)
+      console.log(error.message);
     }
-  }
+  };
 
 
   return (

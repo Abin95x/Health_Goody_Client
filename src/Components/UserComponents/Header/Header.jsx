@@ -58,6 +58,8 @@ const Header = () => {
             <li><Link to='/appointments'>APPOINTMENTS</Link></li>
             {/* <li><Link to=''>HEALTH RECORDS</Link></li> */}
             <li><Link to='/doctorlist'>DOCTORS</Link></li>
+            <li><Link to='/chatuser'>CHAT</Link></li>
+
           </ul>
         </div>
 

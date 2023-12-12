@@ -1,18 +1,18 @@
-import React from 'react'
-import { Route,Routes } from 'react-router-dom'
+import React from 'react';
+import { Route,Routes } from 'react-router-dom';
 
-import LoginPage from '../../Pages/AdminPages/LoginPage/LoginPage'
-import Dashboard from '../../Pages/AdminPages/Dashboard/Dashboard'
-import UserListPage from '../../Pages/AdminPages/UserListPage/UserListPage'
-import DoctorListPage from '../../Pages/AdminPages/DoctorListPage/DoctorListPage'
-import VerifyDoctor from '../../Pages/AdminPages/VerifyDoctor/VerifyDoctor'
-import DoctorDetailsPage from '../../Pages/AdminPages/DoctorDetailsPage/DoctorDetailsPage'
-import Appointment from '../../Pages/AdminPages/Appointment/Appointment'
-import VerifyDetailsPage from '../../Pages/AdminPages/VerifyDetailsPage/verifyDetailsPage'
-import Speciality from '../../Pages/AdminPages/Speciality/Speciality'
+import LoginPage from '../../Pages/AdminPages/LoginPage/LoginPage';
+import Dashboard from '../../Pages/AdminPages/Dashboard/Dashboard';
+import UserListPage from '../../Pages/AdminPages/UserListPage/UserListPage';
+import DoctorListPage from '../../Pages/AdminPages/DoctorListPage/DoctorListPage';
+import VerifyDoctor from '../../Pages/AdminPages/VerifyDoctor/VerifyDoctor';
+import DoctorDetailsPage from '../../Pages/AdminPages/DoctorDetailsPage/DoctorDetailsPage';
+import Appointment from '../../Pages/AdminPages/Appointment/Appointment';
+import VerifyDetailsPage from '../../Pages/AdminPages/VerifyDetailsPage/verifyDetailsPage';
+import Speciality from '../../Pages/AdminPages/Speciality/Speciality';
 
-import AdminProtect from './AdminProtect'
-import AdminPublic from './AdminPublic'
+import AdminProtect from './AdminProtect';
+import AdminPublic from './AdminPublic';
 
 
 const AdminRoute = () => {
@@ -30,7 +30,7 @@ const AdminRoute = () => {
         
     </Routes>
     
-  )
-}
+  );
+};
 
-export default AdminRoute
+export default AdminRoute;

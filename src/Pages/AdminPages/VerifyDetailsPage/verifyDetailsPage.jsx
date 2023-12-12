@@ -17,7 +17,7 @@ const verifyDetailsPage = () => {
             </div>
             <Footer />
         </>
-    )
-}
+    );
+};
 
-export default verifyDetailsPage
+export default verifyDetailsPage;

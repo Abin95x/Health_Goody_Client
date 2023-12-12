@@ -38,9 +38,9 @@ export const UserList = () => {
       setUserData(res?.data?.details);
 
     } catch (error) {
-      console.log(error.message)
+      console.log(error.message);
     }
-  }
+  };
 
 
   return (
@@ -77,7 +77,7 @@ export const UserList = () => {
                 <td>{user.mobile}</td>
                 <td>
                   {/* <button type='button' onClick={() => { document.getElementById('my_modal_5').showModal(); handleClick(user._id); }}> */}
-                  <button ctype='button' onClick={() => { document.getElementById('my_modal_3').showModal(); handleClick(user._id); }}>
+                  <button type='button' onClick={() => { document.getElementById('my_modal_3').showModal(); handleClick(user._id); }}>
                     More Info
                   </button>
                 </td>

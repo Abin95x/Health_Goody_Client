@@ -5,20 +5,20 @@ import { useParams } from 'react-router-dom';
 const DoctorDetails = () => {
 
 
-  const [doctorData, setDoctorData] = useState(null)
-  const { id } = useParams()
+  const [doctorData, setDoctorData] = useState(null);
+  const { id } = useParams();
 
 
   useEffect(() => {
     doctorDetails(id)
       .then((res) => {
-        setDoctorData(res?.data?.details)
+        setDoctorData(res?.data?.details);
       })
       .catch((error) => {
-        console.log(error.message)
-      })
+        console.log(error.message);
+      });
 
-  }, [])
+  }, []);
 
   const handleClick = async (userId) => {
     try {
@@ -27,9 +27,9 @@ const DoctorDetails = () => {
       setDoctorData(res?.data?.details);
 
     } catch (error) {
-      console.log(error.message)
+      console.log(error.message);
     }
-  }
+  };
 
   return (
     <>

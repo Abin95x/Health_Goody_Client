@@ -13,7 +13,8 @@ import DoctorDetailsPage from '../../Pages/UserPages/DoctorDetailsPage/DoctorDet
 import PaymentSuccess from '../../Pages/UserPages/PaymentSuccess/PaymentSuccess';
 // import Cancel from '../../Pages/UserPages/Cancel';
 import AppointmentsPage from '../../Pages/UserPages/AppointmentsPage/AppointmentsPage';
-
+import VideoPage from '../../Pages/UserPages/VideoPage/VideoPage';
+import ChatPage from '../../Pages/UserPages/ChatPage/ChatPage';
 
 
 import UserPublic from './UserPublic';
@@ -37,6 +38,9 @@ const userRoute = () => {
       {/* <Route path='/cancel' element={<Cancel/> }/> */}
       <Route path='/profile' element={<UserProtect><Profile /></UserProtect>} />
       <Route path='/appointments' element={<UserProtect><AppointmentsPage /></UserProtect>} />
+      <Route path='/video' element={<UserProtect><VideoPage/></UserProtect>}/>
+      <Route path='/chatuser' element={<UserProtect><ChatPage/></UserProtect>}/>
+
 
     </Routes>
   );

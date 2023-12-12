@@ -11,6 +11,7 @@ import DoctorPublic from './DoctorPublic';
 import DoctorProfile from '../../Pages/DoctorPages/DoctorProfile/DoctorProfile';
 import DoctorSlotsPage from '../../Pages/DoctorPages/DoctorSlotsPage/DoctorSlotsPage';
 import AppointmentPage from '../../Pages/DoctorPages/AppointmentPage/AppointmentPage';
+import ChatPage from '../../Pages/DoctorPages/ChatPage/ChatPage';
 
 
 const DoctorRoute = () => {
@@ -24,6 +25,8 @@ const DoctorRoute = () => {
             <Route path='/doctorprofile' element={<DoctorProtect><DoctorProfile /></DoctorProtect>} />
             <Route path='/slots' element={<DoctorProtect><DoctorSlotsPage /></DoctorProtect>} />
             <Route path='/appointment' element={<DoctorProtect><AppointmentPage /></DoctorProtect>} />
+            <Route path='/chatpagedoctor' element={<DoctorProtect><ChatPage /></DoctorProtect>} />
+
 
 
         </Routes>

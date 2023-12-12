@@ -54,13 +54,13 @@ const Header = () => {
   </div>
   <div className='navbar-center hidden lg:flex'>
     <ul className='menu menu-horizontal px-1'>
-      <li><Link to='/doctor/dashboard'>Dashboard</Link></li>
-      <li><Link to='/doctor/appointment'>Appointments</Link></li>
-      <li><Link to='/doctor/slots'>Slots</Link></li>
-      
+      <li><Link to='/doctor/dashboard'>DASHBOARD</Link></li>
+      <li><Link to='/doctor/slots'>SLOTS</Link></li>
+      <li><Link to='/doctor/doctorprofile'>PROFILE</Link></li>
+      <li><Link to='/doctor/chatpagedoctor'>CHAT</Link></li>
+      <li><Link to='/doctor/appointment'>APPOINTMENT</Link></li>
 
-      
-      <li><Link to='/doctor/doctorprofile'>Profile</Link></li>
+
 
     </ul>
   </div>

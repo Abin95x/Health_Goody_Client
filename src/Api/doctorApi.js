@@ -26,7 +26,7 @@ export async function specialityName(){
 }
 
 export async function slotDetails(slotData){
-    console.log(slotData);
+    console.log(slotData,'dsdsdsdsdsdsdsdapiiiiii');
     const data = await doctorAxiosInstance.post('/slotDetails',slotData);
     return data;
 }
@@ -44,5 +44,18 @@ export async function doctorDetails(id){
 
 export async function editProfile(values,){
     const data = await doctorAxiosInstance.post('/editProfile',values);
+    return data;
+}
+
+export async function appointmentList(id,page,limit) {
+    console.log(id,page,limit,'jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj');
+
+    const data = await doctorAxiosInstance.get(`/appointmentList?id=${id}`,{
+        params:{
+            page,
+            limit,
+        }
+    });
+    console.log(data,'oiiiiiiiiiiiiii');
     return data;
 }

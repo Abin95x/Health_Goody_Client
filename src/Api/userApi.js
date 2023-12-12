@@ -31,8 +31,13 @@ export async function setDetails(values) {
     return data;
 }
 
-export async function doctorList() {
-    const data = await userAxiosInstance.get('/doctorList');
+export async function doctorList(select,search,page,count,sort) {
+    console.log(select);
+    console.log(search);
+    console.log(page);
+    console.log(count);
+    console.log(sort);
+    const data = await userAxiosInstance.get(`/doctorList?select=${select}&search=${search}&page=${page}&count=${count}&sort=${sort}`);
     return data;
 }
 export async function doctorDetails(id) {
