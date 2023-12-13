@@ -22,7 +22,6 @@ import UserProtect from './UserProtect';
 
 
 
-
 const userRoute = () => {
   return (
     <Routes>
@@ -35,7 +34,6 @@ const userRoute = () => {
       <Route path='/doctorlist' element={<UserProtect><DoctorListPage /></UserProtect>} />
       <Route path='/doctordetails/:id' element={<UserProtect><DoctorDetailsPage /></UserProtect>} />
       <Route path='/success' element={<UserProtect><PaymentSuccess /></UserProtect>} />
-      {/* <Route path='/cancel' element={<Cancel/> }/> */}
       <Route path='/profile' element={<UserProtect><Profile /></UserProtect>} />
       <Route path='/appointments' element={<UserProtect><AppointmentsPage /></UserProtect>} />
       <Route path='/video' element={<UserProtect><VideoPage/></UserProtect>}/>

@@ -32,11 +32,6 @@ export async function setDetails(values) {
 }
 
 export async function doctorList(select,search,page,count,sort) {
-    console.log(select);
-    console.log(search);
-    console.log(page);
-    console.log(count);
-    console.log(sort);
     const data = await userAxiosInstance.get(`/doctorList?select=${select}&search=${search}&page=${page}&count=${count}&sort=${sort}`);
     return data;
 }
@@ -61,13 +56,11 @@ export async function makePayment(values) {
 }
 
 export async function makeAppointment(values) {
-    console.log(values, 'apiiii appopopopo');
     const data = await userAxiosInstance.post('/makeAppointment', values);
     return data;
 }
 
 export async function appointmentList(id,page,limit) {
-    console.log(id, 'apaaiiiiiiiiiid');
     const data = await userAxiosInstance.get(`/appointmentList?id=${id}`,{
         params:{
             page,
@@ -78,7 +71,12 @@ export async function appointmentList(id,page,limit) {
 }
 
 export async function cancelAppointment(id){
-    console.log(id,'api');
-    const data = await userAxiosInstance.patch(`cancelAppointment?id=${id}`);
+    const data = await userAxiosInstance.patch(`/cancelAppointment?id=${id}`);
+    return data;
+}
+
+export async function createChat(values){
+    console.log(values,'kkkkk');
+    const data = await userAxiosInstance.post('/createChat',values);
     return data;
 }

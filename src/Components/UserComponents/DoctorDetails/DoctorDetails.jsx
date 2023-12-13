@@ -8,10 +8,13 @@ import 'react-calendar/dist/Calendar.css';
 import Swal from 'sweetalert2';
 import { useSelector } from 'react-redux/es/hooks/useSelector';
 import { makePayment } from '../../../Api/userApi';
+import { createChat } from '../../../Api/userApi';
+import { useNavigate } from 'react-router-dom';
 
 
 const DoctorDetails = () => {
     const { id } = useParams();
+    const navigate = useNavigate();
     const [doctor, setDoctor] = useState(null);
     const [openModal, setOpenModal] = useState(false);
     const [openModalx, setOpenModalx] = useState(false);
@@ -20,7 +23,6 @@ const DoctorDetails = () => {
     const [select, setSelect] = useState();
     const [date, setDate] = useState();
     const { _id } = useSelector((state) => state.reducer.userReducer.user);
-
 
 
     const price = {
@@ -101,6 +103,18 @@ const DoctorDetails = () => {
             }
         } catch (error) {
             console.log(error.mesage);
+        }
+    };
+
+    const handleAccept = async ()=>{
+        try{
+            const response = await createChat({userid:_id,doctorid:id});
+            console.log(response,'res chattt');
+            Swal.fire(response.data.message);
+            navigate('/chatuser');
+
+        }catch(error){
+            console.log(error.message);
         }
     };
 
@@ -195,10 +209,12 @@ const DoctorDetails = () => {
                 </div>
                 </Modal.Body>
                 <Modal.Footer>
-                <Button onClick={() => setOpenModal(false)}>I accept</Button>
-                <Button color="gray" onClick={() => setOpenModal(false)}>
-                    Decline
+                <Button color="gray" onClick={() => { setOpenModalx(false); handleAccept(); }}>
+                    I accept
                 </Button>
+                <Button onClick={() => setOpenModalx(false)}>Decline</Button>
+
+
                 </Modal.Footer>
             </Modal>
 
