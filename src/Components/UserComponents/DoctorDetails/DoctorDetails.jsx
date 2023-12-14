@@ -22,6 +22,7 @@ const DoctorDetails = () => {
     const [drId, setDrId] = useState();
     const [select, setSelect] = useState();
     const [date, setDate] = useState();
+    const [btn,setBtn] = useState(false);
     const { _id } = useSelector((state) => state.reducer.userReducer.user);
 
 
@@ -109,8 +110,17 @@ const DoctorDetails = () => {
     const handleAccept = async ()=>{
         try{
             const response = await createChat({userid:_id,doctorid:id});
+            setBtn(true);
             console.log(response,'res chattt');
             Swal.fire(response.data.message);
+
+        }catch(error){
+            console.log(error.message);
+        }
+    };
+
+    const handleNavigate = ()=>{
+        try{
             navigate('/chatuser');
 
         }catch(error){
@@ -146,9 +156,15 @@ const DoctorDetails = () => {
                             <Button onClick={() => setOpenModal(true)}>View Slots</Button>
                         </div>
                         <br />
+                        {btn ?  
+                        <div className="flex justify-center">
+                            <Button className='btn btn-primary' onClick={() => handleNavigate()}>Chat</Button>
+                        </div>
+                        :  
                         <div className="flex justify-center">
                             <Button className='btn btn-primary' onClick={() => setOpenModalx(true)}>Connect</Button>
-                        </div>
+                        </div>}
+                     
                     </div>
                 </div>
             )}

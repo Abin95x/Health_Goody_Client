@@ -13,6 +13,7 @@ export async function doctorData(id){
 }
 
 export async function chatData(id){
-    const data = await chatInstance.get(`/chat/${id}`);
+    console.log(id,'apiiiii');
+    const data = await chatInstance.get(`/chat/chat/${id}`);
     return data;
 }
