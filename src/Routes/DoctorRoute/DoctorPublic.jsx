@@ -12,5 +12,5 @@ import { Navigate } from 'react-router-dom';
   } catch (error) {
     console.log(error.message);
   }
-}
+};
 export default DoctorPublic;

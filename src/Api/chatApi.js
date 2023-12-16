@@ -7,13 +7,12 @@ export async function userData(id){
     return data;
 }
 
-export async function doctorData(id){
+export async function fetchDoctorDetails(id){
     const data = await chatInstance.get(`/chat/doctorData/${id}`);
     return data;
 }
 
 export async function chatData(id){
-    console.log(id,'apiiiii');
     const data = await chatInstance.get(`/chat/chat/${id}`);
     return data;
 }
