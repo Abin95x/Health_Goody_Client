@@ -1,6 +1,6 @@
 import React, { useState,useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { addMessage } from '../../../../Api/messageApi';
+import { addMessage ,getMessages } from '../../../../Api/messageApi';
 import InputEmoji from 'react-input-emoji';
 import Conversation from '../Conversation/Conversation';
 import { fetchDoctorDetails } from '../../../../Api/chatApi';
@@ -14,6 +14,8 @@ const ChatBox = ({ chat, currentUser, setMessages,messages,socket }) => {
     setNewMessage(newMessage);
   };
 
+
+  //storing messages in database
   const handleSend = async (e) => {
     e.preventDefault();
     let newOne;
@@ -22,8 +24,10 @@ const ChatBox = ({ chat, currentUser, setMessages,messages,socket }) => {
       text: newMessage,
       chatId: chat._id,
     };
+    console.log(message,'jjjjjjj')
     try {
-      const { data } = await addMessage(message);
+      const  data  = await addMessage(message);
+      console.log(data)
       newOne = data;
       setMessages([...messages, data]);
       setNewMessage('');
@@ -32,6 +36,9 @@ const ChatBox = ({ chat, currentUser, setMessages,messages,socket }) => {
     }
     // socket.emit('send_message', newOne);
   };
+
+
+  //getting dr details to display
   useEffect(() => {
     const doctorId = chat?.members?.find((id) => id !== currentUser);
     const getDoctorData = async () => {
@@ -44,6 +51,18 @@ const ChatBox = ({ chat, currentUser, setMessages,messages,socket }) => {
     };
     if (chat !== null) getDoctorData();
   }, [chat, currentUser]);
+
+  useEffect(() => {
+    const fetchMessages = async () => {
+      try {
+        const data  = await getMessages(chat._id);
+        // setMessages(data);
+      } catch (error) {
+        console.log(error.message);
+      }
+    };
+    if (chat !== null) fetchMessages();
+  }, [chat]);
 
   return (
     <>
@@ -126,8 +145,7 @@ const ChatBox = ({ chat, currentUser, setMessages,messages,socket }) => {
         </div>
       )}
     </>
-  );
-  
+  );  
 };
 
 ChatBox.propTypes = {
