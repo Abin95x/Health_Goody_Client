@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Header from '../../../Components/UserComponents/Header/Header';
-import Footer from '../../../Components/UserComponents/Footer/Footer';
+// import Footer from '../../../Components/UserComponents/Footer/Footer';
 import Chat from '../../../Components/ChatComponents/User/Chat/Chat';
 
 
@@ -13,7 +13,7 @@ const ChatPage = () => {
     <div>
         <Header/>
         <Chat/>
-        <Footer/>
+        {/* <Footer/> */}
     </div>
   );
 };

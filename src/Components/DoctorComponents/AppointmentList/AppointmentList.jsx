@@ -2,17 +2,24 @@ import React, { useState,useEffect } from 'react';
 import { useSelector } from 'react-redux/es/hooks/useSelector';
 import { appointmentList } from '../../../Api/doctorApi';
 import { Button, Modal } from 'flowbite-react';
+import { useNavigate } from 'react-router-dom';
+import {createChat} from '../../../Api/doctorApi'
+import Swal from 'sweetalert2';
+
 
 // import Swal from 'sweetalert2';
 
 const AppointmentList = () => {
+  const navigate = useNavigate();
   const [appo, setAppo] = useState([]);
   const [pagination, setPagination] = useState({});
   const [openModal, setOpenModal] = useState(false);
-
-  const user = useSelector((state) => state.reducer);
-  const userData = user.userReducer.user;
-  const id = userData._id;
+  const doctor = useSelector((state) => state.reducer);
+  const doctorData = doctor.doctorReducer.doctor;
+  const id = doctorData._id;
+  const [userId,setUserId] = useState()
+  
+  console.log(userId)
   // const [currentDate, setCurrentDate] = useState();
   // const [currentTime, setCurrentTime] = useState();
   const [currentPage, setCurrentPage] = useState(1);
@@ -31,48 +38,81 @@ const AppointmentList = () => {
       });
   }, [id, currentPage, limit,]);
 
+  const handleId = (id)=>{
+  
+    setUserId(id)
+  }
+
+  const handleAccept = async ()=>{
+    try{
+        const response = await createChat({userid:userId,doctorid:id});
+       
+        console.log(response,'res chattt');
+        Swal.fire(response.data.message);
+
+    }catch(error){
+        console.log(error.message);
+    }
+};
+
+const handleNavigate = ()=>{
+    try{
+    navigate(('/doctor/chatpagedoctor'));
+
+    }catch(error){
+        console.log(error.message);
+    }
+};
+
   return (
     <div>
       <br />
       <div className='flex justify-center'>
         <div className='w-full lg:w-[1000px] bg-white min-h-[700px] rounded-xl shadow-2xl overflow-hidden'>
-          <div className="overflow-x-auto">
-            <table className="table w-full">
-              {/* table header */}
-              <thead className='bg-green-400 rounded-t-xl'>
-                <tr className="text-black">
-                <th className="py-2">No</th>
-
-                  <th className="py-2">User</th>
-                  <th className="py-2">Appo.Date</th>
-                  <th className="py-2">Booked Date</th>
-                  <th className="py-2">Starting Time</th>
-                  <th className="py-2">Ending Time</th>
-                  <th className="py-2">Status</th>
-                  <th className="py-2">More</th>
-
-                </tr>
-              </thead>
-              <tbody>
-                {appo.map((appointment,index) => (
-                  <tr key={appointment._id} className="text-black">
-                    {/* Display user information instead of index */}
-                    <td className="py-2">{index+1}</td>
-
-                    <td className="py-2">{appointment.userDetails.name}</td>
-                    <td className="py-2">{appointment.consultationDate}</td>
-                    <td className="py-2">{appointment.createdAt}</td>
-                    <td className="py-2">{appointment.start}</td>
-                    <td className="py-2">{appointment.end}</td>
-                    <td className="py-2">{appointment.status}</td>
-                    <td  onClick={() => setOpenModal(true)} className="py-2">more</td>
-                    
-
+        {appo.length === 0 ? (
+            <div className="text-center p-4 text-gray-600">
+              No appointments available.
+            </div>
+          ) : (
+            <div className="overflow-x-auto">
+              <table className="table w-full">
+                <thead className='bg-green-400 rounded-t-xl'>
+                  <tr className="text-black">
+                    <th className="py-2">No</th>
+                    <th className="py-2">User</th>
+                    <th className="py-2">Appo.Date</th>
+                    <th className="py-2">Booked Date</th>
+                    <th className="py-2">Starting Time</th>
+                    <th className="py-2">Ending Time</th>
+                    <th className="py-2">Status</th>
+                    <th className="py-2">More</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+                </thead>
+                <tbody>
+                  {appo.map((appointment, index) => (
+                    <tr key={appointment._id} className="text-black">
+                      <td className="py-2">{index + 1}</td>
+                      <td className="py-2">{appointment.userDetails.name}</td>
+                      <td className="py-2">{appointment.consultationDate}</td>
+                      <td className="py-2">{appointment.createdAt}</td>
+                      <td className="py-2">{appointment.start}</td>
+                      <td className="py-2">{appointment.end}</td>
+                      <td className="py-2">{appointment.status}</td>
+                      <td
+                        onClick={() => {
+                          setOpenModal(true);
+                          handleId(appointment.userDetails._id);
+                        }}
+                        className="py-2"
+                      >
+                        more
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
         </div>
       </div>
       {pagination && pagination.totalPages && (
@@ -107,6 +147,8 @@ const AppointmentList = () => {
         </Modal.Body>
         <Modal.Footer>
           <Button onClick={() => setOpenModal(false)}>I accept</Button>
+          <Button onClick={() => { setOpenModal(false); handleAccept(); handleNavigate() }}>Chat</Button>
+
           <Button color="gray" onClick={() => setOpenModal(false)}>
             Decline
           </Button>

@@ -48,14 +48,17 @@ export async function editProfile(values,){
 }
 
 export async function appointmentList(id,page,limit) {
-    console.log(id,page,limit,'jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj');
-
     const data = await doctorAxiosInstance.get(`/appointmentList?id=${id}`,{
         params:{
             page,
             limit,
         }
     });
-    console.log(data,'oiiiiiiiiiiiiii');
+    return data;
+}
+
+export async function createChat(values){
+    console.log(values,'kkkkk');
+    const data = await doctorAxiosInstance.post('/createChat',values);
     return data;
 }

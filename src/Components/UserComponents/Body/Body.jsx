@@ -64,98 +64,62 @@ const Body = () => {
 
       {/* Features */}
       <div className='bg-blue-50 py-24 sm:py-32'>
-        <div className='mx-auto flex flex-wrap justify-center'>
+  <div className='mx-auto flex flex-wrap justify-center'>
 
-          {/* Feature Card 1 */}
-          <div className='card w-96 bg-white shadow-2xl text-primary-content mx-4'>
-            <Card sx={{ maxWidth: 400 }}>
-              <CardMedia
-                sx={{
-                  height: 100,
-                  width: 100
-                }}
-                
-                image='certified.svg'
-                title=' '
-              />
-              <CardContent>
-                <Typography gutterBottom variant='h5' component='div'>
-                  Certified Doctors
-                </Typography>
-                <Typography variant='body2' color='text.secondary'>
-                  We offer quality healthcare through our network of certified and experienced doctors.
-                </Typography>
-              </CardContent>
-            </Card>
-          </div>
-
-          {/* Feature Card 2 */}
-          <div className='card w-96 bg-white shadow-2xl  text-primary-content mx-4'>
-            <Card sx={{ maxWidth: 400 }}>
-              <CardMedia
-                sx={{
-                  height: 100,
-                  width: 100
-                }}
-                image='confidential.svg'
-                title=' '
-              />
-              <CardContent>
-                <Typography gutterBottom variant='h5' component='div'>
-                  100% Confidential
-                </Typography>
-                <Typography variant='body2' color='text.secondary'>
-                  All advice & consultations are completely confidential. You can also delete chats whenever you want.
-                </Typography>
-              </CardContent>
-            </Card>
-          </div>
-
-          {/* Feature Card 3 */}
-          <div className='card w-96 bg-white shadow-2xl text-primary-content mx-4'>
-            <Card sx={{ maxWidth: 400 }}>
-              <CardMedia
-                sx={{
-                  height: 100,
-                  width: 100
-                }}
-                image='convenience.svg'
-                title=' '
-              />
-              <CardContent>
-                <Typography gutterBottom variant='h5' component='div'>
-                  Convenience
-                </Typography>
-                <Typography variant='body2' color='text.secondary'>
-                  Forget the hassle of long queues and rush hour. Seek expert opinion anytime, anywhere.
-                </Typography>
-              </CardContent>
-            </Card>
-          </div>
-
-          {/* Feature Card 4 (Duplicate of Card 1 for demonstration) */}
-          <div className='card w-96 bg-white shadow-2xl text-primary-content mx-4'>
-            <Card sx={{ maxWidth: 400 }}>
-              <CardMedia
-                sx={{
-                  height: 100,
-                  width: 100
-                }}
-                image='certified.svg'
-                title=' '
-              />
-              <CardContent>
-                <Typography gutterBottom variant='h5' component='div'>
-                  Certified Doctors
-                </Typography>
-                <Typography variant='body2' color='text.secondary'>
-                  We offer quality healthcare through our network of certified and experienced doctors.
-                </Typography>
-              </CardContent>
-            </Card>
-          </div>
+    {/* Feature Card 1 */}
+    <div className='card w-96 bg-white shadow-2xl text-primary-content mx-4'>
+      <div className='max-w-md mx-auto rounded-md overflow-hidden md:max-w-2xl'>
+        <img className='w-24 h-24' src='certified.svg' alt='' />
+        <div className='p-5'>
+          <h2 className='text-xl font-bold mb-2'>Certified Doctors</h2>
+          <p className='text-sm text-gray-500'>
+            We offer quality healthcare through our network of certified and experienced doctors.
+          </p>
         </div>
       </div>
+    </div>
+
+    {/* Feature Card 2 */}
+    <div className='card w-96 bg-white shadow-2xl text-primary-content mx-4'>
+      <div className='max-w-md mx-auto rounded-md overflow-hidden md:max-w-2xl'>
+        <img className='w-24 h-24' src='confidential.svg' alt='' />
+        <div className='p-5'>
+          <h2 className='text-xl font-bold mb-2'>100% Confidential</h2>
+          <p className='text-sm text-gray-500'>
+            All advice & consultations are completely confidential. You can also delete chats whenever you want.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    {/* Feature Card 3 */}
+    <div className='card w-96 bg-white shadow-2xl text-primary-content mx-4'>
+      <div className='max-w-md mx-auto rounded-md overflow-hidden md:max-w-2xl'>
+        <img className='w-24 h-24' src='convenience.svg' alt='' />
+        <div className='p-5'>
+          <h2 className='text-xl font-bold mb-2'>Convenience</h2>
+          <p className='text-sm text-gray-500'>
+            Forget the hassle of long queues and rush hour. Seek expert opinion anytime, anywhere.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    {/* Feature Card 4 (Duplicate of Card 1 for demonstration) */}
+    <div className='card w-96 bg-white shadow-2xl text-primary-content mx-4'>
+      <div className='max-w-md mx-auto rounded-md overflow-hidden md:max-w-2xl'>
+        <img className='w-24 h-24' src='certified.svg' alt='' />
+        <div className='p-5'>
+          <h2 className='text-xl font-bold mb-2'>Certified Doctors</h2>
+          <p className='text-sm text-gray-500'>
+            We offer quality healthcare through our network of certified and experienced doctors.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 
       
             <Speciality/>

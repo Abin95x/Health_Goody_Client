@@ -8,21 +8,17 @@ import 'react-calendar/dist/Calendar.css';
 import Swal from 'sweetalert2';
 import { useSelector } from 'react-redux/es/hooks/useSelector';
 import { makePayment } from '../../../Api/userApi';
-import { createChat } from '../../../Api/userApi';
-import { useNavigate } from 'react-router-dom';
+
 
 
 const DoctorDetails = () => {
     const { id } = useParams();
-    const navigate = useNavigate();
     const [doctor, setDoctor] = useState(null);
     const [openModal, setOpenModal] = useState(false);
-    const [openModalx, setOpenModalx] = useState(false);
     const [slots, setSlots] = useState([]);
     const [drId, setDrId] = useState();
     const [select, setSelect] = useState();
     const [date, setDate] = useState();
-    const [btn,setBtn] = useState(false);
     const { _id } = useSelector((state) => state.reducer.userReducer.user);
 
 
@@ -107,33 +103,14 @@ const DoctorDetails = () => {
         }
     };
 
-    const handleAccept = async ()=>{
-        try{
-            const response = await createChat({userid:_id,doctorid:id});
-            setBtn(true);
-            console.log(response,'res chattt');
-            Swal.fire(response.data.message);
-
-        }catch(error){
-            console.log(error.message);
-        }
-    };
-
-    const handleNavigate = ()=>{
-        try{
-            navigate('/chatuser');
-
-        }catch(error){
-            console.log(error.message);
-        }
-    };
+   
 
 
     return (
         <div>
             {doctor && (
                 <div className="min-h-screen bg-blue-50 flex justify-center">
-                    <div className='bg-white w-full md:w-[80%] lg:w-[70%] xl:w-[60%] 2xl:w-[50%] rounded-xl shadow-2xl p-8 h-[600px] m-20 '>
+                    <div className='bg-white w-full md:w-[80%] lg:w-[70%] xl:w-[60%] 2xl:w-[50%] rounded-xl shadow-2xl p-8 h-[550px] m-20 '>
                         <div className='flex justify-center'>
                             <img
                                 className="mx-auto mb-4 h-40 w-40 rounded-full shadow-2xl"
@@ -156,14 +133,7 @@ const DoctorDetails = () => {
                             <Button onClick={() => setOpenModal(true)}>View Slots</Button>
                         </div>
                         <br />
-                        {btn ?  
-                        <div className="flex justify-center">
-                            <Button className='btn btn-primary' onClick={() => handleNavigate()}>Chat</Button>
-                        </div>
-                        :  
-                        <div className="flex justify-center">
-                            <Button className='btn btn-primary' onClick={() => setOpenModalx(true)}>Connect</Button>
-                        </div>}
+                       
                      
                     </div>
                 </div>
@@ -209,30 +179,7 @@ const DoctorDetails = () => {
                 </Modal.Footer>
             </Modal>
 
-            <Modal show={openModalx} onClose={() => setOpenModalx(false)}>
-                <Modal.Header>Terms of Service</Modal.Header>
-                <Modal.Body>
-                <div className="space-y-6">
-                    <p className="text-base leading-relaxed text-gray-500 dark:text-gray-400">
-                    With less than a month to go before the European Union enacts new consumer privacy laws for its citizens,
-                    companies around the world are updating their terms of service agreements to comply.
-                    </p>
-                    <p className="text-base leading-relaxed text-gray-500 dark:text-gray-400">
-                    The European Union’s General Data Protection Regulation (G.D.P.R.) goes into effect on May 25 and is meant
-                    to ensure a common set of data rights in the European Union. It requires organizations to notify users as
-                    soon as possible of high-risk data breaches that could personally affect them.
-                    </p>
-                </div>
-                </Modal.Body>
-                <Modal.Footer>
-                <Button color="gray" onClick={() => { setOpenModalx(false); handleAccept(); }}>
-                    I accept
-                </Button>
-                <Button onClick={() => setOpenModalx(false)}>Decline</Button>
-
-
-                </Modal.Footer>
-            </Modal>
+            
 
         </div>
     );

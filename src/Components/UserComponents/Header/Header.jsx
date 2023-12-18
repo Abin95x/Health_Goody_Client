@@ -4,6 +4,9 @@ import { useDispatch } from 'react-redux';
 import { userLogout } from '../../../Redux/UserSlice/UserSlice';
 import Swal from 'sweetalert2';
 // import good from '../../../Assets/icon/good.svg'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faHouse, faRightToBracket, faUser,faUserDoctor, faBell,faCalendarCheck,faStethoscope, faComment } from '@fortawesome/free-solid-svg-icons';
+
 
 const Header = () => {
 
@@ -41,32 +44,46 @@ const Header = () => {
           <label tabIndex={0} className='btn btn-ghost lg:hidden'>
             <svg xmlns='http://www.w3.org/2000/svg' className='h-5 w-5' fill='none' viewBox='0 0 24 24' stroke='currentColor'><path strokeLinecap='round' strokeLinejoin='round' strokeWidth='2' d='M4 6h16M4 12h8m-8 6h16' /></svg>
           </label>
-          <ul tabIndex={0} className='menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52'>
-            <li><Link to='/'>HOME</Link></li>
-            <li><Link to='/login'>LOGIN</Link></li>
-          </ul>
+
+          {
+            token ? 
+            (
+              <ul tabIndex={0} className='menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-white rounded-box w-52'>
+                <li><Link to='/'>HOME <FontAwesomeIcon icon={faHouse} /></Link></li>
+                <li><Link to='/doctorlist'>DOCTORS <FontAwesomeIcon icon={faUserDoctor} /></Link></li>
+                <li><Link to='/appointments'>APPOINTMENTS <FontAwesomeIcon icon={faCalendarCheck} /></Link></li>
+                {/* <li><Link to=''>HEALTH RECORDS</Link></li> */}
+                <li><Link to='/chatuser'>CHATS<FontAwesomeIcon icon={faComment} /></Link></li>
+              </ul>) : (
+              <ul tabIndex={0} className='menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52'>
+                <li><Link to='/'>HOME<FontAwesomeIcon icon={faHouse} /></Link></li>
+                <li><Link to='/login'>LOGIN <FontAwesomeIcon icon={faRightToBracket} /></Link></li>
+              </ul>
+            )
+          }
+
         </div>
 
-        <Link to={'/'} className='btn btn-ghost normal-case text-xl'>HEALTH GOODY</Link>
+        <Link to={'/'} className='btn btn-ghost normal-case text-xl'>HEALTH GOODY <FontAwesomeIcon icon={faStethoscope} /></Link>
 
       </div>
 
       {token ? (
         <div className='navbar-center hidden lg:flex'>
           <ul className='menu menu-horizontal px-1'>
-            <li><Link to='/'>HOME</Link></li>
-            <li><Link to='/appointments'>APPOINTMENTS</Link></li>
+            <li><Link to='/'>HOME <FontAwesomeIcon icon={faHouse} /></Link></li>
+            <li><Link to='/doctorlist'>DOCTORS <FontAwesomeIcon icon={faUserDoctor} /></Link></li>
+            <li><Link to='/appointments'>APPOINTMENTS <FontAwesomeIcon icon={faCalendarCheck} /></Link></li>
             {/* <li><Link to=''>HEALTH RECORDS</Link></li> */}
-            <li><Link to='/doctorlist'>DOCTORS</Link></li>
-            <li><Link to='/chatuser'>CHAT</Link></li>
+            <li><Link to='/chatuser'>CHATS<FontAwesomeIcon icon={faComment} /></Link></li>
 
           </ul>
         </div>
 
       ) : (<div className='navbar-center hidden lg:flex'>
         <ul className='menu menu-horizontal px-1'>
-          <li><Link to='/'>HOME</Link></li>
-          <li><Link to='/login'>LOGIN</Link></li>
+          <li><Link to='/'>HOME<FontAwesomeIcon icon={faHouse} /></Link></li>
+          <li><Link to='/login'>LOGIN <FontAwesomeIcon icon={faRightToBracket} /></Link></li>
         </ul>
       </div>)
       }
@@ -74,10 +91,12 @@ const Header = () => {
       {
         token ? (
           <div className='navbar-end'>
+            <FontAwesomeIcon icon={faBell} style={{color: "#000000",}} className='me-10' />
             <div className='dropdown dropdown-end'>
               <label tabIndex={0} className='btn btn-ghost btn-circle avatar'>
                 <div className='w-10 rounded-full'>
-                  <img src='icon.jpg' />
+                <FontAwesomeIcon icon={faUser} style={{color: "#000000",}}  className='h-12 w-5'/>
+                  {/* <img src='icon.jpg' /> */}
                 </div>
               </label>
               <ul tabIndex={0} className='mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-white rounded-box w-52'>

@@ -36,35 +36,41 @@ const Slots = () => {
             <br />
             <div className='flex justify-center'>
                 <div className='w-full lg:w-[800px] bg-white min-h-[600px] rounded-xl shadow-2xl overflow-hidden'>
-                    <div className="overflow-x-auto">
-                        <table className="table w-full">
-                            {/* head */}
-                            <thead className='bg-amber-200 rounded-t-xl'>
-                                <tr className="text-black">
-                                    <th className="py-2">No</th>
-                                    <th className="py-2">Date</th>
-                                    <th className="py-2">Starting Time</th>
-                                    <th className="py-2">Ending Time</th>
-                                    <th className="py-2">Duration</th>
-                                    <th className="py-2">VIEW SLOTS</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {slots.map((slot, index) => (
-                                    <tr key={slot._id} className="text-black">
-                                        <td className="py-2">{index + 1}</td>
-                                        <td className="py-2">{new Date(slot.date).toLocaleDateString()}</td>
-                                        <td className="py-2">{slot.startTime}</td>
-                                        <td className="py-2">{slot.endTime}</td>
-                                        <td className="py-2">{slot.slotDuration}</td>
-                                        <td className="py-2">
-                                            <button onClick={() => handeClick(slot._id)} className="text-blue-500 hover:underline">Details</button>
-                                        </td>
+                    {slots.length === 0 ? (
+                        <div className="text-center py-6">
+                            <p className="text-gray-500 text-lg">No slots added</p>
+                        </div>
+                    ) : (
+                        <div className="overflow-x-auto">
+                            <table className="table w-full">
+                                {/* head */}
+                                <thead className='bg-amber-200 rounded-t-xl'>
+                                    <tr className="text-black">
+                                        <th className="py-2">No</th>
+                                        <th className="py-2">Date</th>
+                                        <th className="py-2">Starting Time</th>
+                                        <th className="py-2">Ending Time</th>
+                                        <th className="py-2">Duration</th>
+                                        <th className="py-2">VIEW SLOTS</th>
                                     </tr>
-                                ))}
-                            </tbody>
-                        </table>
-                    </div>
+                                </thead>
+                                <tbody>
+                                    {slots.map((slot, index) => (
+                                        <tr key={slot._id} className="text-black">
+                                            <td className="py-2">{index + 1}</td>
+                                            <td className="py-2">{new Date(slot.date).toLocaleDateString()}</td>
+                                            <td className="py-2">{slot.startTime}</td>
+                                            <td className="py-2">{slot.endTime}</td>
+                                            <td className="py-2">{slot.slotDuration}</td>
+                                            <td className="py-2">
+                                                <button onClick={() => handeClick(slot._id)} className="text-blue-500 hover:underline">Details</button>
+                                            </td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        </div>
+                    )}
                 </div>
             </div>
 
@@ -82,7 +88,6 @@ const Slots = () => {
                                         <p className={`text-${time.booked ? 'green' : 'red'}-600`}>
                                              Booked: {time.booked ? 'Yes' : 'No'}
                                         </p>
-
                                     </div>
                                 ))}
                             </div>

@@ -8,6 +8,7 @@ const messageInstance = axios.create({baseURL:baseURL});
 
 export async function getMessages (id){
     const data = await messageInstance.get(`/message/getMsg/${id}`)
+   
     return data
 }
 

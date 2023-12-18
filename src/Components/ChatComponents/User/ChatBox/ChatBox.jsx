@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from 'react';
+import React, { useState,useEffect,useRef } from 'react';
 import PropTypes from 'prop-types';
 import { addMessage ,getMessages } from '../../../../Api/messageApi';
 import InputEmoji from 'react-input-emoji';
@@ -13,6 +13,12 @@ const ChatBox = ({ chat, currentUser, setMessages,messages,socket }) => {
   const handleChange = (newMessage) => {
     setNewMessage(newMessage);
   };
+  const scroll = useRef();
+
+  useEffect(() => {
+    // 👇️ scroll to bottom every time messages change
+    scroll.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages]);
 
 
   //storing messages in database
@@ -24,17 +30,15 @@ const ChatBox = ({ chat, currentUser, setMessages,messages,socket }) => {
       text: newMessage,
       chatId: chat._id,
     };
-    console.log(message,'jjjjjjj')
     try {
-      const  data  = await addMessage(message);
-      console.log(data)
+      const  {data}  = await addMessage(message);
       newOne = data;
       setMessages([...messages, data]);
       setNewMessage('');
     } catch (error) {
       console.log(error.message);
     }
-    // socket.emit('send_message', newOne);
+    socket.emit('send_message', newOne);
   };
 
 
@@ -52,17 +56,21 @@ const ChatBox = ({ chat, currentUser, setMessages,messages,socket }) => {
     if (chat !== null) getDoctorData();
   }, [chat, currentUser]);
 
+
+
   useEffect(() => {
     const fetchMessages = async () => {
       try {
         const data  = await getMessages(chat._id);
-        // setMessages(data);
+        setMessages(data.data);
       } catch (error) {
         console.log(error.message);
       }
     };
     if (chat !== null) fetchMessages();
   }, [chat]);
+
+  
 
   return (
     <>
@@ -81,8 +89,8 @@ const ChatBox = ({ chat, currentUser, setMessages,messages,socket }) => {
                     </svg>
                   </span>
                   <img
-                    src={doctorData?.photo || "/images/person-304893_1280.png"}
-                    alt=""
+                    src={doctorData?.photo}
+                    alt="doctor"
                     className="w-10 sm:w-16 h-10 sm:h-16 rounded-full"
                   />
                 </div>
@@ -93,9 +101,6 @@ const ChatBox = ({ chat, currentUser, setMessages,messages,socket }) => {
                     </span>
                   </div>
                 </div>
-              </div>
-              <div className="flex items-center space-x-2">
-                {/* Add your content here */}
               </div>
             </div>
   
@@ -115,6 +120,7 @@ const ChatBox = ({ chat, currentUser, setMessages,messages,socket }) => {
                 <span className="absolute inset-y-0 flex items-center">
                   {/* Add your content here */}
                 </span>
+                
                 <InputEmoji value={newMessage} onChange={handleChange} />
   
                 <button
