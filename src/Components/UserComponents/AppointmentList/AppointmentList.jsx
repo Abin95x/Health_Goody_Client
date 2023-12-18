@@ -17,24 +17,12 @@ const AppointmentList = () => {
   const userData = user.userReducer.user;
   const id = userData._id;
   const [data, setData] = useState();
-  const [currentDate, setCurrentDate] = useState();
-  const [currentTime, setCurrentTime] = useState();
   const [render, setRender] = useState(false);
   const [btn, setBtn] = useState(false);
   const [openModalx, setOpenModalx] = useState(false);
   const navigate = useNavigate();
   const { _id } = useSelector((state) => state.reducer.userReducer.user);
   const [drId,setDrId] =useState()
-  console.log(_id,'ddddddwwww')
-  console.log(drId,"kkkkkkkkkkk")
-
-
-
-
-  console.log(currentDate);
-
-
-
   const [currentPage, setCurrentPage] = useState(1);
   const limit = 5;
 
@@ -43,8 +31,7 @@ const AppointmentList = () => {
       .then((res) => {
         setAppo(res.data.data);
         setPagination(res.data.pagination);
-        setCurrentDate(res.data.currentDate);
-        setCurrentTime(res.data.currentTime);
+
       })
       .catch((error) => {
         console.log(error.message);
@@ -178,7 +165,6 @@ const handleNavigate = ()=>{
           <Modal.Body>
 
             <div className='space-y-6'>
-
               <p className='text-2xl leading-relaxed text-gray-500 dark:text-gray-400'>
                 Your appointment is scheduled for{' '}
                 <span className='text-red-600'>{data.consultationDate}</span> from{' '}
@@ -190,22 +176,9 @@ const handleNavigate = ()=>{
               <br />
 
               <div className='space-y-6'>
-                {currentTime >= data.start && currentTime <= data.end ? (
-                  <React.Fragment>
-                    <p className='text-xl text-green-500'>
-                      You can now join the call
-                    </p>
-                    {/* <Button onClick={() => handleButtonClick()}></Button> */}
-                    <Link to={'/video'} className='btn btn-secondary'>Start Video Call</Link>
-                  </React.Fragment>
-                ) : (
                   <p className='text-xl text-red-500'>
-
                     <button className='btn btn-error w-full' onClick={() => { handleCancel(data._id); setOpenModal(false); }}>Cancel Appointment</button>
-
                   </p>
-
-                )}
               </div>
               <br />
 
@@ -216,11 +189,11 @@ const handleNavigate = ()=>{
 
             {btn ?
               <div className="flex justify-center">
-                <Button className=' btn-primary' onClick={() => handleNavigate()}>Chat</Button>
+                <Button className=' btn-primary' onClick={() => handleNavigate()}>Chat with doctor</Button>
               </div>
               :
               <div className="flex justify-center">
-                <Button className=' ' onClick={() => setOpenModalx(true)}>Connect Doctor</Button>
+                <Button className=' ' onClick={() => setOpenModalx(true)}>Connect doctor</Button>
               </div>
             }
           </Modal.Footer>

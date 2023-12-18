@@ -1,10 +1,11 @@
-import React, { useState,useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux/es/hooks/useSelector';
 import { appointmentList } from '../../../Api/doctorApi';
 import { Button, Modal } from 'flowbite-react';
-import { useNavigate } from 'react-router-dom';
-import {createChat} from '../../../Api/doctorApi'
+import { useNavigate, Link } from 'react-router-dom';
+import { createChat } from '../../../Api/doctorApi'
 import Swal from 'sweetalert2';
+import { hasUnreliableEmptyValue } from '@testing-library/user-event/dist/utils';
 
 
 // import Swal from 'sweetalert2';
@@ -17,59 +18,76 @@ const AppointmentList = () => {
   const doctor = useSelector((state) => state.reducer);
   const doctorData = doctor.doctorReducer.doctor;
   const id = doctorData._id;
-  const [userId,setUserId] = useState()
-  
-  console.log(userId)
-  // const [currentDate, setCurrentDate] = useState();
-  // const [currentTime, setCurrentTime] = useState();
+  const [userId, setUserId] = useState()
+  const [appoDate, setAppoDate] = useState()
+  const [appoStart, setAppoStart] = useState()
+  const [appoEnd, setAppoEnd] = useState()
+
+  const [currentDate, setCurrentDate] = useState();
+  const [currentTime, setCurrentTime] = useState();
   const [currentPage, setCurrentPage] = useState(1);
   const limit = 5;
+
+
+  const appoDateAsDate = new Date(appoDate);
+  const appDate = appoDateAsDate.toLocaleDateString();
+
+  const currDateAsDate = new Date(currentDate);
+  const currDate = currDateAsDate.toLocaleDateString();
+
+
+
+
 
   useEffect(() => {
     appointmentList(id, currentPage, limit)
       .then((res) => {
         setAppo(res.data.data);
         setPagination(res.data.pagination);
-        // setCurrentDate(res.data.currentDate);
-        // setCurrentTime(res.data.currentTime);
+        setCurrentDate(res.data.currentDate);
+        setCurrentTime(res.data.currentTime);
       })
       .catch((error) => {
         console.log(error.message);
       });
   }, [id, currentPage, limit,]);
 
-  const handleId = (id)=>{
-  
+
+  const handleId = (id) => {
     setUserId(id)
   }
+  const handleClick = (date, start, end) => {
 
-  const handleAccept = async ()=>{
-    try{
-        const response = await createChat({userid:userId,doctorid:id});
-       
-        console.log(response,'res chattt');
-        Swal.fire(response.data.message);
+    setAppoDate(date)
+    setAppoStart(start)
+    setAppoEnd(end)
 
-    }catch(error){
-        console.log(error.message);
+
+  }
+
+  const handleAccept = async () => {
+    try {
+      const response = await createChat({ userid: userId, doctorid: id });
+      Swal.fire(response.data.message);
+    } catch (error) {
+      console.log(error.message);
     }
-};
+  };
 
-const handleNavigate = ()=>{
-    try{
-    navigate(('/doctor/chatpagedoctor'));
-
-    }catch(error){
-        console.log(error.message);
+  const handleNavigate = () => {
+    try {
+      navigate(('/doctor/chatpagedoctor'));
+    } catch (error) {
+      console.log(error.message);
     }
-};
+  };
 
   return (
     <div>
       <br />
       <div className='flex justify-center'>
         <div className='w-full lg:w-[1000px] bg-white min-h-[700px] rounded-xl shadow-2xl overflow-hidden'>
-        {appo.length === 0 ? (
+          {appo.length === 0 ? (
             <div className="text-center p-4 text-gray-600">
               No appointments available.
             </div>
@@ -102,6 +120,8 @@ const handleNavigate = ()=>{
                         onClick={() => {
                           setOpenModal(true);
                           handleId(appointment.userDetails._id);
+                          handleClick(appointment.consultationDate, appointment.start, appointment.end)
+
                         }}
                         className="py-2"
                       >
@@ -121,9 +141,8 @@ const handleNavigate = ()=>{
             <button
               key={index + 1}
               onClick={() => setCurrentPage(index + 1)}
-              className={`pagination-btn border w-10 ${
-                index + 1 === currentPage ? 'border-black' : 'border-gray-300'
-              }`}
+              className={`pagination-btn border w-10 ${index + 1 === currentPage ? 'border-black' : 'border-gray-300'
+                }`}
             >
               {index + 1}
             </button>
@@ -138,24 +157,33 @@ const handleNavigate = ()=>{
               With less than a month to go before the European Union enacts new consumer privacy laws for its citizens,
               companies around the world are updating their terms of service agreements to comply.
             </p>
-            <p className="text-base leading-relaxed text-gray-500 dark:text-gray-400">
-              The European Union’s General Data Protection Regulation (G.D.P.R.) goes into effect on May 25 and is meant
-              to ensure a common set of data rights in the European Union. It requires organizations to notify users as
-              soon as possible of high-risk data breaches that could personally affect them.
-            </p>
+            {currDate === appDate && currentTime>=appoStart && currentTime<=appoEnd ? (
+              <React.Fragment>
+              <p className='text-xl text-green-500'>
+                You can now join the call
+              </p>
+              {/* <Button onClick={() => handleButtonClick()}></Button> */}
+              <Link to={'/doctor/video'} className='btn btn-secondary'>Start Video Call</Link>
+            </React.Fragment>
+            ):(
+              <div>
+                VIDEO CALL ROOM AVAILABLE IN THE DATE AND TIME
+              </div>
+            )}
+          <Button onClick={() => setOpenModal(false)}>Add Priscription</Button>
+
+            
           </div>
         </Modal.Body>
         <Modal.Footer>
-          <Button onClick={() => setOpenModal(false)}>I accept</Button>
           <Button onClick={() => { setOpenModal(false); handleAccept(); handleNavigate() }}>Chat</Button>
-
           <Button color="gray" onClick={() => setOpenModal(false)}>
             Decline
           </Button>
         </Modal.Footer>
       </Modal>
     </div>
-    
+
   );
 };
 
