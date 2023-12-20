@@ -43,7 +43,7 @@ const DoctorDetails = () => {
             const currentDate = new Date();
             currentDate.setHours(0, 0, 0, 0);
 
-            if (date <= currentDate) {
+            if (date < currentDate) {
                 Swal.fire({
                     icon: 'error',
                     title: 'Invalid Date',
@@ -62,7 +62,7 @@ const DoctorDetails = () => {
                     slot.timeSlots.forEach(timeSlot => {
                         if (timeSlot.booked === false) {
                             allAvailableSlots.push(timeSlot);
-                        } 
+                        }
                     });
                 });
 
@@ -87,7 +87,7 @@ const DoctorDetails = () => {
         } catch (error) {
             console.log(error.message);
         }
-    }; 
+    };
 
     const handlePayment = async () => {
         try {
@@ -103,7 +103,7 @@ const DoctorDetails = () => {
         }
     };
 
-   
+
 
 
     return (
@@ -133,8 +133,8 @@ const DoctorDetails = () => {
                             <Button onClick={() => setOpenModal(true)}>View Slots</Button>
                         </div>
                         <br />
-                       
-                     
+
+
                     </div>
                 </div>
             )}
@@ -150,18 +150,27 @@ const DoctorDetails = () => {
                         <p>Available Slots:</p>
                         {slots.length > 0 ? (
                             <ul className="flex flex-wrap justify-center">
-                                {slots.map((slot, index) => (
-                                    <li key={index} className={`flex items-center h-10 w-36 bg-blue-500 m-2 p-2 rounded-xl text-white ${select === slot.objectId ? 'bg-green-500' : ''}`}>
-                                        <input
-                                            type="checkbox"
-                                            id={`slot-${index}`}
-                                            className="mr-2"
-                                            checked={select === slot.objectId}
-                                            onChange={() => handleSelect(slot.objectId)}
-                                        />
-                                        <label htmlFor={`slot-${index}`} className="flex-1">{`${slot.start} - ${slot.end}`}</label>
-                                    </li>
-                                ))}
+                                {slots.map((slot, index) => {
+                                    const startTime = new Date(slot.start);
+                                    const currentTime = new Date();
+
+                                    // Disable the checkbox if the date is greater than the current date
+                                    const isDisabled = startTime > currentTime;
+
+                                    return (
+                                        <li key={index} className={`flex items-center h-10 w-36 bg-blue-500 m-2 p-2 rounded-xl text-white ${select === slot.objectId ? 'bg-green-500' : ''}`}>
+                                            <input
+                                                type="checkbox"
+                                                id={`slot-${index}`}
+                                                className="mr-2"
+                                                checked={select === slot.objectId}
+                                                onChange={() => handleSelect(slot.objectId)}
+                                                disabled={isDisabled}
+                                            />
+                                            <label htmlFor={`slot-${index}`} className="flex-1">{`${slot.start} - ${slot.end}`}</label>
+                                        </li>
+                                    );
+                                })}
                             </ul>
                         ) : (
                             <p className='text-orange-600'>No available slots for the selected date.</p>
@@ -179,7 +188,9 @@ const DoctorDetails = () => {
                 </Modal.Footer>
             </Modal>
 
-            
+
+
+
 
         </div>
     );

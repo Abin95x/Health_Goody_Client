@@ -22,21 +22,14 @@ const AppointmentList = () => {
   const [appoDate, setAppoDate] = useState()
   const [appoStart, setAppoStart] = useState()
   const [appoEnd, setAppoEnd] = useState()
-
   const [currentDate, setCurrentDate] = useState();
   const [currentTime, setCurrentTime] = useState();
   const [currentPage, setCurrentPage] = useState(1);
   const limit = 5;
-
-
   const appoDateAsDate = new Date(appoDate);
   const appDate = appoDateAsDate.toLocaleDateString();
-
   const currDateAsDate = new Date(currentDate);
   const currDate = currDateAsDate.toLocaleDateString();
-
-
-
 
 
   useEffect(() => {
@@ -61,8 +54,6 @@ const AppointmentList = () => {
     setAppoDate(date)
     setAppoStart(start)
     setAppoEnd(end)
-
-
   }
 
   const handleAccept = async () => {
@@ -80,6 +71,18 @@ const AppointmentList = () => {
     } catch (error) {
       console.log(error.message);
     }
+  };
+
+  const handleLinkClick = (event) => {
+    event.preventDefault();
+
+    const baseUrl = '/doctor/video';
+
+    // Append the userId as a query parameter
+    const urlToOpen = `${baseUrl}?userId=${userId}`;
+
+    // Open the URL in a new tab
+    window.open(urlToOpen, '_blank');
   };
 
   return (
@@ -157,22 +160,24 @@ const AppointmentList = () => {
               With less than a month to go before the European Union enacts new consumer privacy laws for its citizens,
               companies around the world are updating their terms of service agreements to comply.
             </p>
-            {currDate === appDate && currentTime>=appoStart && currentTime<=appoEnd ? (
+            {currDate === appDate && currentTime >= appoStart && currentTime <= appoEnd ? (
               <React.Fragment>
-              <p className='text-xl text-green-500'>
-                You can now join the call
-              </p>
-              {/* <Button onClick={() => handleButtonClick()}></Button> */}
-              <Link to={'/doctor/video'} className='btn btn-secondary'>Start Video Call</Link>
-            </React.Fragment>
-            ):(
+                <p className='text-xl text-green-500'>
+                  You can now join the call
+                </p>
+                {/* <Button onClick={() => handleButtonClick()}></Button> */}
+                <Link to={'/doctor/video'} className='btn btn-secondary' onClick={handleLinkClick}>
+                  Start Video Call
+                </Link>
+              </React.Fragment>
+            ) : (
               <div>
                 VIDEO CALL ROOM AVAILABLE IN THE DATE AND TIME
               </div>
             )}
-          <Button onClick={() => setOpenModal(false)}>Add Priscription</Button>
+            <Button onClick={() => setOpenModal(false)}>Add Priscription</Button>
 
-            
+
           </div>
         </Modal.Body>
         <Modal.Footer>
@@ -182,7 +187,7 @@ const AppointmentList = () => {
           </Button>
         </Modal.Footer>
       </Modal>
-    </div>
+    </div >
 
   );
 };
