@@ -94,7 +94,6 @@ const DoctorDetails = () => {
             if (select) {
                 const response = await makePayment({ price, drId, select, date, _id });
                 if (response.status === 200) {
-                    console.log(response.data);
                     window.location.href = response.data.session.url;
                 }
             }

@@ -86,7 +86,7 @@ const Slots = () => {
                                     <div key={timeIndex} className="bg-white p-4 border rounded-md">
                                         <p className="text-xl font-semibold mb-2">Time: {time.start} - {time.end}</p>
                                         <p className={`text-${time.booked ? 'green' : 'red'}-600`}>
-                                             Booked: {time.booked ? 'Yes' : 'No'}
+                                            Booked: {time.booked ? 'Yes' : 'No'}
                                         </p>
                                     </div>
                                 ))}

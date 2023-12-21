@@ -38,7 +38,7 @@ const DoctorProfile = () => {
   const [formData, setFormData] = useState({
     startTime: '',
     endTime: '',
-    slotDuration: '',
+    slotDuration: '5',
     date: '',
   });
   // console.log(formData)
@@ -149,7 +149,7 @@ const DoctorProfile = () => {
   return (
     <>
       <Header />
-      
+
       {doc && (
         <div className='min-h-screen bg-blue-50'>
           <div className='flex flex-col items-center'>
@@ -263,16 +263,19 @@ const DoctorProfile = () => {
               />
 
               <label htmlFor='eventDuration'>Duration (in minutes):</label>
-              <input
-                type='number'
+              <select
                 id='slotDuration'
                 name='slotDuration'
-                min='1'
                 value={formData.slotDuration}
                 onChange={handleChange2}
                 className='bg-slate-500 text-white'
                 required
-              />
+              >
+                <option value='5'>5 minutes</option>
+                <option value='10'>10 minutes</option>
+                <option value='15'>15 minutes</option>
+                {/* Add more options as needed */}
+              </select>
 
             </div>
             <Modal.Footer>

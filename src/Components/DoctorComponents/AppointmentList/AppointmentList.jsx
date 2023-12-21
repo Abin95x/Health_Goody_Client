@@ -22,6 +22,10 @@ const AppointmentList = () => {
   const [appoDate, setAppoDate] = useState()
   const [appoStart, setAppoStart] = useState()
   const [appoEnd, setAppoEnd] = useState()
+  const [appoName, setAppoName] = useState()
+
+
+
   const [currentDate, setCurrentDate] = useState();
   const [currentTime, setCurrentTime] = useState();
   const [currentPage, setCurrentPage] = useState(1);
@@ -49,11 +53,12 @@ const AppointmentList = () => {
   const handleId = (id) => {
     setUserId(id)
   }
-  const handleClick = (date, start, end) => {
+  const handleClick = (date, start, end, name) => {
 
     setAppoDate(date)
     setAppoStart(start)
     setAppoEnd(end)
+    setAppoName(name)
   }
 
   const handleAccept = async () => {
@@ -67,7 +72,7 @@ const AppointmentList = () => {
 
   const handleNavigate = () => {
     try {
-      navigate(('/doctor/chatpagedoctor'));
+      navigate('/doctor/chatpagedoctor');
     } catch (error) {
       console.log(error.message);
     }
@@ -85,6 +90,13 @@ const AppointmentList = () => {
     window.open(urlToOpen, '_blank');
   };
 
+  const handlePris = () => {
+    navigate(`/doctor/priscription`, {
+      state: {
+        userName: appoName, date: appDate, start: appoStart, end: appoEnd, userId: userId
+      }
+    })
+  }
   return (
     <div>
       <br />
@@ -123,7 +135,7 @@ const AppointmentList = () => {
                         onClick={() => {
                           setOpenModal(true);
                           handleId(appointment.userDetails._id);
-                          handleClick(appointment.consultationDate, appointment.start, appointment.end)
+                          handleClick(appointment.consultationDate, appointment.start, appointment.end, appointment.userDetails.name,)
 
                         }}
                         className="py-2"
@@ -144,7 +156,7 @@ const AppointmentList = () => {
             <button
               key={index + 1}
               onClick={() => setCurrentPage(index + 1)}
-              className={`pagination-btn border w-10 ${index + 1 === currentPage ? 'border-black' : 'border-gray-300'
+              className={`pagination - btn border w - 10 ${index + 1 === currentPage ? 'border-black' : 'border-gray-300'
                 }`}
             >
               {index + 1}
@@ -175,7 +187,7 @@ const AppointmentList = () => {
                 VIDEO CALL ROOM AVAILABLE IN THE DATE AND TIME
               </div>
             )}
-            <Button onClick={() => setOpenModal(false)}>Add Priscription</Button>
+            <Button onClick={() => { setOpenModal(false); handlePris(); }}>Add Priscription</Button>
 
 
           </div>

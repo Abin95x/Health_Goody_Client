@@ -13,6 +13,7 @@ import DoctorSlotsPage from '../../Pages/DoctorPages/DoctorSlotsPage/DoctorSlots
 import AppointmentPage from '../../Pages/DoctorPages/AppointmentPage/AppointmentPage';
 import ChatPage from '../../Pages/DoctorPages/ChatPage/ChatPage';
 import VideoPage from '../../Pages/DoctorPages/VideoPage/VideoPage'
+import PriscriptionPage from '../../Pages/DoctorPages/PriscriptionPage/PriscriptionPage';
 
 
 const DoctorRoute = () => {
@@ -27,12 +28,13 @@ const DoctorRoute = () => {
             <Route path='/slots' element={<DoctorProtect><DoctorSlotsPage /></DoctorProtect>} />
             <Route path='/appointment' element={<DoctorProtect><AppointmentPage /></DoctorProtect>} />
             <Route path='/chatpagedoctor' element={<DoctorProtect><ChatPage /></DoctorProtect>} />
-            <Route path='/video' element={<DoctorProtect><VideoPage/></DoctorProtect>}/>
+            <Route path='/video' element={<DoctorProtect><VideoPage /></DoctorProtect>} />
+            <Route path='/priscription' element={<DoctorProtect><PriscriptionPage /></DoctorProtect>} />
 
 
 
 
-        </Routes>
+        </Routes >
     );
 };
-export default DoctorRoute  ;
+export default DoctorRoute;
