@@ -1,12 +1,16 @@
 import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import { priscription } from '../../../Api/doctorApi';
+import Swal from 'sweetalert2';
+import { useNavigate } from 'react-router-dom';
 
 const Priscription = () => {
     const location = useLocation();
     const { _id } = useSelector((state) => state.reducer.doctorReducer.doctor);
+    const navigate = useNavigate()
 
-    const { date, start, end, userId } = location.state || {}
+    const { date, start, end, userId, appoId } = location.state || {}
 
     const [medicineData, setMedicineData] = useState({
         medicine: '',
@@ -74,16 +78,106 @@ const Priscription = () => {
         }
     }
 
-    const noteSubmit = (e) => {
+    const noteSubmit = async (e) => {
         try {
+            e.preventDefault();
+
+            if (!note.trim() || medicines.length === 0) {
+                const errorMessage = !note.trim()
+                    ? "Note cannot be empty"
+                    : "Please add at least one medicine";
+
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: "top-end",
+                    showConfirmButton: false,
+                    timer: 3000,
+                    timerProgressBar: true,
+                    didOpen: (toast) => {
+                        toast.onmouseenter = Swal.stopTimer;
+                        toast.onmouseleave = Swal.resumeTimer;
+                    }
+                });
+
+                Toast.fire({
+                    icon: "error",
+                    title: errorMessage
+                });
+
+                return;
+            }
+
+
+            const response = await priscription({
+                medicines,
+                note,
+                drId: _id,
+                date,
+                start,
+                end,
+                userId,
+                appoId,
+            });
+            console.log(response);
+
+            if (response.status === 200) {
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: "top-end",
+                    showConfirmButton: false,
+                    timer: 3000,
+                    timerProgressBar: true,
+                    didOpen: (toast) => {
+                        toast.onmouseenter = Swal.stopTimer;
+                        toast.onmouseleave = Swal.resumeTimer;
+                    }
+                });
+
+                Toast.fire({
+                    icon: "success",
+                    title: response.data.message
+                });
+                navigate('/doctor/appointment')
+            }
+        } catch (error) {
             e.preventDefault();
             console.log(note);
             console.log(medicines);
-            //doooooooooooooooooo apiiiiiiiiiii callllllllllllll with dr ,user ,note, meds
-        } catch (error) {
-            console.log(error.message)
+
+            const response = await priscription({
+                medicines,
+                note,
+                drId: _id,
+                date,
+                start,
+                end,
+                userId
+            });
+            console.log(response);
+
+            const Toast = Swal.mixin({
+                toast: true,
+                position: "top-end",
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.onmouseenter = Swal.stopTimer;
+                    toast.onmouseleave = Swal.resumeTimer;
+                }
+            });
+
+            Toast.fire({
+                icon: "success",
+                title: response.data.message
+            });
+
+            console.log(error.message);
+
         }
-    }
+    };
+
+
 
     return (
         <>
@@ -153,7 +247,7 @@ const Priscription = () => {
                                         <p className='text-sm text-gray-700'>
                                             <span className='font-semibold'>Medicine:</span> {medicine.medicine}<br />
                                             <span className='font-semibold'>Duration:</span> {medicine.duration} Days<br />
-                                            <span className='font-semibold'>Frequency:</span> {medicine.frequency} Times
+                                            <span className='font-semibold'>Frequency:</span> {medicine.frequency} Times a Day
                                         </p>
                                     </li>
                                 ))}

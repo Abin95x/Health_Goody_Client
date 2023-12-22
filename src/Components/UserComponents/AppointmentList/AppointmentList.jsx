@@ -90,11 +90,19 @@ const AppointmentList = () => {
     }
   };
 
-  const download = () => { };
+  const handlePrescription = () => {
+    try {
+      navigate("/prescription", {
+        state: {
+          data: data
+        }
+      })
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
 
-  // const handleButtonClick = () =>{
 
-  // };
 
   return (
     <div className="bg-blue-50 w-screen overflow-x-auto">
@@ -217,7 +225,7 @@ const AppointmentList = () => {
               <Button>Reshedule</Button>
             </div>
             <div className="flex justify-center">
-              <Button onClick={() => { }}>Download prescription</Button>
+              <Button onClick={() => { handlePrescription() }}>Download prescription</Button>
             </div>
           </Modal.Footer>
         </Modal>

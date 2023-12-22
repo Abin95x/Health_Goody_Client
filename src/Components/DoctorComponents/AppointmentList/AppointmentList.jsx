@@ -23,6 +23,7 @@ const AppointmentList = () => {
   const [appoStart, setAppoStart] = useState()
   const [appoEnd, setAppoEnd] = useState()
   const [appoName, setAppoName] = useState()
+  const [appoId, setAppoId] = useState()
 
 
 
@@ -53,12 +54,13 @@ const AppointmentList = () => {
   const handleId = (id) => {
     setUserId(id)
   }
-  const handleClick = (date, start, end, name) => {
+  const handleClick = (date, start, end, name, id) => {
 
     setAppoDate(date)
     setAppoStart(start)
     setAppoEnd(end)
     setAppoName(name)
+    setAppoId(id)
   }
 
   const handleAccept = async () => {
@@ -93,7 +95,7 @@ const AppointmentList = () => {
   const handlePris = () => {
     navigate(`/doctor/priscription`, {
       state: {
-        userName: appoName, date: appDate, start: appoStart, end: appoEnd, userId: userId
+        userName: appoName, date: appDate, start: appoStart, end: appoEnd, userId: userId, appoId: appoId
       }
     })
   }
@@ -135,7 +137,7 @@ const AppointmentList = () => {
                         onClick={() => {
                           setOpenModal(true);
                           handleId(appointment.userDetails._id);
-                          handleClick(appointment.consultationDate, appointment.start, appointment.end, appointment.userDetails.name,)
+                          handleClick(appointment.consultationDate, appointment.start, appointment.end, appointment.userDetails.name, appointment._id)
 
                         }}
                         className="py-2"

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Priscription from '../../../Components/DoctorComponents/Priscription/Priscription';
+import Priscription from '../../../Components/DoctorComponents/Prescription/Prescription';
 import Header from '../../../Components/DoctorComponents/Header/Header'
 import Footer from '../../../Components/DoctorComponents/Footer/Footer'
 
