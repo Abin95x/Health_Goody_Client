@@ -56,7 +56,7 @@ const Profile = () => {
 
 
   useEffect(() => {
-  
+
     getUserDetails(_id)
       .then((response) => {
         setUserData(response?.data?.user);
@@ -82,7 +82,7 @@ const Profile = () => {
     },
     validationSchema: editSchema,
     onSubmit,
-    enableReinitialize:true
+    enableReinitialize: true
 
   });
 
@@ -90,14 +90,14 @@ const Profile = () => {
   return (
     <div className='bg-blue-50'>
       <Header />
-      
-      <div className='h-screen bg-blue-50 container mx-auto flex items-center justify-center'>
-        <div className='bg-white rounded-3xl shadow-2xl col-lg-9 col-md-9 col-sm-12 col-xs-12 shubham edit-input h-[700px] w-[1000px]'>
-          <div className='w-[1000px] h-20 bg-green-300 rounded-t-3xl text-center '>
-            <h1 className='p-7 text-slate-950 text-2xl font-mono'>Profile</h1>
+
+      <div className='h-screen bg-blue-50 container mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-center m-10 '>
+        <div className='bg-white rounded-3xl shadow-2xl sm:col-span-9 md:col-span-9 lg:col-span-12 xl:col-span-12 shubham edit-input h-[700px] sm:w-full md:w-full lg:w-full xl:w-[1000px] m-10'>
+          <div className='w-full h-20 bg-green-300 rounded-t-3xl text-center p-4 sm:p-6'>
+            <h1 className='text-slate-950 text-xl sm:text-2xl md:text-3xl lg:text-2xl font-mono'>Profile</h1>
           </div>
-          <div className='h-48 flex'>
-            <div className='h-40 w-40 mx-16 mt-3 rounded-full border'>
+          <div className='flex sm:flex-col md:flex-row lg:flex-row'>
+            <div className='h-40 w-40 sm:h-40 sm:w-40 md:h-40 md:w-40 mx-16 mt-3 mb-3 rounded-full border'>
               <img
                 className='h-full w-full rounded-full'
                 src={photo ? photo : 'icon.jpg'}
@@ -107,145 +107,147 @@ const Profile = () => {
 
             <div className='flex justify-center'>
               <div className='text-2xl font-bold text-primary mt-20'>
-                <p> Hi,{name}</p>
+                <p> Hi, {name}</p>
               </div>
             </div>
           </div>
           <hr />
           <div className='mx-auto max-w-md'>
-            <div className='p-4'>
+            <div className='p-4    m-5 '>
               <div className='mb-4'>
-                <p className='text-lg font-semibold'>Name: <span className='text-blue-500 px-20'>{name}</span></p>
+                <p className='text-xl font-bold text-blue-500'>Name: <span className='text-black'>{name}</span></p>
               </div>
-              <hr />
+              <hr className='my-2' />
               <div className='mb-4'>
-                <p className='text-lg font-semibold'>Email: <span className='text-blue-500 px-20'>{email}</span></p>
+                <p className='text-xl font-bold text-blue-500'>Email: <span className='text-black'>{email}</span></p>
               </div>
-              <hr />
+              <hr className='my-2' />
               <div className='mb-4'>
-                <p className='text-lg font-semibold'>Mobile: <span className='text-blue-500 px-[70px]'>{mobile}</span></p>
+                <p className='text-xl font-bold text-blue-500'>Mobile: <span className='text-black'>{mobile}</span></p>
               </div>
-              <hr />
+              <hr className='my-2' />
               <div className='mb-4'>
-                <p className='text-lg font-semibold'>Age: <span className='text-blue-500 px-[95px]'>{age}</span></p>
+                <p className='text-xl font-bold text-blue-500'>Age: <span className='text-black'>{age}</span></p>
               </div>
-              <hr />
+              <hr className='my-2' />
               <div className='mb-4'>
-                <p className='text-lg font-semibold'>Gender: <span className='text-blue-500 px-[67px]'>{gender}</span></p>
+                <p className='text-xl font-bold text-blue-500'>Gender: <span className='text-black'>{gender}</span></p>
               </div>
-              <hr />
+              <hr className='my-2' />
             </div>
-            <br />
-            <div className='flex justify-between'>
-              <button onClick={openModal} className="btn text-white bg-green-300">Edit Details</button>
 
-              {/* <button></button> */}
-              <Link className="btn text-white bg-green-300" to={'/appointments'}>My Appointments</Link>
-              <button className="btn text-white bg-green-300">My Reports</button>
+
+            <br />
+            <div className='flex flex-col sm:flex-row md:flex-row lg:flex-row justify-center '>
+              <button onClick={openModal} className="btn mb-2 sm:mb-0 md:mb-0 lg:mb-0 text-white mx-10 bg-green-300 ">Edit Details</button>
+              <Link className="btn mb-2 sm:mb-0 md:mb-0 lg:mb-0 text-white bg-green-300 mx-10" to={'/appointments'}>My Appointments</Link>
+              {/* <button className="btn mb-2 sm:mb-0 md:mb-0 lg:mb-0 text-white bg-green-300">My Reports</button> */}
             </div>
           </div>
         </div>
       </div>
 
-      {isEditModalOpen && (
-        <dialog open id="my_modal_1" className="modal">
-          <div className="modal-box bg-white h-[500px ] text-black">
-            <h3 className="font-bold text-lg">Edit User Details</h3>
-            <br />
-            <form onSubmit={handleSubmit} >
-              <label htmlFor="username">Username:</label>
-              <input
-                className='mx-14 text-black'
-                name='name'
-                type="text"
-                placeholder="Type name"
-                value={values.name}
-                onChange={handleChange}
-                onBlur={handleBlur}
-
-              />
-              <div>
-                {errors.name && touched.name && (
-                  <p className="text-red-600">{errors.name}</p>
-                )}
-              </div>
+      {
+        isEditModalOpen && (
+          <dialog open id="my_modal_1" className="modal">
+            <div className="modal-box bg-white h-[500px ] text-black">
+              <h3 className="font-bold text-lg">Edit User Details</h3>
               <br />
-              <br />
+              <form onSubmit={handleSubmit} >
+                <label htmlFor="username">Username:</label>
+                <input
+                  className='mx-14 text-black'
+                  name='name'
+                  type="text"
+                  placeholder="Type name"
+                  value={values.name}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
 
-              <label htmlFor="mobile">Mobile:</label>
-              <input
-                className='mx-20 text-black'
-                name='mobile'
-                type="text"
-                placeholder="Type number"
-                value={values.mobile}
-                onChange={handleChange}
-                onBlur={handleBlur}
-              />
-              <div>
-                {errors.mobile && touched.mobile && (
-                  <p className="text-red-600">{errors.mobile}</p>
-                )}
-              </div>
-              <br />
-              <br />
+                />
+                <div>
+                  {errors.name && touched.name && (
+                    <p className="text-red-600">{errors.name}</p>
+                  )}
+                </div>
+                <br />
+                <br />
 
-              <label htmlFor="mobile">Age:</label>
-              <input
-                className='mx-[95px] text-black'
-                type="text"
-                name="age"
-                placeholder='age'
-                value={values.age}
-                onChange={handleChange}
-                onBlur={handleBlur}
-              />  <div>
-                {errors.age && touched.age && (
-                  <p className="text-red-600">{errors.age}</p>
-                )}
-              </div>
-              <br />
-              <br />
+                <label htmlFor="mobile">Mobile:</label>
+                <input
+                  className='mx-20 text-black'
+                  name='mobile'
+                  type="text"
+                  placeholder="Type number"
+                  value={values.mobile}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                />
+                <div>
+                  {errors.mobile && touched.mobile && (
+                    <p className="text-red-600">{errors.mobile}</p>
+                  )}
+                </div>
+                <br />
+                <br />
 
-              <label htmlFor="gender">Gender:</label>
-              <select
-                className='mx-[72px] text-gray-500'
-                name="gender"
-                value={values.gender}
-                onChange={handleChange}
-                onBlur={handleBlur}
-              >
-                <option value="male">Select</option>
+                <label htmlFor="mobile">Age:</label>
+                <input
+                  className='mx-[95px] text-black'
+                  type="text"
+                  name="age"
+                  placeholder='age'
+                  value={values.age}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                />  <div>
+                  {errors.age && touched.age && (
+                    <p className="text-red-600">{errors.age}</p>
+                  )}
+                </div>
+                <br />
+                <br />
 
-                <option value="male">Male</option>
-                <option value="female">Female</option>
+                <label htmlFor="gender">Gender:</label>
+                <select
+                  className='mx-[72px] text-gray-500'
+                  name="gender"
+                  value={values.gender}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                >
+                  <option value="male">Select</option>
 
-              </select>
-              <div>
-                {errors.gender && touched.gender && (
-                  <p className="text-red-600">{errors.gender}</p>
-                )}
-              </div>
+                  <option value="male">Male</option>
+                  <option value="female">Female</option>
+
+                </select>
+                <div>
+                  {errors.gender && touched.gender && (
+                    <p className="text-red-600">{errors.gender}</p>
+                  )}
+                </div>
 
 
 
-              <div className="modal-action mt-28 text-black">
-                <button type="button" className="btn" onClick={closeModal}>
-                  Close
-                </button>
-                <button type="submit" className="btn bg-green-500 text-white" >
-                  Save Changes
-                </button>
-              </div>
-            </form>
-          </div>
-        </dialog>
-      )}
+                <div className="modal-action mt-28 text-black">
+                  <button type="button" className="btn" onClick={closeModal}>
+                    Close
+                  </button>
+                  <button type="submit" className="btn bg-green-500 text-white" >
+                    Save Changes
+                  </button>
+                </div>
+              </form>
+            </div>
+          </dialog>
+        )
+      }
 
 
       <Footer />
 
-    </div>
+    </div >
   );
 };
 

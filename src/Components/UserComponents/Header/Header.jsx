@@ -5,7 +5,7 @@ import { userLogout } from '../../../Redux/UserSlice/UserSlice';
 import Swal from 'sweetalert2';
 // import good from '../../../Assets/icon/good.svg'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHouse, faRightToBracket, faUser,faUserDoctor, faBell,faCalendarCheck,faStethoscope, faComment } from '@fortawesome/free-solid-svg-icons';
+import { faHouse, faRightToBracket, faUser, faUserDoctor, faBell, faCalendarCheck, faStethoscope, faComment } from '@fortawesome/free-solid-svg-icons';
 
 
 const Header = () => {
@@ -46,20 +46,20 @@ const Header = () => {
           </label>
 
           {
-            token ? 
-            (
-              <ul tabIndex={0} className='menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-white rounded-box w-52'>
-                <li><Link to='/'>HOME <FontAwesomeIcon icon={faHouse} /></Link></li>
-                <li><Link to='/doctorlist'>DOCTORS <FontAwesomeIcon icon={faUserDoctor} /></Link></li>
-                <li><Link to='/appointments'>APPOINTMENTS <FontAwesomeIcon icon={faCalendarCheck} /></Link></li>
-                {/* <li><Link to=''>HEALTH RECORDS</Link></li> */}
-                <li><Link to='/chatuser'>CHATS<FontAwesomeIcon icon={faComment} /></Link></li>
-              </ul>) : (
-              <ul tabIndex={0} className='menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52'>
-                <li><Link to='/'>HOME<FontAwesomeIcon icon={faHouse} /></Link></li>
-                <li><Link to='/login'>LOGIN <FontAwesomeIcon icon={faRightToBracket} /></Link></li>
-              </ul>
-            )
+            token ?
+              (
+                <ul tabIndex={0} className='menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-white rounded-box w-52'>
+                  <li><Link to='/'>HOME <FontAwesomeIcon icon={faHouse} /></Link></li>
+                  <li><Link to='/doctorlist'>DOCTORS <FontAwesomeIcon icon={faUserDoctor} /></Link></li>
+                  <li><Link to='/appointments'>APPOINTMENTS <FontAwesomeIcon icon={faCalendarCheck} /></Link></li>
+                  {/* <li><Link to=''>HEALTH RECORDS</Link></li> */}
+                  <li><Link to='/chatuser'>CHATS<FontAwesomeIcon icon={faComment} /></Link></li>
+                </ul>) : (
+                <ul tabIndex={0} className='menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52'>
+                  <li><Link to='/'>HOME<FontAwesomeIcon icon={faHouse} /></Link></li>
+                  <li><Link to='/login'>LOGIN <FontAwesomeIcon icon={faRightToBracket} /></Link></li>
+                </ul>
+              )
           }
 
         </div>
@@ -75,7 +75,6 @@ const Header = () => {
             <li><Link to='/doctorlist'>DOCTORS <FontAwesomeIcon icon={faUserDoctor} /></Link></li>
             <li><Link to='/appointments'>APPOINTMENTS <FontAwesomeIcon icon={faCalendarCheck} /></Link></li>
             {/* <li><Link to=''>HEALTH RECORDS</Link></li> */}
-            <li><Link to='/chatuser'>CHATS<FontAwesomeIcon icon={faComment} /></Link></li>
 
           </ul>
         </div>
@@ -91,11 +90,13 @@ const Header = () => {
       {
         token ? (
           <div className='navbar-end'>
-            <FontAwesomeIcon icon={faBell} style={{color: "#000000",}} className='me-10' />
+            <Link to='/chatuser' className='me-5 text-sm' >CHATS<FontAwesomeIcon icon={faComment} className='mx-2' /></Link>
+
+            {/* <FontAwesomeIcon icon={faBell} style={{ color: "#000000", }} className='me-10' /> */}
             <div className='dropdown dropdown-end'>
               <label tabIndex={0} className='btn btn-ghost btn-circle avatar'>
                 <div className='w-10 rounded-full'>
-                <FontAwesomeIcon icon={faUser} style={{color: "#000000",}}  className='h-12 w-5'/>
+                  <FontAwesomeIcon icon={faUser} style={{ color: "#000000", }} className='h-12 w-5' />
                   {/* <img src='icon.jpg' /> */}
                 </div>
               </label>
@@ -122,7 +123,7 @@ const Header = () => {
       }
 
 
-    </div>
+    </div >
   );
 };
 

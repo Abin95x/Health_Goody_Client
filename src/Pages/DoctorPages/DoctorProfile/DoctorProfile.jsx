@@ -153,12 +153,11 @@ const DoctorProfile = () => {
       {doc && (
         <div className='min-h-screen bg-blue-50'>
           <div className='flex flex-col items-center'>
-            <div className='text-2xl text-gray-500 mt-5'>
+            <div className='text-2xl text-black mt-10'>
               <h1>Doctor Profile</h1>
             </div>
-
             <div className='flex flex-col md:flex-row bg-blue-50'>
-              <div className='bg-white w-full md:w-96 h-96 rounded-3xl m-2 md:m-32 mx-auto md:mx-6 shadow-2xl border text-center'>
+              <div className='bg-white w-full md:w-96 h-96 rounded-xl m-2 md:m-10 mx-auto md:mx-6 shadow-2xl border text-center'>
                 <div>
                   <img
                     src={doc.photo || 'placeholder_image_url'}
@@ -188,33 +187,32 @@ const DoctorProfile = () => {
                 </div>
               </div>
 
-              <div className='bg-white w-full md:w-[600px] h-96 m-2 md:m-32 mx-auto md:mx-2 p-4 md:p-24 rounded-3xl shadow-2xl border flex flex-col justify-center'>
+              <div className='bg-white w-full md:w-[600px] h-96 m-2 md:m-10 mx-auto md:mx-2 p-4 md:p-24 rounded-xl shadow-2xl border flex flex-col justify-center'>
                 <div>
                   <span>Name</span>
-                  <div className='border border-zinc-500 rounded-xl h-10 md:w-96 mx-auto'>
+                  <div className='border border-zinc-500 rounded h-10 md:w-96 mx-auto'>
                     <span className='text-black m-2'>{doc.name || 'Not added'}</span>
                   </div>
 
                   <span>Email</span>
-                  <div className='border border-zinc-500 rounded-xl h-10 md:w-96 mx-auto'>
+                  <div className='border border-zinc-500 rounded h-10 md:w-96 mx-auto'>
                     <span className='text-black m-2'>{doc.email || 'Not added'}</span>
                   </div>
 
                   <span>Mobile</span>
-                  <div className='border border-zinc-500 rounded-xl h-10 md:w-96 mx-auto'>
+                  <div className='border border-zinc-500 rounded h-10 md:w-96 mx-auto'>
                     <span className='text-black m-2'>{doc.mobile || 'Not added'}</span>
                   </div>
 
                   <span>Bio</span>
-                  <div className='border border-zinc-500 rounded-xl h-28 md:w-96 mx-auto'>
+                  <div className='border border-zinc-500 rounded h-28 md:w-96 mx-auto'>
                     <span className='text-black m-2'>{doc.bio || 'Not added'}</span>
                   </div>
                 </div>
               </div>
             </div>
-
+            <br />
             <div className='flex flex-col md:flex-row justify-center  md:space-x-5'>
-
               <Button onClick={() => setOpenModal2(true)}>EDIT</Button>
               <Button>
                 <Link to='/doctor/appointment'>Appointments</Link>

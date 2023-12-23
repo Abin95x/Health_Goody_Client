@@ -33,9 +33,14 @@ const Slots = () => {
 
     return (
         <div className="min-h-screen bg-blue-50">
+
+            <br />
+            <div className='text-center text-2xl text-black'>
+                <h1>Slots List</h1>
+            </div>
             <br />
             <div className='flex justify-center'>
-                <div className='w-full lg:w-[800px] bg-white min-h-[600px] rounded-xl shadow-2xl overflow-hidden'>
+                <div className='w-full lg:w-[800px] bg-white min-h-[500px] rounded-xl shadow-2xl overflow-hidden'>
                     {slots.length === 0 ? (
                         <div className="text-center py-6">
                             <p className="text-gray-500 text-lg">No slots added</p>

@@ -15,10 +15,10 @@ const SignupPage = () => {
 
   const [photo, setPhoto] = useState(null);
   const navigate = useNavigate();
-  
+
   async function onSubmit() {
     try {
-      const response = await userSignup({...values,photo});
+      const response = await userSignup({ ...values, photo });
       console.log(response.data.otpId);
       const { userData, otpId } = response.data;
       if (response.data.status) {
@@ -98,12 +98,12 @@ const SignupPage = () => {
       <Header />
 
       <div className='hero min-h-screen flex flex-1 flex-col justify-center px-6 py-12 lg:px-8 bg-white h-screen' style={{ backgroundImage: `url(${backgroundImage})`, backgroundSize: 'cover' }}>
-        <div className='card flex-shrink-0 w-full max-w-md shadow-2xl bg-transparent'>
+        <div className='card flex-shrink-0 w-full max-w-md shadow-2xl bg-transparent '>
           <div className='card-body'>
             <div className='text-center lg:text-left'>
-              <h1 className='text-5xl font-bold'>Register now!</h1>
+              <h1 className='text-2xl font-bold'>Register now!</h1>
             </div>
-            <br />
+
             <form action='' onSubmit={handleSubmit} >
               <div>
                 <input
@@ -200,7 +200,7 @@ const SignupPage = () => {
                   className='file-input file-input-bordered file-input-primary w-full '
                   onChange={handlePhotoChange}
                   accept='image/*'
-                  // required
+                // required
                 />
               </div>
 

@@ -102,8 +102,12 @@ const AppointmentList = () => {
   return (
     <div>
       <br />
+      <div className='text-center text-2xl text-black'>
+        <h1>Appointment List</h1>
+      </div>
+      <br />
       <div className='flex justify-center'>
-        <div className='w-full lg:w-[1000px] bg-white min-h-[700px] rounded-xl shadow-2xl overflow-hidden'>
+        <div className='w-full lg:w-[1000px] bg-white min-h-[500px] rounded-xl shadow-2xl overflow-hidden'>
           {appo.length === 0 ? (
             <div className="text-center p-4 text-gray-600">
               No appointments available.

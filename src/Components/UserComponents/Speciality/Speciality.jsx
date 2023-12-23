@@ -31,12 +31,12 @@ const Speciality = () => {
                     <h1 className="text-3xl font-bold text-black mb-4 ">Specialities</h1>
                 </div>
                 <div className="bg-blue-50 flex items-center justify-center h-96">
-                    <div className="carousel  w-[1600px] flex flex-row border rounded-lg bg-white">
+                    <div className="carousel  w-[1240px] flex flex-row border rounded-lg bg-white">
                         <div className="carousel rounded-box">
                             {slist && slist.map((speciality) => (
                                 <div key={speciality._id} className="carousel-item cursor-pointer" onClick={() => handleClick(speciality._id)}>
                                     <div className="max-w-xs mx-auto p-4 bg-white flex flex-col items-center space-y-5 text-center">
-                                        <div>
+                                        <div className='mx-10 '>
                                             <img className="w-full h-32 object-cover mb-4" src={speciality.photo} alt={speciality.speciality} />
                                             <p className="text-lg text-black font-semibold">{speciality.speciality}</p>
                                         </div>

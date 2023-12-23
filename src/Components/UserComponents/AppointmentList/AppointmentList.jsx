@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux/es/hooks/useSelector";
 import { appointmentList } from "../../../Api/userApi";
 import { Button, Modal } from "flowbite-react";
@@ -7,8 +7,7 @@ import Swal from "sweetalert2";
 import { Link } from "react-router-dom";
 import { createChat } from "../../../Api/userApi";
 import { useNavigate } from "react-router-dom";
-import html2canvas from "html2canvas";
-import jsPDF from "jspdf";
+
 
 const AppointmentList = () => {
   const [openModal, setOpenModal] = useState(false);
@@ -27,7 +26,6 @@ const AppointmentList = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const limit = 5;
 
-  const pdfRef = useRef();
 
   useEffect(() => {
     appointmentList(id, currentPage, limit)

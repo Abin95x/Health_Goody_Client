@@ -77,7 +77,7 @@ const LoginPage = () => {
         <div className='card flex-shrink-0 w-full max-w-md shadow-2xl bg-transparent'>
           <div className='card-body'>
             <div className='text-center lg:text-left'>
-              <h1 className='text-5xl font-bold'>Login now!</h1>
+              <h1 className='text-2xl font-bold'>Login now!</h1>
             </div>
             <br />
             <form action='' onSubmit={handleSubmit} >

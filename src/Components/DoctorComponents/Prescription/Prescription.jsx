@@ -182,7 +182,7 @@ const Priscription = () => {
     return (
         <>
             <div className='bg-blue-50'>
-                <h1 className='text-center text-3xl p-5 text-black'>PRESCRIPTION</h1>
+                <h1 className='text-center text-2xl pt-10  text-black'>PRESCRIPTION</h1>
             </div>
             <div className='bg-blue-50 min-h-screen flex flex-col items-center text-black'>
 
