@@ -49,6 +49,8 @@ const DoctorDetails = () => {
                     title: 'Invalid Date',
                     text: 'Please select a date in the future.',
                 });
+                setSelect(null);
+                setSlots([]);
                 return;
             }
             setDate(date);
