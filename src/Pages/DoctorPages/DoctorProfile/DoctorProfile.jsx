@@ -41,7 +41,7 @@ const DoctorProfile = () => {
     slotDuration: '5',
     date: '',
   });
-  // console.log(formData)
+
 
 
   const handleSubmit2 = async (event) => {
@@ -97,13 +97,15 @@ const DoctorProfile = () => {
 
   const handleChange2 = (e) => {
     try {
+
       const { name, value } = e.target;
+      console.log(value);
       setFormData((prevData) => ({ ...prevData, [name]: value }));
     } catch (error) {
       console.log(error.message);
     }
   };
-  const { name, mobile, experience, speciality, bio, languages } = doc || {};
+
 
   const onSubmit = async () => {
     setLoading(true);
@@ -130,12 +132,12 @@ const DoctorProfile = () => {
 
   const { values, errors, touched, handleChange, handleBlur, handleSubmit } = useFormik({
     initialValues: {
-      name: name,
-      mobile: mobile,
-      experience: experience,
-      speciality: speciality,
-      languages: languages,
-      bio: bio,
+      name: doc?.name,
+      mobile: doc?.mobile,
+      experience: doc?.experience,
+      speciality: doc?.speciality,
+      languages: doc?.languages,
+      bio: doc?.bio,
     },
     validationSchema: drEditSchema,
     onSubmit,

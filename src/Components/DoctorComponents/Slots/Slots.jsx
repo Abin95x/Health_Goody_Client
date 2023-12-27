@@ -10,16 +10,22 @@ const Slots = () => {
     const [openModal, setOpenModal] = useState(false);
     const id = doctorData._id;
     const [selectedSlot, setSelectedSlot] = useState(null);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [pageSize, setPageSize] = useState(10);
 
     useEffect(() => {
-        slotList(id)
+        loadSlots();
+    }, [id, currentPage, pageSize]);
+
+    const loadSlots = () => {
+        slotList(id, currentPage, pageSize)
             .then((response) => {
                 setSlots(response.data.data);
             })
             .catch((error) => {
                 console.log(error);
             });
-    }, [id]);
+    };
 
     const handeClick = (id) => {
         try {
@@ -31,6 +37,9 @@ const Slots = () => {
         }
     };
 
+    const handlePageChange = (newPage) => {
+        setCurrentPage(newPage);
+    };
     return (
         <div className="min-h-screen bg-blue-50">
 
@@ -78,6 +87,20 @@ const Slots = () => {
                     )}
                 </div>
             </div>
+            {slots.length > 0 && (
+                <div className="flex justify-center mt-4 bg-blue-50">
+                    {Array.from({ length: Math.ceil(slots.length / pageSize) }, (_, index) => (
+                        <button
+                            key={index + 1}
+                            onClick={() => handlePageChange(index + 1)}
+                            className={`pagination-btn border w-10 ${index + 1 === currentPage ? 'border-black' : 'border-gray-300'
+                                }`}
+                        >
+                            {index + 1}
+                        </button>
+                    ))}
+                </div>
+            )}
 
             <br />
             <Modal show={openModal} onClose={() => setOpenModal(false)}>

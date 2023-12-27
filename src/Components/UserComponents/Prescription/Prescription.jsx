@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 // import Swal from 'sweetalert2';
@@ -6,13 +6,13 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStethoscope, } from '@fortawesome/free-solid-svg-icons';
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
+import { medicineDetails } from '../../../Api/userApi';
 
 const Prescription = () => {
     const location = useLocation();
-    const { _id, name, } = useSelector((state) => state.reducer.userReducer.user);
-
+    const { _id, name, age, email, mobile } = useSelector((state) => state.reducer.userReducer.user);
+    const [medicine, setMedicine] = useState([])
     const { data } = location.state || {}
-    console.log(data.doctorDetails.name);
     const pdfRef = useRef();
 
     const downloadPdf = () => {
@@ -49,6 +49,18 @@ const Prescription = () => {
     };
 
 
+
+    useEffect(() => {
+        medicineDetails(data._id).then((res) => {
+            setMedicine(res.data.result)
+        }).catch((error) => {
+            console.log(error);
+        })
+    }, [])
+    console.log(medicine, 'kkklllllll10');
+
+
+
     return (
         <>
             <div className='bg-blue-50 min-h-screen p-5 '>
@@ -63,7 +75,7 @@ const Prescription = () => {
                         <div className='m-5 border'>
                             <hr />
                         </div>
-                        <div className='m-5'>
+                        <div className='m-5 text-black'>
                             DOCTOR DETAILS
                         </div>
                         <div className=''>
@@ -72,6 +84,7 @@ const Prescription = () => {
                                 <h1>DR : {data.doctorDetails.name}</h1>
                                 <h1>speciality : {data.doctorDetails.speciality}</h1>
                                 <h1>Mobile : {data.doctorDetails.mobile}</h1>
+                                <h1>Email : {data.doctorDetails.email}</h1>
                             </div>
 
 
@@ -81,27 +94,61 @@ const Prescription = () => {
                             <hr />
                         </div>
 
-                        <div className='m-5'>
+                        <div className='m-5 text-black'>
                             PATIENT DETAILS
+                        </div>
+                        <div className='m-5'>
+                            <h1>Name : {name} </h1>
+                            <h1>Age : {age}</h1>
+                            <h1>Mobile : {mobile}</h1>
+                            <h1>Email : {email}</h1>
                         </div>
 
                         <div className='m-5 border'>
                             <hr />
                         </div>
 
-                        <div className='m-5'>
+                        <div className='m-5 text-black'>
                             <h1>MEDICINE</h1>
                         </div>
 
+
+                        <div className='m-5'>
+                            {medicine.length > 0 ? (
+                                medicine.map((med, index) => (
+                                    <div key={med.appointmentId}>
+                                        <p>Date: {med.date}</p>
+                                        {med.medicines.map((m, index) => (
+                                            <div key={index} className='border border-black m-5 p-5'>
+                                                <h1>Medicine : {m.medicine}</h1>
+                                                <h1>Duration : {m.duration} days</h1>
+                                                <h1>Frequency : {m.frequency} times per day</h1>
+                                            </div>
+                                        ))}
+                                        <h3 className='text-xl text-black'>Note: </h3>
+                                        <p className='text-black'>
+                                            {med.note}
+
+                                        </p>
+                                    </div>
+                                ))
+                            ) : (
+                                <p className='text-red-500'>No medicine added yet.</p>
+                            )}
+                        </div>
                         <div className='m-5 border'>
                             <hr />
                         </div>
 
 
                     </div>
-                </div>
+                </div >
+
+
                 <div className='flex justify-center p-10 '>
-                    <button className='btn btn-success' onClick={downloadPdf}>DOWNLOAD PDF</button>
+                    {medicine.length > 0 && (
+                        < button className='btn btn-success' onClick={downloadPdf}>DOWNLOAD PDF</button>
+                    )}
                 </div>
 
             </div >

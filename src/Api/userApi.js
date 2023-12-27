@@ -11,13 +11,11 @@ export async function otpVerify(otp, otpId, userId) {
 }
 
 export async function otpResend(userId) {
-
     const data = await userAxiosInstance.post('/resendOtp', { userId });
     return data;
 }
 
 export async function userLogin(loginData) {
-
     const data = await userAxiosInstance.post('/userLogin', loginData);
     return data;
 }
@@ -31,7 +29,7 @@ export async function setDetails(values) {
     return data;
 }
 
-export async function doctorList(select,search,page,count,sort) {
+export async function doctorList(select, search, page, count, sort) {
     const data = await userAxiosInstance.get(`/doctorList?select=${select}&search=${search}&page=${page}&count=${count}&sort=${sort}`);
     return data;
 }
@@ -60,9 +58,9 @@ export async function makeAppointment(values) {
     return data;
 }
 
-export async function appointmentList(id,page,limit) {
-    const data = await userAxiosInstance.get(`/appointmentList?id=${id}`,{
-        params:{
+export async function appointmentList(id, page, limit) {
+    const data = await userAxiosInstance.get(`/appointmentList?id=${id}`, {
+        params: {
             page,
             limit,
         }
@@ -70,13 +68,18 @@ export async function appointmentList(id,page,limit) {
     return data;
 }
 
-export async function cancelAppointment(id){
+export async function cancelAppointment(id) {
     const data = await userAxiosInstance.patch(`/cancelAppointment?id=${id}`);
     return data;
 }
 
-export async function createChat(values){
-    console.log(values,'kkkkk');
-    const data = await userAxiosInstance.post('/createChat',values);
+export async function createChat(values) {
+    const data = await userAxiosInstance.post('/createChat', values);
     return data;
+}
+
+export async function medicineDetails(appointmentId) {
+    const data = await userAxiosInstance.get(`/medicineDetails?id=${appointmentId}`)
+    console.log(data, 'return data');
+    return data
 }

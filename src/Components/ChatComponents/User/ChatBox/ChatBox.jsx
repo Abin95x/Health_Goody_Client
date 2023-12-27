@@ -1,12 +1,15 @@
-import React, { useState,useEffect,useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
-import { addMessage ,getMessages } from '../../../../Api/messageApi';
+import { addMessage, getMessages } from '../../../../Api/messageApi';
 import InputEmoji from 'react-input-emoji';
-import Conversation from '../Conversation/Conversation';
+import Conversation from '../Conversation/Conversation'; // Modified Conversation component
 import { fetchDoctorDetails } from '../../../../Api/chatApi';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faVideo } from '@fortawesome/free-solid-svg-icons';
 
-const ChatBox = ({ chat, currentUser, setMessages,messages,socket }) => {
-  
+
+
+const ChatBox = ({ chat, currentUser, setMessages, messages, socket }) => {
   const [doctorData, setDoctorData] = useState(null);
   const [newMessage, setNewMessage] = useState('');
 
@@ -16,14 +19,16 @@ const ChatBox = ({ chat, currentUser, setMessages,messages,socket }) => {
   const scroll = useRef();
 
   useEffect(() => {
-    // 👇️ scroll to bottom every time messages change
-    scroll.current?.scrollIntoView({ behavior: "smooth" });
+    // scroll to bottom every time messages change
+    scroll.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages]);
 
-
-  //storing messages in database
+  // Storing messages in the database
   const handleSend = async (e) => {
     e.preventDefault();
+    if (!newMessage.trim()) {
+      return;
+    }
     let newOne;
     const message = {
       senderId: currentUser,
@@ -31,7 +36,7 @@ const ChatBox = ({ chat, currentUser, setMessages,messages,socket }) => {
       chatId: chat._id,
     };
     try {
-      const  {data}  = await addMessage(message);
+      const { data } = await addMessage(message);
       newOne = data;
       setMessages([...messages, data]);
       setNewMessage('');
@@ -41,8 +46,7 @@ const ChatBox = ({ chat, currentUser, setMessages,messages,socket }) => {
     socket.emit('send_message', newOne);
   };
 
-
-  //getting dr details to display
+  // Getting doctor details to display
   useEffect(() => {
     const doctorId = chat?.members?.find((id) => id !== currentUser);
     const getDoctorData = async () => {
@@ -56,12 +60,10 @@ const ChatBox = ({ chat, currentUser, setMessages,messages,socket }) => {
     if (chat !== null) getDoctorData();
   }, [chat, currentUser]);
 
-
-
   useEffect(() => {
     const fetchMessages = async () => {
       try {
-        const data  = await getMessages(chat._id);
+        const data = await getMessages(chat._id);
         setMessages(data.data);
       } catch (error) {
         console.log(error.message);
@@ -70,17 +72,15 @@ const ChatBox = ({ chat, currentUser, setMessages,messages,socket }) => {
     if (chat !== null) fetchMessages();
   }, [chat]);
 
-  
-
   return (
     <>
       {chat ? (
         <>
           <div
             className="flex-1 p-2 sm:p-6 justify-center flex flex-col"
-            style={{ maxHeight: "80vh" }}
+            style={{ maxHeight: '80vh' }}
           >
-            <div className="flex sm:items-center justify-between border-b-2 border-gray-200">
+            <div className="flex sm:items-center justify-between  ">
               <div className="relative flex items-center space-x-4">
                 <div className="relative">
                   <span className="absolute text-green-500 right-0 bottom-0">
@@ -88,6 +88,7 @@ const ChatBox = ({ chat, currentUser, setMessages,messages,socket }) => {
                       <circle cx="8" cy="8" r="8" fill="currentColor"></circle>
                     </svg>
                   </span>
+
                   <img
                     src={doctorData?.photo}
                     alt="doctor"
@@ -96,33 +97,49 @@ const ChatBox = ({ chat, currentUser, setMessages,messages,socket }) => {
                 </div>
                 <div className="flex flex-col leading-tight">
                   <div className="text-2xl mt-1 flex items-center">
-                    <span className="text-gray-700 mr-3">
-                      {doctorData?.name}
-                    </span>
+                    <span className="text-gray-700 mr-3">{doctorData?.name}</span>
                   </div>
                 </div>
               </div>
             </div>
-  
+            <div>
+              <hr className='m-5 border' />
+            </div>
+
+
             <div
               id="messages"
               className="flex flex-col space-y-4 p-3 overflow-y-auto scrollbar-thumb-blue scrollbar-thumb-rounded scrollbar-track-blue-lighter scrollbar-w-1 h-screen scrolling-touch"
             >
               {messages.map((message) => (
                 <div ref={scroll} key={message._id}>
-                  <Conversation message={message} currentUser={currentUser} />
+                  {/* Check if the message is a video call link */}
+                  {message.text.includes('http://localhost:3000/doctor/video?roomID=') ? (
+                    <div className='flex justify-center'>
+                      <span
+                        className="text-green-500 text-2xl cursor-pointer"
+                        onClick={() => window.open(message.text, '_blank')}
+                      >
+
+                        <button className='btn btn-outline btn-accent' >Click here to join the video call <FontAwesomeIcon icon={faVideo} /> </button>
+                      </span>
+                    </div>
+                  ) : (
+                    <Conversation message={message} currentUser={currentUser} />
+                  )}
                 </div>
               ))}
             </div>
-  
-            <div className="border-t-2 border-gray-200 px-4 pt-4 mb-2 sm:mb-0">
+            <div>
+              <hr className='m-5 border' />
+            </div>
+
+            <div className=" px-4 pt-4 mb-2 ">
               <div className="relative flex">
-                <span className="absolute inset-y-0 flex items-center">
-                  {/* Add your content here */}
-                </span>
-                
+
+
                 <InputEmoji value={newMessage} onChange={handleChange} />
-  
+
                 <button
                   type="button"
                   onClick={handleSend}
@@ -145,17 +162,18 @@ const ChatBox = ({ chat, currentUser, setMessages,messages,socket }) => {
       ) : (
         <div
           className="flex-1 p-2 sm:p-6 justify-center flex items-center text-gray-300"
-          style={{ maxHeight: "90vh", fontSize: "50px" }}
+          style={{ maxHeight: '90vh', fontSize: '50px' }}
         >
           Open a chat to start a conversation
         </div>
-      )}
+      )
+      }
     </>
-  );  
+  );
 };
 
 ChatBox.propTypes = {
-  chat: PropTypes.object, 
+  chat: PropTypes.object,
   messages: PropTypes.array.isRequired,
   setMessages: PropTypes.func.isRequired,
   socket: PropTypes.object.isRequired,

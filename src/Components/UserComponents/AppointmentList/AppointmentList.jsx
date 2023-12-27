@@ -27,6 +27,8 @@ const AppointmentList = () => {
   const limit = 5;
 
 
+
+
   useEffect(() => {
     appointmentList(id, currentPage, limit)
       .then((res) => {
@@ -40,7 +42,6 @@ const AppointmentList = () => {
 
   const handleCancel = async (id) => {
     try {
-      console.log(id);
 
       Swal.fire({
         title: "Are you sure?",
@@ -61,7 +62,6 @@ const AppointmentList = () => {
           });
 
           setRender(true);
-          console.log(response, "resbro");
         }
       });
     } catch (error) {
@@ -73,7 +73,6 @@ const AppointmentList = () => {
     try {
       const response = await createChat({ userid: _id, doctorid: drId });
       setBtn(true);
-      console.log(response, "res chattt");
       Swal.fire(response.data.message);
     } catch (error) {
       console.log(error.message);
@@ -170,7 +169,7 @@ const AppointmentList = () => {
       <br />
       {data && (
         <Modal show={openModal} onClose={() => setOpenModal(false)}>
-          <Modal.Header>Terms of Service</Modal.Header>
+          <Modal.Header></Modal.Header>
           <Modal.Body>
             <div className="space-y-6">
               <p className="text-2xl leading-relaxed text-gray-500 dark:text-gray-400">
@@ -230,7 +229,7 @@ const AppointmentList = () => {
       )}
 
       <Modal show={openModalx} onClose={() => setOpenModalx(false)}>
-        <Modal.Header>Terms of Service</Modal.Header>
+        <Modal.Header></Modal.Header>
         <Modal.Body>
           <div className="space-y-6">
             <p className="text-base leading-relaxed text-gray-500 dark:text-gray-400">

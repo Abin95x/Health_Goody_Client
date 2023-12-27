@@ -1,13 +1,13 @@
-import React, { useState,useEffect ,useRef} from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
-import { addMessage ,getMessages } from '../../../../Api/messageApi';
+import { addMessage, getMessages } from '../../../../Api/messageApi';
 import InputEmoji from 'react-input-emoji';
 import Conversation from '../Conversation/Conversation';
 import { userData } from '../../../../Api/chatApi';
 
-const ChatBox = ({ chat, currentDoctor, setMessages,messages,socket }) => {
- 
-  
+const ChatBox = ({ chat, currentDoctor, setMessages, messages, socket }) => {
+
+
   const [userDataa, setUserDataa] = useState(null);
   const [newMessage, setNewMessage] = useState('');
 
@@ -24,6 +24,9 @@ const ChatBox = ({ chat, currentDoctor, setMessages,messages,socket }) => {
   //storing messages in database
   const handleSend = async (e) => {
     e.preventDefault();
+    if (!newMessage.trim()) {
+      return;
+    }
     let newOne;
     const message = {
       senderId: currentDoctor,
@@ -31,7 +34,7 @@ const ChatBox = ({ chat, currentDoctor, setMessages,messages,socket }) => {
       chatId: chat._id,
     };
     try {
-      const  {data}  = await addMessage(message);
+      const { data } = await addMessage(message);
       newOne = data;
       setMessages([...messages, data]);
       setNewMessage('');
@@ -53,8 +56,8 @@ const ChatBox = ({ chat, currentDoctor, setMessages,messages,socket }) => {
         console.log(error.message);
       }
     };
-    if (chat !== null) 
-    getUserData();
+    if (chat !== null)
+      getUserData();
   }, [chat, currentDoctor]);
 
 
@@ -62,7 +65,7 @@ const ChatBox = ({ chat, currentDoctor, setMessages,messages,socket }) => {
   useEffect(() => {
     const fetchMessages = async () => {
       try {
-        const data  = await getMessages(chat._id);
+        const data = await getMessages(chat._id);
         setMessages(data?.data);
       } catch (error) {
         console.log(error.message);
@@ -79,7 +82,7 @@ const ChatBox = ({ chat, currentDoctor, setMessages,messages,socket }) => {
             className="flex-1 p-2 sm:p-6 justify-center flex flex-col"
             style={{ maxHeight: "80vh" }}
           >
-            <div className="flex sm:items-center justify-between border-b-2 border-gray-200">
+            <div className="flex sm:items-center justify-between ">
               <div className="relative flex items-center space-x-4">
                 <div className="relative">
                   <span className="absolute text-green-500 right-0 bottom-0">
@@ -102,7 +105,10 @@ const ChatBox = ({ chat, currentDoctor, setMessages,messages,socket }) => {
                 </div>
               </div>
             </div>
-  
+            <div>
+              <hr className='m-5 border' />
+            </div>
+
             <div
               id="messages"
               className="flex flex-col space-y-4 p-3 overflow-y-auto scrollbar-thumb-blue scrollbar-thumb-rounded scrollbar-track-blue-lighter scrollbar-w-1 h-screen scrolling-touch"
@@ -113,14 +119,16 @@ const ChatBox = ({ chat, currentDoctor, setMessages,messages,socket }) => {
                 </div>
               ))}
             </div>
-  
-            <div className="border-t-2 border-gray-200 px-4 pt-4 mb-2 sm:mb-0">
+            <div>
+              <hr className='m-5 border' />
+            </div>
+            <div className="  px-4 pt-4 mb-2 sm:mb-0">
               <div className="relative flex">
                 <span className="absolute inset-y-0 flex items-center">
                   {/* Add your content here */}
                 </span>
                 <InputEmoji value={newMessage} onChange={handleChange} />
-  
+
                 <button
                   type="button"
                   onClick={handleSend}
@@ -149,11 +157,11 @@ const ChatBox = ({ chat, currentDoctor, setMessages,messages,socket }) => {
         </div>
       )}
     </>
-  );  
+  );
 };
 
 ChatBox.propTypes = {
-  chat: PropTypes.object, 
+  chat: PropTypes.object,
   messages: PropTypes.array.isRequired,
   setMessages: PropTypes.func.isRequired,
   socket: PropTypes.object.isRequired,
