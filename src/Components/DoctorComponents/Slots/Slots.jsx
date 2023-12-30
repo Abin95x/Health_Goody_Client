@@ -93,14 +93,15 @@ const Slots = () => {
                         <button
                             key={index + 1}
                             onClick={() => handlePageChange(index + 1)}
-                            className={`pagination-btn border w-10 ${index + 1 === currentPage ? 'border-black' : 'border-gray-300'
-                                }`}
+                            className={`pagination-btn border w-10 ${index + 1 === currentPage ? "border-black" : "border-gray-300"}`}
+
                         >
                             {index + 1}
                         </button>
                     ))}
                 </div>
-            )}
+            )
+            }
 
             <br />
             <Modal show={openModal} onClose={() => setOpenModal(false)}>
@@ -126,7 +127,7 @@ const Slots = () => {
                     <Button className="bg-blue-500 text-white" onClick={() => setOpenModal(false)}>Close</Button>
                 </Modal.Footer>
             </Modal>
-        </div>
+        </div >
     );
 };
 

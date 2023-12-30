@@ -9,12 +9,12 @@ const DoctorList = () => {
     const [select, setSelect] = useState('');
     const [searchQuery, setSearchQuery] = useState('');
     const [currentPage, setCurrentPage] = useState(1);
-    const [totalCount,setTotalCount]=useState();
-    const [sort,setSort] = useState();
+    const [totalCount, setTotalCount] = useState();
+    const [sort, setSort] = useState();
     const noOfDoctors = 4;
 
     useEffect(() => {
-        doctorList(select, searchQuery, currentPage, noOfDoctors,sort)
+        doctorList(select, searchQuery, currentPage, noOfDoctors, sort)
             .then((response) => {
                 setDoctors(response.data.doctors);
                 setTotalCount(response.data.totalCount); // Assuming you have a state variable for totalCount
@@ -22,8 +22,8 @@ const DoctorList = () => {
             .catch((error) => {
                 console.log(error);
             });
-    }, [select, searchQuery, currentPage ,sort]);
-    
+    }, [select, searchQuery, currentPage, sort]);
+
 
     const handleSearchChange = (e) => {
         setSearchQuery(e.target.value);
@@ -49,8 +49,8 @@ const DoctorList = () => {
         setSort(e.target.value);
         setCurrentPage(1);
     };
-    
-    
+
+
 
     const totalPages = Math.ceil(totalCount / noOfDoctors);
 
@@ -119,19 +119,22 @@ const DoctorList = () => {
                                 </div>
                             </Link>
                         ))}
-                        
+
                     </div>
                 </div>
 
                 {/* Pagination */}
                 <div className='flex justify-center mt-4 bg-blue-50'>
                     {Array.from({ length: totalPages }, (_, index) => (
-                        <button key={index + 1} onClick={() => setCurrentPage(index + 1)} className='pagination-btn border w-10 border-black'>
+                        <button
+                            key={index + 1}
+                            onClick={() => setCurrentPage(index + 1)}
+                            className={`pagination-btn border w-10 ${index + 1 === currentPage ? "border-black" : "border-gray-300"}`}>
                             {index + 1}
                         </button>
                     ))}
                 </div>
-            </div>
+            </div >
         </>
     );
 };

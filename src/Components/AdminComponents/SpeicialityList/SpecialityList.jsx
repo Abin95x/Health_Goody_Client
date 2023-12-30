@@ -10,24 +10,20 @@ const SpecialityList = () => {
     const [rerender, setRerender] = useState(false);
     const [data, setData] = useState(null);
     const [pagination, setPagination] = useState({});
-
     const [search, setSearch] = useState();
     const [filteredSpeciality, setFilteredSpeciality] = useState();
-
-    const [loading,setLoading]=useState(false);
- 
-  
+    const [loading, setLoading] = useState(false);
 
 
 
     const [currentPage, setCurrentPage] = useState(1);
-    const limit = 5 ;
+    const limit = 5;
 
     const handleClick = async () => {
         setLoading(true);
 
         const response = await addSpeciality({ speciality, photo });
-        
+
         setLoading(false);
 
         if (response) {
@@ -127,7 +123,7 @@ const SpecialityList = () => {
     };
 
     useEffect(() => {
-        specialityList(currentPage, limit)
+        specialityList(currentPage, limit, search)
             .then((response) => {
                 console.log(response);
                 setSlist(response.data.data);
@@ -136,7 +132,7 @@ const SpecialityList = () => {
             .catch((error) => {
                 console.log(error.message);
             });
-    }, [rerender, currentPage, limit]);
+    }, [rerender, currentPage, limit, search]);
 
     useEffect(() => {
         if (data) {
@@ -149,7 +145,7 @@ const SpecialityList = () => {
     const handleChange = (e) => {
         try {
             setSearch(e.target.value);
-            // setCurrentPage(1);
+            setCurrentPage(1);
 
         } catch (error) {
             console.log(error.message);
@@ -161,7 +157,7 @@ const SpecialityList = () => {
             (speciality) =>
                 speciality.speciality.toLowerCase().includes(search?.toLowerCase() || '')
         );
-       
+
 
 
         setFilteredSpeciality(filtered);
@@ -244,19 +240,18 @@ const SpecialityList = () => {
                 <br />
                 {pagination && pagination.totalPages && (
                     <div className="flex justify-center mt-4 bg-base-100">
-                    {Array.from({ length: pagination.totalPages }, (_, index) => (
-                        <button
-                        key={index + 1}
-                        onClick={() => setCurrentPage(index + 1)}
-                        className={`pagination-btn border w-10 ${
-                            index + 1 === currentPage ? 'border-green-500' : 'border-black'
-                        }`}
-                        >
-                        {index + 1}
-                        </button>
-                    ))}
-                </div>
-      )} 
+                        {Array.from({ length: pagination.totalPages }, (_, index) => (
+                            <button
+                                key={index + 1}
+                                onClick={() => setCurrentPage(index + 1)}
+                                className={`pagination-btn border w-10 ${index + 1 === currentPage ? 'border-green-500' : 'border-black'
+                                    }`}
+                            >
+                                {index + 1}
+                            </button>
+                        ))}
+                    </div>
+                )}
             </div>
 
 
@@ -290,8 +285,8 @@ const SpecialityList = () => {
                         <button onClick={handleClick} className='btn btn-success'>ADD</button>
 
                         <br />
-                         <br />
-                            {loading && <span className='loading loading-dots loading-lg'></span>}
+                        <br />
+                        {loading && <span className='loading loading-dots loading-lg'></span>}
 
                     </form>
 
@@ -330,7 +325,7 @@ const SpecialityList = () => {
                             <button onClick={() => handleEdit(data._id)} className='btn btn-warning'>
                                 Done
                             </button>
-                           
+
 
                             <br />
                             <br />

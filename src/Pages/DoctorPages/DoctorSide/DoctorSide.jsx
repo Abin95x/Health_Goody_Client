@@ -18,9 +18,6 @@ const DoctorSide = () => {
           <br />
           <Link to='/' className='btn btn-primary w-56' >HOME</Link>
 
-
-
-
           <div>
             <br />
             <h1></h1>

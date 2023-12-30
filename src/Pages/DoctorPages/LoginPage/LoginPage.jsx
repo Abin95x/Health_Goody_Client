@@ -65,7 +65,7 @@ const LoginPage = () => {
     onSubmit
   });
 
-  
+
 
   return (
     <>
@@ -109,7 +109,7 @@ const LoginPage = () => {
                 />
                 {errors.password && touched.password && <p className='text-red-600'>{errors.password}</p>}
                 <label className='label mt-2'>
-                  <a href='#' className='label-text-alt link link-hover'>Forgot password?</a>
+                  <a href='/doctor/forgotpassword' className='label-text-alt link link-hover'>Forgot password?</a>
                 </label>
               </div>
               <div className='form-control mt-6'>

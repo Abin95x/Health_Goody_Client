@@ -21,11 +21,33 @@ const DoctorDetails = () => {
     const [date, setDate] = useState();
     const { _id } = useSelector((state) => state.reducer.userReducer.user);
 
-
     const price = {
         id: 'price_1OJ8AOSGxvp5pPKvCJFkai6w',
         amount: 299,
     };
+
+    function getCurrentTime24() {
+        const now = new Date();
+        let hours = now.getHours();
+        let minutes = now.getMinutes();
+
+        // Add leading zeros to minutes if needed
+        minutes = minutes < 10 ? '0' + minutes : minutes;
+
+        // Form the time string in 24-hour format
+        const currentTime24 = `${hours}:${minutes}`;
+
+        return currentTime24;
+    }
+
+    const currentTime = getCurrentTime24();
+    console.log(currentTime);
+
+
+
+
+
+
 
     useEffect(() => {
         doctorDetails(id)
@@ -104,6 +126,14 @@ const DoctorDetails = () => {
         }
     };
 
+    const walletPay = async () => {
+        try {
+
+        } catch (error) {
+            console.log(error.message);
+        }
+    }
+
 
 
 
@@ -152,21 +182,38 @@ const DoctorDetails = () => {
                         {slots.length > 0 ? (
                             <ul className="flex flex-wrap justify-center">
                                 {slots.map((slot, index) => {
-                                    const startTime = new Date(slot.start);
-                                    const currentTime = new Date();
+                                    const slotStartTime = slot.start;
+                                    const currentDate = new Date();
 
-                                    // Disable the checkbox if the date is greater than the current date
-                                    const isDisabled = startTime > currentTime;
+                                    // Initialize isSlotDisabled to false by default
+                                    let isSlotDisabled = false;
+
+                                    console.log(slotStartTime);
+                                    console.log(currentTime);
+                                    console.log(currentDate, 'dddddddddddddddddddddd');
+                                    console.log(date, "xxxxxxxxxxxx");
+
+                                    // Check conditions and update isSlotDisabled accordingly
+                                    if (date < currentDate) {
+                                        if (slotStartTime < currentTime) {
+                                            isSlotDisabled = true;
+                                            console.log(isSlotDisabled);
+                                        }
+                                    }
 
                                     return (
-                                        <li key={index} className={`flex items-center h-10 w-36 bg-blue-500 m-2 p-2 rounded-xl text-white ${select === slot.objectId ? 'bg-green-500' : ''}`}>
+                                        <li
+                                            key={index}
+                                            className={`flex items-center h-10 w-36 m-2 p-2 rounded-xl text-white ${select === slot.objectId ? 'bg-green-500' : ''
+                                                } ${isSlotDisabled ? 'bg-gray-300 cursor-not-allowed' : 'bg-blue-500 hover:bg-blue-700'}`}
+                                        >
                                             <input
                                                 type="checkbox"
                                                 id={`slot-${index}`}
                                                 className="mr-2"
                                                 checked={select === slot.objectId}
                                                 onChange={() => handleSelect(slot.objectId)}
-                                                disabled={isDisabled}
+                                                disabled={isSlotDisabled}
                                             />
                                             <label htmlFor={`slot-${index}`} className="flex-1">{`${slot.start} - ${slot.end}`}</label>
                                         </li>
@@ -176,6 +223,8 @@ const DoctorDetails = () => {
                         ) : (
                             <p className='text-orange-600'>No available slots for the selected date.</p>
                         )}
+
+
                     </div>
                 </Modal.Body>
                 <Modal.Footer>
@@ -184,7 +233,9 @@ const DoctorDetails = () => {
                             <button className="btn btn-outline btn-primary" onClick={handlePayment}>
                                 PAYMENT
                             </button>
+                            <button className="btn btn-outline btn-warning mx-5" onClick={walletPay}>WALLET PAY</button>
                         </div>
+
                     )}
                 </Modal.Footer>
             </Modal>
@@ -193,7 +244,7 @@ const DoctorDetails = () => {
 
 
 
-        </div>
+        </div >
     );
 };
 

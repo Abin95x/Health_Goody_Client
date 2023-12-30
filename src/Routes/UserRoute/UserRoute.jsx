@@ -15,7 +15,6 @@ import AppointmentsPage from '../../Pages/UserPages/AppointmentsPage/Appointment
 import ChatPage from '../../Pages/UserPages/ChatPage/ChatPage';
 import PrescriptionPage from '../../Pages/UserPages/PrescriptionPage/PrescriptionPage';
 
-
 import UserPublic from './UserPublic';
 import UserProtect from './UserProtect';
 
@@ -29,7 +28,7 @@ const userRoute = () => {
       <Route path='/signup' element={<UserPublic><SignupPage /></UserPublic>} />
       <Route path='/userotp' element={<UserPublic><Otp /></UserPublic>} />
       <Route path='/forgotpassword' element={<UserPublic><ForgotPassword /></UserPublic>} />
-      <Route path='/resetpassword' element={<UserPublic><ResetPassword /></UserPublic>} />
+      <Route path='/resetpassword/:id/:token' element={<UserPublic><ResetPassword /></UserPublic>} />
       <Route path='/doctorlist' element={<UserProtect><DoctorListPage /></UserProtect>} />
       <Route path='/doctordetails/:id' element={<UserProtect><DoctorDetailsPage /></UserProtect>} />
       <Route path='/success' element={<UserProtect><PaymentSuccess /></UserProtect>} />

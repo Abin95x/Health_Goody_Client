@@ -20,6 +20,17 @@ export async function doctorLogin(loginData) {
     return data;
 }
 
+export async function doctorForgetPassword(email) {
+    const data = await doctorAxiosInstance.get(`/forgotPass?email=${email}`)
+    return data
+}
+
+export async function doctorResetPassword(id, token, password) {
+    console.log(id, token, password);
+    const data = await doctorAxiosInstance.patch(`/resetPassword?id=${id}&token=${token}&password=${password}`)
+    return data
+}
+
 export async function specialityName() {
     const data = await doctorAxiosInstance.get('/specialityName');
     return data;

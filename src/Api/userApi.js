@@ -1,3 +1,4 @@
+import ResetPassword from '../Pages/UserPages/ResetPassword/ResetPassword';
 import { userAxiosInstance } from './axiosInstance';
 
 export async function userSignup(signupData) {
@@ -19,6 +20,18 @@ export async function userLogin(loginData) {
     const data = await userAxiosInstance.post('/userLogin', loginData);
     return data;
 }
+
+export async function userForgetPassword(email) {
+    const data = await userAxiosInstance.get(`/forgotPass?email=${email}`)
+    return data
+}
+
+export async function userResetPassword(id, token, password) {
+    console.log(id, token, password);
+    const data = await userAxiosInstance.patch(`/resetPassword?id=${id}&token=${token}&password=${password}`)
+    return data
+}
+
 export async function getUserDetails(id) {
     const data = await userAxiosInstance.get(`/profileData/${id}`);
     return data;
@@ -68,8 +81,8 @@ export async function appointmentList(id, page, limit) {
     return data;
 }
 
-export async function cancelAppointment(id) {
-    const data = await userAxiosInstance.patch(`/cancelAppointment?id=${id}`);
+export async function cancelAppointment({ id, userId }) {
+    const data = await userAxiosInstance.patch(`/cancelAppointment?id=${id}&userId=${userId}`);
     return data;
 }
 

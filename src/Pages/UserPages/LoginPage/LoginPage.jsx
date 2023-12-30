@@ -12,8 +12,6 @@ import { useDispatch } from 'react-redux';
 import { setUser } from '../../../Redux/UserSlice/UserSlice.js';
 import backgroundImage from '../../../Assets/image/loginImg.jpg';
 
-
-
 const LoginPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -115,6 +113,9 @@ const LoginPage = () => {
                   )}
 
                 </div>
+                <br />
+                <Link to={'/forgotpassword'} className='font-medium text-orange-900 ' >Forgot Password</Link>
+
 
               </div>
 
@@ -127,6 +128,7 @@ const LoginPage = () => {
 
               Not a user?{' '}
               <Link to={'/signup'} className='font-medium text-orange-900'>Sign Up</Link>
+
             </form>
 
           </div>

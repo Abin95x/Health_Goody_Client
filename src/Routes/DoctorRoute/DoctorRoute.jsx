@@ -14,6 +14,8 @@ import AppointmentPage from '../../Pages/DoctorPages/AppointmentPage/Appointment
 import ChatPage from '../../Pages/DoctorPages/ChatPage/ChatPage';
 import VideoPage from '../../Pages/DoctorPages/VideoPage/VideoPage'
 import PrescriptionPage from '../../Pages/DoctorPages/PrescriptionPage/PrescriptionPage';
+import ForgotPassword from '../../Pages/DoctorPages/ForgotPassword/ForgotPassword';
+import ResetPassword from '../../Pages/DoctorPages/ResetPassword/ResetPassword';
 
 
 const DoctorRoute = () => {
@@ -22,6 +24,8 @@ const DoctorRoute = () => {
             <Route path='/doctorside' element={<DoctorPublic><DoctorSide /></DoctorPublic>} />
             <Route path='/signup' element={<DoctorPublic><SignupPage /></DoctorPublic>} />
             <Route path='/login' element={<DoctorPublic><LoginPage /></DoctorPublic>} />
+            <Route path='/forgotpassword' element={<DoctorPublic><ForgotPassword /></DoctorPublic>} />
+            <Route path='/resetpassword/:id/:token' element={<DoctorPublic><ResetPassword /></DoctorPublic>} />
             <Route path='/doctorotp' element={<DoctorPublic><DoctorOtp /></DoctorPublic>} />
             <Route path='/dashboard' element={<DoctorProtect><Dashboard /></DoctorProtect>} />
             <Route path='/doctorprofile' element={<DoctorProtect><DoctorProfile /></DoctorProtect>} />

@@ -89,8 +89,11 @@ const Header = () => {
 
       {
         token ? (
-          <div className='navbar-end'>
-            <Link to='/chatuser' className='me-5 text-sm' >CHATS<FontAwesomeIcon icon={faComment} className='mx-2' /></Link>
+          <div className='navbar-end '>
+            <div className='hidden lg:flex'>
+              <Link to='/chatuser' className='me-5 text-sm'  >CHATS<FontAwesomeIcon icon={faComment} className='mx-2 ' /></Link>
+
+            </div>
 
             {/* <FontAwesomeIcon icon={faBell} style={{ color: "#000000", }} className='me-10' /> */}
             <div className='dropdown dropdown-end'>

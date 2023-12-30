@@ -53,7 +53,8 @@ const AppointmentList = () => {
         confirmButtonText: "Yes, cancel it!",
       }).then(async (result) => {
         if (result.isConfirmed) {
-          const response = await cancelAppointment(id); // Wait for the cancellation request to complete
+          const response = await cancelAppointment({ id, userId: _id });
+
 
           Swal.fire({
             title: "Deleted!",
@@ -103,7 +104,7 @@ const AppointmentList = () => {
 
   return (
     <div className="bg-blue-50 w-screen overflow-x-auto">
-      <div className="min-h-[500px] flex justify-center ">
+      <div className="min-h-[500px] flex justify-center">
         <div className="bg-white min-h-[500px] min-w-[900px] m-10 rounded-2xl shadow-2xl">
           <div className="text-center m-5">
             <h1 className="text-lg text-blue-600">Appointments</h1>
@@ -112,54 +113,59 @@ const AppointmentList = () => {
           <div className="m-5 h-14 rounded-xl border flex justify-center overflow-x-auto">
             <table className="table w-full text-black">
               <tr className="">
-                <th className="p-2">Doctor</th>
-                <th className="p-2">Appo. Date</th>
-                <th className="p-2">Booked Date</th>
-                <th className="p-2">Amount</th>
-                <th className="p-2">Timing</th>
-                <th className="p-2">Status</th>
-                <th className="p-2">More</th>
+                <th className="">Doctor</th>
+                <th className="">Appo.date</th>
+                <th className="">Booked</th>
+                <th className="">Amount</th>
+                <th className="">Timing</th>
+                <th className="">Status</th>
+                <th className="">More</th>
               </tr>
             </table>
           </div>
-          <div className="m-5  min-h-[400px] rounded-xl border overflow-x-auto">
-            <div className="flex justify-center">
-              <table className="table w-full text-black ">
-                {appo.map((appointment) => (
-                  <tr key={appointment.id}>
-                    <td className="p-2">{appointment.doctorDetails.name}</td>
-                    <td className="p-2">{appointment.consultationDate}</td>
-                    <td className="p-2">{appointment.createdAt}</td>
-                    <td className="p-2">299</td>
-                    <td className="p-2">
-                      {appointment.start} - {appointment.end}
-                    </td>
-                    <td className="p-2">{appointment.status}</td>
-                    <td
-                      className="p-2 hover:cursor-pointer text-sky-600"
-                      onClick={() => {
-                        setOpenModal(true);
-                        setData(appointment);
-                        setDrId(appointment.doctorDetails._id);
-                      }}
-                    >
-                      More
-                    </td>
-                  </tr>
-                ))}
-              </table>
-            </div>
+
+          <div className="m-5 min-h-[400px] rounded-xl border overflow-x-auto">
+            {appo.length === 0 ? (
+              <div className="text-center p-5 text-gray-500">No appointments available</div>
+            ) : (
+              <div className="flex justify-center">
+                <table className="table w-full text-black">
+                  {appo.map((appointment) => (
+                    <tr key={appointment.id}>
+                      <td className="">{appointment.doctorDetails.name}</td>
+                      <td className="">{appointment.consultationDate}</td>
+                      <td className="">{appointment.createdAt}</td>
+                      <td className="">299</td>
+                      <td className="">
+                        {appointment.start} - {appointment.end}
+                      </td>
+                      <td className="">{appointment.status}</td>
+                      <td
+                        className="hover:cursor-pointer text-sky-600"
+                        onClick={() => {
+                          setOpenModal(true);
+                          setData(appointment);
+                          setDrId(appointment.doctorDetails._id);
+                        }}
+                      >
+                        More
+                      </td>
+                    </tr>
+                  ))}
+                </table>
+              </div>
+            )}
           </div>
         </div>
       </div>
+
       {pagination && pagination.totalPages && (
         <div className="flex justify-center mt-4 bg-blue-50">
           {Array.from({ length: pagination.totalPages }, (_, index) => (
             <button
               key={index + 1}
               onClick={() => setCurrentPage(index + 1)}
-              className={`pagination-btn border w-10 ${index + 1 === currentPage ? "border-black" : "border-gray-300"
-                }`}
+              className={`pagination-btn border w-10 ${index + 1 === currentPage ? "border-black" : "border-gray-300"}`}
             >
               {index + 1}
             </button>
@@ -178,7 +184,7 @@ const AppointmentList = () => {
                 from <span className="text-red-600">{data.start}</span> to{" "}
                 <span className="text-red-600">{data.end}</span>. Please be
                 ready at that time for your consultation.{" "}
-                <span className="text-green-400">You will be notified</span>
+                {/* <span className="text-green-400">You will be notified</span> */}
               </p>
 
               <br />

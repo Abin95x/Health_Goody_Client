@@ -61,8 +61,8 @@ export async function addSpeciality(value) {
     return data;
 }
 
-export async function specialityList(currentPage,limit) {
-    const data = await adminAxiosInstance.get(`/specialityList?currentPage=${currentPage}&limit=${limit}`);
+export async function specialityList(currentPage, limit, search) {
+    const data = await adminAxiosInstance.get(`/specialityList?currentPage=${currentPage}&limit=${limit}&search=${search}`);
     return data;
 }
 
