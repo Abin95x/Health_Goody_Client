@@ -184,16 +184,8 @@ const DoctorDetails = () => {
                                 {slots.map((slot, index) => {
                                     const slotStartTime = slot.start;
                                     const currentDate = new Date();
-
-                                    // Initialize isSlotDisabled to false by default
                                     let isSlotDisabled = false;
 
-                                    console.log(slotStartTime);
-                                    console.log(currentTime);
-                                    console.log(currentDate, 'dddddddddddddddddddddd');
-                                    console.log(date, "xxxxxxxxxxxx");
-
-                                    // Check conditions and update isSlotDisabled accordingly
                                     if (date < currentDate) {
                                         if (slotStartTime < currentTime) {
                                             isSlotDisabled = true;

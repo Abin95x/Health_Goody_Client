@@ -1,16 +1,17 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { doctorLogout } from '../../../Redux/DoctorSlice/DoctorSlice';
 import Swal from 'sweetalert2';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHouse, faCheckToSlot, faUser, faUserDoctor, faCalendarCheck, faStethoscope, faComments } from '@fortawesome/free-solid-svg-icons';
+import { faCheckToSlot, faUser, faCalendarCheck, faStethoscope, faComments } from '@fortawesome/free-solid-svg-icons';
 
 
 
 const Header = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [isMobile, setIsMobile] = useState()
 
 
   const handleLogout = () => {
@@ -36,6 +37,19 @@ const Header = () => {
     }));
     navigate('/doctor/doctorside');
   };
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768); // Adjust the breakpoint as needed
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
   return (
     <div>
       <div className='navbar bg-base-100'>
@@ -52,7 +66,7 @@ const Header = () => {
               <li><Link to='/doctor/appointment'>APPOINTMENTS <FontAwesomeIcon icon={faCalendarCheck} /></Link></li>
             </ul>
           </div>
-          <a className='btn btn-ghost text-xl'> Health Goody  /  Doctor <FontAwesomeIcon icon={faStethoscope} /></a>
+          <a className='btn btn-ghost text-xl'> Health Goody <FontAwesomeIcon icon={faStethoscope} /></a>
         </div>
         <div className='navbar-center hidden lg:flex'>
           <ul className='menu menu-horizontal px-1'>
@@ -63,8 +77,12 @@ const Header = () => {
           </ul>
         </div>
         <div className='navbar-end'>
-          <Link to='/doctor/chatpagedoctor' className='me-5 text-sm'>CHATS <FontAwesomeIcon icon={faComments} className='mx-2' /></Link>
 
+          {!isMobile && (
+            <Link to='/doctor/chatpagedoctor' className='me-5 text-sm'>
+              CHATS <FontAwesomeIcon icon={faComments} className='mx-2' />
+            </Link>
+          )}
           <button onClick={handleLogout} className='btn btn-error'>LogOut</button>
 
         </div>

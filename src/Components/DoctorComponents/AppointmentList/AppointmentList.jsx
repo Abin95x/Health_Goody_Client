@@ -5,8 +5,8 @@ import { Button, Modal } from 'flowbite-react';
 import { useNavigate, Link } from 'react-router-dom';
 import { createChat } from '../../../Api/doctorApi'
 import Swal from 'sweetalert2';
-import { hasUnreliableEmptyValue } from '@testing-library/user-event/dist/utils';
-
+import { markasDone } from '../../../Api/doctorApi'
+import { set } from 'date-fns';
 
 // import Swal from 'sweetalert2';
 
@@ -24,6 +24,8 @@ const AppointmentList = () => {
   const [appoEnd, setAppoEnd] = useState()
   const [appoName, setAppoName] = useState()
   const [appoId, setAppoId] = useState()
+  const [appoStatus, setAppoStauts] = useState()
+
 
 
 
@@ -35,6 +37,7 @@ const AppointmentList = () => {
   const appDate = appoDateAsDate.toLocaleDateString();
   const currDateAsDate = new Date(currentDate);
   const currDate = currDateAsDate.toLocaleDateString();
+  const [render, setRender] = useState(false)
 
 
   useEffect(() => {
@@ -48,19 +51,21 @@ const AppointmentList = () => {
       .catch((error) => {
         console.log(error.message);
       });
-  }, [id, currentPage, limit,]);
+  }, [id, currentPage, limit, render]);
 
 
   const handleId = (id) => {
     setUserId(id)
   }
-  const handleClick = (date, start, end, name, id) => {
+
+  const handleClick = (date, start, end, name, id, status) => {
 
     setAppoDate(date)
     setAppoStart(start)
     setAppoEnd(end)
     setAppoName(name)
     setAppoId(id)
+    setAppoStauts(status)
   }
 
   const handleAccept = async () => {
@@ -99,6 +104,47 @@ const AppointmentList = () => {
       }
     })
   }
+
+  const markAsDone = async () => {
+    try {
+      const result = await Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to undo this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes!"
+      });
+
+      if (result.isConfirmed) {
+        // Assuming markAsDone is an asynchronous function
+        const res = await markasDone(appoId);
+        if (res.status === 200) {
+          if (render === true) {
+            setRender(false)
+            setOpenModal(false)
+          } else {
+            setRender(true)
+            setOpenModal(false)
+          }
+          Swal.fire({
+            title: "Appointment marked as DONE!",
+            icon: "success"
+          });
+        } else {
+          Swal.fire({
+            title: "Error",
+            icon: "error"
+          });
+        }
+
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
   return (
     <div>
       <br />
@@ -107,7 +153,7 @@ const AppointmentList = () => {
       </div>
       <br />
       <div className='flex justify-center'>
-        <div className='w-full lg:w-[1000px] bg-white min-h-[500px] rounded-xl shadow-2xl overflow-hidden'>
+        <div className='w-full lg:w-[1000px] bg-white min-h-[500px] rounded shadow-xl overflow-hidden'>
           {appo.length === 0 ? (
             <div className="text-center p-4 text-gray-600">
               No appointments available.
@@ -115,7 +161,7 @@ const AppointmentList = () => {
           ) : (
             <div className="overflow-x-auto">
               <table className="table w-full">
-                <thead className='bg-green-400 rounded-t-xl'>
+                <thead className='bg-green-400 rounded h-16'>
                   <tr className="text-black">
                     <th className="py-2">No</th>
                     <th className="py-2">User</th>
@@ -141,10 +187,10 @@ const AppointmentList = () => {
                         onClick={() => {
                           setOpenModal(true);
                           handleId(appointment.userDetails._id);
-                          handleClick(appointment.consultationDate, appointment.start, appointment.end, appointment.userDetails.name, appointment._id)
+                          handleClick(appointment.consultationDate, appointment.start, appointment.end, appointment.userDetails.name, appointment._id, appointment.status)
 
                         }}
-                        className="py-2"
+                        className="py-2 text-cyan-500"
                       >
                         more
                       </td>
@@ -177,13 +223,13 @@ const AppointmentList = () => {
               With less than a month to go before the European Union enacts new consumer privacy laws for its citizens,
               companies around the world are updating their terms of service agreements to comply.
             </p>
-            {currDate === appDate && currentTime >= appoStart && currentTime <= appoEnd ? (
+            {currDate === appDate && currentTime >= appoStart && currentTime <= appoEnd && appoStatus === "Pending" ? (
               <React.Fragment>
-                <p className='text-xl text-green-500'>
+                <p className='text-xl text-green-500 '>
                   You can now join the call
                 </p>
                 {/* <Button onClick={() => handleButtonClick()}></Button> */}
-                <Link to={'/doctor/video'} className='btn btn-secondary' onClick={handleLinkClick}>
+                <Link to={'/doctor/video'} className='btn btn-secondary w-44' onClick={handleLinkClick}>
                   Start Video Call
                 </Link>
               </React.Fragment>
@@ -192,7 +238,16 @@ const AppointmentList = () => {
                 VIDEO CALL ROOM AVAILABLE IN THE DATE AND TIME
               </div>
             )}
-            <Button onClick={() => { setOpenModal(false); handlePris(); }}>Add Priscription</Button>
+            <br />
+            <button onClick={() => { setOpenModal(false); handlePris(); }} className='btn btn-primary w-44'>
+              Add Priscription
+            </button>
+            <br />
+            {appoStatus === "Pending" ? <button className='btn btn-warning w-44' onClick={markAsDone}>
+              Mark As Done
+            </button> : null}
+
+
 
 
           </div>

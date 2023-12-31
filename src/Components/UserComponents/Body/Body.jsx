@@ -1,12 +1,9 @@
 import React from 'react';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-import Typography from '@mui/material/Typography';
 import { useNavigate } from 'react-router-dom';
 import banner from '../../../Assets/image/home.jpeg';
 import Review from '../../../Components/UserComponents/Review/Review';
 import Speciality from '../../../Components/UserComponents/Speciality/Speciality';
+import { Link } from 'react-router-dom';
 
 
 const Body = () => {
@@ -54,7 +51,8 @@ const Body = () => {
 
 
                   <br />
-                  <button className='btn btn-outline btn-success'>Book Consultation Now</button>
+
+                  <Link className='btn btn-outline btn-success' to={'/doctorlist'}>Book Consultation Now</Link>
                 </div>
               </div>
             </div>
@@ -126,7 +124,7 @@ const Body = () => {
 
 
 
-      <Review />
+      {/* <Review /> */}
 
       {/* Doctors */}
       {
@@ -147,7 +145,7 @@ const Body = () => {
 
 
 
-    </div>
+    </div >
   );
 };
 

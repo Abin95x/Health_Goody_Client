@@ -69,13 +69,17 @@ export async function appointmentList(id, page, limit) {
 }
 
 export async function createChat(values) {
-    console.log(values, 'kkkkk');
     const data = await doctorAxiosInstance.post('/createChat', values);
     return data;
 }
 
 export async function priscription(values) {
-    console.log(values, "ppvvalue");
     const data = await doctorAxiosInstance.post('/priscription', values)
+    return data
+}
+
+export async function markasDone(id) {
+    console.log(id, 'hiiiiiiiiiiapi');
+    const data = await doctorAxiosInstance.patch(`/markAsDone?id=${id}`)
     return data
 }

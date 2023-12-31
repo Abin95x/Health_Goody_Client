@@ -71,17 +71,21 @@ const Profile = () => {
   return (
     <div className='bg-blue-50'>
       <Header />
-      <div className='h-screen bg-blue-50 flex items-center justify-center'>
-        <div className='bg-white p-8 rounded-lg shadow-2xl w-[700px] '>
-          <div className='flex items-center justify-center'>
-            <div className='h-24 w-24  bg-blue-500 rounded-full overflow-hidden border'>
+      <div className='min-h-screen bg-blue-50 flex items-center justify-center'>
+        <div className='bg-white p-8 rounded-lg shadow-2xl w-full md:w-[700px]'>
+          <div className='h-10 w-full bg-blue-400 flex justify-center text-base text-black rounded-full'>
+            <h1 className='pt-2'>PROFILE</h1>
+          </div>
+          <br />
+          <div className='flex flex-col md:flex-row items-center justify-center md:justify-start'>
+            <div className='h-24 w-24  bg-blue-500 rounded-full overflow-hidden border mb-4 md:mb-0 md:mr-4'>
               <img
                 className='h-full w-full object-cover '
                 src={photo ? photo : 'icon.jpg'}
-                alt="Profile"
+                alt='Profile'
               />
             </div>
-            <div className='ml-4'>
+            <div>
               <h1 className='text-2xl font-semibold text-gray-800'>{name}</h1>
               <p className='text-sm text-gray-500'>{email}</p>
             </div>
@@ -99,14 +103,26 @@ const Profile = () => {
             <p className='text-sm font-semibold text-gray-600'>Gender:</p>
             <p className='text-sm text-gray-800'>{gender}</p>
           </div>
-          <div className='flex justify-center space-x-4'>
-            <button onClick={() => setOpenModalEdit(true)} className="btn btn-outline btn-primary w-36 text-white">Edit Details</button>
-            <button onClick={() => setOpenModal(true)} className="btn btn-outline btn-primary w-36 text-white">Wallet</button>
-            <button className="btn btn-outline btn-primary w-36 text-white">My Reports</button>
-
+          <div className='flex flex-col md:flex-row items-center justify-center md:justify-between space-y-4 md:space-y-0 md:space-x-4'>
+            <button
+              onClick={() => setOpenModalEdit(true)}
+              className='btn btn-outline btn-primary w-full md:w-36 text-white'
+            >
+              Edit Details
+            </button>
+            <button
+              onClick={() => setOpenModal(true)}
+              className='btn btn-outline btn-primary w-full md:w-36 text-white'
+            >
+              Wallet
+            </button>
+            <button className='btn btn-outline btn-primary w-full md:w-36 text-white'>
+              My Reports
+            </button>
           </div>
         </div>
       </div>
+
 
       <Modal show={openModal} onClose={() => setOpenModal(false)}>
         <Modal.Header>Wallet</Modal.Header>

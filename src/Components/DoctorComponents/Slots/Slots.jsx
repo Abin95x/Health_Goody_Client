@@ -49,7 +49,7 @@ const Slots = () => {
             </div>
             <br />
             <div className='flex justify-center'>
-                <div className='w-full lg:w-[800px] bg-white min-h-[500px] rounded-xl shadow-2xl overflow-hidden'>
+                <div className='w-full lg:w-[800px] bg-white min-h-[500px] = shadow-xl rounded overflow-hidden'>
                     {slots.length === 0 ? (
                         <div className="text-center py-6">
                             <p className="text-gray-500 text-lg">No slots added</p>
@@ -58,7 +58,7 @@ const Slots = () => {
                         <div className="overflow-x-auto">
                             <table className="table w-full">
                                 {/* head */}
-                                <thead className='bg-amber-200 rounded-t-xl'>
+                                <thead className='bg-amber-200 rounded  h-16'>
                                     <tr className="text-black">
                                         <th className="py-2">No</th>
                                         <th className="py-2">Date</th>

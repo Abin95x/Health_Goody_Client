@@ -4,7 +4,7 @@ import { appointmentList } from "../../../Api/userApi";
 import { Button, Modal } from "flowbite-react";
 import { cancelAppointment } from "../../../Api/userApi";
 import Swal from "sweetalert2";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom"; 
 import { createChat } from "../../../Api/userApi";
 import { useNavigate } from "react-router-dom";
 
@@ -24,6 +24,9 @@ const AppointmentList = () => {
   const { _id } = useSelector((state) => state.reducer.userReducer.user);
   const [drId, setDrId] = useState();
   const [currentPage, setCurrentPage] = useState(1);
+  // const [review, setReview] = useState()
+  // const [status, setStatus] = useState()
+  console.log(data);
   const limit = 5;
 
 
@@ -99,6 +102,30 @@ const AppointmentList = () => {
       console.log(error.message);
     }
   };
+  const isCancelDisabled = (appointmentDate, appointmentStartTime) => {
+    const currentDate = new Date();
+    const currentYear = currentDate.getFullYear();
+    const currentMonth = currentDate.getMonth() + 1;
+    const currentDay = currentDate.getDate();
+
+    const currentDateString = `${currentYear}-${currentMonth.toString().padStart(2, '0')}-${currentDay.toString().padStart(2, '0')}`;
+    const currentTimeString = currentDate.toLocaleTimeString('en-US', { hour12: false }).slice(0, 5);
+
+    // Combine appointment date and time strings
+    const combinedAppointmentDateTimeString = `${appointmentDate} ${appointmentStartTime}`;
+
+    // Create Date objects for current date/time and appointment date/time
+    const currentDateObject = new Date(`${currentDateString} ${currentTimeString}`);
+    const appointmentDateObject = new Date(combinedAppointmentDateTimeString);
+
+    // Compare timestamps to check if current date/time is greater than or equal to appointment date/time
+    if (currentDateObject.getTime() >= appointmentDateObject.getTime()) {
+      return true; // Disable the cancel button
+    }
+
+    return false; // Enable the cancel button
+  };
+
 
 
 
@@ -131,6 +158,7 @@ const AppointmentList = () => {
               <div className="flex justify-center">
                 <table className="table w-full text-black">
                   {appo.map((appointment) => (
+
                     <tr key={appointment.id}>
                       <td className="">{appointment.doctorDetails.name}</td>
                       <td className="">{appointment.consultationDate}</td>
@@ -151,6 +179,7 @@ const AppointmentList = () => {
                         More
                       </td>
                     </tr>
+
                   ))}
                 </table>
               </div>
@@ -159,80 +188,101 @@ const AppointmentList = () => {
         </div>
       </div>
 
-      {pagination && pagination.totalPages && (
-        <div className="flex justify-center mt-4 bg-blue-50">
-          {Array.from({ length: pagination.totalPages }, (_, index) => (
-            <button
-              key={index + 1}
-              onClick={() => setCurrentPage(index + 1)}
-              className={`pagination-btn border w-10 ${index + 1 === currentPage ? "border-black" : "border-gray-300"}`}
-            >
-              {index + 1}
-            </button>
-          ))}
-        </div>
-      )}
+      {
+        pagination && pagination.totalPages && (
+          <div className="flex justify-center mt-4 bg-blue-50">
+            {Array.from({ length: pagination.totalPages }, (_, index) => (
+              <button
+                key={index + 1}
+                onClick={() => setCurrentPage(index + 1)}
+                className={`pagination-btn border w-10 ${index + 1 === currentPage ? "border-black" : "border-gray-300"}`}
+              >
+                {index + 1}
+              </button>
+            ))}
+          </div>
+        )
+      }
       <br />
-      {data && (
-        <Modal show={openModal} onClose={() => setOpenModal(false)}>
-          <Modal.Header></Modal.Header>
-          <Modal.Body>
-            <div className="space-y-6">
-              <p className="text-2xl leading-relaxed text-gray-500 dark:text-gray-400">
-                Your appointment is scheduled for{" "}
-                <span className="text-red-600">{data.consultationDate}</span>{" "}
-                from <span className="text-red-600">{data.start}</span> to{" "}
-                <span className="text-red-600">{data.end}</span>. Please be
-                ready at that time for your consultation.{" "}
-                {/* <span className="text-green-400">You will be notified</span> */}
-              </p>
+      {
+        data && (
+          <Modal show={openModal} onClose={() => setOpenModal(false)}>
+            <Modal.Header>More</Modal.Header>
+            <Modal.Body>
+              {data.status === "Done" ? (
+                <div className="h-60">
+                  <h1 className="text-3xl flex justify-center text-blue-500 pt">Consultation Compleated</h1>
+                  {/* <span>add your Review</span> */}
 
-              <br />
-
-              <div className="space-y-6">
-                <p className="text-xl text-red-500">
-                  <button
-                    className="btn btn-error w-full"
-                    onClick={() => {
-                      handleCancel(data._id);
-                      setOpenModal(false);
-                    }}
-                  >
-                    Cancel Appointment
-                  </button>
+                  <div className="flex justify-center m-5">
+                    <textarea className='w-full h-28 rounded-lg' type="text" />
+                  </div>
+                  <div className="flex justify-center m-5">
+                    <button className="btn btn-outline" >Add Your Review</button>
+                  </div>
+                </div>
+              ) : (<div className="space-y-6">
+                <p className="text-2xl leading-relaxed text-gray-500 dark:text-gray-400">
+                  Your appointment is scheduled for{" "}
+                  <span className="text-red-600">{data.consultationDate}</span>{" "}
+                  from <span className="text-red-600">{data.start}</span> to{" "}
+                  <span className="text-red-600">{data.end}</span>. Please be
+                  ready at that time for your consultation.{" "}
+                  {/* <span className="text-green-400">You will be notified</span> */}
                 </p>
-              </div>
-              <br />
-            </div>
-          </Modal.Body>
-          <Modal.Footer className="flex justify-center">
-            {/* <Button onClick={() => setOpenModal(false)}>Close</Button> */}
 
-            {btn ? (
+                <br />
+
+                <div className="space-y-6">
+                  <p className="text-xl text-red-500">
+                    {!isCancelDisabled(data.consultationDate, data.start) ? (
+                      <button
+                        className="btn btn-error w-full"
+                        onClick={() => {
+                          handleCancel(data._id);
+                          setOpenModal(false);
+                        }}
+                      >
+                        Cancel Appointment
+                      </button>
+                    ) : (
+                      <span className="text-gray-500">Cancel Appointment (Disabled)</span>
+                    )}
+                  </p>
+                </div>
+                <br />
+              </div>)}
+
+            </Modal.Body>
+            <Modal.Footer className="flex justify-center">
+              {/* <Button onClick={() => setOpenModal(false)}>Close</Button> */}
+              {/* {data.status === "Done" ? (<h1></h1>) : (<h1></h1>)} */}
+              {btn ? (
+                <div className="flex justify-center">
+                  <Button
+                    className=" btn-primary"
+                    onClick={() => handleNavigate()}
+                  >
+                    Chat with doctor
+                  </Button>
+                </div>
+              ) : (
+                <div className="flex justify-center">
+                  <Button className=" " onClick={() => setOpenModalx(true)}>
+                    Connect doctor
+                  </Button>
+                </div>
+              )}
               <div className="flex justify-center">
-                <Button
-                  className=" btn-primary"
-                  onClick={() => handleNavigate()}
-                >
-                  Chat with doctor
-                </Button>
+                <Button>Reshedule</Button>
               </div>
-            ) : (
               <div className="flex justify-center">
-                <Button className=" " onClick={() => setOpenModalx(true)}>
-                  Connect doctor
-                </Button>
+                <Button onClick={() => { handlePrescription() }}>Download prescription</Button>
               </div>
-            )}
-            <div className="flex justify-center">
-              <Button>Reshedule</Button>
-            </div>
-            <div className="flex justify-center">
-              <Button onClick={() => { handlePrescription() }}>Download prescription</Button>
-            </div>
-          </Modal.Footer>
-        </Modal>
-      )}
+            </Modal.Footer>
+          </Modal >
+        )
+      }
 
       <Modal show={openModalx} onClose={() => setOpenModalx(false)}>
         <Modal.Header></Modal.Header>
@@ -266,7 +316,7 @@ const AppointmentList = () => {
           <Button onClick={() => setOpenModalx(false)}>Decline</Button>
         </Modal.Footer>
       </Modal>
-    </div>
+    </div >
   );
 };
 
