@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { doctorDetails } from '../../../Api/userApi';
 import { Button, Modal } from 'flowbite-react';
 import { slotList } from '../../../Api/userApi';
@@ -8,6 +8,8 @@ import 'react-calendar/dist/Calendar.css';
 import Swal from 'sweetalert2';
 import { useSelector } from 'react-redux/es/hooks/useSelector';
 import { makePayment } from '../../../Api/userApi';
+import { PaymentWallet } from '../../../Api/userApi'
+
 
 
 
@@ -19,6 +21,7 @@ const DoctorDetails = () => {
     const [drId, setDrId] = useState();
     const [select, setSelect] = useState();
     const [date, setDate] = useState();
+    const navigate = useNavigate()
     const { _id } = useSelector((state) => state.reducer.userReducer.user);
 
     const price = {
@@ -41,13 +44,6 @@ const DoctorDetails = () => {
     }
 
     const currentTime = getCurrentTime24();
-    console.log(currentTime);
-
-
-
-
-
-
 
     useEffect(() => {
         doctorDetails(id)
@@ -128,47 +124,97 @@ const DoctorDetails = () => {
 
     const walletPay = async () => {
         try {
+            const swalWithBootstrapButtons = Swal.mixin({
+                customClass: {
+                    confirmButton: "btn btn-success",
+                    cancelButton: "btn btn-warning mx-5",
+                },
+                buttonsStyling: false
+            });
+
+            const result = await swalWithBootstrapButtons.fire({
+                title: "Are you sure?",
+                text: "You want to do payment from your wallet!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonText: "Yes, Do Payment!",
+                cancelButtonText: "No, cancel!",
+                reverseButtons: true
+            });
+
+            if (result.isConfirmed) {
+                const res = await PaymentWallet({ drId, select, date, _id });
+                console.log(res);
+
+                if (res.status === 200) {
+                    Swal.fire({
+                        title: "Insufficient Balance",
+                        text: "No required amount in the wallet",
+                        icon: "question"
+                    });
+                } else {
+                    swalWithBootstrapButtons.fire({
+                        title: "Payment Done!",
+                        text: "Your money is transferred",
+                        icon: "success"
+                    });
+
+                    setOpenModal(false);
+                    navigate("/appointments")
+                }
+            } else if (result.dismiss === Swal.DismissReason.cancel) {
+                swalWithBootstrapButtons.fire({
+                    title: "Cancelled",
+                    text: "Your wallet payment is cancelled",
+                    icon: "error"
+                });
+            }
 
         } catch (error) {
             console.log(error.message);
         }
-    }
+    };
+
+
 
 
 
 
     return (
         <div>
-            {doctor && (
-                <div className="min-h-screen bg-blue-50 flex justify-center">
-                    <div className='bg-white w-full md:w-[80%] lg:w-[70%] xl:w-[60%] 2xl:w-[50%] rounded-xl shadow-2xl p-8 h-[550px] m-20 '>
-                        <div className='flex justify-center'>
-                            <img
-                                className="mx-auto mb-4 h-40 w-40 rounded-full shadow-2xl"
-                                src={doctor.photo}
-                                alt={`Doctor ${doctor.name}`}
+            {
+                doctor && (
+                    <div className="min-h-screen bg-blue-50 flex justify-center">
+                        <div className='bg-white w-full md:w-[80%] lg:w-[70%] xl:w-[60%] 2xl:w-[50%] rounded-xl shadow-2xl p-8 h-[550px] m-20 '>
+                            <div className='flex justify-center'>
+                                <img
+                                    className="mx-auto mb-4 h-40 w-40 rounded-full shadow-2xl"
+                                    src={doctor.photo}
+                                    alt={`Doctor ${doctor.name}`}
 
-                            />
+                                />
+                            </div>
+                            <h2 className='text-3xl text-center text-black'>{`Dr. ${doctor.name}`}</h2>
+                            <br />
+                            <p className='text-base text-center mb-4'> {doctor.bio ? doctor.bio : 'Bio not added'}</p>
+
+                            <hr className='my-6 border-t border-gray-300' />
+                            <div className='text-gray-700 text-xl'>
+                                <p className='mb-4'>Price: ₹299</p>
+                                <p className='text-base mb-4'>{`Speciality: ${doctor.speciality}`}</p>
+                                <p className='text-base mb-4'>{`Experience: ${doctor.experience}`}</p>
+
+                            </div>
+                            <div className="flex justify-center">
+                                <Button onClick={() => setOpenModal(true)}>View Slots</Button>
+                            </div>
+                            <br />
+
+
                         </div>
-                        <h2 className='text-3xl text-center text-black'>{`Dr. ${doctor.name}`}</h2>
-                        <p className='text-base text-center mb-4'>{`Bio: ${doctor.bio}`}</p>
-
-                        <hr className='my-6 border-t border-gray-300' />
-                        <div className='text-gray-700 text-xl'>
-                            <p className='mb-4'>Price: ₹299</p>
-                            <p className='text-base mb-4'>{`Speciality: ${doctor.speciality}`}</p>
-                            <p className='text-base mb-4'>{`Experience: ${doctor.experience}`}</p>
-
-                        </div>
-                        <div className="flex justify-center">
-                            <Button onClick={() => setOpenModal(true)}>View Slots</Button>
-                        </div>
-                        <br />
-
-
                     </div>
-                </div>
-            )}
+                )
+            }
 
             <Modal show={openModal} onClose={() => setOpenModal(false)}>
                 <Modal.Header>Select Date and Time</Modal.Header>
@@ -223,7 +269,7 @@ const DoctorDetails = () => {
                     {slots.length > 0 && select && (
                         <div className=''>
                             <button className="btn btn-outline btn-primary" onClick={handlePayment}>
-                                PAYMENT
+                                ONLINE PAYMENT
                             </button>
                             <button className="btn btn-outline btn-warning mx-5" onClick={walletPay}>WALLET PAY</button>
                         </div>

@@ -1,4 +1,3 @@
-import ResetPassword from '../Pages/UserPages/ResetPassword/ResetPassword';
 import { userAxiosInstance } from './axiosInstance';
 
 export async function userSignup(signupData) {
@@ -93,6 +92,16 @@ export async function createChat(values) {
 
 export async function medicineDetails(appointmentId) {
     const data = await userAxiosInstance.get(`/medicineDetails?id=${appointmentId}`)
-    console.log(data, 'return data');
+    return data
+}
+
+export async function PaymentWallet(values) {
+    const data = await userAxiosInstance.post('/walletPayment', values)
+    return data
+}
+
+export async function addReview(values) {
+    console.log(values);
+    const data = await userAxiosInstance.post('/addReview', values)
     return data
 }

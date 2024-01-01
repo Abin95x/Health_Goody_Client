@@ -1,7 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import banner from '../../../Assets/image/home.jpeg';
-import Review from '../../../Components/UserComponents/Review/Review';
 import Speciality from '../../../Components/UserComponents/Speciality/Speciality';
 import { Link } from 'react-router-dom';
 
@@ -52,7 +51,18 @@ const Body = () => {
 
                   <br />
 
-                  <Link className='btn btn-outline btn-success' to={'/doctorlist'}>Book Consultation Now</Link>
+                  <Link to={'/doctorlist'}>
+                    <button className="relative w-full border hover:border-sky-600 duration-500 group cursor-pointer text-xl text-white textarea-bordered  overflow-hidden h-14  rounded-md bg-sky-800 p-2 flex justify-center items-center font-extrabold">
+                      <div className="absolute z-10 w-48 h-48 rounded-full group-hover:scale-150 transition-all  duration-500 ease-in-out bg-sky-900 delay-150 group-hover:delay-75"></div>
+                      <div className="absolute z-10 w-40 h-40 rounded-full group-hover:scale-150 transition-all  duration-500 ease-in-out bg-sky-800 delay-150 group-hover:delay-100"></div>
+                      <div className="absolute z-10 w-32 h-32 rounded-full group-hover:scale-150 transition-all  duration-500 ease-in-out bg-sky-700 delay-150 group-hover:delay-150"></div>
+                      <div className="absolute z-10 w-24 h-24 rounded-full group-hover:scale-150 transition-all  duration-500 ease-in-out bg-sky-600 delay-150 group-hover:delay-200"></div>
+                      <div className="absolute z-10 w-10 h-10 rounded-full group-hover:scale-150 transition-all  duration-500 ease-in-out bg-sky-500 delay-150 group-hover:delay-250"></div>
+                      <div className="absolute z-10 w-5 h-5 rounded-full group-hover:scale-150 transition-all  duration-500 ease-in-out bg-sky-400 delay-150 group-hover:delay-300"></div>
+                      <div className="absolute z-1 w-16 h-1 rounded-full group-hover:scale-150 transition-all  duration-500 ease-in-out bg-sky-300 delay-150 group-hover:delay-350"></div>
+                      <p className=" z-10">Book Consultation Now</p>
+                    </button>
+                  </Link>
                 </div>
               </div>
             </div>
@@ -138,7 +148,10 @@ const Body = () => {
             <br />
             <h1 className='text-3xl font-bold text-green-500 mb-4'>Are you a Doctor?</h1>
             <p className='text-lg text-black mb-6'>Join our panel of specialists and connect with your patients from anywhere.</p>
-            <button className='btn btn-outline btn-success' onClick={doctorPage}>JOIN US</button>
+
+            <button onClick={doctorPage} className="cursor-pointer uppercase w-40 h-14 bg-yellow-200 rounded-xl text-gray-950 px-4 py-2 active:translate-x-0.5 active:translate-y-0.5 hover:shadow-[0.5rem_0.5rem_#F44336,-0.5rem_-0.5rem_#00BCD4] transition">
+              JOIN US
+            </button>
           </div>
         )
       }

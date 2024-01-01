@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux/es/hooks/useSelector";
-import { appointmentList } from "../../../Api/userApi";
+import { appointmentList, addReview } from "../../../Api/userApi";
 import { Button, Modal } from "flowbite-react";
 import { cancelAppointment } from "../../../Api/userApi";
 import Swal from "sweetalert2";
-// import { Link } from "react-router-dom"; 
 import { createChat } from "../../../Api/userApi";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 
 const AppointmentList = () => {
@@ -24,9 +24,10 @@ const AppointmentList = () => {
   const { _id } = useSelector((state) => state.reducer.userReducer.user);
   const [drId, setDrId] = useState();
   const [currentPage, setCurrentPage] = useState(1);
-  // const [review, setReview] = useState()
-  // const [status, setStatus] = useState()
-  console.log(data);
+  const [review, setReview] = useState()
+  const [rating, setRating] = useState(2); // Assuming the default rating is 2
+
+
   const limit = 5;
 
 
@@ -60,12 +61,15 @@ const AppointmentList = () => {
 
 
           Swal.fire({
-            title: "Deleted!",
+            title: "Cancelled!",
             text: "Your appointment has been cancelled.",
             icon: "success",
           });
-
-          setRender(true);
+          if (render === true) {
+            setRender(false);
+          } else {
+            setRender(true);
+          }
         }
       });
     } catch (error) {
@@ -127,6 +131,41 @@ const AppointmentList = () => {
   };
 
 
+  const handleChange = (e) => {
+    try {
+      e.preventDefault();
+
+      if (e.target.name === 'reviewText') {
+        const reviewValue = e.target.value;
+
+        if (reviewValue.trim() !== '') {
+          setReview(reviewValue);
+        } else {
+          console.error('Review text cannot be empty');
+        }
+      } else if (e.target.name === 'rating') {
+        const ratingValue = parseInt(e.target.value, 10);
+
+        if (!isNaN(ratingValue) && ratingValue >= 1 && ratingValue <= 5) {
+          setRating(ratingValue);
+        } else {
+          console.error('Rating must be a number between 1 and 5');
+        }
+      }
+    } catch (error) {
+      console.error(error.message);
+    }
+  };
+
+  const handleSubmit = async (e) => {
+    try {
+      e.preventDefault()
+      const res = await addReview({ userId: _id, drId, review, rating })
+      console.log(res);
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
 
 
   return (
@@ -160,14 +199,19 @@ const AppointmentList = () => {
                   {appo.map((appointment) => (
 
                     <tr key={appointment.id}>
-                      <td className="">{appointment.doctorDetails.name}</td>
-                      <td className="">{appointment.consultationDate}</td>
+                      <td><Link to={`/doctordetails/${appointment.doctorDetails._id}`} className="">{appointment.doctorDetails.name}</Link></td>
+                      <td className="text-blue-600">{appointment.consultationDate}</td>
                       <td className="">{appointment.createdAt}</td>
                       <td className="">299</td>
-                      <td className="">
+                      <td className="text-blue-600">
                         {appointment.start} - {appointment.end}
                       </td>
-                      <td className="">{appointment.status}</td>
+                      <td className={`${appointment.status === 'Pending' ? 'text-red-500' :
+                        appointment.status === 'Done' ? 'text-green-500' :
+                          ''
+                        }`}>
+                        {appointment.status}
+                      </td>
                       <td
                         className="hover:cursor-pointer text-sky-600"
                         onClick={() => {
@@ -210,17 +254,46 @@ const AppointmentList = () => {
             <Modal.Header>More</Modal.Header>
             <Modal.Body>
               {data.status === "Done" ? (
-                <div className="h-60">
-                  <h1 className="text-3xl flex justify-center text-blue-500 pt">Consultation Compleated</h1>
-                  {/* <span>add your Review</span> */}
+                <form onSubmit={handleSubmit} onChange={handleChange} className="h-800">
+                  <h1 className="text-3xl flex justify-center text-blue-500 pt">Consultation Completed</h1>
 
                   <div className="flex justify-center m-5">
-                    <textarea className='w-full h-28 rounded-lg' type="text" />
+                    <label htmlFor="reviewText" className="sr-only">
+                      Add Your Review
+                    </label>
+                    <textarea
+                      id="reviewText"
+                      name="reviewText"
+                      value={review}
+                      onChange={handleChange}
+                      className="w-full h-32 rounded-lg"
+                      placeholder="Enter your review"
+                      required
+                    ></textarea>
                   </div>
+
+                  <div className="rating flex justify-center">
+                    {[1, 2, 3, 4, 5].map((value) => (
+                      <input
+                        key={value}
+                        type="radio"
+                        id={`rating-${value}`}
+                        name="rating"
+                        value={value}
+                        checked={rating === value}
+                        className="mask mask-star-2 bg-green-500"
+                      />
+                    ))}
+                  </div>
+
                   <div className="flex justify-center m-5">
-                    <button className="btn btn-outline" >Add Your Review</button>
+                    <button type="submit" className="btn btn-outline">
+                      Add Your Review
+                    </button>
                   </div>
-                </div>
+                </form>
+
+
               ) : (<div className="space-y-6">
                 <p className="text-2xl leading-relaxed text-gray-500 dark:text-gray-400">
                   Your appointment is scheduled for{" "}

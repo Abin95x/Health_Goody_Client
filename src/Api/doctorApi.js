@@ -83,3 +83,5 @@ export async function markasDone(id) {
     const data = await doctorAxiosInstance.patch(`/markAsDone?id=${id}`)
     return data
 }
+
+

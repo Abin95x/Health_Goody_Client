@@ -42,14 +42,10 @@ const DoctorProfile = () => {
     date: '',
   });
 
-
-
   const handleSubmit2 = async (event) => {
     try {
       event.preventDefault(); // Prevent default form submission
-
       const response = await slotDetails({ id, formData });
-
       if (response.data.success === true) {
         const Toast = Swal.mixin({
           toast: true,
@@ -69,7 +65,6 @@ const DoctorProfile = () => {
         });
         setOpenModal(false);
 
-
       } else {
         const Toast = Swal.mixin({
           toast: true,
@@ -87,9 +82,7 @@ const DoctorProfile = () => {
           icon: 'info',
           title: response.data.message,
         });
-
       }
-
     } catch (error) {
       console.error('Error:', error.message);
     }
@@ -106,7 +99,6 @@ const DoctorProfile = () => {
     }
   };
 
-
   const onSubmit = async () => {
     setLoading(true);
     const response = await editProfile({ ...values, id });
@@ -116,6 +108,7 @@ const DoctorProfile = () => {
     console.log(response);
 
   };
+
   // const handlePhoto = (e) => {
   //   const selectedPhoto = e.target.files[0];
   //   setPhotoToBase(selectedPhoto);
@@ -145,7 +138,6 @@ const DoctorProfile = () => {
   });
 
   // console.log(values);
-
 
 
   return (

@@ -106,7 +106,7 @@ const Otp = () => {
 
   return (
     <>
-      <div className="relative flex min-h-screen flex-col justify-center overflow-hidden bg-blue-50 py-12">
+      <div className="relative flex min-h-screen flex-col justify-center overflow-hidden bg-teal-500 py-12">
         <div className="relative bg-base-100 px-6 pt-10 pb-9 shadow-xl mx-auto w-full max-w-lg rounded-2xl">
           <div className="mx-auto flex w-full max-w-md flex-col space-y-16">
             <div className="flex flex-col items-center justify-center text-center space-y-2">
