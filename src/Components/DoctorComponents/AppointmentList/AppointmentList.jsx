@@ -6,9 +6,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import { createChat } from '../../../Api/doctorApi'
 import Swal from 'sweetalert2';
 import { markasDone } from '../../../Api/doctorApi'
-import { set } from 'date-fns';
 
-// import Swal from 'sweetalert2';
 
 const AppointmentList = () => {
   const navigate = useNavigate();

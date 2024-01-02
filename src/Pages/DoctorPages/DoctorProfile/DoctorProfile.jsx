@@ -49,14 +49,14 @@ const DoctorProfile = () => {
       if (response.data.success === true) {
         const Toast = Swal.mixin({
           toast: true,
-          position: 'top-end',
+          position: 'top',
           showConfirmButton: false,
           timer: 3000,
-          timerProgressBar: true,
-          didOpen: (toast) => {
-            toast.onmouseenter = Swal.stopTimer;
-            toast.onmouseleave = Swal.resumeTimer;
-          },
+          // timerProgressBar: true,
+          // didOpen: (toast) => {
+          //   toast.onmouseenter = Swal.stopTimer;
+          //   toast.onmouseleave = Swal.resumeTimer;
+          // },
         });
 
         Toast.fire({
@@ -68,14 +68,14 @@ const DoctorProfile = () => {
       } else {
         const Toast = Swal.mixin({
           toast: true,
-          position: 'top-end',
+          position: 'top',
           showConfirmButton: false,
           timer: 3000,
-          timerProgressBar: true,
-          didOpen: (toast) => {
-            toast.onmouseenter = Swal.stopTimer;
-            toast.onmouseleave = Swal.resumeTimer;
-          },
+          // timerProgressBar: true,
+          // didOpen: (toast) => {
+          //   toast.onmouseenter = Swal.stopTimer;
+          //   toast.onmouseleave = Swal.resumeTimer;
+          // },
         });
 
         Toast.fire({
@@ -167,17 +167,7 @@ const DoctorProfile = () => {
                   <p>
                     Experience : <span className='text-black m-5'>{doc.experience || 'Not added'}</span>
                   </p>
-                  <div className='rating'>
 
-                    <div className="rating rating-lg">
-                      <input type="radio" name="rating-8" className="mask mask-star-2 bg-orange-400" />
-                      <input type="radio" name="rating-8" className="mask mask-star-2 bg-orange-400" checked />
-                      <input type="radio" name="rating-8" className="mask mask-star-2 bg-orange-400" />
-                      <input type="radio" name="rating-8" className="mask mask-star-2 bg-orange-400" />
-                      <input type="radio" name="rating-8" className="mask mask-star-2 bg-orange-400" />
-                    </div>
-
-                  </div>
                 </div>
               </div>
 

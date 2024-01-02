@@ -30,14 +30,14 @@ const SignupPage = () => {
             if (response.data.status) {
                 const Toast = Swal.mixin({
                     toast: true,
-                    position: 'top-end',
+                    position: 'top',
                     showConfirmButton: false,
                     timer: 5000,
-                    timerProgressBar: true,
-                    didOpen: (toast) => {
-                        toast.onmouseenter = Swal.stopTimer;
-                        toast.onmouseleave = Swal.resumeTimer;
-                    },
+                    // timerProgressBar: true,
+                    // didOpen: (toast) => {
+                    //     toast.onmouseenter = Swal.stopTimer;
+                    //     toast.onmouseleave = Swal.resumeTimer;
+                    // },
                 });
 
                 Toast.fire({

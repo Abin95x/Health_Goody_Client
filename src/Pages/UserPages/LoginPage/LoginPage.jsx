@@ -4,7 +4,6 @@ import Footer from '../../../Components/UserComponents/Footer/Footer';
 import { Link } from 'react-router-dom';
 import { useFormik } from 'formik';
 import Swal from 'sweetalert2';
-
 import { loginSchema } from '../../../validations/user/loginValidation';
 import { userLogin } from '../../../Api/userApi';
 import { useNavigate } from 'react-router-dom';
@@ -33,14 +32,14 @@ const LoginPage = () => {
 
         const Toast = Swal.mixin({
           toast: true,
-          position: 'top-end',
+          position: 'top',
           showConfirmButton: false,
           timer: 3000,
-          timerProgressBar: true,
-          didOpen: (toast) => {
-            toast.onmouseenter = Swal.stopTimer;
-            toast.onmouseleave = Swal.resumeTimer;
-          },
+          // timerProgressBar: true,
+          // didOpen: (toast) => {
+          //   toast.onmouseenter = Swal.stopTimer;
+          //   toast.onmouseleave = Swal.resumeTimer;
+          // },
         });
 
         Toast.fire({

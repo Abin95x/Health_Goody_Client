@@ -12,47 +12,47 @@ const LoginPage = () => {
     try {
       console.log(values);
       const response = await adminLogin(values);
-      localStorage.setItem('admintoken',response.data.admintoken);
+      localStorage.setItem('admintoken', response.data.admintoken);
       console.log(response);
 
       const Toast = Swal.mixin({
         toast: true,
-        position: 'top-end',
+        position: 'top',
         showConfirmButton: false,
         timer: 3000,
-        timerProgressBar: true,
-        didOpen: (toast) => {
-            toast.onmouseenter = Swal.stopTimer;
-            toast.onmouseleave = Swal.resumeTimer;
-        },
-    });
+        // timerProgressBar: true,
+        // didOpen: (toast) => {
+        //     toast.onmouseenter = Swal.stopTimer;
+        //     toast.onmouseleave = Swal.resumeTimer;
+        // },
+      });
 
-    Toast.fire({
+      Toast.fire({
         icon: 'success',
         title: 'Logged in successfully',
-    });
+      });
 
-    navigate('/admin/dashboard');
+      navigate('/admin/dashboard');
 
 
     } catch (error) {
-        
+
       const Toast = Swal.mixin({
         toast: true,
-        position: 'top-end',
+        position: 'top',
         showConfirmButton: false,
         timer: 3000,
-        timerProgressBar: true,
-        didOpen: (toast) => {
-            toast.onmouseenter = Swal.stopTimer;
-            toast.onmouseleave = Swal.resumeTimer;
-        },
-    });
+        // timerProgressBar: true,
+        // didOpen: (toast) => {
+        //   toast.onmouseenter = Swal.stopTimer;
+        //   toast.onmouseleave = Swal.resumeTimer;
+        // },
+      });
 
-    Toast.fire({
+      Toast.fire({
         icon: 'error',
         title: 'Invalid username or password',
-    });
+      });
       console.log(error.message);
     }
   };

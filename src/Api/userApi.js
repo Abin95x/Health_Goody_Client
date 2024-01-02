@@ -80,8 +80,9 @@ export async function appointmentList(id, page, limit) {
     return data;
 }
 
-export async function cancelAppointment({ id, userId }) {
-    const data = await userAxiosInstance.patch(`/cancelAppointment?id=${id}&userId=${userId}`);
+export async function cancelAppointment({ id, userId, paymentId }) {
+    console.log(paymentId, "pppppppppppppppayyyyyyyyyyyyyy");
+    const data = await userAxiosInstance.patch(`/cancelAppointment?id=${id}&userId=${userId}&paymentId=${paymentId}`);
     return data;
 }
 
@@ -103,5 +104,11 @@ export async function PaymentWallet(values) {
 export async function addReview(values) {
     console.log(values);
     const data = await userAxiosInstance.post('/addReview', values)
+    return data
+}
+
+export async function getReview(drId) {
+    console.log(drId);
+    const data = await userAxiosInstance.get(`/getReview?id=${drId}`)
     return data
 }

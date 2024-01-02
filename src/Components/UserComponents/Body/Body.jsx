@@ -139,7 +139,6 @@ const Body = () => {
       {/* Doctors */}
       {
         token ? (
-
           <div>
 
           </div>

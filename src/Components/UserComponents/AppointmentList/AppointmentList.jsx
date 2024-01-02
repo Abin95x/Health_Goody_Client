@@ -25,11 +25,16 @@ const AppointmentList = () => {
   const [drId, setDrId] = useState();
   const [currentPage, setCurrentPage] = useState(1);
   const [review, setReview] = useState()
-  const [rating, setRating] = useState(2); // Assuming the default rating is 2
+  const [rating, setRating] = useState(3);
 
 
   const limit = 5;
 
+  console.log(appo);
+  if (data) {
+    console.log(data.paymentId);
+
+  }
 
 
 
@@ -57,9 +62,7 @@ const AppointmentList = () => {
         confirmButtonText: "Yes, cancel it!",
       }).then(async (result) => {
         if (result.isConfirmed) {
-          const response = await cancelAppointment({ id, userId: _id });
-
-
+          await cancelAppointment({ id, userId: _id, paymentId: data.paymentId });
           Swal.fire({
             title: "Cancelled!",
             text: "Your appointment has been cancelled.",
@@ -160,8 +163,34 @@ const AppointmentList = () => {
   const handleSubmit = async (e) => {
     try {
       e.preventDefault()
+      if (!rating || !review) {
+        const Toast = Swal.mixin({
+          toast: true,
+          position: "top",
+          showConfirmButton: false,
+          timer: 3000,
+        });
+        Toast.fire({
+          icon: "error",
+          title: 'Rating and/or review cannot be empty'
+        });
+        console.log("Rating and/or review cannot be empty.");
+        return;
+      }
       const res = await addReview({ userId: _id, drId, review, rating })
-      console.log(res);
+
+      if (res.status === 200) {
+        const Toast = Swal.mixin({
+          toast: true,
+          position: "top",
+          showConfirmButton: false,
+          timer: 3000,
+        });
+        Toast.fire({
+          icon: "success",
+          title: res.data.message
+        });
+      }
     } catch (error) {
       console.log(error.message);
     }
@@ -213,7 +242,7 @@ const AppointmentList = () => {
                         {appointment.status}
                       </td>
                       <td
-                        className="hover:cursor-pointer text-sky-600"
+                        className="hover:cursor-pointer text-sk y-600"
                         onClick={() => {
                           setOpenModal(true);
                           setData(appointment);
@@ -292,68 +321,89 @@ const AppointmentList = () => {
                     </button>
                   </div>
                 </form>
-
-
-              ) : (<div className="space-y-6">
-                <p className="text-2xl leading-relaxed text-gray-500 dark:text-gray-400">
-                  Your appointment is scheduled for{" "}
-                  <span className="text-red-600">{data.consultationDate}</span>{" "}
-                  from <span className="text-red-600">{data.start}</span> to{" "}
-                  <span className="text-red-600">{data.end}</span>. Please be
-                  ready at that time for your consultation.{" "}
-                  {/* <span className="text-green-400">You will be notified</span> */}
-                </p>
-
-                <br />
-
-                <div className="space-y-6">
-                  <p className="text-xl text-red-500">
-                    {!isCancelDisabled(data.consultationDate, data.start) ? (
-                      <button
-                        className="btn btn-error w-full"
-                        onClick={() => {
-                          handleCancel(data._id);
-                          setOpenModal(false);
-                        }}
-                      >
-                        Cancel Appointment
-                      </button>
-                    ) : (
-                      <span className="text-gray-500">Cancel Appointment (Disabled)</span>
-                    )}
-                  </p>
-                </div>
-                <br />
-              </div>)}
-
-            </Modal.Body>
-            <Modal.Footer className="flex justify-center">
-              {/* <Button onClick={() => setOpenModal(false)}>Close</Button> */}
-              {/* {data.status === "Done" ? (<h1></h1>) : (<h1></h1>)} */}
-              {btn ? (
-                <div className="flex justify-center">
-                  <Button
-                    className=" btn-primary"
-                    onClick={() => handleNavigate()}
-                  >
-                    Chat with doctor
-                  </Button>
-                </div>
+              ) : data.status === "Cancelled" ? (
+                <h1 className="text-red-500">Your appointment has been cancelled</h1>
               ) : (
-                <div className="flex justify-center">
-                  <Button className=" " onClick={() => setOpenModalx(true)}>
-                    Connect doctor
-                  </Button>
+                <div className="space-y-6">
+                  <p className="text-2xl leading-relaxed text-gray-500 dark:text-gray-400">
+                    Your appointment is scheduled for{" "}
+                    <span className="text-red-600">{data.consultationDate}</span>{" "}
+                    from <span className="text-red-600">{data.start}</span> to{" "}
+                    <span className="text-red-600">{data.end}</span>. Please be
+                    ready at that time for your consultation.{" "}
+                    {/* <span className="text-green-400">You will be notified</span> */}
+                  </p>
+
+                  <br />
+
+                  <div className="space-y-6">
+                    <p className="text-xl text-red-500">
+                      {!isCancelDisabled(data.consultationDate, data.start) ? (
+                        <button
+                          className="btn btn-error w-full"
+                          onClick={() => {
+                            handleCancel(data._id);
+                            setOpenModal(false);
+                          }}
+                        >
+                          Cancel Appointment
+                        </button>
+                      ) : (
+                        <span className="text-gray-500">Cancel Appointment (Disabled)</span>
+                      )}
+                    </p>
+                  </div>
+                  <br />
                 </div>
               )}
-              <div className="flex justify-center">
-                <Button>Reshedule</Button>
-              </div>
-              <div className="flex justify-center">
-                <Button onClick={() => { handlePrescription() }}>Download prescription</Button>
-              </div>
+            </Modal.Body>
+
+            <Modal.Footer className="flex justify-center">
+              {data.status === "Pending" && (
+                <>
+                  {btn ? (
+                    <div className="flex justify-center">
+                      <Button
+                        className=" btn-primary"
+                        onClick={() => handleNavigate()}
+                      >
+                        Chat with doctor
+                      </Button>
+                    </div>
+                  ) : (
+                    <div className="flex justify-center">
+                      <Button className=" " onClick={() => setOpenModalx(true)}>
+                        Connect doctor
+                      </Button>
+                    </div>
+                  )}
+                  <div className="flex justify-center">
+                    <Button onClick={() => { handlePrescription() }}>Download prescription</Button>
+                  </div>
+                </>
+              )}
+              {data.status === "Done" && (
+                <>
+                  <div className="flex justify-center">
+                    <Button
+                      className=" btn-primary"
+                      onClick={() => handleNavigate()}
+                    >
+                      Chat with doctor
+                    </Button>
+                  </div>
+                  <div className="flex justify-center">
+                    <Button onClick={() => { handlePrescription() }}>Download prescription</Button>
+                  </div>
+                </>
+              )}
+              {data.status === "Cancelled" && (
+                <>
+
+                </>
+              )}
             </Modal.Footer>
-          </Modal >
+          </Modal>
         )
       }
 

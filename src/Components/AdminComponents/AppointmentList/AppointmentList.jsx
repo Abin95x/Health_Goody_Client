@@ -55,7 +55,6 @@ const AppointmentList = () => {
                                 {/* <th>Slot ID</th> */}
                                 <th>Appointment ID</th>
                                 <th>Paymet ID</th>
-                                <th>More</th>
 
 
                             </tr>
@@ -70,8 +69,11 @@ const AppointmentList = () => {
                                         <td>{app.createdAt}</td>
                                         <td>{app.start}</td>
                                         <td>{app.end}</td>
-                                        <td>{app.status}</td>
-                                        {/* <td>{app.slotId}</td> */}
+                                        <td className={`${app.status === 'Pending' ? 'text-yellow-200' :
+                                            app.status === 'Done' ? 'text-green-500' : ''
+                                            }`}>
+                                            {app.status}
+                                        </td>                                        {/* <td>{app.slotId}</td> */}
                                         <td>{app._id}</td>
                                         <td>{app.paymentId}</td>
 

@@ -24,19 +24,15 @@ const Profile = () => {
       setUserData(response.data.user);
       const Toast = Swal.mixin({
         toast: true,
-        position: 'top-end',
+        position: "top",
         showConfirmButton: false,
-        timer: 5000,
-        timerProgressBar: true,
+        timer: 3000,
         didOpen: (toast) => {
-          toast.onmouseenter = Swal.stopTimer;
-          toast.onmouseleave = Swal.resumeTimer;
-        },
+        }
       });
-
       Toast.fire({
-        icon: 'success',
-        title: 'details edited',
+        icon: "success",
+        title: response.data.message
       });
 
       closeModal();
