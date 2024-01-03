@@ -6,17 +6,21 @@ import { unVerifiedList } from '../../../Api/adminApi';
 
 const VerifyList = () => {
     const [doctors, setDoctors] = useState([]);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [itemsPerPage, setItemsPerPage] = useState(5);
+    const [pagination, setPagination] = useState({});
     const navigate = useNavigate();
 
     useEffect(() => {
-        unVerifiedList()
+        unVerifiedList(currentPage, itemsPerPage)
             .then((response) => {
                 setDoctors(response.data.doctors);
+                setPagination(response.data.pagination);
             })
             .catch((error) => {
                 console.log(error);
             });
-    }, []);
+    }, [currentPage, itemsPerPage]);
 
 
     const handleClick = async (id) => {
@@ -63,7 +67,7 @@ const VerifyList = () => {
                                     <td>{doctor.email}</td>
                                     <td>{doctor.mobile}</td>
                                     <td>{doctor.speciality}</td>
-                                    <td>{doctor.is_blocked ? 'No' : 'Yes'}</td>
+                                    <td>{doctor.admin_verify ? 'Yes' : 'No'}</td>
                                     <td>
                                         <button type='button' onClick={() => handleClick(doctor._id)}>
                                             More Info
@@ -75,6 +79,20 @@ const VerifyList = () => {
                     </table>
                 )}
             </div >
+            {pagination && pagination.totalPages && doctors.length > 0 && (
+                <div className="flex justify-center mt-4 ">
+                    {Array.from({ length: pagination.totalPages }, (_, index) => (
+                        <button
+                            key={index + 1}
+                            onClick={() => setCurrentPage(index + 1)}
+                            className={`pagination-btn border w-10 ${index + 1 === currentPage ? "border-green-400" : "border-black"}`}
+                        >
+                            {index + 1}
+                        </button>
+
+                    ))}
+                </div>
+            )}
         </>
 
     );

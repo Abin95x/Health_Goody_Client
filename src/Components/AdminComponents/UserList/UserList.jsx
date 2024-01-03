@@ -6,16 +6,22 @@ import { userDetails, userBlockUnblock } from '../../../Api/adminApi';
 export const UserList = () => {
   const [users, setUsers] = useState([]);
   const [userData, setUserData] = useState();
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage, setItemsPerPage] = useState(5);
+  const [pagination, setPagination] = useState({});
 
   useEffect(() => {
-    userList()
+    userList(currentPage, itemsPerPage)
       .then((response) => {
+        console.log(response);
         setUsers(response.data.users);
+        setPagination(response.data.pagination);
+
       })
       .catch((error) => {
         console.log(error.message);
       });
-  }, []);
+  }, [currentPage, itemsPerPage]);
 
   const handleClick = async (id) => {
     try {
@@ -86,6 +92,20 @@ export const UserList = () => {
           </tbody>
         </table>
       </div >)}
+
+      {pagination && pagination.totalPages && users.length > 0 && (
+        <div className="flex justify-center mt-4 ">
+          {Array.from({ length: pagination.totalPages }, (_, index) => (
+            <button
+              key={index + 1}
+              onClick={() => setCurrentPage(index + 1)}
+              className={`pagination-btn border w-10 ${index + 1 === currentPage ? "border-green-400" : "border-black"}`}
+            >
+              {index + 1}
+            </button>
+          ))}
+        </div>
+      )}
 
 
       {/* You can open the modal using document.getElementById('ID').showModal() method */}

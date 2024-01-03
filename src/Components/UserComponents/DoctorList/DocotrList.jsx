@@ -98,28 +98,41 @@ const DoctorList = () => {
                 </div>
 
                 <div className='max-w-screen-xl mx-auto p-4'>
-                    <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 '>
-                        {doctors.map((doctor) => (
-                            <Link to={`/doctordetails/${doctor._id}`} key={doctor._id}>
-                                <div className='bg-white shadow-lg border h-96 rounded-lg overflow-hidden transition-transform transform hover:scale-105'>
-                                    <div className='p-4 text-gray-900'>
-                                        <img
-                                            src={doctor.photo}
-                                            alt={doctor.name}
-                                            className='w-24 h-24 rounded-full mb-4 mx-auto object-cover'
-                                        />
-                                        <h3 className='text-lg font-semibold text-center mb-2'>Dr. {doctor.name}</h3>
-                                    </div>
-                                    <div className='border-t p-4 text-black'>
-                                        <p className='mb-2'>Price: ₹299</p>
-                                        <p className='mb-2'>Speciality: {doctor.speciality}</p>
-                                        <p className='mb-2'>Experience: {doctor.experience ? doctor.experience : 'Not added'}</p>
-                                        <p className='mb-2'>Language: English,malayalam</p>
-                                    </div>
-                                </div>
-                            </Link>
-                        ))}
+                    {doctors.length === 0 ? (
+                        <div className='flex justify-center text-2xl text-blue-500 px'>
+                            <p> No doctors available</p>
+                        </div>) : (
+                        <div>
 
+                        </div>
+                    )}
+                    <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 '>
+                        {doctors.length === 0 ? (
+                            <div>
+
+                            </div>
+                        ) : (
+                            doctors.map((doctor) => (
+                                <Link to={`/doctordetails/${doctor._id}`} key={doctor._id}>
+                                    <div className='bg-white shadow-lg border h-96 rounded-lg overflow-hidden transition-transform transform hover:scale-105'>
+                                        <div className='p-4 text-gray-900'>
+                                            <img
+                                                src={doctor.photo}
+                                                alt={doctor.name}
+                                                className='w-24 h-24 rounded-full mb-4 mx-auto object-cover'
+                                            />
+                                            <h3 className='text-lg font-semibold text-center mb-2'>Dr. {doctor.name}</h3>
+                                        </div>
+                                        <div className='border-t p-4 text-black'>
+                                            <p className='mb-2'>Price: ₹299</p>
+                                            <p className='mb-2'>Speciality: {doctor.speciality}</p>
+                                            <p className='mb-2'>Experience: {doctor.experience ? doctor.experience : 'Not added'}</p>
+                                            <p className='mb-2'>Language: English, Malayalam</p>
+                                        </div>
+                                    </div>
+                                </Link>
+                            ))
+                        )}
                     </div>
                 </div>
 
@@ -136,6 +149,7 @@ const DoctorList = () => {
                 </div>
             </div >
         </>
+
     );
 };
 

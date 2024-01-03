@@ -23,8 +23,8 @@ const AppointmentList = () => {
   const [appoName, setAppoName] = useState()
   const [appoId, setAppoId] = useState()
   const [appoStatus, setAppoStauts] = useState()
-
-
+  const [btn, setBtn] = useState(false);
+  const [openModalx, setOpenModalx] = useState(false);
 
 
   const [currentDate, setCurrentDate] = useState();
@@ -69,6 +69,7 @@ const AppointmentList = () => {
   const handleAccept = async () => {
     try {
       const response = await createChat({ userid: userId, doctorid: id });
+      setBtn(true);
       Swal.fire(response.data.message);
     } catch (error) {
       console.log(error.message);
@@ -101,6 +102,10 @@ const AppointmentList = () => {
         userName: appoName, date: appDate, start: appoStart, end: appoEnd, userId: userId, appoId: appoId
       }
     })
+  }
+
+  const handleReport = () => {
+    navigate(`/doctor/medicalreport`)
   }
 
   const markAsDone = async () => {
@@ -176,11 +181,16 @@ const AppointmentList = () => {
                     <tr key={appointment._id} className="text-black">
                       <td className="py-2">{index + 1}</td>
                       <td className="py-2">{appointment.userDetails.name}</td>
-                      <td className="py-2">{appointment.consultationDate}</td>
+                      <td className="py-2 text-blue-600">{appointment.consultationDate}</td>
                       <td className="py-2">{appointment.createdAt}</td>
                       <td className="py-2">{appointment.start}</td>
                       <td className="py-2">{appointment.end}</td>
-                      <td className="py-2">{appointment.status}</td>
+                      <td className={`py-2 ${appointment.status === 'Done' ? 'text-green-500' :
+                        appointment.status === 'Cancelled' ? 'text-red-600' :
+                          appointment.status === 'Pending' ? 'text-yellow-300' : ''}`}>
+                        {appointment.status}
+                      </td>
+
                       <td
                         onClick={() => {
                           setOpenModal(true);
@@ -217,44 +227,99 @@ const AppointmentList = () => {
         <Modal.Header>Terms of Service</Modal.Header>
         <Modal.Body>
           <div className="space-y-6">
-            <p className="text-base leading-relaxed text-gray-500 dark:text-gray-400">
-              With less than a month to go before the European Union enacts new consumer privacy laws for its citizens,
-              companies around the world are updating their terms of service agreements to comply.
-            </p>
             {currDate === appDate && currentTime >= appoStart && currentTime <= appoEnd && appoStatus === "Pending" ? (
               <React.Fragment>
                 <p className='text-xl text-green-500 '>
                   You can now join the call
                 </p>
-                {/* <Button onClick={() => handleButtonClick()}></Button> */}
-                <Link to={'/doctor/video'} className='btn btn-secondary w-44' onClick={handleLinkClick}>
+                <Link to={'/doctor/video'} className='btn btn-secondary w-full' onClick={handleLinkClick}>
                   Start Video Call
                 </Link>
               </React.Fragment>
             ) : (
-              <div>
-                VIDEO CALL ROOM AVAILABLE IN THE DATE AND TIME
-              </div>
+              appoStatus === "Done" ? (
+                <React.Fragment>
+                  <div className='text-green-500'>
+                    ADD MEDICAL REPORT AND  PRESCRIPTION
+                  </div>
+                </React.Fragment>
+              ) : (
+                <div className='text-orange-500'>
+                  VIDEO CALL ROOM AVAILABLE IN THE DATE AND TIME
+                </div>
+              )
             )}
             <br />
-            <button onClick={() => { setOpenModal(false); handlePris(); }} className='btn btn-primary w-44'>
-              Add Priscription
+            <button onClick={() => { setOpenModal(false); handlePris(); }} className='btn btn-primary w-full'>
+              Add Prescription
             </button>
             <br />
-            {appoStatus === "Pending" ? <button className='btn btn-warning w-44' onClick={markAsDone}>
-              Mark As Done
-            </button> : null}
-
-
-
-
+            <button onClick={() => { setOpenModal(false); handleReport() }} className='btn btn-success w-full'>
+              Add Medical Report
+            </button>
+            <br />
+            {appoStatus === "Pending" ? (
+              <button className='btn btn-warning w-full' onClick={markAsDone}>
+                Mark As Done
+              </button>
+            ) : null}
           </div>
         </Modal.Body>
         <Modal.Footer>
-          <Button onClick={() => { setOpenModal(false); handleAccept(); handleNavigate() }}>Chat</Button>
+          {/* <Button onClick={() => { setOpenModal(false); handleAccept(); handleNavigate() }}>Chat</Button> */}
+          {btn ? (
+            <div className="flex justify-center">
+              <Button
+                className=" btn-primary"
+                onClick={() => handleNavigate()}
+              >
+                Chat with patient
+              </Button>
+            </div>
+          ) : (
+            <div className="flex justify-center">
+              <Button className=" " onClick={() => setOpenModalx(true)}>
+                Connect patient
+              </Button>
+            </div>
+          )}
           <Button color="gray" onClick={() => setOpenModal(false)}>
             Decline
           </Button>
+        </Modal.Footer>
+      </Modal>
+
+
+      <Modal show={openModalx} onClose={() => setOpenModalx(false)}>
+        <Modal.Header></Modal.Header>
+        <Modal.Body>
+          <div className="space-y-6">
+            <p className="text-base leading-relaxed text-gray-500 dark:text-gray-400">
+              With less than a month to go before the European Union enacts new
+              consumer privacy laws for its citizens, companies around the world
+              are updating their terms of service agreements to comply.
+            </p>
+            <p className="text-base leading-relaxed text-gray-500 dark:text-gray-400">
+              The European Union’s General Data Protection Regulation (G.D.P.R.)
+              goes into effect on May 25 and is meant to ensure a common set of
+              data rights in the European Union. It requires organizations to
+              notify users as soon as possible of high-risk data breaches that
+              could personally affect them.
+            </p>
+          </div>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button
+            color="gray"
+            onClick={() => {
+              setOpenModalx(false);
+              handleAccept();
+            }}
+          >
+            I accept
+          </Button>
+
+          <Button onClick={() => setOpenModalx(false)}>Decline</Button>
         </Modal.Footer>
       </Modal>
     </div >

@@ -106,11 +106,6 @@ const SpecialityList = () => {
                 position: 'top',
                 showConfirmButton: false,
                 timer: 3000,
-                // timerProgressBar: true,
-                // didOpen: (toast) => {
-                //     toast.onmouseenter = Swal.stopTimer;
-                //     toast.onmouseleave = Swal.resumeTimer;
-                // },
             });
             setRerender(!rerender);
             Toast.fire({
@@ -157,9 +152,6 @@ const SpecialityList = () => {
             (speciality) =>
                 speciality.speciality.toLowerCase().includes(search?.toLowerCase() || '')
         );
-
-
-
         setFilteredSpeciality(filtered);
     }, [search, slist]);
 

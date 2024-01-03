@@ -5,17 +5,21 @@ import { doctorList } from '../../../Api/adminApi';
 
 const DoctorList = () => {
     const [doctors, setDoctors] = useState([]);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [itemsPerPage, setItemsPerPage] = useState(5);
+    const [pagination, setPagination] = useState({});
     const navigate = useNavigate();
 
     useEffect(() => {
-        doctorList()
+        doctorList(currentPage, itemsPerPage)
             .then((response) => {
                 setDoctors(response.data.doctors);
+                setPagination(response.data.pagination);
             })
             .catch((error) => {
                 console.log(error);
             });
-    }, []);
+    }, [currentPage, itemsPerPage]);
 
     const handleClick = async (id) => {
         try {
@@ -62,7 +66,7 @@ const DoctorList = () => {
                                 <td>{doctor.email}</td>
                                 <td>{doctor.mobile}</td>
                                 <td>{doctor.speciality}</td>
-                                <td>{doctor.otp_verified ? 'Yes' : 'No'}</td>
+                                <td>{doctor.is_blocked ? 'No' : 'Yes'}</td>
 
                                 <td>
 
@@ -76,6 +80,21 @@ const DoctorList = () => {
                     </tbody>
                 </table>
             </div >)}
+
+            {pagination && pagination.totalPages && doctors.length > 0 && (
+                <div className="flex justify-center mt-4 ">
+                    {Array.from({ length: pagination.totalPages }, (_, index) => (
+                        <button
+                            key={index + 1}
+                            onClick={() => setCurrentPage(index + 1)}
+                            className={`pagination-btn border w-10 ${index + 1 === currentPage ? "border-green-400" : "border-black"}`}
+                        >
+                            {index + 1}
+                        </button>
+
+                    ))}
+                </div>
+            )}
 
 
         </>

@@ -3,28 +3,35 @@ import { appointmentList } from '../../../Api/adminApi';
 
 const AppointmentList = () => {
     const [appointments, setAppointments] = useState([]);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [itemsPerPage, setItemsPerPage] = useState(5);
+    const [pagination, setPagination] = useState({});
+
+
+
 
     useEffect(() => {
         const fetchAppointments = async () => {
             try {
-                const response = await appointmentList();
-                console.log(response);
-                setAppointments(response.data);
+                const response = await appointmentList(currentPage, itemsPerPage);
+                setAppointments(response.data.data);
+                setPagination(response.data.pagination); // Update pagination state
             } catch (error) {
-                console.log(error.message);
+                console.error(error.message);
             }
         };
 
         fetchAppointments();
-    }, []);
+    }, [currentPage, itemsPerPage]);
 
-    // const handleClick = () => {
-    //     try {
+    const handleClick = () => {
+        try {
 
-    //     } catch (error) {
-    //         console.log(error.message)
-    //     }
-    // }
+        } catch (error) {
+            console.log(error.message);
+        }
+    }
+
 
     return (
 
@@ -55,8 +62,6 @@ const AppointmentList = () => {
                                 {/* <th>Slot ID</th> */}
                                 <th>Appointment ID</th>
                                 <th>Paymet ID</th>
-
-
                             </tr>
                         </thead>
                         <tbody>
@@ -70,19 +75,18 @@ const AppointmentList = () => {
                                         <td>{app.start}</td>
                                         <td>{app.end}</td>
                                         <td className={`${app.status === 'Pending' ? 'text-yellow-200' :
-                                            app.status === 'Done' ? 'text-green-500' : ''
+                                            app.status === 'Done' ? 'text-green-500' :
+                                                app.status === 'Cancelled' ? 'text-red-500' : ''
                                             }`}>
                                             {app.status}
-                                        </td>                                        {/* <td>{app.slotId}</td> */}
-                                        <td>{app._id}</td>
+                                        </td>
+                                        {/* <td>{app.slotId}</td> */}
+                                        < td > {app._id}</td>
                                         <td>{app.paymentId}</td>
-
-
                                         <td>
-                                            {/* < button type='button' onClick={() => handleClick()}>
+                                            < button type='button' onClick={() => handleClick()}>
                                                 More Info
-                                            </button> */}
-
+                                            </button>
                                         </td>
                                     </tr>
                                 ))
@@ -92,6 +96,20 @@ const AppointmentList = () => {
                 </div >
             )
             }
+            {pagination && pagination.totalPages && appointments.length > 0 && (
+                <div className="flex justify-center mt-4 ">
+                    {Array.from({ length: pagination.totalPages }, (_, index) => (
+                        <button
+                            key={index + 1}
+                            onClick={() => setCurrentPage(index + 1)}
+                            className={`pagination-btn border w-10 ${index + 1 === currentPage ? "border-green-400" : "border-black"}`}
+                        >
+                            {index + 1}
+                        </button>
+                    ))}
+                </div>
+            )}
+
         </div >
     );
 };

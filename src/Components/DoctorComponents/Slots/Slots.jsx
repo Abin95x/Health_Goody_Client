@@ -11,14 +11,14 @@ const Slots = () => {
     const id = doctorData._id;
     const [selectedSlot, setSelectedSlot] = useState(null);
     const [currentPage, setCurrentPage] = useState(1);
-    const [pageSize, setPageSize] = useState(10);
+    const [pageSize, setPageSize] = useState(5);
 
     useEffect(() => {
         loadSlots();
     }, [id, currentPage, pageSize]);
 
     const loadSlots = () => {
-        slotList(id, currentPage, pageSize)
+        slotList(id)
             .then((response) => {
                 setSlots(response.data.data);
             })
@@ -27,7 +27,7 @@ const Slots = () => {
             });
     };
 
-    const handeClick = (id) => {
+    const handleClick = (id) => {
         try {
             const selectedSlot = slots.find((slot) => slot._id === id);
             setSelectedSlot(selectedSlot);
@@ -40,9 +40,11 @@ const Slots = () => {
     const handlePageChange = (newPage) => {
         setCurrentPage(newPage);
     };
+
+    const paginatedSlots = slots.slice((currentPage - 1) * pageSize, currentPage * pageSize);
+
     return (
         <div className="min-h-screen bg-blue-50">
-
             <br />
             <div className='text-center text-2xl text-black'>
                 <h1>Slots List</h1>
@@ -50,7 +52,7 @@ const Slots = () => {
             <br />
             <div className='flex justify-center'>
                 <div className='w-full lg:w-[800px] bg-white min-h-[500px] = shadow-xl rounded overflow-hidden'>
-                    {slots.length === 0 ? (
+                    {paginatedSlots.length === 0 ? (
                         <div className="text-center py-6">
                             <p className="text-gray-500 text-lg">No slots added</p>
                         </div>
@@ -69,15 +71,15 @@ const Slots = () => {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {slots.map((slot, index) => (
+                                    {paginatedSlots.map((slot, index) => (
                                         <tr key={slot._id} className="text-black">
-                                            <td className="py-2">{index + 1}</td>
+                                            <td className="py-2">{(currentPage - 1) * pageSize + index + 1}</td>
                                             <td className="py-2">{new Date(slot.date).toLocaleDateString()}</td>
                                             <td className="py-2">{slot.startTime}</td>
                                             <td className="py-2">{slot.endTime}</td>
                                             <td className="py-2">{slot.slotDuration}</td>
                                             <td className="py-2">
-                                                <button onClick={() => handeClick(slot._id)} className="text-blue-500 hover:underline">Details</button>
+                                                <button onClick={() => handleClick(slot._id)} className="text-blue-500 hover:underline">Details</button>
                                             </td>
                                         </tr>
                                     ))}
@@ -87,22 +89,19 @@ const Slots = () => {
                     )}
                 </div>
             </div>
-            {slots.length > 0 && (
+            {slots.length > pageSize && (
                 <div className="flex justify-center mt-4 bg-blue-50">
                     {Array.from({ length: Math.ceil(slots.length / pageSize) }, (_, index) => (
                         <button
                             key={index + 1}
                             onClick={() => handlePageChange(index + 1)}
                             className={`pagination-btn border w-10 ${index + 1 === currentPage ? "border-black" : "border-gray-300"}`}
-
                         >
                             {index + 1}
                         </button>
                     ))}
                 </div>
-            )
-            }
-
+            )}
             <br />
             <Modal show={openModal} onClose={() => setOpenModal(false)}>
                 <Modal.Header className="bg-white ">Time Slots</Modal.Header>
@@ -127,7 +126,7 @@ const Slots = () => {
                     <Button className="bg-blue-500 text-white" onClick={() => setOpenModal(false)}>Close</Button>
                 </Modal.Footer>
             </Modal>
-        </div >
+        </div>
     );
 };
 

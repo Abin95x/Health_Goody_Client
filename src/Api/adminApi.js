@@ -7,8 +7,8 @@ export async function adminLogin(signupData) {
 
 //user
 
-export async function userList() {
-    const data = await adminAxiosInstance.get('/userList');
+export async function userList(currentPage, itemsPerPage) {
+    const data = await adminAxiosInstance.get(`/userList?page=${currentPage}&limit=${itemsPerPage}`);
     return data;
 }
 
@@ -24,8 +24,8 @@ export async function userBlockUnblock(id) {
 
 //doctor 
 
-export async function doctorList() {
-    const data = await adminAxiosInstance.get('/doctorList');
+export async function doctorList(currentPage, itemsPerPage) {
+    const data = await adminAxiosInstance.get(`/doctorList?page=${currentPage}&limit=${itemsPerPage}`);
     return data;
 }
 
@@ -39,8 +39,8 @@ export async function doctorBlockUnblock(id) {
     return data;
 }
 
-export async function unVerifiedList() {
-    const data = await adminAxiosInstance.get('/unVerifiedList');
+export async function unVerifiedList(currentPage, itemsPerPage) {
+    const data = await adminAxiosInstance.get(`/unVerifiedList?page=${currentPage}&limit=${itemsPerPage}`);
     return data;
 }
 
@@ -76,16 +76,17 @@ export async function editSpeciality(values) {
     return data;
 }
 
+//admins
+
 export async function counts() {
     const data = await adminAxiosInstance.get('/counts');
     return data;
 }
 
-export async function appointmentList() {
-    const data = await adminAxiosInstance.get('/appointmentList');
+export async function appointmentList(currentPage, itemsPerPage) {
+    const data = await adminAxiosInstance.get(`/appointmentList?page=${currentPage}&limit=${itemsPerPage}`);
     return data;
 }
-
 
 export async function adminReport() {
     const data = await adminAxiosInstance.get('/adminReport')

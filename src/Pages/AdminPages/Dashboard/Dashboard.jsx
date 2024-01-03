@@ -52,9 +52,7 @@ const Dashboard = () => {
                 <div>
                   {data.doctor}
                 </div>
-
               </div>
-
               <div className='w-64 h-20 m-10 rounded-md bg-gradient-to-r from-blue-500 to-green-500 text-white text-center text-2xl'>
                 Users Count:
                 <div>

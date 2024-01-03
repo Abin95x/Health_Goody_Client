@@ -31,17 +31,12 @@ const AppointmentList = () => {
   const limit = 5;
 
   console.log(appo);
-  if (data) {
-    console.log(data.paymentId);
-
-  }
-
-
 
   useEffect(() => {
     appointmentList(id, currentPage, limit)
       .then((res) => {
         setAppo(res.data.data);
+        console.log(res);
         setPagination(res.data.pagination);
       })
       .catch((error) => {
