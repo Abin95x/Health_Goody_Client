@@ -11,7 +11,7 @@ const Slots = () => {
     const id = doctorData._id;
     const [selectedSlot, setSelectedSlot] = useState(null);
     const [currentPage, setCurrentPage] = useState(1);
-    const [pageSize, setPageSize] = useState(5);
+    const [pageSize, setPageSize] = useState(2);
 
     useEffect(() => {
         loadSlots();

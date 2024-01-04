@@ -18,10 +18,7 @@ const LoginPage = () => {
   const onSubmit = async () => {
     try {
       const response = await userLogin(values);
-
-
       if (response?.status === 200) {
-
         localStorage.setItem('usertoken', response.data.usertoken);
         const userData = response.data.userData;
         dispatch(
@@ -35,11 +32,6 @@ const LoginPage = () => {
           position: 'top',
           showConfirmButton: false,
           timer: 3000,
-          // timerProgressBar: true,
-          // didOpen: (toast) => {
-          //   toast.onmouseenter = Swal.stopTimer;
-          //   toast.onmouseleave = Swal.resumeTimer;
-          // },
         });
 
         Toast.fire({
@@ -77,7 +69,7 @@ const LoginPage = () => {
               <h1 className='text-2xl font-bold'>Login now!</h1>
             </div>
             <br />
-            <form action='' onSubmit={handleSubmit} >
+            <form onSubmit={handleSubmit} >
               <div>
                 <input
                   name='email'

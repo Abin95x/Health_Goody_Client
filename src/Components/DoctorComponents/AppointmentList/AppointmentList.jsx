@@ -25,12 +25,10 @@ const AppointmentList = () => {
   const [appoStatus, setAppoStauts] = useState()
   const [btn, setBtn] = useState(false);
   const [openModalx, setOpenModalx] = useState(false);
-
-
   const [currentDate, setCurrentDate] = useState();
   const [currentTime, setCurrentTime] = useState();
   const [currentPage, setCurrentPage] = useState(1);
-  const limit = 5;
+  const limit = 2;
   const appoDateAsDate = new Date(appoDate);
   const appDate = appoDateAsDate.toLocaleDateString();
   const currDateAsDate = new Date(currentDate);
@@ -105,7 +103,11 @@ const AppointmentList = () => {
   }
 
   const handleReport = () => {
-    navigate(`/doctor/medicalreport`)
+    navigate(`/doctor/medicalreport`, {
+      state: {
+        userName: appoName, date: appDate, appoId: appoId
+      }
+    })
   }
 
   const markAsDone = async () => {

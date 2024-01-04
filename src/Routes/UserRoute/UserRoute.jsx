@@ -14,6 +14,7 @@ import PaymentSuccess from '../../Pages/UserPages/PaymentSuccess/PaymentSuccess'
 import AppointmentsPage from '../../Pages/UserPages/AppointmentsPage/AppointmentsPage';
 import ChatPage from '../../Pages/UserPages/ChatPage/ChatPage';
 import PrescriptionPage from '../../Pages/UserPages/PrescriptionPage/PrescriptionPage';
+import MedicalReportPage from '../../Pages/UserPages/MedicalReportPage/MedicalReportPage';
 
 import UserPublic from './UserPublic';
 import UserProtect from './UserProtect';
@@ -36,6 +37,8 @@ const userRoute = () => {
       <Route path='/appointments' element={<UserProtect><AppointmentsPage /></UserProtect>} />
       <Route path='/chatuser' element={<UserProtect><ChatPage /></UserProtect>} />
       <Route path='/prescription' element={<UserProtect><PrescriptionPage /></UserProtect>} />
+      <Route path='/medicalreport' element={<UserProtect><MedicalReportPage /></UserProtect>} />
+
 
 
 

@@ -16,6 +16,7 @@ import VideoPage from '../../Pages/DoctorPages/VideoPage/VideoPage'
 import PrescriptionPage from '../../Pages/DoctorPages/PrescriptionPage/PrescriptionPage';
 import ForgotPassword from '../../Pages/DoctorPages/ForgotPassword/ForgotPassword';
 import ResetPassword from '../../Pages/DoctorPages/ResetPassword/ResetPassword';
+import MedicalReport from '../../Pages/DoctorPages/MedicalReport/MedicalReport';
 
 
 const DoctorRoute = () => {
@@ -34,6 +35,8 @@ const DoctorRoute = () => {
             <Route path='/chatpagedoctor' element={<DoctorProtect><ChatPage /></DoctorProtect>} />
             <Route path='/video' element={<DoctorProtect><VideoPage /></DoctorProtect>} />
             <Route path='/priscription' element={<DoctorProtect><PrescriptionPage /></DoctorProtect>} />
+            <Route path='/medicalreport' element={<DoctorProtect><MedicalReport /></DoctorProtect>} />
+
 
 
 

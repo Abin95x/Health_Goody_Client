@@ -10,10 +10,12 @@ import { medicineDetails } from '../../../Api/userApi';
 
 const Prescription = () => {
     const location = useLocation();
-    const { _id, name, age, email, mobile } = useSelector((state) => state.reducer.userReducer.user);
+    const { name, age, email, mobile } = useSelector((state) => state.reducer.userReducer.user);
     const [medicine, setMedicine] = useState([])
     const { data } = location.state || {}
     const pdfRef = useRef();
+
+
 
     const downloadPdf = () => {
         try {
@@ -41,23 +43,21 @@ const Prescription = () => {
                 const imageY = (pdfHeight - imgHeight) / 2;
 
                 pdf.addImage(imageData, "PNG", imageX, imageY, imgWidth, imgHeight);
-                pdf.save('prescription.pdf');
+                pdf.save('Prescription.pdf');
             });
         } catch (error) {
             console.log(error);
         }
     };
 
-
-
     useEffect(() => {
         medicineDetails(data._id).then((res) => {
+            console.log(res, "kkkkkkkkkkkkkkkiiii");
             setMedicine(res.data.result)
         }).catch((error) => {
             console.log(error);
         })
     }, [])
-    console.log(medicine, 'kkklllllll10');
 
 
 

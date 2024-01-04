@@ -96,6 +96,11 @@ export async function medicineDetails(appointmentId) {
     return data
 }
 
+export async function reportDetails(appointmentId) {
+    const data = await userAxiosInstance.get(`/reportDetails?id=${appointmentId}`)
+    return data
+}
+
 export async function PaymentWallet(values) {
     const data = await userAxiosInstance.post('/walletPayment', values)
     return data

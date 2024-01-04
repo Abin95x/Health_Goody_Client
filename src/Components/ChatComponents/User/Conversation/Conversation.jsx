@@ -2,13 +2,13 @@ import { useEffect, useState } from "react";
 import { format } from "timeago.js";
 
 const Conversation = ({ currentUser, message }) => {
-  console.log(currentUser,'dfgsdfgsd');
-  console.log(message.senderId,'kooooooooooooooo');
-  const [id,setId] = useState()
-  useEffect(()=>{
+  console.log(currentUser, 'dfgsdfgsd');
+  console.log(message.senderId, 'kooooooooooooooo');
+  const [id, setId] = useState()
+  useEffect(() => {
     setId(message.senderId)
   })
- 
+
 
   return (
     <div id="messages" className="">

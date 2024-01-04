@@ -1,12 +1,9 @@
 
 import { Chart as ChartJS, LinearScale, CategoryScale, LineController, PointElement, LineElement, Title, Tooltip, Legend } from 'chart.js';
 import { Line } from 'react-chartjs-2';
-// hereiwanttoshowthetotalappoinmnetsgotin1month//////////////////////////////////////////////////////////////
-// Register required components
+
 ChartJS.register(LinearScale, CategoryScale, LineController, PointElement, LineElement, Title, Tooltip, Legend);
-const LineChart = ({ usersByYear, doctorsByYear }) => {
-    console.log(usersByYear);
-    console.log();
+const LineChart = ({ appointmentsByYear }) => {
     const options = {
         responsive: true,
         plugins: {
@@ -34,15 +31,8 @@ const LineChart = ({ usersByYear, doctorsByYear }) => {
         datasets: [
             {
                 fill: true,
-                label: 'Monthly doctors joined',
-                data: doctorsByYear,
-                borderColor: 'rgb(53, 162, 235)',
-                backgroundColor: 'rgba(53, 162, 235, 0.5)',
-            },
-            {
-                fill: true,
-                label: 'Monthly users joined',
-                data: usersByYear,
+                label: 'Monthly Appointments',
+                data: appointmentsByYear,
                 borderColor: 'rgb(255, 99, 132)',
                 backgroundColor: 'rgba(255, 99, 132, 0.5)',
             },

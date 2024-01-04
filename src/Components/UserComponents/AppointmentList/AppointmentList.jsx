@@ -104,6 +104,21 @@ const AppointmentList = () => {
       console.log(error.message);
     }
   };
+
+  const handleReport = () => {
+    try {
+      navigate('/medicalreport', {
+        state: {
+          data: data
+        }
+      })
+
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
+
+
   const isCancelDisabled = (appointmentDate, appointmentStartTime) => {
     const currentDate = new Date();
     const currentYear = currentDate.getFullYear();
@@ -326,7 +341,6 @@ const AppointmentList = () => {
                     from <span className="text-red-600">{data.start}</span> to{" "}
                     <span className="text-red-600">{data.end}</span>. Please be
                     ready at that time for your consultation.{" "}
-                    {/* <span className="text-green-400">You will be notified</span> */}
                   </p>
 
                   <br />
@@ -375,6 +389,9 @@ const AppointmentList = () => {
                   <div className="flex justify-center">
                     <Button onClick={() => { handlePrescription() }}>Download prescription</Button>
                   </div>
+                  <div className="flex justify-center">
+                    <Button onClick={() => { handleReport() }}>Download medical report</Button>
+                  </div>
                 </>
               )}
               {data.status === "Done" && (
@@ -389,6 +406,9 @@ const AppointmentList = () => {
                   </div>
                   <div className="flex justify-center">
                     <Button onClick={() => { handlePrescription() }}>Download prescription</Button>
+                  </div>
+                  <div className="flex justify-center">
+                    <Button onClick={() => { handleReport() }}>Download medical report</Button>
                   </div>
                 </>
               )}

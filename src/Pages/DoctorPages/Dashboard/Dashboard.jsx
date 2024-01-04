@@ -1,29 +1,96 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Header from '../../../Components/DoctorComponents/Header/Header';
 import Footer from '../../../Components/DoctorComponents/Footer/Footer';
 import DashboardData from '../../../Components/DoctorComponents/DashboardData/DashboardData';
 import LineChart from '../../../Components/DoctorComponents/LineChart/LineChart';
 import PieChart from '../../../Components/DoctorComponents/PieChart/PieChart';
+import { chartDetails } from '../../../Api/doctorApi';
+import { useSelector } from 'react-redux';
+import { doctorReport } from '../../../Api/doctorApi';
+import { counts } from '../../../Api/doctorApi';
+
+
+
 
 
 const Dashboard = () => {
+    const { _id } = useSelector((state) => state.reducer.doctorReducer.doctor);
+    const [data, setData] = useState()
+    const [pieData, setPieData] = useState()
+    const [reportData, setReportData] = useState({});
+
+
+    useEffect(() => {
+        chartDetails(_id).then((res) => {
+            setPieData(res.data.obj)
+        }).catch((error) => {
+            console.log(error.message);
+        })
+    }, [])
+
+    useEffect(() => {
+        const getCount = async () => {
+            try {
+                const res = await counts(_id)
+                console.log(res);
+                setData(res.data)
+            } catch (error) {
+                console.log(error.message);
+            }
+        }
+
+        const getReport = async () => {
+            try {
+                const report = await doctorReport()
+                setReportData(report?.data?.appointmentData);
+            } catch (error) {
+                console.log(error.message);
+
+            }
+        }
+        getCount()
+        getReport()
+
+
+    }, []);
+
+
     return (
         <>
             <Header />
-            <div className='text-center bg-blue-50 text-3xl text-black c pt-10'>
-                <h1>Dashboard</h1>
-            </div>
-            <div className="hero min-h-screen bg-blue-50 ">
-                <div>
-                    <DashboardData />
-                    <LineChart />
-                    <PieChart />
-                </div>
 
+            <div className="min-h-screen bg-blue-50 ">
+                <div className=' bg-blue-50 text-3xl p-6 text-black text-center '>
+                    <h1>Dashboard</h1>
+                </div>
+                <div className='m-5'>
+                    <div className=''>
+                        <div className='flex justify-center'>
+                            <div className='max-w-screen-lg w-full'>
+                                <DashboardData data={data} />
+                            </div>
+                        </div>
+
+                        <div className='lg:flex justify-center '>
+                            <div className='lg:w-2/3 '>
+                                <LineChart appointmentsByYear={reportData} />
+                            </div>
+                            <div className='lg:w-1/3 xl:w-1/4'>
+                                <PieChart count={pieData} />
+                                <h1 className='text-center text-2xl text-blue-500 m-10'>
+                                    PIE CHART OF STATUS
+                                </h1>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br />
             </div>
+
             <Footer />
         </>
     );
+
 };
 
 export default Dashboard;

@@ -79,9 +79,27 @@ export async function priscription(values) {
 }
 
 export async function markasDone(id) {
-    console.log(id, 'hiiiiiiiiiiapi');
     const data = await doctorAxiosInstance.patch(`/markAsDone?id=${id}`)
     return data
 }
 
+export async function addMedicalReport(values) {
+    const data = await doctorAxiosInstance.post('/addMedicalReport', values)
+    return data
+}
 
+export async function chartDetails(drId) {
+    const data = await doctorAxiosInstance.get(`/chartDetails?drId=${drId}`)
+    return data
+
+}
+
+export async function doctorReport() {
+    const data = await doctorAxiosInstance.get('/doctorReport')
+    return data
+}
+
+export async function counts(doctorId) {
+    const data = await doctorAxiosInstance.get(`/counts?doctorId=${doctorId} `);
+    return data;
+}
