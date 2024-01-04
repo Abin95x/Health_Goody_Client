@@ -103,3 +103,8 @@ export async function counts(doctorId) {
     const data = await doctorAxiosInstance.get(`/counts?doctorId=${doctorId} `);
     return data;
 }
+
+export async function appoReschedule(values) {
+    const data = await doctorAxiosInstance.patch(`/reschedule`, values)
+    return data
+}

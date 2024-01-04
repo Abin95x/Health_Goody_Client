@@ -148,6 +148,15 @@ const AppointmentList = () => {
     }
   };
 
+
+  const handleReschedule = () => {
+    try {
+
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
+
   return (
     <div>
       <br />
@@ -244,20 +253,30 @@ const AppointmentList = () => {
                   </div>
                 </React.Fragment>
               ) : (
-                <div className='text-orange-500'>
-                  VIDEO CALL ROOM AVAILABLE IN THE DATE AND TIME
-                </div>
+                appoStatus === "Cancelled" ? (
+                  <div className='text-red-500 pt-5'>
+                    APPOINTMENT CANCELLED BY USER
+                  </div>
+                ) : (
+                  <div className='text-orange-500'>
+                    VIDEO CALL ROOM AVAILABLE IN THE DATE AND TIME
+                  </div>
+                )
               )
             )}
             <br />
-            <button onClick={() => { setOpenModal(false); handlePris(); }} className='btn btn-primary w-full'>
-              Add Prescription
-            </button>
-            <br />
-            <button onClick={() => { setOpenModal(false); handleReport() }} className='btn btn-success w-full'>
-              Add Medical Report
-            </button>
-            <br />
+            {appoStatus === "Done" && (
+              <React.Fragment>
+                <button onClick={() => { setOpenModal(false); handlePris(); }} className='btn btn-primary w-full'>
+                  Add Prescription
+                </button>
+                <br />
+                <button onClick={() => { setOpenModal(false); handleReport() }} className='btn btn-success w-full'>
+                  Add Medical Report
+                </button>
+                <br />
+              </React.Fragment>
+            )}
             {appoStatus === "Pending" ? (
               <button className='btn btn-warning w-full' onClick={markAsDone}>
                 Mark As Done
@@ -266,27 +285,77 @@ const AppointmentList = () => {
           </div>
         </Modal.Body>
         <Modal.Footer>
-          {btn ? (
-            <div className="flex justify-center">
-              <Button
-                className=" btn-primary"
-                onClick={() => handleNavigate()}
-              >
-                Chat with patient
-              </Button>
-            </div>
-          ) : (
-            <div className="flex justify-center">
-              <Button className=" " onClick={() => setOpenModalx(true)}>
-                Connect patient
-              </Button>
-            </div>
+          {appoStatus === "Cancelled" ? null : (
+            btn ? (
+              <div className="flex justify-center">
+                <Button
+                  color='green'
+                  className=""
+                  onClick={() => handleNavigate()}
+                >
+                  Chat with patient
+                </Button>
+              </div>
+            ) : (
+              <div className="flex justify-center ">
+                <Button color='green' onClick={() => setOpenModalx(true)}>
+                  Connect patient
+                </Button>
+              </div>
+            )
           )}
-          <Button color="gray" onClick={() => setOpenModal(false)}>
-            Decline
-          </Button>
+          {appoStatus === "Cancelled" || appoStatus === "Done" ? null : (
+            <>
+              <Button color='yellow' onClick={() => document.getElementById('my_modal_3').showModal()} className='mx-10 w-36'>
+                Reschedule
+              </Button>
+              <Button color='red' className='mx-10 w-36'>
+                Cancel
+              </Button>
+            </>
+          )}
+
+
         </Modal.Footer>
       </Modal>
+
+
+
+      <dialog id="my_modal_3" className="modal">
+        <div className="modal-box">
+          <form method="dialog" className="modal-form">
+
+            {/* Close button for the modal */}
+            <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+
+            {/* Date input field */}
+            <div className="form-group">
+              <p htmlFor="date">New Date:</p>
+              <input className='w-full bg-gray-300' type="date" id="date" name="date" />
+            </div>
+
+            {/* Start time input field */}
+            <div className="form-group">
+              <p htmlFor="startTime">Start Time:</p>
+              <input className='w-full bg-gray-300' type="time" id="startTime" name="startTime" />
+            </div>
+
+            {/* End time input field */}
+            <div className="form-group">
+              <p htmlFor="endTime">End Time:</p>
+              <input className='w-full bg-gray-300' type="time" id="endTime" name="endTime" />
+            </div>
+
+            <br />
+            <div className="form-group">
+              <button onClick={handleReschedule} type="submit" className="btn btn-primary">Submit</button>
+            </div>
+
+          </form>
+        </div>
+      </dialog>
+
+
 
 
       <Modal show={openModalx} onClose={() => setOpenModalx(false)}>
