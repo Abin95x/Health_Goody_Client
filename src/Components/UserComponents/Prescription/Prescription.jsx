@@ -8,6 +8,7 @@ import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
 import { medicineDetails } from '../../../Api/userApi';
 
+
 const Prescription = () => {
     const location = useLocation();
     const { name, age, email, mobile } = useSelector((state) => state.reducer.userReducer.user);
@@ -15,11 +16,10 @@ const Prescription = () => {
     const { data } = location.state || {}
     const pdfRef = useRef();
 
-
-
     const downloadPdf = () => {
         try {
             const input = pdfRef.current;
+            console.log(input, "xxxxxxxxxxxxx");
             html2canvas(input).then((canvas) => {
                 const imageData = canvas.toDataURL('image/png');
                 const pdf = new jsPDF('p', 'mm', 'a4', true);
@@ -72,6 +72,7 @@ const Prescription = () => {
                             </h1>
                         </div>
                         <br />
+
                         <div className='m-5 border'>
                             <hr />
                         </div>
@@ -117,7 +118,7 @@ const Prescription = () => {
                             {medicine.length > 0 ? (
                                 medicine.map((med, index) => (
                                     <div key={med.appointmentId}>
-                                        <p>Date: {med.date}</p>
+                                        <p className='text-green-500'>Date: {med.createdAt}</p>
                                         {med.medicines.map((m, index) => (
                                             <div key={index} className='border border-black m-5 p-5'>
                                                 <h1>Medicine : {m.medicine}</h1>
@@ -125,20 +126,24 @@ const Prescription = () => {
                                                 <h1>Frequency : {m.frequency} times per day</h1>
                                             </div>
                                         ))}
-                                        <h3 className='text-xl text-black'>Note: </h3>
-                                        <p className='text-black'>
-                                            {med.note}
+                                        <h3 className='text-lg text-black'>Note:
+                                            <p className='text-blue-500'>
+                                                {med.note}
+                                            </p>
+                                        </h3>
 
-                                        </p>
+                                        <div className='m-5 border'>
+                                            <hr />
+                                        </div>
                                     </div>
+
+
                                 ))
                             ) : (
                                 <p className='text-red-500'>No medicine added yet.</p>
                             )}
                         </div>
-                        <div className='m-5 border'>
-                            <hr />
-                        </div>
+
 
 
                     </div>

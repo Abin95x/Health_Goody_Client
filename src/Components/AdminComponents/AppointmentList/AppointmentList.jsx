@@ -48,7 +48,7 @@ const AppointmentList = () => {
                 </div>
             ) : (
 
-                < div className="overflow-x-auto">
+                <div className="overflow-x-auto">
                     <table className="table">
 
                         <thead>

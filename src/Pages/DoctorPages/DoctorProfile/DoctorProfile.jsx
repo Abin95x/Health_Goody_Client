@@ -52,11 +52,6 @@ const DoctorProfile = () => {
           position: 'top',
           showConfirmButton: false,
           timer: 3000,
-          // timerProgressBar: true,
-          // didOpen: (toast) => {
-          //   toast.onmouseenter = Swal.stopTimer;
-          //   toast.onmouseleave = Swal.resumeTimer;
-          // },
         });
 
         Toast.fire({
@@ -71,11 +66,6 @@ const DoctorProfile = () => {
           position: 'top',
           showConfirmButton: false,
           timer: 3000,
-          // timerProgressBar: true,
-          // didOpen: (toast) => {
-          //   toast.onmouseenter = Swal.stopTimer;
-          //   toast.onmouseleave = Swal.resumeTimer;
-          // },
         });
 
         Toast.fire({
@@ -106,6 +96,19 @@ const DoctorProfile = () => {
     setLoading(false);
     setOpenModal2(false);
     console.log(response);
+    const Toast = Swal.mixin({
+      toast: true,
+      position: "top",
+      showConfirmButton: false,
+      timer: 3000,
+      didOpen: (toast) => {
+      }
+    });
+    Toast.fire({
+      icon: "success",
+      title: response.data.message
+    });
+
 
   };
 
@@ -137,7 +140,7 @@ const DoctorProfile = () => {
     enableReinitialize: true,
   });
 
-  // console.log(values);
+
 
 
   return (
@@ -197,17 +200,15 @@ const DoctorProfile = () => {
             </div>
             <br />
             <div className='flex flex-col md:flex-row justify-center  md:space-x-5'>
-              <Button onClick={() => setOpenModal2(true)}>EDIT</Button>
-              <Button>
+              <button className='btn btn-primary' onClick={() => setOpenModal2(true)}>Edit</button>
+              <button className='btn btn-success'>
                 <Link to='/doctor/appointment'>Appointments</Link>
-              </Button>
-              <Button onClick={() => setOpenModal(true)}>Create Slots</Button>
+              </button>
+              <button className='btn btn-warning' onClick={() => setOpenModal(true)}>Create Slots</button>
             </div>
           </div>
         </div>
       )}
-
-
 
 
       <Modal show={openModal} onClose={() => setOpenModal(false)}>
@@ -268,7 +269,7 @@ const DoctorProfile = () => {
             </Modal.Footer>
           </form>
         </Modal.Body>
-      </Modal>
+      </Modal >
 
 
       <Modal show={openModal2} onClose={() => setOpenModal2(false)}>
@@ -323,7 +324,7 @@ const DoctorProfile = () => {
                 onBlur={handleBlur} />
               <br /> */}
 
-              <label htmlFor='speciality'>Speciality:</label>
+              {/* <label htmlFor='speciality'>Speciality:</label>
               <br />
               <input type='text' id='speciality' name='speciality' className='w-full'
                 value={values.speciality}
@@ -333,8 +334,8 @@ const DoctorProfile = () => {
                 {errors.speciality && touched.speciality && (
                   <p className='text-red-600'>{errors.speciality}</p>
                 )}
-              </div>
-              <br />
+              </div> */}
+
 
               <label htmlFor='bio'>Bio:</label>
               <br />
@@ -348,14 +349,6 @@ const DoctorProfile = () => {
                 )}
               </div>
               <br />
-
-              {/* <label htmlFor='photo'>Upload Photo:</label>
-              <br />
-              <input type='file' id='photo' name='photo' accept='image/ * ' className='w-full'
-                value={values.photo}
-                onChange={handlePhoto}
-              />
-              <br /> */}
               <br />
 
               <div className=' flex justify-center'>
@@ -370,13 +363,6 @@ const DoctorProfile = () => {
             </form>
           </div>
         </Modal.Body >
-        {/* <Modal.Footer>
-         
-                 <Button type='submit' onClick={() => setOpenModal2(false)}>Done</Button>
-          <Button color='gray' onClick={() => setOpenModal2(false)}>
-            Decline
-          </Button>
-        </Modal.Footer> */}
       </Modal >
       <Footer />
     </>

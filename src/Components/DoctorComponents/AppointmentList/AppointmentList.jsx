@@ -5,8 +5,7 @@ import { Button, Modal } from 'flowbite-react';
 import { useNavigate, Link } from 'react-router-dom';
 import { createChat } from '../../../Api/doctorApi'
 import Swal from 'sweetalert2';
-import { markasDone } from '../../../Api/doctorApi'
-
+import { markasDone } from '../../../Api/doctorApi';
 
 const AppointmentList = () => {
   const navigate = useNavigate();
@@ -123,7 +122,6 @@ const AppointmentList = () => {
       });
 
       if (result.isConfirmed) {
-        // Assuming markAsDone is an asynchronous function
         const res = await markasDone(appoId);
         if (res.status === 200) {
           if (render === true) {
@@ -268,7 +266,6 @@ const AppointmentList = () => {
           </div>
         </Modal.Body>
         <Modal.Footer>
-          {/* <Button onClick={() => { setOpenModal(false); handleAccept(); handleNavigate() }}>Chat</Button> */}
           {btn ? (
             <div className="flex justify-center">
               <Button
