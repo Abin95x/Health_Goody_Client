@@ -48,21 +48,32 @@ const Body = () => {
                   <h2 className='card-title text-white'>4 . Make payment</h2>
                   <h2 className='card-title text-white'>5 . Be present in the consult room on HEALTH GOODY at the time of consult</h2>
 
-
                   <br />
 
-                  <Link to={'/doctorlist'}>
-                    <button className="relative w-full border hover:border-sky-600 duration-500 group cursor-pointer text-xl text-white textarea-bordered  overflow-hidden h-14  rounded-md bg-sky-800 p-2 flex justify-center items-center font-extrabold">
-                      <div className="absolute z-10 w-48 h-48 rounded-full group-hover:scale-150 transition-all  duration-500 ease-in-out bg-sky-900 delay-150 group-hover:delay-75"></div>
-                      <div className="absolute z-10 w-40 h-40 rounded-full group-hover:scale-150 transition-all  duration-500 ease-in-out bg-sky-800 delay-150 group-hover:delay-100"></div>
-                      <div className="absolute z-10 w-32 h-32 rounded-full group-hover:scale-150 transition-all  duration-500 ease-in-out bg-sky-700 delay-150 group-hover:delay-150"></div>
-                      <div className="absolute z-10 w-24 h-24 rounded-full group-hover:scale-150 transition-all  duration-500 ease-in-out bg-sky-600 delay-150 group-hover:delay-200"></div>
-                      <div className="absolute z-10 w-10 h-10 rounded-full group-hover:scale-150 transition-all  duration-500 ease-in-out bg-sky-500 delay-150 group-hover:delay-250"></div>
-                      <div className="absolute z-10 w-5 h-5 rounded-full group-hover:scale-150 transition-all  duration-500 ease-in-out bg-sky-400 delay-150 group-hover:delay-300"></div>
-                      <div className="absolute z-1 w-16 h-1 rounded-full group-hover:scale-150 transition-all  duration-500 ease-in-out bg-sky-300 delay-150 group-hover:delay-350"></div>
-                      <p className=" z-10">Book Consultation Now</p>
-                    </button>
-                  </Link>
+                  {
+                    token ? (
+                      <Link to={'/doctorlist'}>
+
+                        <button className="group w-full group-hover:before:duration-500 group-hover:after:duration-1000 after:duration-500 hover:border-sky-300  duration-500 before:duration-500 hover:duration-500 underline underline-offset-2    hover:after:-right-2 hover:before:top-8 hover:before:right-16 hover:after:scale-150 hover:after:blur-none hover:before:-bottom-8 hover:before:blur-none hover:bg-sky-300 hover:underline hover:underline-offset-4  origin-left hover:decoration-2 hover:text-sky-900 relative bg-sky-800 h-16  border text-left p-3 text-gray-50 text-base font-bold rounded-lg  overflow-hidden  before:absolute before:w-12 before:h-12 before:content[''] before:right-1 before:top-1 before:z-10 before:bg-sky-400 before:rounded-full before:blur-lg  after:absolute after:z-10 after:w-20 after:h-20 after:content['']  after:bg-cyan-600 after:right-8 after:top-3 after:rounded-full after:blur">
+                          <p >Book Consultation Now</p>
+                        </button>
+
+
+                      </Link>
+
+                    ) : (
+                      <Link to={'/login'}>
+
+                        <button className="group w-full group-hover:before:duration-500 group-hover:after:duration-1000 after:duration-500 hover:border-sky-300  duration-500 before:duration-500 hover:duration-500 underline underline-offset-2    hover:after:-right-2 hover:before:top-8 hover:before:right-16 hover:after:scale-150 hover:after:blur-none hover:before:-bottom-8 hover:before:blur-none hover:bg-sky-300 hover:underline hover:underline-offset-4  origin-left hover:decoration-2 hover:text-sky-900 relative bg-sky-800 h-16  border text-left p-3 text-gray-50 text-base font-bold rounded-lg  overflow-hidden  before:absolute before:w-12 before:h-12 before:content[''] before:right-1 before:top-1 before:z-10 before:bg-sky-400 before:rounded-full before:blur-lg  after:absolute after:z-10 after:w-20 after:h-20 after:content['']  after:bg-cyan-600 after:right-8 after:top-3 after:rounded-full after:blur">
+                          <p >Book Consultation Now</p>
+                        </button>
+                      </Link>
+
+                    )
+
+
+                  }
+
                 </div>
               </div>
             </div>
@@ -73,58 +84,90 @@ const Body = () => {
       {/* Features */}
       <div className='bg-blue-50 py-24 sm:py-32'>
         <div className='mx-auto flex flex-wrap justify-center'>
-
-          {/* Feature Card 1 */}
-          <div className='card w-96 bg-white shadow-2xl text-primary-content mx-4'>
-            <div className='max-w-md mx-auto rounded-md overflow-hidden md:max-w-2xl'>
-              <img className='w-24 h-24' src='certified.svg' alt='' />
-              <div className='p-5'>
-                <h2 className='text-xl font-bold mb-2'>Certified Doctors</h2>
-                <p className='text-sm text-gray-500'>
+          <div className='flex space-x-20'>
+            <div
+              class="w-96 h-64 duration-500 group overflow-hidden relative rounded-2xl bg-neutral-800 text-neutral-50 p-4 flex flex-col justify-evenly"
+            >
+              <div
+                class="absolute blur duration-500 group-hover:blur-none w-72 h-72 rounded-full group-hover:translate-x-12 group-hover:translate-y-12 bg-sky-900 right-1 -bottom-24"
+              ></div>
+              <div
+                class="absolute blur duration-500 group-hover:blur-none w-12 h-12 rounded-full group-hover:translate-x-12 group-hover:translate-y-2 bg-indigo-700 right-12 bottom-12"
+              ></div>
+              <div
+                class="absolute blur duration-500 group-hover:blur-none w-36 h-36 rounded-full group-hover:translate-x-12 group-hover:-translate-y-12 bg-indigo-800 right-1 -top-12"
+              ></div>
+              <div
+                class="absolute blur duration-500 group-hover:blur-none w-24 h-24 bg-sky-700 rounded-full group-hover:-translate-x-12"
+              ></div>
+              <div class="z-10 flex flex-col justify-evenly w-full h-full">
+                <span class="text-2xl font-bold">Certified Doctors</span>
+                <p>
                   We offer quality healthcare through our network of certified and experienced doctors.
+
                 </p>
+                <div className='flex justify-center'>
+                  <img className='w-24 h-24' src='certified.svg' alt='' />
+
+                </div>
               </div>
             </div>
-          </div>
 
-          {/* Feature Card 2 */}
-          <div className='card w-96 bg-white shadow-2xl text-primary-content mx-4'>
-            <div className='max-w-md mx-auto rounded-md overflow-hidden md:max-w-2xl'>
-              <img className='w-24 h-24' src='confidential.svg' alt='' />
-              <div className='p-5'>
-                <h2 className='text-xl font-bold mb-2'>100% Confidential</h2>
-                <p className='text-sm text-gray-500'>
+            <div
+              class="w-96 h-64 duration-500 group rounded-2xl overflow-hidden relative  bg-neutral-800 text-neutral-50 p-4 flex flex-col justify-evenly"
+            >
+              <div
+                class="absolute blur duration-500 group-hover:blur-none w-72 h-72 rounded-full group-hover:translate-x-12 group-hover:translate-y-12 bg-sky-900 right-1 -bottom-24"
+              ></div>
+              <div
+                class="absolute blur duration-500 group-hover:blur-none w-12 h-12 rounded-full group-hover:translate-x-12 group-hover:translate-y-2 bg-indigo-700 right-12 bottom-12"
+              ></div>
+              <div
+                class="absolute blur duration-500 group-hover:blur-none w-36 h-36 rounded-full group-hover:translate-x-12 group-hover:-translate-y-12 bg-indigo-800 right-1 -top-12"
+              ></div>
+              <div
+                class="absolute blur duration-500 group-hover:blur-none w-24 h-24 bg-sky-700 rounded-full group-hover:-translate-x-12"
+              ></div>
+              <div class="z-10 flex flex-col justify-evenly w-full h-full">
+                <span class="text-2xl font-bold">100% Confidential</span>
+                <p>
                   All advice & consultations are completely confidential. You can also delete chats whenever you want.
                 </p>
+                <div className='flex justify-center'>
+                  <img className='w-24 h-24' src='confidential.svg' alt='' />
+
+                </div>
               </div>
             </div>
-          </div>
 
-          {/* Feature Card 3 */}
-          <div className='card w-96 bg-white shadow-2xl text-primary-content mx-4'>
-            <div className='max-w-md mx-auto rounded-md overflow-hidden md:max-w-2xl'>
-              <img className='w-24 h-24' src='convenience.svg' alt='' />
-              <div className='p-5'>
-                <h2 className='text-xl font-bold mb-2'>Convenience</h2>
-                <p className='text-sm text-gray-500'>
+            <div
+              class="w-96 h-64 duration-500 group overflow-hidden relative rounded-2xl bg-neutral-800 text-neutral-50 p-4 flex flex-col justify-evenly"
+            >
+              <div
+                class="absolute blur duration-500 group-hover:blur-none w-72 h-72 rounded-full group-hover:translate-x-12 group-hover:translate-y-12 bg-sky-900 right-1 -bottom-24"
+              ></div>
+              <div
+                class="absolute blur duration-500 group-hover:blur-none w-12 h-12 rounded-full group-hover:translate-x-12 group-hover:translate-y-2 bg-indigo-700 right-12 bottom-12"
+              ></div>
+              <div
+                class="absolute blur duration-500 group-hover:blur-none w-36 h-36 rounded-full group-hover:translate-x-12 group-hover:-translate-y-12 bg-indigo-800 right-1 -top-12"
+              ></div>
+              <div
+                class="absolute blur duration-500 group-hover:blur-none w-24 h-24 bg-sky-700 rounded-full group-hover:-translate-x-12"
+              ></div>
+              <div class="z-10 flex flex-col justify-evenly w-full h-full">
+                <span class="text-2xl font-bold">Convenience</span>
+                <p>
                   Forget the hassle of long queues and rush hour. Seek expert opinion anytime, anywhere.
                 </p>
+                <div className='flex justify-center'>
+                  <img className='w-24 h-24' src='convenience.svg' alt='' />
+
+                </div>
+
               </div>
             </div>
           </div>
-
-          {/* Feature Card 4 (Duplicate of Card 1 for demonstration) */}
-          {/* <div className='card w-96 bg-white shadow-2xl text-primary-content mx-4'>
-            <div className='max-w-md mx-auto rounded-md overflow-hidden md:max-w-2xl'>
-              <img className='w-24 h-24' src='certified.svg' alt='' />
-              <div className='p-5'>
-                <h2 className='text-xl font-bold mb-2'>Certified Doctors</h2>
-                <p className='text-sm text-gray-500'>
-                  We offer quality healthcare through our network of certified and experienced doctors.
-                </p>
-              </div>
-            </div>
-          </div> */}
         </div>
       </div>
 
@@ -134,9 +177,7 @@ const Body = () => {
 
 
 
-      {/* <Review /> */}
-
-      {/* Doctors */}
+      {/* to Doctors side*/}
       {
         token ? (
           <div>
@@ -148,8 +189,13 @@ const Body = () => {
             <h1 className='text-3xl font-bold text-green-500 mb-4'>Are you a Doctor?</h1>
             <p className='text-lg text-black mb-6'>Join our panel of specialists and connect with your patients from anywhere.</p>
 
-            <button onClick={doctorPage} className="cursor-pointer uppercase w-40 h-14 bg-yellow-200 rounded-xl text-gray-950 px-4 py-2 active:translate-x-0.5 active:translate-y-0.5 hover:shadow-[0.5rem_0.5rem_#F44336,-0.5rem_-0.5rem_#00BCD4] transition">
-              JOIN US
+            <button class="cursor-pointer relative group overflow-hidden m-10 border-2 px-8 py-2 border-green-500">
+              <span class="font-bold text-white text-xl relative z-10 group-hover:text-green-500 duration-500">JOIN</span>
+              <span class="absolute top-0 left-0 w-full bg-green-500 duration-500 group-hover:-translate-x-full h-full"></span>
+              <span class="absolute top-0 left-0 w-full bg-green-500 duration-500 group-hover:translate-x-full h-full"></span>
+
+              <span class="absolute top-0 left-0 w-full bg-green-500 duration-500 delay-300 group-hover:-translate-y-full h-full"></span>
+              <span class="absolute delay-300 top-0 left-0 w-full bg-green-500 duration-500 group-hover:translate-y-full h-full"></span>
             </button>
           </div>
         )

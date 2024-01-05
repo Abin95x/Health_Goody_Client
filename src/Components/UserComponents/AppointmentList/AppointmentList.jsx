@@ -175,6 +175,7 @@ const AppointmentList = () => {
   const handleSubmit = async (e) => {
     try {
       e.preventDefault()
+      setOpenModal(false)
       if (!rating || !review) {
         const Toast = Swal.mixin({
           toast: true,
@@ -247,12 +248,13 @@ const AppointmentList = () => {
                       <td className="text-blue-600">
                         {appointment.start} - {appointment.end}
                       </td>
-                      <td className={`${appointment.status === 'Pending' ? 'text-red-500' :
+                      <td className={`${appointment.status === 'Pending' ? 'text-yellow-300' :
                         appointment.status === 'Done' ? 'text-green-500' :
-                          ''
-                        }`}>
+                          appointment.status === 'Cancelled' || appointment.status === 'CancelledByDoctor' ? 'text-red-500' :
+                            ''}`}>
                         {appointment.status}
                       </td>
+
                       <td
                         className="hover:cursor-pointer text-sk y-600"
                         onClick={() => {
@@ -292,7 +294,7 @@ const AppointmentList = () => {
       {
         data && (
           <Modal show={openModal} onClose={() => setOpenModal(false)}>
-            <Modal.Header>More</Modal.Header>
+            <Modal.Header>More Info</Modal.Header>
             <Modal.Body>
               {data.status === "Done" ? (
                 <form onSubmit={handleSubmit} onChange={handleChange} className="h-800">
@@ -335,6 +337,14 @@ const AppointmentList = () => {
                 </form>
               ) : data.status === "Cancelled" ? (
                 <h1 className="text-red-500">Your appointment has been cancelled</h1>
+              ) : data.status === "CancelledByDoctor" ? (
+                <div>
+                  <h1 className="text-red-500">Your appointment has been cancelled by the doctor</h1>
+                  <h1 className="text-red-500">Sorry for the inconvenience, your amount will be credited to the wallet</h1>
+                </div>
+
+
+
               ) : (
                 <div className="space-y-6">
                   <p className="text-2xl leading-relaxed text-gray-500 dark:text-gray-400">
@@ -360,7 +370,7 @@ const AppointmentList = () => {
                           Cancel Appointment
                         </button>
                       ) : (
-                        <span className="text-gray-500">Cancel Appointment (Disabled)</span>
+                        <span className="text-blue-500"> You can't cancel the appointment </span>
                       )}
                     </p>
                   </div>
@@ -368,6 +378,7 @@ const AppointmentList = () => {
                 </div>
               )}
             </Modal.Body>
+
 
             <Modal.Footer className="flex justify-center">
               {data.status === "Pending" && (
@@ -420,7 +431,7 @@ const AppointmentList = () => {
                 </>
               )}
             </Modal.Footer>
-          </Modal>
+          </Modal >
         )
       }
 

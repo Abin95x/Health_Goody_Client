@@ -60,7 +60,7 @@ const Dashboard = () => {
             <Header />
 
             <div className="min-h-screen bg-blue-50 ">
-                <div className=' bg-blue-50 text-3xl p-6 text-black text-center '>
+                <div className=' bg-blue-50 text-3xl p-6 underline text-black text-center '>
                     <h1>Dashboard</h1>
                 </div>
                 <div className='m-5'>

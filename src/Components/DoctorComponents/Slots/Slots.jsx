@@ -46,7 +46,7 @@ const Slots = () => {
     return (
         <div className="min-h-screen bg-blue-50">
             <br />
-            <div className='text-center text-2xl text-black'>
+            <div className='text-center text-2xl underline text-black'>
                 <h1>Slots List</h1>
             </div>
             <br />

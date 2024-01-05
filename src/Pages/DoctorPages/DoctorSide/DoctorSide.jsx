@@ -9,7 +9,9 @@ const DoctorSide = () => {
       <div className='hero-content text-center text-neutral-content'>
         <div className='max-w-md'>
           <h1 className='mb-5 text-5xl font-bold'>Hello Doctor</h1>
-          <p className='mb-5'>Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem quasi. In deleniti eaque aut repudiandae et a id nisi.</p>
+          <p className='mb-5'>
+            Welcome, doctors! Your dedication to healthcare is commendable. Join our community to connect with peers, access resources, and enhance your medical journey. Already a member? Log in or sign up to make a positive impact on people's lives.
+          </p>
           <Link to='/doctor/login' className='btn btn-secondary w-56'>Login</Link>
           <br />
           <br />

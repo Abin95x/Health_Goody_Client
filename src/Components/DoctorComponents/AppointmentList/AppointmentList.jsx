@@ -9,9 +9,10 @@ import { markasDone, appoReschedule } from '../../../Api/doctorApi';
 import { useFormik } from 'formik';
 import { rescheduleSchema } from '../../../validations/doctor/rescheduleValidation';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faComment } from '@fortawesome/free-solid-svg-icons';
+import {
+  faComment, faVideo, faCheck, faPrescriptionBottleMedical, faNotesMedical,
+} from '@fortawesome/free-solid-svg-icons';
 import { cancelAppointment } from '../../../Api/doctorApi';
-
 
 
 const AppointmentList = () => {
@@ -34,6 +35,9 @@ const AppointmentList = () => {
   const [currentDate, setCurrentDate] = useState();
   const [currentTime, setCurrentTime] = useState();
   const [currentPage, setCurrentPage] = useState(1);
+  const [paymentId, setPaymentId] = useState()
+
+
   const limit = 2;
   const appoDateAsDate = new Date(appoDate);
   const appDate = appoDateAsDate.toLocaleDateString();
@@ -63,7 +67,7 @@ const AppointmentList = () => {
     setUserId(id)
   }
 
-  const handleClick = (date, start, end, name, id, status) => {
+  const handleClick = (date, start, end, name, id, status, payment) => {
 
     setAppoDate(date)
     setAppoStart(start)
@@ -71,6 +75,7 @@ const AppointmentList = () => {
     setAppoName(name)
     setAppoId(id)
     setAppoStauts(status)
+    setPaymentId(payment)
   }
 
   const handleAccept = async () => {
@@ -223,8 +228,31 @@ const AppointmentList = () => {
     onSubmit,
   });
 
-  const handleCancel = () => {
+  const handleCancel = async () => {
     try {
+      Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, cancel it!",
+      }).then(async (result) => {
+        if (result.isConfirmed) {
+          await cancelAppointment({ appoId, paymentId, userId });
+          Swal.fire({
+            title: "Cancelled!",
+            text: "Your appointment has been cancelled.",
+            icon: "success",
+          });
+          if (render === true) {
+            setRender(false);
+          } else {
+            setRender(true);
+          }
+        }
+      });
 
     } catch (error) {
       console.log(error.message);
@@ -235,14 +263,14 @@ const AppointmentList = () => {
   return (
     <div>
       <br />
-      <div className='text-center text-2xl text-black'>
+      <div className='text-center underline text-2xl text-black'>
         <h1>Appointment List</h1>
       </div>
       <br />
       <div className='flex justify-center'>
         <div className='w-full lg:w-[1000px] bg-white min-h-[500px] rounded shadow-xl overflow-hidden'>
           {appo.length === 0 ? (
-            <div className="text-center p-4 text-gray-600">
+            <div className="text-center p-4  text-gray-600">
               No appointments available.
             </div>
           ) : (
@@ -271,15 +299,18 @@ const AppointmentList = () => {
                       <td className="py-2">{appointment.end}</td>
                       <td className={`py-2 ${appointment.status === 'Done' ? 'text-green-500' :
                         appointment.status === 'Cancelled' ? 'text-red-600' :
-                          appointment.status === 'Pending' ? 'text-yellow-300' : ''}`}>
+                          appointment.status === 'CancelledByDoctor' ? 'text-red-600' :
+                            appointment.status === 'Pending' ? 'text-yellow-300' : ''}`}
+                      >
                         {appointment.status}
                       </td>
+
 
                       <td
                         onClick={() => {
                           setOpenModal(true);
                           handleId(appointment.userDetails._id);
-                          handleClick(appointment.consultationDate, appointment.start, appointment.end, appointment.userDetails.name, appointment._id, appointment.status)
+                          handleClick(appointment.consultationDate, appointment.start, appointment.end, appointment.userDetails.name, appointment._id, appointment.status, appointment.paymentId, appointment.user)
 
                         }}
                         className="py-2 text-cyan-500"
@@ -310,59 +341,66 @@ const AppointmentList = () => {
       <Modal show={openModal} onClose={() => setOpenModal(false)}>
         <Modal.Header>Terms of Service</Modal.Header>
         <Modal.Body>
-          <div className="space-y-6">
-            {currDate === appDate && currentTime >= appoStart && currentTime <= appoEnd && appoStatus === "Pending" ? (
-              <React.Fragment>
-                <p className='text-xl text-green-500 '>
-                  You can now join the call
-                </p>
-                <Link to={'/doctor/video'} className='btn btn-secondary w-full' onClick={handleLinkClick}>
-                  Start Video Call
-                </Link>
-              </React.Fragment>
-            ) : (
-              appoStatus === "Done" ? (
+          {appoStatus === "CancelledByDoctor" ? (
+            <div className='text-red-500 p-5'>
+              APPOINTMENT CANCELLED BY DOCTOR
+            </div>
+          ) : (
+            <div className="space-y-6">
+              {currDate === appDate && currentTime >= appoStart && currentTime <= appoEnd && appoStatus === "Pending" ? (
                 <React.Fragment>
-                  <div className='text-green-500'>
-                    ADD MEDICAL REPORT AND  PRESCRIPTION
-                  </div>
+                  <p className='text-xl text-green-500 '>
+                    You can now join the call
+                  </p>
+                  <Link to={'/doctor/video'} className='btn btn-secondary w-full' onClick={handleLinkClick}>
+                    Start Video Call<FontAwesomeIcon icon={faVideo} />
+                  </Link>
                 </React.Fragment>
               ) : (
-                appoStatus === "Cancelled" ? (
-                  <div className='text-red-500 pt-5'>
-                    APPOINTMENT CANCELLED BY USER
-                  </div>
+                appoStatus === "Done" ? (
+                  <React.Fragment>
+                    <div className='text-green-500'>
+                      ADD MEDICAL REPORT AND PRESCRIPTION
+                    </div>
+                  </React.Fragment>
                 ) : (
-                  <div className='text-orange-500'>
-                    VIDEO CALL ROOM AVAILABLE IN THE DATE AND TIME
-                  </div>
+                  appoStatus === "Cancelled" ? (
+                    <div className='text-red-500 pt-5'>
+                      APPOINTMENT CANCELLED BY USER
+                    </div>
+                  ) : (
+                    <div className='text-orange-500'>
+                      VIDEO CALL ROOM AVAILABLE IN THE DATE AND TIME
+                    </div>
+                  )
                 )
-              )
-            )}
-            <br />
-            {appoStatus === "Done" && (
-              <React.Fragment>
-                <button onClick={() => { setOpenModal(false); handlePris(); }} className='btn btn-primary w-full'>
-                  Add Prescription
+              )}
+              <br />
+              {appoStatus === "Done" && (
+                <React.Fragment>
+                  <button onClick={() => { setOpenModal(false); handlePris(); }} className='btn btn-primary w-full'>
+                    Add Prescription<FontAwesomeIcon icon={faPrescriptionBottleMedical} />
+                  </button>
+                  <br />
+                  <button onClick={() => { setOpenModal(false); handleReport() }} className='btn btn-success w-full'>
+                    Add Medical Report<FontAwesomeIcon icon={faNotesMedical} />
+                  </button>
+                  <br />
+                </React.Fragment>
+              )}
+              {appoStatus === "Pending" ? (
+                <button className='btn btn-warning w-full' onClick={markAsDone}>
+                  Mark As Done<FontAwesomeIcon icon={faCheck} />
                 </button>
-                <br />
-                <button onClick={() => { setOpenModal(false); handleReport() }} className='btn btn-success w-full'>
-                  Add Medical Report
-                </button>
-                <br />
-              </React.Fragment>
-            )}
-            {appoStatus === "Pending" ? (
-              <button className='btn btn-warning w-full' onClick={markAsDone}>
-                Mark As Done
-              </button>
-            ) : null}
-          </div>
+              ) : null}
+            </div>
+          )}
         </Modal.Body>
+
         <Modal.Footer>
-          {appoStatus === "Cancelled" ? null : (
+          {appoStatus === "Cancelled" || appoStatus === "CancelledByDoctor" ? null : (
             btn ? (
-              <div className="flex justify-center ">
+              <div className="flex justify-center">
                 <Button
                   color='green'
                   className="w-44"
@@ -372,26 +410,24 @@ const AppointmentList = () => {
                 </Button>
               </div>
             ) : (
-              <div className="flex  justify-center  ">
+              <div className="flex justify-center">
                 <Button className='w-48' color='green' onClick={() => setOpenModalx(true)}>
                   Connect patient
                 </Button>
               </div>
             )
           )}
-          {appoStatus === "Cancelled" || appoStatus === "Done" ? null : (
+          {appoStatus === "Cancelled" || appoStatus === "Done" || appoStatus === "CancelledByDoctor" ? null : (
             <>
-
-              <Button className=' w-48' color='yellow' onClick={() => setOpenModalR(true)}>Reschedule</Button>
-
-              <Button onClick={handleCancel} color='red' className=' w-48'>
+              <Button className='w-48' color='yellow' onClick={() => setOpenModalR(true)}>Reschedule</Button>
+              <Button onClick={handleCancel} color='red' className='w-48'>
                 Cancel appointment
               </Button>
             </>
           )}
-
-
         </Modal.Footer>
+
+
       </Modal>
 
 

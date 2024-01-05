@@ -111,6 +111,7 @@ export async function appoReschedule(values) {
 
 
 export async function cancelAppointment(values) {
+    console.log(values);
     const data = await doctorAxiosInstance.patch(`/cancelAppointment`, values)
     return data
 }

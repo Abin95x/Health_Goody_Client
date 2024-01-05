@@ -158,7 +158,7 @@ const Profile = () => {
 
         </Modal.Body>
         <Modal.Footer>
-          <p>History</p>
+          {/* <p>History</p> */}
           <div>
 
           </div>

@@ -12,6 +12,13 @@ import { doctorDetails } from '../../../Api/doctorApi';
 import { editProfile } from '../../../Api/doctorApi';
 import { drEditSchema } from '../../../validations/doctor/editValidation';
 import { Link } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+  faPenToSquare,
+  faCalendarCheck,
+  faPlus,
+} from '@fortawesome/free-solid-svg-icons';
+
 
 
 
@@ -150,7 +157,7 @@ const DoctorProfile = () => {
       {doc && (
         <div className='min-h-screen bg-blue-50'>
           <div className='flex flex-col items-center'>
-            <div className='text-2xl text-black mt-10'>
+            <div className='text-2xl underline text-black mt-10'>
               <h1>Doctor Profile</h1>
             </div>
             <div className='flex flex-col md:flex-row bg-blue-50'>
@@ -200,11 +207,11 @@ const DoctorProfile = () => {
             </div>
             <br />
             <div className='flex flex-col md:flex-row justify-center  md:space-x-5'>
-              <button className='btn btn-primary' onClick={() => setOpenModal2(true)}>Edit</button>
-              <button className='btn btn-success'>
-                <Link to='/doctor/appointment'>Appointments</Link>
+              <button className='btn btn-primary w-40' onClick={() => setOpenModal2(true)}>Edit <FontAwesomeIcon icon={faPenToSquare} /></button>
+              <button className='btn btn-success w040'>
+                <Link to='/doctor/appointment'>Appointments <FontAwesomeIcon icon={faCalendarCheck} /></Link>
               </button>
-              <button className='btn btn-warning' onClick={() => setOpenModal(true)}>Create Slots</button>
+              <button className='btn btn-warning w-40' onClick={() => setOpenModal(true)}>Create Slots <FontAwesomeIcon icon={faPlus} /></button>
             </div>
           </div>
         </div>
