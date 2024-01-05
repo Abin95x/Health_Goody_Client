@@ -57,9 +57,7 @@ doctorAxiosInstance.interceptors.response.use(
     (error) => handleAxiosError(error),
 );
 
-const handleAxiosError = (error) => {
-    // const errorMessage = error.response?error.response.data.message : 'An error occurred while request.';
-
+const handleAxiosError = (error, role) => {
     if (error.response) {
         if (error.response.status === 404) {
             const Toast = Swal.mixin({
@@ -67,18 +65,17 @@ const handleAxiosError = (error) => {
                 position: 'top',
                 showConfirmButton: false,
                 timer: 3000,
-                // timerProgressBar: true,
-                // didOpen: (toast) => {
-                //     toast.onmouseenter = Swal.stopTimer;
-                //     toast.onmouseleave = Swal.resumeTimer;
-                // },
             });
             Toast.fire({
                 icon: 'error',
                 // title: "404 - Resource Not Found"
                 title: error.response.data.message,
-
             });
+            if (role === "user") {
+                window.location.href = `/pageNotFound`;
+            } else {
+                window.location.href = `/${role}/pageNotFound`;
+            }
 
         } else if (error.response.status === 401) {
 
@@ -87,19 +84,12 @@ const handleAxiosError = (error) => {
                 position: 'top',
                 showConfirmButton: false,
                 timer: 3000,
-                // timerProgressBar: true,
-                // didOpen: (toast) => {
-                //     toast.onmouseenter = Swal.stopTimer;
-                //     toast.onmouseleave = Swal.resumeTimer;
-                // },
             });
             Toast.fire({
                 icon: 'error',
                 title: error.response.data.message,
 
             });
-
-
         }
         else if (error.response.status === 400) {
 
@@ -108,11 +98,7 @@ const handleAxiosError = (error) => {
                 position: 'top',
                 showConfirmButton: false,
                 timer: 3000,
-                // timerProgressBar: true,
-                // didOpen: (toast) => {
-                //     toast.onmouseenter = Swal.stopTimer;
-                //     toast.onmouseleave = Swal.resumeTimer;
-                // },
+
             });
             Toast.fire({
                 icon: 'error',
@@ -126,17 +112,18 @@ const handleAxiosError = (error) => {
                 position: 'top',
                 showConfirmButton: false,
                 timer: 3000,
-                // timerProgressBar: true,
-                // didOpen: (toast) => {
-                //     toast.onmouseenter = Swal.stopTimer;
-                //     toast.onmouseleave = Swal.resumeTimer;
-                // },
+
             });
             Toast.fire({
                 icon: 'error',
                 // title: "500 - Internal Server Error",
                 title: error.response.data.message,
             });
+            if (role === "user") {
+                window.location.href = `/internalError`;
+            } else {
+                window.location.href = `/${role}/internalError`;
+            }
 
         } else {
             const Toast = Swal.mixin({
@@ -144,11 +131,7 @@ const handleAxiosError = (error) => {
                 position: 'top',
                 showConfirmButton: false,
                 timer: 3000,
-                // timerProgressBar: true,
-                // didOpen: (toast) => {
-                //     toast.onmouseenter = Swal.stopTimer;
-                //     toast.onmouseleave = Swal.resumeTimer;
-                // },
+
             });
             Toast.fire({
                 icon: 'error',
@@ -164,11 +147,6 @@ const handleAxiosError = (error) => {
             position: 'top',
             showConfirmButton: false,
             timer: 3000,
-            // timerProgressBar: true,
-            // didOpen: (toast) => {
-            //     toast.onmouseenter = Swal.stopTimer;
-            //     toast.onmouseleave = Swal.resumeTimer;
-            // },
         });
         Toast.fire({
             icon: 'error',

@@ -1,13 +1,12 @@
-
-
-import React, {  useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { unVerifiedDetails, adminVerify } from '../../../Api/adminApi';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
+
 
 const VerifiedDetails = () => {
   const [doctorData, setDoctorData] = useState(null);
   const { id } = useParams();
-  
+  const navigate = useNavigate()
 
   useEffect(() => {
     unVerifiedDetails(id)
@@ -19,7 +18,7 @@ const VerifiedDetails = () => {
       });
 
   }, [id]);
- 
+
 
 
   const handleClick = async (id) => {
@@ -27,6 +26,7 @@ const VerifiedDetails = () => {
       await adminVerify(id);
       const res = await unVerifiedDetails(id);
       setDoctorData(res?.data?.details);
+      navigate("/admin/doctorlist")
     } catch (error) {
       console.log(error.message);
     }
@@ -66,8 +66,7 @@ const VerifiedDetails = () => {
 
           <dialog id="my_modal_4" className="modal">
             <div className="modal-box w-11/12 max-w-5xl bg-zinc-950 rounded-none">
-              <h3 className="font-bold text-lg">CERTIFICATES</h3>
-              <p className="py-4">Verify the certificate</p>
+              <h3 className="font-bold text-lg">CERTIFICATES  </h3>
               <div className="modal-action">
                 <form method="dialog">
                   <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
@@ -86,17 +85,12 @@ const VerifiedDetails = () => {
 
                   </div>
 
-                  <button className="btn">Close</button>
-                  {/* <button
-                      className={`btn btn-${doctorData.is_blocked ? 'success' : 'success'}`}
-                      onClick={() => handleClick(doctorData._id)}
-                      style={{ backgroundColor: doctorData.is_blocked ? 'green' : 'red' }}
-                    >
-                      {doctorData.is_blocked ? 'UNBLOCK' : 'BLOCK'}
-                    </button> */}
+
                   <button className="btn btn-success" onClick={() => handleClick(doctorData._id)}>
                     Verify
                   </button>
+                  <button className="btn btn-primary m-5">Close</button>
+
 
                 </form>
               </div>

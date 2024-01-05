@@ -23,11 +23,7 @@ const DoctorOtp = () => {
           position: 'top',
           showConfirmButton: false,
           timer: 5000,
-          // timerProgressBar: true,
-          // didOpen: (toast) => {
-          //   toast.onmouseenter = Swal.stopTimer;
-          //   toast.onmouseleave = Swal.resumeTimer;
-          // },
+
         });
 
         Toast.fire({
@@ -35,7 +31,6 @@ const DoctorOtp = () => {
           title: 'Login now',
         });
 
-        // Focus on the first input after successful verification
         inputRefs.current[0].focus();
 
         navigate('/doctor/login', { state: 'Email verified' });
@@ -45,11 +40,7 @@ const DoctorOtp = () => {
           position: 'top',
           showConfirmButton: false,
           timer: 5000,
-          // timerProgressBar: true,
-          // didOpen: (toast) => {
-          //   toast.onmouseenter = Swal.stopTimer;
-          //   toast.onmouseleave = Swal.resumeTimer;
-          // },
+
         });
 
         Toast.fire({
@@ -71,11 +62,6 @@ const DoctorOtp = () => {
           position: 'top',
           showConfirmButton: false,
           timer: 5000,
-          // timerProgressBar: true,
-          // didOpen: (toast) => {
-          //   toast.onmouseenter = Swal.stopTimer;
-          //   toast.onmouseleave = Swal.resumeTimer;
-          // },
         });
 
         Toast.fire({
@@ -129,6 +115,12 @@ const DoctorOtp = () => {
                               inputRefs.current[index + 1].focus();
                             }
                           }}
+                          onKeyDown={(e) => {
+                            // Handle backspace key to focus on the previous input
+                            if (e.key === 'Backspace' && e.target.value === '' && index > 0) {
+                              inputRefs.current[index - 1].focus();
+                            }
+                          }}
                           maxLength={1}
                         />
                         {errors[fieldName] && touched[fieldName] && (
@@ -136,6 +128,7 @@ const DoctorOtp = () => {
                         )}
                       </div>
                     ))}
+
                   </div>
 
                   <div className='flex flex-col space-y-5'>

@@ -10,6 +10,7 @@ import { useFormik } from 'formik';
 import { rescheduleSchema } from '../../../validations/doctor/rescheduleValidation';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faComment } from '@fortawesome/free-solid-svg-icons';
+import { cancelAppointment } from '../../../Api/doctorApi';
 
 
 
@@ -222,6 +223,14 @@ const AppointmentList = () => {
     onSubmit,
   });
 
+  const handleCancel = () => {
+    try {
+
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
+
 
   return (
     <div>
@@ -375,7 +384,7 @@ const AppointmentList = () => {
 
               <Button className=' w-48' color='yellow' onClick={() => setOpenModalR(true)}>Reschedule</Button>
 
-              <Button color='red' className=' w-48'>
+              <Button onClick={handleCancel} color='red' className=' w-48'>
                 Cancel appointment
               </Button>
             </>
@@ -463,12 +472,8 @@ const AppointmentList = () => {
                   <span class="text-white font-bold text-3xl">With patiant.</span>
                   <p class="text-white">Click I accept to connect with patient</p>
                 </div>
-
-
               </div>
-
             </div>
-
           </div>
         </Modal.Body>
         <Modal.Footer>

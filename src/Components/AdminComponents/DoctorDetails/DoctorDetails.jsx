@@ -49,7 +49,7 @@ const DoctorDetails = () => {
           </div>
           <div className="card-actions">
             <button
-              className={`btn btn-${doctorData.is_blocked ? 'success' : 'success'}`}
+              className='btn text-white w-32'
               onClick={() => handleClick(doctorData._id)}
               style={{ backgroundColor: doctorData.is_blocked ? 'green' : 'red' }}
             >
@@ -58,59 +58,45 @@ const DoctorDetails = () => {
 
             {/* <button className="btn btn-active btn-secondary"  onClick={()=>document.getElementById('my_modal_3').showModal()}>Certificates</button> */}
             <button className="btn btn-active btn-secondary" onClick={() => document.getElementById('my_modal_4').showModal()}>Certificates</button>
-            
+
 
           </div>
 
           <br />
-        </div>
+        </div >
       )}
 
       {
         doctorData && (
           <dialog id="my_modal_4" className="modal">
-          <div className="modal-box w-11/12 max-w-5xl bg-zinc-950 rounded-none">
-            <h3 className="font-bold text-lg">CERTIFICATES</h3>
-            <p className="py-4">Verify the certificate</p>
-            <div className="modal-action">
-              <form method="dialog">
-                <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
-                <br />
-
-                <div className=''>
-                  {doctorData.certificates.map((certificate, index) => (
-                    <div key={index}>
-                      <img src={certificate} alt={`Certificate ${index + 1}`} className="rounded-xl" />
-                      <br />
-                    </div>
-
-                  ))}
+            <div className="modal-box w-11/12 max-w-5xl bg-zinc-950 rounded-none">
+              <h3 className="font-bold text-lg">CERTIFICATES</h3>
+              {/* <p className="py-4">Verify the certificate</p> */}
+              <div className="modal-action">
+                <form method="dialog">
+                  <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
                   <br />
 
+                  <div className=''>
+                    {doctorData.certificates.map((certificate, index) => (
+                      <div key={index}>
+                        <img src={certificate} alt={`Certificate ${index + 1}`} className="rounded-xl" />
+                        <br />
+                      </div>
 
-                </div>
-
-                <button className="btn">Close</button>
-                {/* <button
-                    className={`btn btn-${doctorData.is_blocked ? 'success' : 'success'}`}
-                    onClick={() => handleClick(doctorData._id)}
-                    style={{ backgroundColor: doctorData.is_blocked ? 'green' : 'red' }}
-                  >
-                    {doctorData.is_blocked ? 'UNBLOCK' : 'BLOCK'}
-                  </button> */}
-                {/* <button className="btn btn-success" onClick={() => handleClick(doctorData._id)}>
-                  Verify
-                </button> */}
-
-              </form>
+                    ))}
+                    <br />
+                  </div>
+                  <button className="btn">Close</button>
+                </form>
+              </div>
             </div>
-          </div>
-        </dialog> 
-          
+          </dialog>
+
         )
       }
-     
-   
+
+
     </>
 
   );

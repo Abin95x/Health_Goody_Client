@@ -68,7 +68,7 @@ const MedicalReport = () => {
 
     return (
         <>
-            {report && (
+            {report ? (
                 <div className='bg-blue-50 min-h-screen p-5'>
                     <div className='flex justify-center'>
                         <div className='bg-white min-h-screen mt-10 w-[900px] shadow-lg overflow-hidden' ref={pdfRef}>
@@ -140,16 +140,19 @@ const MedicalReport = () => {
                     </div>
 
                     <div className='flex justify-center p-10'>
-                        {report ? (
-                            <button className='btn btn-success' onClick={downloadPdf}>
-                                DOWNLOAD PDF
-                            </button>
-                        ) : (
-                            <div>
 
-                            </div>
-                        )}
+                        <button className='btn btn-success' onClick={downloadPdf}>
+                            DOWNLOAD PDF
+                        </button>
+
                     </div>
+                </div>
+            ) : (
+                <div className='hero bg-blue-50 min-h-screen'>
+                    <h1 className='text-green-500 text-4xl'>
+                        Medical report not added
+
+                    </h1>
                 </div>
             )}
 

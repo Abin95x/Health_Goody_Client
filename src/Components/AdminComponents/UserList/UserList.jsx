@@ -35,18 +35,14 @@ export const UserList = () => {
 
   const blockUnblock = async (id) => {
     try {
-      if (userData.is_blocked) {
-        await userBlockUnblock(id);
-      } else {
-        await userBlockUnblock(id);
-      }
+      await userBlockUnblock(id);
       const res = await userDetails(id);
       setUserData(res?.data?.details);
-
     } catch (error) {
       console.log(error.message);
     }
   };
+
 
 
   return (
@@ -132,7 +128,7 @@ export const UserList = () => {
 
                   <div className="card-actions mx-[147px]">
                     <button
-                      className="btn btn-primary"
+                      className="btn text-white"
                       onClick={() => blockUnblock(userData._id)}
                       style={{ backgroundColor: userData.is_blocked ? 'green' : 'red' }}
                     >

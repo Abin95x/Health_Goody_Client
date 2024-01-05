@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { format } from "timeago.js";
+import { format } from 'timeago.js';
 
 const Conversation = ({ currentUser, message }) => {
 

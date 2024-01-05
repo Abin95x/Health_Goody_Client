@@ -213,11 +213,11 @@ const SpecialityList = () => {
                                         </td>
                                         <td>
                                             {specialityItem.list ? (
-                                                <button onClick={() => handleList(specialityItem._id)} className='btn btn-error'>
+                                                <button onClick={() => handleList(specialityItem._id)} className='btn btn-error w-32'>
                                                     Unlist
                                                 </button>
                                             ) : (
-                                                <button onClick={() => handleList(specialityItem._id)} className='btn btn-success'>
+                                                <button onClick={() => handleList(specialityItem._id)} className='btn btn-success w-32'>
                                                     List
                                                 </button>
                                             )}
@@ -268,7 +268,7 @@ const SpecialityList = () => {
                             accept='image/*'
                             onChange={handlePhoto}
                             type='file'
-                            className='file-input file-input-bordered file-input-primary w-full max-w-xs'
+                            className='file-input file-input-bordered file-input-primary w-full '
                         />
 
                         <br />

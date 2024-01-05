@@ -7,6 +7,8 @@ import Swal from "sweetalert2";
 import { createChat } from "../../../Api/userApi";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faComment } from '@fortawesome/free-solid-svg-icons';
 
 
 const AppointmentList = () => {
@@ -423,21 +425,27 @@ const AppointmentList = () => {
       }
 
       <Modal show={openModalx} onClose={() => setOpenModalx(false)}>
-        <Modal.Header></Modal.Header>
+        <Modal.Header>Connect Doctor</Modal.Header>
         <Modal.Body>
           <div className="space-y-6">
-            <p className="text-base leading-relaxed text-gray-500 dark:text-gray-400">
-              With less than a month to go before the European Union enacts new
-              consumer privacy laws for its citizens, companies around the world
-              are updating their terms of service agreements to comply.
-            </p>
-            <p className="text-base leading-relaxed text-gray-500 dark:text-gray-400">
-              The European Union’s General Data Protection Regulation (G.D.P.R.)
-              goes into effect on May 25 and is meant to ensure a common set of
-              data rights in the European Union. It requires organizations to
-              notify users as soon as possible of high-risk data breaches that
-              could personally affect them.
-            </p>
+            <div className='flex justify-center'>
+              <div class="relative group cursor-pointer group overflow-hidden  text-gray-50 h-72 w-56  rounded-2xl hover:duration-700 duration-700">
+                <div class="w-56 h-72 bg-blue-500 text-gray-800">
+                  <div class="flex flex-row justify-center">
+                    <FontAwesomeIcon icon={faComment} className=' m-10 w-20 h-20 ' />
+                  </div>
+                </div>
+                <div class="absolute bg-black -bottom-24 w-56 p-3 flex flex-col gap-1 group-hover:-bottom-0 group-hover:duration-600 duration-500">
+                  <span class="text-white font-bold text-xs">CONNECT</span>
+                  <span class="text-white font-bold text-3xl">With doctor.</span>
+                  <p class="text-white">Click I accept to connect with doctor</p>
+                </div>
+
+
+              </div>
+
+            </div>
+
           </div>
         </Modal.Body>
         <Modal.Footer>

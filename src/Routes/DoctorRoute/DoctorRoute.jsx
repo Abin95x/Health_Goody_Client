@@ -17,7 +17,8 @@ import PrescriptionPage from '../../Pages/DoctorPages/PrescriptionPage/Prescript
 import ForgotPassword from '../../Pages/DoctorPages/ForgotPassword/ForgotPassword';
 import ResetPassword from '../../Pages/DoctorPages/ResetPassword/ResetPassword';
 import MedicalReport from '../../Pages/DoctorPages/MedicalReport/MedicalReport';
-
+import Error404 from '../../Components/Error/404'
+import Error500 from '../../Components/Error/500'
 
 const DoctorRoute = () => {
     return (
@@ -36,9 +37,9 @@ const DoctorRoute = () => {
             <Route path='/video' element={<DoctorProtect><VideoPage /></DoctorProtect>} />
             <Route path='/priscription' element={<DoctorProtect><PrescriptionPage /></DoctorProtect>} />
             <Route path='/medicalreport' element={<DoctorProtect><MedicalReport /></DoctorProtect>} />
-
-
-
+            <Route path="*" element={<Error404 />} />
+            <Route path="/pageNotFound" element={<Error404 />} />
+            <Route path="/internalError" element={<Error500 />} />
 
 
         </Routes >
