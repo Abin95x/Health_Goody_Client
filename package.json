@@ -21,6 +21,7 @@
     "flowbite-react": "^0.7.0",
     "formik": "^2.4.5",
     "html2canvas": "^1.4.1",
+    "javascript-time-ago": "^2.5.9",
     "jspdf": "^2.5.1",
     "prop-types": "^15.8.1",
     "react": "^18.2.0",

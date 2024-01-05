@@ -2,8 +2,7 @@ import React from 'react'
 import { format } from 'timeago.js'
 
 const Conversation = ({ currentDoctor, message }) => {
-  console.log(currentDoctor,'jjjjjjjjjjjjj')
-  console.log(message.senderId,'kkkkkkkkkkkkkkkk')
+
   return (
     <div id="messages" className="">
       {currentDoctor === message?.senderId ? (
@@ -36,14 +35,14 @@ const Conversation = ({ currentDoctor, message }) => {
                   {message?.text}
                 </span>
                 <div>
-                <span> {format(message?.createdAt)}</span>
+                  <span> {format(message?.createdAt)}</span>
 
                 </div>
               </div>
             </div>
           </div>
           <div className="flex justify-start text-black font-extralight">
-          
+
           </div>
         </div>
       )}

@@ -5,7 +5,13 @@ import { Button, Modal } from 'flowbite-react';
 import { useNavigate, Link } from 'react-router-dom';
 import { createChat } from '../../../Api/doctorApi'
 import Swal from 'sweetalert2';
-import { markasDone } from '../../../Api/doctorApi';
+import { markasDone, appoReschedule } from '../../../Api/doctorApi';
+import { useFormik } from 'formik';
+import { rescheduleSchema } from '../../../validations/doctor/rescheduleValidation';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faComment } from '@fortawesome/free-solid-svg-icons';
+
+
 
 const AppointmentList = () => {
   const navigate = useNavigate();
@@ -33,6 +39,9 @@ const AppointmentList = () => {
   const currDateAsDate = new Date(currentDate);
   const currDate = currDateAsDate.toLocaleDateString();
   const [render, setRender] = useState(false)
+
+  const [openModalR, setOpenModalR] = useState(false);
+
 
 
   useEffect(() => {
@@ -148,14 +157,71 @@ const AppointmentList = () => {
     }
   };
 
-
-  const handleReschedule = () => {
+  const onSubmit = async (values) => {
     try {
+      const { date, startTime, endTime } = values;
+      const res = await appoReschedule({ date, startTime, endTime, appoId });
+      console.log(res);
+
+      if (res.status === 200) {
+        if (render === true) {
+          setRender(false)
+          setOpenModalR(false)
+          setOpenModal(false)
+          const Toast = Swal.mixin({
+            toast: true,
+            position: 'top',
+            showConfirmButton: false,
+            timer: 3000,
+          });
+
+          Toast.fire({
+            icon: 'success',
+            title: res.data.message,
+          });
+        } else {
+          setRender(true)
+          setOpenModalR(false)
+          setOpenModal(false)
+          const Toast = Swal.mixin({
+            toast: true,
+            position: 'top',
+            showConfirmButton: false,
+            timer: 3000,
+          });
+
+          Toast.fire({
+            icon: 'success',
+            title: res.data.message,
+          });
+        }
+
+      }
 
     } catch (error) {
       console.log(error.message);
+
     }
-  }
+  };
+
+
+  const {
+    values,
+    errors,
+    touched,
+    handleChange,
+    handleBlur,
+    handleSubmit,
+  } = useFormik({
+    initialValues: {
+      date: '',
+      startTime: '',
+      endTime: '',
+    },
+    validationSchema: rescheduleSchema,
+    onSubmit,
+  });
+
 
   return (
     <div>
@@ -287,18 +353,18 @@ const AppointmentList = () => {
         <Modal.Footer>
           {appoStatus === "Cancelled" ? null : (
             btn ? (
-              <div className="flex justify-center">
+              <div className="flex justify-center ">
                 <Button
                   color='green'
-                  className=""
+                  className="w-44"
                   onClick={() => handleNavigate()}
                 >
                   Chat with patient
                 </Button>
               </div>
             ) : (
-              <div className="flex justify-center ">
-                <Button color='green' onClick={() => setOpenModalx(true)}>
+              <div className="flex  justify-center  ">
+                <Button className='w-48' color='green' onClick={() => setOpenModalx(true)}>
                   Connect patient
                 </Button>
               </div>
@@ -306,11 +372,11 @@ const AppointmentList = () => {
           )}
           {appoStatus === "Cancelled" || appoStatus === "Done" ? null : (
             <>
-              <Button color='yellow' onClick={() => document.getElementById('my_modal_3').showModal()} className='mx-10 w-36'>
-                Reschedule
-              </Button>
-              <Button color='red' className='mx-10 w-36'>
-                Cancel
+
+              <Button className=' w-48' color='yellow' onClick={() => setOpenModalR(true)}>Reschedule</Button>
+
+              <Button color='red' className=' w-48'>
+                Cancel appointment
               </Button>
             </>
           )}
@@ -321,59 +387,88 @@ const AppointmentList = () => {
 
 
 
-      <dialog id="my_modal_3" className="modal">
-        <div className="modal-box">
-          <form method="dialog" className="modal-form">
 
-            {/* Close button for the modal */}
-            <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+      <Modal show={openModalR} onClose={() => setOpenModalR(false)}>
+        <Modal.Header>Reschedule</Modal.Header>
+        <Modal.Body>
+          <form method="dialog" onSubmit={handleSubmit} className="modal-form">
 
-            {/* Date input field */}
-            <div className="form-group">
-              <p htmlFor="date">New Date:</p>
-              <input className='w-full bg-gray-300' type="date" id="date" name="date" />
+            <div className="form-group text-black">
+              <label htmlFor="date">New Date:</label>
+              <input
+                className='w-full bg-gray-300'
+                type="date"
+                id="date"
+                name="date"
+                value={values.date}
+                onChange={handleChange}
+                onBlur={handleBlur}
+              />
+              {errors.date && touched.date && (
+                <p className='text-red-600'>{errors.date}</p>
+              )}
             </div>
 
-            {/* Start time input field */}
-            <div className="form-group">
-              <p htmlFor="startTime">Start Time:</p>
-              <input className='w-full bg-gray-300' type="time" id="startTime" name="startTime" />
+            <div className="form-group text-black">
+              <label htmlFor="startTime">Start Time:</label>
+              <input
+                className='w-full bg-gray-300'
+                type="time"
+                id="startTime"
+                name="startTime"
+                value={values.startTime}
+                onChange={handleChange}
+                onBlur={handleBlur}
+              />
+              {errors.startTime && touched.startTime && (
+                <p className='text-red-600'>{errors.startTime}</p>
+              )}
             </div>
 
-            {/* End time input field */}
-            <div className="form-group">
-              <p htmlFor="endTime">End Time:</p>
-              <input className='w-full bg-gray-300' type="time" id="endTime" name="endTime" />
+            <div className="form-group text-black">
+              <label htmlFor="endTime">End Time:</label>
+              <input
+                className='w-full bg-gray-300'
+                type="time"
+                id="endTime"
+                name="endTime"
+                value={values.endTime}
+                onChange={handleChange}
+                onBlur={handleBlur}
+              />
+              {errors.endTime && touched.endTime && (
+                <p className='text-red-600'>{errors.endTime}</p>
+              )}
             </div>
-
             <br />
-            <div className="form-group">
-              <button onClick={handleReschedule} type="submit" className="btn btn-primary">Submit</button>
-            </div>
-
+            <Button type="submit" >Submit</Button>
           </form>
-        </div>
-      </dialog>
-
-
+        </Modal.Body>
+      </Modal>
 
 
       <Modal show={openModalx} onClose={() => setOpenModalx(false)}>
-        <Modal.Header></Modal.Header>
+        <Modal.Header>Connect Patient</Modal.Header>
         <Modal.Body>
           <div className="space-y-6">
-            <p className="text-base leading-relaxed text-gray-500 dark:text-gray-400">
-              With less than a month to go before the European Union enacts new
-              consumer privacy laws for its citizens, companies around the world
-              are updating their terms of service agreements to comply.
-            </p>
-            <p className="text-base leading-relaxed text-gray-500 dark:text-gray-400">
-              The European Union’s General Data Protection Regulation (G.D.P.R.)
-              goes into effect on May 25 and is meant to ensure a common set of
-              data rights in the European Union. It requires organizations to
-              notify users as soon as possible of high-risk data breaches that
-              could personally affect them.
-            </p>
+            <div className='flex justify-center'>
+              <div class="relative group cursor-pointer group overflow-hidden  text-gray-50 h-72 w-56  rounded-2xl hover:duration-700 duration-700">
+                <div class="w-56 h-72 bg-emerald-400 text-gray-800">
+                  <div class="flex flex-row justify-center">
+                    <FontAwesomeIcon icon={faComment} className=' m-10 w-20 h-20 ' />
+                  </div>
+                </div>
+                <div class="absolute bg-black -bottom-24 w-56 p-3 flex flex-col gap-1 group-hover:-bottom-0 group-hover:duration-600 duration-500">
+                  <span class="text-white font-bold text-xs">CONNECT</span>
+                  <span class="text-white font-bold text-3xl">With patiant.</span>
+                  <p class="text-white">Click I accept to connect with patient</p>
+                </div>
+
+
+              </div>
+
+            </div>
+
           </div>
         </Modal.Body>
         <Modal.Footer>
@@ -390,6 +485,7 @@ const AppointmentList = () => {
           <Button onClick={() => setOpenModalx(false)}>Decline</Button>
         </Modal.Footer>
       </Modal>
+
     </div >
 
   );

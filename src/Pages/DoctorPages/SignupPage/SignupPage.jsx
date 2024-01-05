@@ -33,11 +33,6 @@ const SignupPage = () => {
                     position: 'top',
                     showConfirmButton: false,
                     timer: 5000,
-                    // timerProgressBar: true,
-                    // didOpen: (toast) => {
-                    //     toast.onmouseenter = Swal.stopTimer;
-                    //     toast.onmouseleave = Swal.resumeTimer;
-                    // },
                 });
 
                 Toast.fire({

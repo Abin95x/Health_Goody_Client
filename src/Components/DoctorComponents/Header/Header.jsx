@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import { doctorLogout } from '../../../Redux/DoctorSlice/DoctorSlice';
 import Swal from 'sweetalert2';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCheckToSlot, faUser, faCalendarCheck, faStethoscope, faComments } from '@fortawesome/free-solid-svg-icons';
+import { faCheckToSlot, faUser, faCalendarCheck, faStethoscope, faComments, faChartSimple } from '@fortawesome/free-solid-svg-icons';
 
 
 
@@ -59,7 +59,7 @@ const Header = () => {
               <svg xmlns='http://www.w3.org/2000/svg' className='h-5 w-5' fill='none' viewBox='0 0 24 24' stroke='currentColor'><path strokeLinecap='round' strokeLinejoin='round' strokeWidth='2' d='M4 6h16M4 12h8m-8 6h16' /></svg>
             </label>
             <ul tabIndex={0} className='menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52'>
-              <li><Link to='/doctor/dashboard'>DASHBOARD</Link></li>
+              <li><Link to='/doctor/dashboard'>DASHBOARD <FontAwesomeIcon icon={faChartSimple} /></Link></li>
               <li><Link to='/doctor/doctorprofile'>PROFILE <FontAwesomeIcon icon={faUser} /></Link></li>
               <li><Link to='/doctor/slots'>SLOTS<FontAwesomeIcon icon={faCheckToSlot} /></Link></li>
               <li><Link to='/doctor/chatpagedoctor'>CHATS <FontAwesomeIcon icon={faComments} /></Link></li>
@@ -70,7 +70,7 @@ const Header = () => {
         </div>
         <div className='navbar-center hidden lg:flex'>
           <ul className='menu menu-horizontal px-1'>
-            <li><Link to='/doctor/dashboard'>DASHBOARD</Link></li>
+            <li><Link to='/doctor/dashboard'>DASHBOARD <FontAwesomeIcon icon={faChartSimple} /></Link></li>
             <li><Link to='/doctor/doctorprofile'>PROFILE<FontAwesomeIcon icon={faUser} /></Link></li>
             <li><Link to='/doctor/slots'>SLOTS <FontAwesomeIcon icon={faCheckToSlot} /></Link></li>
             <li><Link to='/doctor/appointment'>APPOINTMENTS <FontAwesomeIcon icon={faCalendarCheck} /></Link></li>
