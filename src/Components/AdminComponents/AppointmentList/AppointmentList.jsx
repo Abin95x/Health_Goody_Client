@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { appointmentList } from '../../../Api/adminApi';
+import Loading from "../../../Components/Loading/Loading";
 
 const AppointmentList = () => {
     const [appointments, setAppointments] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [itemsPerPage, setItemsPerPage] = useState(5);
     const [pagination, setPagination] = useState({});
-
 
 
 
@@ -39,7 +39,7 @@ const AppointmentList = () => {
             <div className="text-sm breadcrumbs">
                 <ul>
                     <li><a>DASHBOARD</a></li>
-                    <li><a>VERIFY DOCTORS</a></li>
+                    <li><a>APPOINTMENT</a></li>
                 </ul>
             </div>
             {appointments.length === 0 ? (

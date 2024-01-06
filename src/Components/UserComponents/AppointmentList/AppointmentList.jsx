@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faComment } from '@fortawesome/free-solid-svg-icons';
+import Loading from "../../../Components/Loading/Loading";
 
 
 const AppointmentList = () => {
@@ -28,20 +29,23 @@ const AppointmentList = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [review, setReview] = useState()
   const [rating, setRating] = useState(3);
+  const [loading, setLoading] = useState(false);
+
 
 
   const limit = 5;
 
-  console.log(appo);
 
   useEffect(() => {
+    setLoading(true)
     appointmentList(id, currentPage, limit)
       .then((res) => {
+        setLoading(false)
         setAppo(res.data.data);
-        console.log(res);
         setPagination(res.data.pagination);
       })
       .catch((error) => {
+        setLoading(false)
         console.log(error.message);
       });
   }, [id, currentPage, limit, render]);
@@ -211,270 +215,283 @@ const AppointmentList = () => {
 
 
   return (
-    <div className="bg-blue-50 w-screen overflow-x-auto">
-      <div className="min-h-[500px] flex justify-center">
-        <div className="bg-white min-h-[500px] min-w-[900px] m-10 rounded-2xl shadow-2xl">
-          <div className="text-center m-5">
-            <h1 className="text-lg text-blue-600">Appointments</h1>
+    <>
+      {
+        loading ? (
+          <div className="fixed inset-0 flex items-center justify-center min-h-screen">
+            <div className="spinnerouter">
+              <Loading />
+            </div>
           </div>
-          <hr className="border border-blue-300 mx-5" />
-          <div className="m-5 h-14 rounded-xl border flex justify-center overflow-x-auto">
-            <table className="table w-full text-black">
-              <tr className="">
-                <th className="">Doctor</th>
-                <th className="">Appo.date</th>
-                <th className="">Booked</th>
-                <th className="">Amount</th>
-                <th className="">Timing</th>
-                <th className="">Status</th>
-                <th className="">More</th>
-              </tr>
-            </table>
-          </div>
-
-          <div className="m-5 min-h-[400px] rounded-xl border overflow-x-auto">
-            {appo.length === 0 ? (
-              <div className="text-center p-5 text-gray-500">No appointments available</div>
-            ) : (
-              <div className="flex justify-center">
-                <table className="table w-full text-black">
-                  {appo.map((appointment) => (
-
-                    <tr key={appointment.id}>
-                      <td><Link to={`/doctordetails/${appointment.doctorDetails._id}`} className="">{appointment.doctorDetails.name}</Link></td>
-                      <td className="text-blue-600">{appointment.consultationDate}</td>
-                      <td className="">{appointment.createdAt}</td>
-                      <td className="">299</td>
-                      <td className="text-blue-600">
-                        {appointment.start} - {appointment.end}
-                      </td>
-                      <td className={`${appointment.status === 'Pending' ? 'text-yellow-300' :
-                        appointment.status === 'Done' ? 'text-green-500' :
-                          appointment.status === 'Cancelled' || appointment.status === 'CancelledByDoctor' ? 'text-red-500' :
-                            ''}`}>
-                        {appointment.status}
-                      </td>
-
-                      <td
-                        className="hover:cursor-pointer text-sk y-600"
-                        onClick={() => {
-                          setOpenModal(true);
-                          setData(appointment);
-                          setDrId(appointment.doctorDetails._id);
-                        }}
-                      >
-                        More
-                      </td>
+        ) : (
+          <div className="bg-blue-50 w-screen overflow-x-auto" >
+            <div className="min-h-[500px] flex justify-center">
+              <div className="bg-white min-h-[500px] min-w-[900px] m-10 rounded-2xl shadow-2xl">
+                <div className="text-center m-5">
+                  <h1 className="text-lg text-blue-600">Appointments</h1>
+                </div>
+                <hr className="border border-blue-300 mx-5" />
+                <div className="m-5 h-14 rounded-xl border flex justify-center overflow-x-auto">
+                  <table className="table w-full text-black">
+                    <tr className="">
+                      <th className="">Doctor</th>
+                      <th className="">Appo.date</th>
+                      <th className="">Booked</th>
+                      <th className="">Amount</th>
+                      <th className="">Timing</th>
+                      <th className="">Status</th>
+                      <th className="">More</th>
                     </tr>
-
-                  ))}
-                </table>
-              </div>
-            )}
-          </div>
-        </div>
-      </div>
-
-      {
-        pagination && pagination.totalPages && (
-          <div className="flex justify-center mt-4 bg-blue-50">
-            {Array.from({ length: pagination.totalPages }, (_, index) => (
-              <button
-                key={index + 1}
-                onClick={() => setCurrentPage(index + 1)}
-                className={`pagination-btn border w-10 ${index + 1 === currentPage ? "border-black" : "border-gray-300"}`}
-              >
-                {index + 1}
-              </button>
-            ))}
-          </div>
-        )
-      }
-      <br />
-      {
-        data && (
-          <Modal show={openModal} onClose={() => setOpenModal(false)}>
-            <Modal.Header>More Info</Modal.Header>
-            <Modal.Body>
-              {data.status === "Done" ? (
-                <form onSubmit={handleSubmit} onChange={handleChange} className="h-800">
-                  <h1 className="text-3xl flex justify-center text-blue-500 pt">Consultation Completed</h1>
-
-                  <div className="flex justify-center m-5">
-                    <label htmlFor="reviewText" className="sr-only">
-                      Add Your Review
-                    </label>
-                    <textarea
-                      id="reviewText"
-                      name="reviewText"
-                      value={review}
-                      onChange={handleChange}
-                      className="w-full h-32 rounded-lg"
-                      placeholder="Enter your review"
-                      required
-                    ></textarea>
-                  </div>
-
-                  <div className="rating flex justify-center">
-                    {[1, 2, 3, 4, 5].map((value) => (
-                      <input
-                        key={value}
-                        type="radio"
-                        id={`rating-${value}`}
-                        name="rating"
-                        value={value}
-                        checked={rating === value}
-                        className="mask mask-star-2 bg-green-500"
-                      />
-                    ))}
-                  </div>
-
-                  <div className="flex justify-center m-5">
-                    <button type="submit" className="btn btn-outline">
-                      Add Your Review
-                    </button>
-                  </div>
-                </form>
-              ) : data.status === "Cancelled" ? (
-                <h1 className="text-red-500">Your appointment has been cancelled</h1>
-              ) : data.status === "CancelledByDoctor" ? (
-                <div>
-                  <h1 className="text-red-500">Your appointment has been cancelled by the doctor</h1>
-                  <h1 className="text-red-500">Sorry for the inconvenience, your amount will be credited to the wallet</h1>
+                  </table>
                 </div>
 
-
-
-              ) : (
-                <div className="space-y-6">
-                  <p className="text-2xl leading-relaxed text-gray-500 dark:text-gray-400">
-                    Your appointment is scheduled for{" "}
-                    <span className="text-red-600">{data.consultationDate}</span>{" "}
-                    from <span className="text-red-600">{data.start}</span> to{" "}
-                    <span className="text-red-600">{data.end}</span>. Please be
-                    ready at that time for your consultation.{" "}
-                  </p>
-
-                  <br />
-
-                  <div className="space-y-6">
-                    <p className="text-xl text-red-500">
-                      {!isCancelDisabled(data.consultationDate, data.start) ? (
-                        <button
-                          className="btn btn-error w-full"
-                          onClick={() => {
-                            handleCancel(data._id);
-                            setOpenModal(false);
-                          }}
-                        >
-                          Cancel Appointment
-                        </button>
-                      ) : (
-                        <span className="text-blue-500"> You can't cancel the appointment </span>
-                      )}
-                    </p>
-                  </div>
-                  <br />
-                </div>
-              )}
-            </Modal.Body>
-
-
-            <Modal.Footer className="flex justify-center">
-              {data.status === "Pending" && (
-                <>
-                  {btn ? (
-                    <div className="flex justify-center">
-                      <Button
-                        className=" btn-primary"
-                        onClick={() => handleNavigate()}
-                      >
-                        Chat with doctor
-                      </Button>
-                    </div>
+                <div className="m-5 min-h-[400px] rounded-xl border overflow-x-auto">
+                  {appo.length === 0 ? (
+                    <div className="text-center p-5 text-gray-500">No appointments available</div>
                   ) : (
                     <div className="flex justify-center">
-                      <Button className=" " onClick={() => setOpenModalx(true)}>
-                        Connect doctor
-                      </Button>
+                      <table className="table w-full text-black">
+                        {appo.map((appointment) => (
+
+                          <tr key={appointment.id}>
+                            <td><Link to={`/doctordetails/${appointment.doctorDetails._id}`} className="">{appointment.doctorDetails.name}</Link></td>
+                            <td className="text-blue-600">{appointment.consultationDate}</td>
+                            <td className="">{appointment.createdAt}</td>
+                            <td className="">299</td>
+                            <td className="text-blue-600">
+                              {appointment.start} - {appointment.end}
+                            </td>
+                            <td className={`${appointment.status === 'Pending' ? 'text-yellow-300' :
+                              appointment.status === 'Done' ? 'text-green-500' :
+                                appointment.status === 'Cancelled' || appointment.status === 'CancelledByDoctor' ? 'text-red-500' :
+                                  ''}`}>
+                              {appointment.status}
+                            </td>
+
+                            <td
+                              className="hover:cursor-pointer text-sk y-600"
+                              onClick={() => {
+                                setOpenModal(true);
+                                setData(appointment);
+                                setDrId(appointment.doctorDetails._id);
+                              }}
+                            >
+                              More
+                            </td>
+                          </tr>
+
+                        ))}
+                      </table>
                     </div>
                   )}
-                  <div className="flex justify-center">
-                    <Button onClick={() => { handlePrescription() }}>Download prescription</Button>
-                  </div>
-                  <div className="flex justify-center">
-                    <Button onClick={() => { handleReport() }}>Download medical report</Button>
-                  </div>
-                </>
-              )}
-              {data.status === "Done" && (
-                <>
-                  <div className="flex justify-center">
-                    <Button
-                      className=" btn-primary"
-                      onClick={() => handleNavigate()}
-                    >
-                      Chat with doctor
-                    </Button>
-                  </div>
-                  <div className="flex justify-center">
-                    <Button onClick={() => { handlePrescription() }}>Download prescription</Button>
-                  </div>
-                  <div className="flex justify-center">
-                    <Button onClick={() => { handleReport() }}>Download medical report</Button>
-                  </div>
-                </>
-              )}
-              {data.status === "Cancelled" && (
-                <>
-
-                </>
-              )}
-            </Modal.Footer>
-          </Modal >
-        )
-      }
-
-      <Modal show={openModalx} onClose={() => setOpenModalx(false)}>
-        <Modal.Header>Connect Doctor</Modal.Header>
-        <Modal.Body>
-          <div className="space-y-6">
-            <div className='flex justify-center'>
-              <div class="relative group cursor-pointer group overflow-hidden  text-gray-50 h-72 w-56  rounded-2xl hover:duration-700 duration-700">
-                <div class="w-56 h-72 bg-blue-500 text-gray-800">
-                  <div class="flex flex-row justify-center">
-                    <FontAwesomeIcon icon={faComment} className=' m-10 w-20 h-20 ' />
-                  </div>
                 </div>
-                <div class="absolute bg-black -bottom-24 w-56 p-3 flex flex-col gap-1 group-hover:-bottom-0 group-hover:duration-600 duration-500">
-                  <span class="text-white font-bold text-xs">CONNECT</span>
-                  <span class="text-white font-bold text-3xl">With doctor.</span>
-                  <p class="text-white">Click I accept to connect with doctor</p>
-                </div>
-
-
               </div>
-
             </div>
 
-          </div>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button
-            color="gray"
-            onClick={() => {
-              setOpenModalx(false);
-              handleAccept();
-            }}
-          >
-            I accept
-          </Button>
+            {
+              pagination && pagination.totalPages && (
+                <div className="flex justify-center mt-4 bg-blue-50">
+                  {Array.from({ length: pagination.totalPages }, (_, index) => (
+                    <button
+                      key={index + 1}
+                      onClick={() => setCurrentPage(index + 1)}
+                      className={`pagination-btn border w-10 ${index + 1 === currentPage ? "border-black" : "border-gray-300"}`}
+                    >
+                      {index + 1}
+                    </button>
+                  ))}
+                </div>
+              )
+            }
+            <br />
+            {
+              data && (
+                <Modal show={openModal} onClose={() => setOpenModal(false)}>
+                  <Modal.Header>More Info</Modal.Header>
+                  <Modal.Body>
+                    {data.status === "Done" ? (
+                      <form onSubmit={handleSubmit} onChange={handleChange} className="h-800">
+                        <h1 className="text-3xl flex justify-center text-blue-500 pt">Consultation Completed</h1>
 
-          <Button onClick={() => setOpenModalx(false)}>Decline</Button>
-        </Modal.Footer>
-      </Modal>
-    </div >
+                        <div className="flex justify-center m-5">
+                          <label htmlFor="reviewText" className="sr-only">
+                            Add Your Review
+                          </label>
+                          <textarea
+                            id="reviewText"
+                            name="reviewText"
+                            value={review}
+                            onChange={handleChange}
+                            className="w-full h-32 rounded-lg"
+                            placeholder="Enter your review"
+                            required
+                          ></textarea>
+                        </div>
+
+                        <div className="rating flex justify-center">
+                          {[1, 2, 3, 4, 5].map((value) => (
+                            <input
+                              key={value}
+                              type="radio"
+                              id={`rating-${value}`}
+                              name="rating"
+                              value={value}
+                              checked={rating === value}
+                              className="mask mask-star-2 bg-green-500"
+                            />
+                          ))}
+                        </div>
+
+                        <div className="flex justify-center m-5">
+                          <button type="submit" className="btn btn-outline">
+                            Add Your Review
+                          </button>
+                        </div>
+                      </form>
+                    ) : data.status === "Cancelled" ? (
+                      <h1 className="text-red-500">Your appointment has been cancelled</h1>
+                    ) : data.status === "CancelledByDoctor" ? (
+                      <div>
+                        <h1 className="text-red-500">Your appointment has been cancelled by the doctor</h1>
+                        <h1 className="text-red-500">Sorry for the inconvenience, your amount will be credited to the wallet</h1>
+                      </div>
+
+
+
+                    ) : (
+                      <div className="space-y-6">
+                        <p className="text-2xl leading-relaxed text-gray-500 dark:text-gray-400">
+                          Your appointment is scheduled for{" "}
+                          <span className="text-red-600">{data.consultationDate}</span>{" "}
+                          from <span className="text-red-600">{data.start}</span> to{" "}
+                          <span className="text-red-600">{data.end}</span>. Please be
+                          ready at that time for your consultation.{" "}
+                        </p>
+
+                        <br />
+
+                        <div className="space-y-6">
+                          <p className="text-xl text-red-500">
+                            {!isCancelDisabled(data.consultationDate, data.start) ? (
+                              <button
+                                className="btn btn-error w-full"
+                                onClick={() => {
+                                  handleCancel(data._id);
+                                  setOpenModal(false);
+                                }}
+                              >
+                                Cancel Appointment
+                              </button>
+                            ) : (
+                              <span className="text-blue-500"> You can't cancel the appointment </span>
+                            )}
+                          </p>
+                        </div>
+                        <br />
+                      </div>
+                    )}
+                  </Modal.Body>
+
+
+                  <Modal.Footer className="flex justify-center">
+                    {data.status === "Pending" && (
+                      <>
+                        {btn ? (
+                          <div className="flex justify-center">
+                            <Button
+                              className=" btn-primary"
+                              onClick={() => handleNavigate()}
+                            >
+                              Chat with doctor
+                            </Button>
+                          </div>
+                        ) : (
+                          <div className="flex justify-center">
+                            <Button className=" " onClick={() => setOpenModalx(true)}>
+                              Connect doctor
+                            </Button>
+                          </div>
+                        )}
+                        <div className="flex justify-center">
+                          <Button onClick={() => { handlePrescription() }}>Download prescription</Button>
+                        </div>
+                        <div className="flex justify-center">
+                          <Button onClick={() => { handleReport() }}>Download medical report</Button>
+                        </div>
+                      </>
+                    )}
+                    {data.status === "Done" && (
+                      <>
+                        <div className="flex justify-center">
+                          <Button
+                            className=" btn-primary"
+                            onClick={() => handleNavigate()}
+                          >
+                            Chat with doctor
+                          </Button>
+                        </div>
+                        <div className="flex justify-center">
+                          <Button onClick={() => { handlePrescription() }}>Download prescription</Button>
+                        </div>
+                        <div className="flex justify-center">
+                          <Button onClick={() => { handleReport() }}>Download medical report</Button>
+                        </div>
+                      </>
+                    )}
+                    {data.status === "Cancelled" && (
+                      <>
+
+                      </>
+                    )}
+                  </Modal.Footer>
+                </Modal >
+              )
+            }
+
+            <Modal show={openModalx} onClose={() => setOpenModalx(false)}>
+              <Modal.Header>Connect Doctor</Modal.Header>
+              <Modal.Body>
+                <div className="space-y-6">
+                  <div className='flex justify-center'>
+                    <div class="relative group cursor-pointer group overflow-hidden  text-gray-50 h-72 w-56  rounded-2xl hover:duration-700 duration-700">
+                      <div class="w-56 h-72 bg-blue-500 text-gray-800">
+                        <div class="flex flex-row justify-center">
+                          <FontAwesomeIcon icon={faComment} className=' m-10 w-20 h-20 ' />
+                        </div>
+                      </div>
+                      <div class="absolute bg-black -bottom-24 w-56 p-3 flex flex-col gap-1 group-hover:-bottom-0 group-hover:duration-600 duration-500">
+                        <span class="text-white font-bold text-xs">CONNECT</span>
+                        <span class="text-white font-bold text-3xl">With doctor.</span>
+                        <p class="text-white">Click I accept to connect with doctor</p>
+                      </div>
+
+
+                    </div>
+
+                  </div>
+
+                </div>
+              </Modal.Body>
+              <Modal.Footer>
+                <Button
+                  color="gray"
+                  onClick={() => {
+                    setOpenModalx(false);
+                    handleAccept();
+                  }}
+                >
+                  I accept
+                </Button>
+
+                <Button onClick={() => setOpenModalx(false)}>Decline</Button>
+              </Modal.Footer>
+            </Modal>
+          </div >
+        )
+      }
+    </>
   );
+
 };
 
 export default AppointmentList;

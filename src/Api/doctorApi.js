@@ -115,3 +115,9 @@ export async function cancelAppointment(values) {
     const data = await doctorAxiosInstance.patch(`/cancelAppointment`, values)
     return data
 }
+
+export async function editPhoto(values) {
+    console.log(values);
+    const data = await doctorAxiosInstance.patch('/editPhoto', values);
+    return data;
+}

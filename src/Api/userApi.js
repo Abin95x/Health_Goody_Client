@@ -40,6 +40,11 @@ export async function setDetails(values) {
     const data = await userAxiosInstance.post('/setDetails', values);
     return data;
 }
+export async function editPhoto(values) {
+    console.log(values);
+    const data = await userAxiosInstance.patch('/editPhoto', values);
+    return data;
+}
 
 export async function doctorList(select, search, page, count, sort) {
     const data = await userAxiosInstance.get(`/doctorList?select=${select}&search=${search}&page=${page}&count=${count}&sort=${sort}`);

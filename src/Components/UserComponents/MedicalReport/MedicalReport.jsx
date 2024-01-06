@@ -77,7 +77,7 @@ const MedicalReport = () => {
                                     HEALTH GOODY ONLINE <FontAwesomeIcon icon={faStethoscope} />
                                 </h1>
                             </div>
-                            <span className='flex justify-end pe-10 pt-3 bg-white text-blue-700'>Date : {report.date}</span>
+                            <h1 className=' p-5 bg-white text-blue-700'>Date : {report.date}</h1>
                             <div className='p-8 bg-white'>
                                 <h1 className='text-xl font-bold text-black mb-4'>Bio Data :</h1>
                                 <div className='grid grid-cols-2 gap-4 bg-white'>

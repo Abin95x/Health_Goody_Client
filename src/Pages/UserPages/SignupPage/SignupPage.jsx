@@ -10,12 +10,11 @@ import backgroundImage from '../../../Assets/image/loginImg.jpg';
 import Loading from "../../../Components/Loading/Loading";
 
 
-
-
 const SignupPage = () => {
   const [loading, setLoading] = useState(false);
   const [photo, setPhoto] = useState(null);
   const navigate = useNavigate();
+
 
   async function onSubmit() {
     try {

@@ -15,6 +15,11 @@ const Prescription = () => {
     const [medicine, setMedicine] = useState([])
     const { data } = location.state || {}
     const pdfRef = useRef();
+    const date = new Date();
+    const formattedDate = date.toLocaleDateString('en-GB', { day: '2-digit', month: '2-digit', year: 'numeric' });
+
+    console.log(formattedDate);
+
 
     const downloadPdf = () => {
         try {
@@ -72,7 +77,7 @@ const Prescription = () => {
                             </h1>
                         </div>
                         <br />
-
+                        <h1 className='p-5 text-blue-500'> Date :  {formattedDate}</h1>
                         <div className='m-5 border'>
                             <hr />
                         </div>
@@ -119,6 +124,7 @@ const Prescription = () => {
                                 medicine.map((med, index) => (
                                     <div key={med.appointmentId}>
                                         <p className='text-green-500'>Date: {med.createdAt}</p>
+
                                         {med.medicines.map((m, index) => (
                                             <div key={index} className='border border-black m-5 p-5'>
                                                 <h1>Medicine : {m.medicine}</h1>

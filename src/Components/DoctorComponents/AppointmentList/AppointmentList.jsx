@@ -38,7 +38,7 @@ const AppointmentList = () => {
   const [paymentId, setPaymentId] = useState()
 
 
-  const limit = 2;
+  const limit = 5;
   const appoDateAsDate = new Date(appoDate);
   const appDate = appoDateAsDate.toLocaleDateString();
   const currDateAsDate = new Date(currentDate);
@@ -240,6 +240,7 @@ const AppointmentList = () => {
         confirmButtonText: "Yes, cancel it!",
       }).then(async (result) => {
         if (result.isConfirmed) {
+          setOpenModal(false)
           await cancelAppointment({ appoId, paymentId, userId });
           Swal.fire({
             title: "Cancelled!",
@@ -253,6 +254,7 @@ const AppointmentList = () => {
           }
         }
       });
+
 
     } catch (error) {
       console.log(error.message);
