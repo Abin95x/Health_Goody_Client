@@ -58,14 +58,11 @@ const DoctorList = () => {
         setCurrentPage(1);
     };
 
-
-
     const totalPages = Math.ceil(totalCount / noOfDoctors);
 
     return (
 
         <>
-
             {
                 loading ? (
                     <div className="fixed inset-0 flex items-center justify-center min-h-screen">

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { appointmentList } from '../../../Api/adminApi';
-import Loading from "../../../Components/Loading/Loading";
+// import Loading from "../../../Components/Loading/Loading";
 
 const AppointmentList = () => {
     const [appointments, setAppointments] = useState([]);

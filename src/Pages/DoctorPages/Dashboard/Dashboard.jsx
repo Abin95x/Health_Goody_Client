@@ -11,10 +11,6 @@ import { counts } from '../../../Api/doctorApi';
 import Loading from "../../../Components/Loading/Loading";
 
 
-
-
-
-
 const Dashboard = () => {
     const { _id } = useSelector((state) => state.reducer.doctorReducer.doctor);
     const [data, setData] = useState()

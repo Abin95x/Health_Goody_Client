@@ -51,7 +51,7 @@ const Slots = () => {
             </div>
             <br />
             <div className='flex justify-center'>
-                <div className='w-full lg:w-[800px] bg-white min-h-[500px] = shadow-xl rounded overflow-hidden'>
+                <div className='w-full lg:w-[1000px] bg-white min-h-[600px] = shadow-xl rounded overflow-hidden'>
                     {paginatedSlots.length === 0 ? (
                         <div className="text-center py-6">
                             <p className="text-gray-500 text-lg">No slots added</p>
@@ -89,7 +89,7 @@ const Slots = () => {
                     )}
                 </div>
             </div>
-            {slots.length > pageSize && (
+            {slots && pageSize && (
                 <div className="flex justify-center mt-4 bg-blue-50">
                     {Array.from({ length: Math.ceil(slots.length / pageSize) }, (_, index) => (
                         <button

@@ -13,17 +13,12 @@ const SpecialityList = () => {
     const [search, setSearch] = useState();
     const [filteredSpeciality, setFilteredSpeciality] = useState();
     const [loading, setLoading] = useState(false);
-
-
-
     const [currentPage, setCurrentPage] = useState(1);
     const limit = 5;
 
     const handleClick = async () => {
         setLoading(true);
-
         const response = await addSpeciality({ speciality, photo });
-
         setLoading(false);
 
         if (response) {
@@ -32,11 +27,6 @@ const SpecialityList = () => {
                 position: 'top',
                 showConfirmButton: false,
                 timer: 3000,
-                // timerProgressBar: true,
-                // didOpen: (toast) => {
-                //     toast.onmouseenter = Swal.stopTimer;
-                //     toast.onmouseleave = Swal.resumeTimer;
-                // },
             });
             setRerender(!rerender);
             Toast.fire({

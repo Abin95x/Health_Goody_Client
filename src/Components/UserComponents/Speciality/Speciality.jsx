@@ -31,29 +31,30 @@ const Speciality = () => {
         <>
             <div className='bg-blue-50'>
                 <div className='text-center bg-blue-50'>
-                    <h1 className="text-3xl font-bold text-black underline  ">Specialities</h1>
+                    <h1 className="text-3xl font-bold text-black underline">Specialities</h1>
                 </div>
-                <div className="bg-blue-50 flex  items-center justify-center h-96">
-                    <span className='m-10'><FontAwesomeIcon icon={faArrowLeft} /></span>
-                    <div className="carousel   w-[1240px] flex flex-row border rounded-lg bg-white shadow-2xl">
-                        <div className="carousel rounded-box  ">
+                <div className="bg-blue-50 flex items-center justify-center h-96">
+                    <span className='m-2 sm:m-10 text-sm'><FontAwesomeIcon icon={faArrowLeft} /></span>
+                    <div className="carousel w-full sm:w-[1500px] flex flex-row border rounded-full bg-white shadow-2xl overflow-x-scroll">
+                        <div className="carousel rounded-box ">
                             {slist && slist.map((speciality) => (
                                 <div key={speciality._id} className="carousel-item cursor-pointer " onClick={() => handleClick(speciality._id)}>
-                                    <div className="max-w-xs mx-auto p-4 bg-white flex flex-col items-center space-y-5 text-center">
-                                        <div className='mx-10 '>
-                                            <img className="w-full h-32 object-cover mb-4" src={speciality.photo} alt={speciality.speciality} />
-                                            <p className="text-lg text-black font-semibold">{speciality.speciality}</p>
+                                    <div className="max-w-xs mx-auto p-2 sm:p-4 bg-white flex flex-col items-center space-y-2 sm:space-y-5 text-center">
+                                        <div className='mx-2 sm:mx-10'>
+                                            <img className="w-full h-16 sm:h-32 object-cover mb-2 sm:mb-4" src={speciality.photo} alt={speciality.speciality} />
+                                            <p className="text-sm sm:text-lg text-black font-semibold">{speciality.speciality}</p>
                                         </div>
                                     </div>
                                 </div>
                             ))}
                         </div>
                     </div>
-                    <span className='m-10'><FontAwesomeIcon icon={faArrowRight} /></span>
+                    <span className='m-2 sm:m-10 text-sm'><FontAwesomeIcon icon={faArrowRight} /></span>
                     <br />
                 </div>
             </div>
         </>
+
 
     );
 };

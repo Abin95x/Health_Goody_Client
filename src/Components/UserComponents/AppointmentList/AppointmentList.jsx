@@ -24,14 +24,11 @@ const AppointmentList = () => {
   const [btn, setBtn] = useState(false);
   const [openModalx, setOpenModalx] = useState(false);
   const navigate = useNavigate();
-  const { _id } = useSelector((state) => state.reducer.userReducer.user);
   const [drId, setDrId] = useState();
   const [currentPage, setCurrentPage] = useState(1);
   const [review, setReview] = useState()
   const [rating, setRating] = useState(3);
   const [loading, setLoading] = useState(false);
-
-
 
   const limit = 5;
 
@@ -224,40 +221,46 @@ const AppointmentList = () => {
             </div>
           </div>
         ) : (
-          <div className="bg-blue-50 w-screen overflow-x-auto" >
-            <div className="min-h-[500px] flex justify-center">
-              <div className="bg-white min-h-[500px] min-w-[900px] m-10 rounded-2xl shadow-2xl">
-                <div className="text-center m-5">
-                  <h1 className="text-lg text-blue-600">Appointments</h1>
-                </div>
-                <hr className="border border-blue-300 mx-5" />
-                <div className="m-5 h-14 rounded-xl border flex justify-center overflow-x-auto">
+
+
+          <div className="bg-blue-50 w-screen  overflow-x-auto" >
+            <h1 className=" text-center text-2xl underline text-black m-10">Appointments</h1>
+            <div className="flex justify-center">
+
+              <div className="w-[1000px] h-[650px]  bg-white shadow-xl rounded-md">
+                <div className="overflow-x-auto">
                   <table className="table w-full text-black">
-                    <tr className="">
-                      <th className="">Doctor</th>
-                      <th className="">Appo.date</th>
-                      <th className="">Booked</th>
-                      <th className="">Amount</th>
-                      <th className="">Timing</th>
-                      <th className="">Status</th>
-                      <th className="">More</th>
-                    </tr>
-                  </table>
-                </div>
-
-                <div className="m-5 min-h-[400px] rounded-xl border overflow-x-auto">
-                  {appo.length === 0 ? (
-                    <div className="text-center p-5 text-gray-500">No appointments available</div>
-                  ) : (
-                    <div className="flex justify-center">
-                      <table className="table w-full text-black">
-                        {appo.map((appointment) => (
-
+                    <thead className="text-stone-950 bg-blue-400 h-16 rounded-md">
+                      <tr>
+                        <th>NO</th>
+                        <th>Doctor</th>
+                        <th>Appo. date</th>
+                        <th>Booked</th>
+                        <th>Amount</th>
+                        <th>Timing</th>
+                        <th>Status</th>
+                        <th>More</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {appo.length === 0 ? (
+                        <tr>
+                          <td colSpan="8" className="text-center p-5 text-gray-500">
+                            No appointments available
+                          </td>
+                        </tr>
+                      ) : (
+                        appo.map((appointment, index) => (
                           <tr key={appointment.id}>
-                            <td><Link to={`/doctordetails/${appointment.doctorDetails._id}`} className="">{appointment.doctorDetails.name}</Link></td>
+                            <th>{index + 1}</th>
+                            <td>
+                              <Link to={`/doctordetails/${appointment.doctorDetails._id}`} className="">
+                                {appointment.doctorDetails.name}
+                              </Link>
+                            </td>
                             <td className="text-blue-600">{appointment.consultationDate}</td>
-                            <td className="">{appointment.createdAt}</td>
-                            <td className="">299</td>
+                            <td>{appointment.createdAt}</td>
+                            <td>299</td>
                             <td className="text-blue-600">
                               {appointment.start} - {appointment.end}
                             </td>
@@ -267,9 +270,8 @@ const AppointmentList = () => {
                                   ''}`}>
                               {appointment.status}
                             </td>
-
                             <td
-                              className="hover:cursor-pointer text-sk y-600"
+                              className="hover:cursor-pointer text-sky-600"
                               onClick={() => {
                                 setOpenModal(true);
                                 setData(appointment);
@@ -279,14 +281,20 @@ const AppointmentList = () => {
                               More
                             </td>
                           </tr>
+                        ))
+                      )}
+                    </tbody>
+                    <tfoot>
 
-                        ))}
-                      </table>
-                    </div>
-                  )}
+                    </tfoot>
+                  </table>
                 </div>
+
               </div>
             </div>
+
+
+
 
             {
               pagination && pagination.totalPages && (
@@ -392,7 +400,6 @@ const AppointmentList = () => {
                     )}
                   </Modal.Body>
 
-
                   <Modal.Footer className="flex justify-center">
                     {data.status === "Pending" && (
                       <>
@@ -440,7 +447,6 @@ const AppointmentList = () => {
                     )}
                     {data.status === "Cancelled" && (
                       <>
-
                       </>
                     )}
                   </Modal.Footer>
@@ -464,12 +470,8 @@ const AppointmentList = () => {
                         <span class="text-white font-bold text-3xl">With doctor.</span>
                         <p class="text-white">Click I accept to connect with doctor</p>
                       </div>
-
-
                     </div>
-
                   </div>
-
                 </div>
               </Modal.Body>
               <Modal.Footer>

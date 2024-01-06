@@ -270,7 +270,7 @@ const AppointmentList = () => {
       </div>
       <br />
       <div className='flex justify-center'>
-        <div className='w-full lg:w-[1000px] bg-white min-h-[500px] rounded shadow-xl overflow-hidden'>
+        <div className='w-full lg:w-[1000px] bg-white min-h-[600px] rounded shadow-xl overflow-hidden'>
           {appo.length === 0 ? (
             <div className="text-center p-4  text-gray-600">
               No appointments available.

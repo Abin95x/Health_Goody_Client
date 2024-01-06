@@ -16,7 +16,8 @@ import { editPhoto } from '../../../Api/userApi';
 const Profile = () => {
   const [userData, setUserData] = useState();
   const [loading, setLoading] = useState(false);
-  const { _id } = useSelector((state) => state.reducer.userReducer.user);
+  const { user } = useSelector((state) => state.reducer.userReducer);
+  const _id = user ? user._id : null;
   const [openModal, setOpenModal] = useState(false);
   const [openModalEdit, setOpenModalEdit] = useState(false);
   const [img, setImg] = useState()

@@ -6,10 +6,11 @@ import Swal from 'sweetalert2';
 // import good from '../../../Assets/icon/good.svg'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHouse, faRightToBracket, faUser, faUserDoctor, faBell, faCalendarCheck, faStethoscope, faComment } from '@fortawesome/free-solid-svg-icons';
-
+import { useSelector } from 'react-redux';
 
 const Header = () => {
-
+  const { user } = useSelector((state) => state.reducer.userReducer);
+  const photo = user ? user.photo : null;
   let token = localStorage.getItem('usertoken');
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -19,11 +20,6 @@ const Header = () => {
       position: 'top',
       showConfirmButton: false,
       timer: 3000,
-      // timerProgressBar: true,
-      // didOpen: (toast) => {
-      //   toast.onmouseenter = Swal.stopTimer;
-      //   toast.onmouseleave = Swal.resumeTimer;
-      // }
     });
     Toast.fire({
       icon: 'info',
@@ -52,7 +48,6 @@ const Header = () => {
                   <li><Link to='/'>HOME <FontAwesomeIcon icon={faHouse} /></Link></li>
                   <li><Link to='/doctorlist'>DOCTORS <FontAwesomeIcon icon={faUserDoctor} /></Link></li>
                   <li><Link to='/appointments'>APPOINTMENTS <FontAwesomeIcon icon={faCalendarCheck} /></Link></li>
-                  {/* <li><Link to=''>HEALTH RECORDS</Link></li> */}
                   <li><Link to='/chatuser'>CHATS<FontAwesomeIcon icon={faComment} /></Link></li>
                 </ul>) : (
                 <ul tabIndex={0} className='menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52'>
@@ -74,8 +69,6 @@ const Header = () => {
             <li><Link to='/'>HOME <FontAwesomeIcon icon={faHouse} /></Link></li>
             <li><Link to='/doctorlist'>DOCTORS <FontAwesomeIcon icon={faUserDoctor} /></Link></li>
             <li><Link to='/appointments'>APPOINTMENTS <FontAwesomeIcon icon={faCalendarCheck} /></Link></li>
-            {/* <li><Link to=''>HEALTH RECORDS</Link></li> */}
-
           </ul>
         </div>
 
@@ -91,6 +84,26 @@ const Header = () => {
         token ? (
           <div className='navbar-end '>
             <div className='hidden lg:flex'>
+
+              <button
+                class="overflow-hidden me-10 mt-1  w-32 p-2 h-10 bg-black text-white border-none rounded-2xl font-bold cursor-pointer relative z-10 group"
+              >
+                Notifications
+                <span
+                  class="absolute w-36 h-32 -top-8 -left-2 bg-sky-200 rotate-12 transform scale-x-0 group-hover:scale-x-100 transition-transform group-hover:duration-500 duration-1000 origin-right"
+                ></span>
+                <span
+                  class="absolute w-36 h-32 -top-8 -left-2 bg-sky-400 rotate-12 transform scale-x-0 group-hover:scale-x-100 transition-transform group-hover:duration-700 duration-700 origin-right"
+                ></span>
+                <span
+                  class="absolute w-36 h-32 -top-8 -left-2 bg-sky-600 rotate-12 transform scale-x-0 group-hover:scale-x-100 transition-transform group-hover:duration-1000 duration-500 origin-right"
+                ></span>
+                <span
+                  class="group-hover:opacity-100 group-hover:duration-1000  duration-100 opacity-0 absolute top-2.5 left-6 z-10"
+                ><FontAwesomeIcon className='mx-8' icon={faBell} />
+                </span>
+
+              </button>
               <Link to='/chatuser' className='me-5 text-sm'  >
                 <div class="group relative">
                   <button>
@@ -120,15 +133,11 @@ const Header = () => {
                   ></span>
                 </div>
               </Link>
-
             </div>
-
-            {/* <FontAwesomeIcon icon={faBell} style={{ color: "#000000", }} className='me-10' /> */}
             <div className='dropdown dropdown-end'>
               <label tabIndex={0} className='btn btn-ghost btn-circle avatar'>
-                <div className='w-10 rounded-full'>
-                  <FontAwesomeIcon icon={faUser} style={{ color: "#000000", }} className='h-12 w-5' />
-                  {/* <img src='icon.jpg' /> */}
+                <div className="w-24  rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
+                  <img src={photo} alt="" />
                 </div>
               </label>
               <ul tabIndex={0} className='mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-white rounded-box w-52'>
@@ -145,14 +154,10 @@ const Header = () => {
                   <img src='icon.jpg' />
                 </div>
               </label>
-              {/* <ul tabIndex={0} className='mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52'>
-                <li><Link to='/login'>LOGIN</Link></li>
-              </ul> */}
             </div>
           </div>
         )
       }
-
 
     </div >
   );
