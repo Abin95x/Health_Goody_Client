@@ -14,7 +14,7 @@ const AppointmentList = () => {
         const fetchAppointments = async () => {
             try {
                 const response = await appointmentList(currentPage, itemsPerPage);
-                setAppointments(response.data.data);
+                setAppointments(response.data.reviews);
                 setPagination(response.data.pagination); // Update pagination state
             } catch (error) {
                 console.error(error.message);

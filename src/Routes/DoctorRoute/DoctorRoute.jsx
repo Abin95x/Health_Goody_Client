@@ -19,6 +19,7 @@ import ResetPassword from '../../Pages/DoctorPages/ResetPassword/ResetPassword';
 import MedicalReport from '../../Pages/DoctorPages/MedicalReport/MedicalReport';
 import Error404 from '../../Components/Error/404'
 import Error500 from '../../Components/Error/500'
+import ReviewPage from '../../Pages/DoctorPages/ReviewPage/ReviewPage';
 
 const DoctorRoute = () => {
     return (
@@ -40,8 +41,7 @@ const DoctorRoute = () => {
             <Route path="*" element={<Error404 />} />
             <Route path="/pageNotFound" element={<Error404 />} />
             <Route path="/internalError" element={<Error500 />} />
-
-
+            <Route path='/reviews' element={<DoctorProtect><ReviewPage /></DoctorProtect>} />
         </Routes >
     );
 };

@@ -18,15 +18,11 @@ const Dashboard = () => {
     const [reportData, setReportData] = useState({});
     const [loading, setLoading] = useState(false);
 
-
-
     useEffect(() => {
         setLoading(true);
-
         chartDetails(_id).then((res) => {
             setLoading(false);
             setPieData(res.data.obj)
-
         }).catch((error) => {
             setLoading(false);
             console.log(error.message);
@@ -37,7 +33,6 @@ const Dashboard = () => {
         const getCount = async () => {
             try {
                 const res = await counts(_id)
-                console.log(res);
                 setData(res.data)
             } catch (error) {
                 console.log(error.message);
@@ -50,7 +45,6 @@ const Dashboard = () => {
                 setReportData(report?.data?.appointmentData);
             } catch (error) {
                 console.log(error.message);
-
             }
         }
         getCount()

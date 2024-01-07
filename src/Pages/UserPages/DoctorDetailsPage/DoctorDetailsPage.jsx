@@ -7,7 +7,9 @@ const DoctorDetailsPage = () => {
     return (
         <>
             <Header />
-            <DoctorDetails />
+            <div className='min-h-screen bg-blue-50'>
+                <DoctorDetails />
+            </div>
             <Footer />
         </>
 

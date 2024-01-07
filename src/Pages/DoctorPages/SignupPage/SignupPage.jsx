@@ -89,7 +89,6 @@ const SignupPage = () => {
             speciality: '',
             password1: '',
             password2: '',
-
         },
         validationSchema: doctorSchema,
         onSubmit
@@ -104,8 +103,6 @@ const SignupPage = () => {
         });
 
     }, []);
-
-
 
 
     return (

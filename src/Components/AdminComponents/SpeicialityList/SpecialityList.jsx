@@ -53,7 +53,6 @@ const SpecialityList = () => {
         try {
             setData(speciality);
             setEdit(speciality.speciality);
-
             document.getElementById('my_modal');
         } catch (error) {
             console.log(error);

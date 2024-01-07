@@ -35,7 +35,7 @@ const Speciality = () => {
                 </div>
                 <div className="bg-blue-50 flex items-center justify-center h-96">
                     <span className='m-2 sm:m-10 text-sm'><FontAwesomeIcon icon={faArrowLeft} /></span>
-                    <div className="carousel w-full sm:w-[1500px] flex flex-row border rounded-full bg-white shadow-2xl overflow-x-scroll">
+                    <div className="carousel w-full sm:w-[1300px] flex flex-row border  bg-white shadow-2xl rounded-xl overflow-x-scroll">
                         <div className="carousel rounded-box ">
                             {slist && slist.map((speciality) => (
                                 <div key={speciality._id} className="carousel-item cursor-pointer " onClick={() => handleClick(speciality._id)}>

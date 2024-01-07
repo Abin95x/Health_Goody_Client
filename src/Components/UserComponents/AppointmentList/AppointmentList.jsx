@@ -191,7 +191,7 @@ const AppointmentList = () => {
         console.log("Rating and/or review cannot be empty.");
         return;
       }
-      const res = await addReview({ userId: _id, drId, review, rating })
+      const res = await addReview({ userId: id, drId, review, rating })
 
       if (res.status === 200) {
         const Toast = Swal.mixin({
@@ -292,8 +292,6 @@ const AppointmentList = () => {
 
               </div>
             </div>
-
-
 
 
             {

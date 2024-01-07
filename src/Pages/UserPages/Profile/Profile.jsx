@@ -20,7 +20,7 @@ const Profile = () => {
   const _id = user ? user._id : null;
   const [openModal, setOpenModal] = useState(false);
   const [openModalEdit, setOpenModalEdit] = useState(false);
-  const [img, setImg] = useState()
+  const [img, setImg] = useState(null)
   const [render, setRender] = useState(false)
 
   const onSubmit = async () => {
@@ -91,7 +91,7 @@ const Profile = () => {
   if (img) {
     const x = async (img) => {
       try {
-        const res = await editPhoto({ img, _id });
+        await editPhoto({ img, _id });
         setRender(true);
       } catch (error) {
         console.error("Error editing photo:", error);

@@ -10,7 +10,7 @@ const createAxiosInstance = (baseURL) => {
     const instance = axios.create({
         baseURL,
         timeout: 200000,
-        timeoutErrorMessage: 'Request Timeout... Please try again!..',
+        timeoutErrorMessage: 'Request Timeout... Please try again...!',
     });
     return instance;
 };
@@ -22,7 +22,6 @@ const attachToken = (req, tokenName) => {
     }
     return req;
 };
-
 
 export const userAxiosInstance = createAxiosInstance(userBaseURL);
 userAxiosInstance.interceptors.request.use(async (req) => {
@@ -59,6 +58,7 @@ doctorAxiosInstance.interceptors.response.use(
 
 const handleAxiosError = (error, role) => {
     if (error.response) {
+        console.log(error.response);
         if (error.response.status === 404) {
             const Toast = Swal.mixin({
                 toast: true,
@@ -68,14 +68,13 @@ const handleAxiosError = (error, role) => {
             });
             Toast.fire({
                 icon: 'error',
-                // title: "404 - Resource Not Found"
                 title: error.response.data.message,
             });
-            if (role === "user") {
-                window.location.href = `/pageNotFound`;
-            } else {
-                window.location.href = `/${role}/pageNotFound`;
-            }
+            // if (role === "user") {
+            //     window.location.href = `/pageNotFound`;
+            // } else {
+            //     window.location.href = `/${role}/pageNotFound`;
+            // }
 
         } else if (error.response.status === 401) {
 
@@ -116,7 +115,6 @@ const handleAxiosError = (error, role) => {
             });
             Toast.fire({
                 icon: 'error',
-                // title: "500 - Internal Server Error",
                 title: error.response.data.message,
             });
             if (role === "user") {
@@ -135,7 +133,6 @@ const handleAxiosError = (error, role) => {
             });
             Toast.fire({
                 icon: 'error',
-                // title: "error"
                 title: error.response.data.message,
 
             });
@@ -150,7 +147,6 @@ const handleAxiosError = (error, role) => {
         });
         Toast.fire({
             icon: 'error',
-            // title: "error"
             title: error.response.data.message,
 
         });

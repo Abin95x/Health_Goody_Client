@@ -91,7 +91,6 @@ export async function addMedicalReport(values) {
 export async function chartDetails(drId) {
     const data = await doctorAxiosInstance.get(`/chartDetails?drId=${drId}`)
     return data
-
 }
 
 export async function doctorReport() {
@@ -100,7 +99,7 @@ export async function doctorReport() {
 }
 
 export async function counts(doctorId) {
-    const data = await doctorAxiosInstance.get(`/counts?doctorId=${doctorId} `);
+    const data = await doctorAxiosInstance.get(`/counts?doctorId=${doctorId}`);
     return data;
 }
 
@@ -109,15 +108,17 @@ export async function appoReschedule(values) {
     return data
 }
 
-
 export async function cancelAppointment(values) {
-    console.log(values);
     const data = await doctorAxiosInstance.patch(`/cancelAppointment`, values)
     return data
 }
 
 export async function editPhoto(values) {
-    console.log(values);
     const data = await doctorAxiosInstance.patch('/editPhoto', values);
     return data;
+}
+
+export async function getReviews(drId, currentPage, itemsPerPage) {
+    const data = await doctorAxiosInstance.get(`/getReviews?id=${drId}&page=${currentPage}&limit=${itemsPerPage}`)
+    return data
 }

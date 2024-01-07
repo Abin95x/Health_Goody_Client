@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import { doctorLogout } from '../../../Redux/DoctorSlice/DoctorSlice';
 import Swal from 'sweetalert2';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCheckToSlot, faUser, faCalendarCheck, faStethoscope, faComments, faChartSimple } from '@fortawesome/free-solid-svg-icons';
+import { faCheckToSlot, faUser, faCalendarCheck, faStethoscope, faComments, faChartSimple, faStar } from '@fortawesome/free-solid-svg-icons';
 
 
 
@@ -64,6 +64,8 @@ const Header = () => {
               <li><Link to='/doctor/slots'>SLOTS<FontAwesomeIcon icon={faCheckToSlot} /></Link></li>
               <li><Link to='/doctor/chatpagedoctor'>CHATS <FontAwesomeIcon icon={faComments} /></Link></li>
               <li><Link to='/doctor/appointment'>APPOINTMENTS <FontAwesomeIcon icon={faCalendarCheck} /></Link></li>
+              <li><Link to='/doctor/reviews'>REVIEWS <FontAwesomeIcon icon={faStar} /></Link></li>
+
             </ul>
           </div>
           <Link to={'/doctor/dashboard'} className='btn btn-ghost normal-case text-xl'>HEALTH GOODY <FontAwesomeIcon icon={faStethoscope} /></Link>
@@ -74,13 +76,14 @@ const Header = () => {
             <li><Link to='/doctor/doctorprofile'>PROFILE<FontAwesomeIcon icon={faUser} /></Link></li>
             <li><Link to='/doctor/slots'>SLOTS <FontAwesomeIcon icon={faCheckToSlot} /></Link></li>
             <li><Link to='/doctor/appointment'>APPOINTMENTS <FontAwesomeIcon icon={faCalendarCheck} /></Link></li>
+            <li><Link to='/doctor/reviews'>REVIEWS <FontAwesomeIcon icon={faStar} /></Link></li>
+
           </ul>
         </div>
         <div className='navbar-end'>
 
           {!isMobile && (
             <Link to='/doctor/chatpagedoctor' className='me-5 text-sm'>
-              {/* CHATS <FontAwesomeIcon icon={faComments} className='mx-2' /> */}
               <div class="group relative">
                 <button>
                   <svg
@@ -112,7 +115,6 @@ const Header = () => {
             </Link>
 
           )}
-          {/* <button onClick={handleLogout} className='btn btn-error'>LogOut</button> */}
           <button onClick={handleLogout} class="cursor-pointer relative group overflow-hidden border-2 rounded-full px-8 py-2 border-green-500">
             <span class="font-bold text-white text-xl relative z-10 group-hover:text-green-500 duration-500">Log Out</span>
             <span class="absolute top-0 left-0 w-full bg-green-500 duration-500 group-hover:-translate-x-full h-full"></span>
