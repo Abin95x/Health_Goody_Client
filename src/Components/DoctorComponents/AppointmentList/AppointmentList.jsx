@@ -498,16 +498,16 @@ const AppointmentList = () => {
         <Modal.Body>
           <div className="space-y-6">
             <div className='flex justify-center'>
-              <div class="relative group cursor-pointer group overflow-hidden  text-gray-50 h-72 w-56  rounded-2xl hover:duration-700 duration-700">
-                <div class="w-56 h-72 bg-emerald-400 text-gray-800">
-                  <div class="flex flex-row justify-center">
-                    <FontAwesomeIcon icon={faComment} className=' m-10 w-20 h-20 ' />
+              <div className="relative group cursor-pointer group overflow-hidden  text-gray-50 h-72 w-56  rounded-2xl hover:duration-700 duration-700">
+                <div className="w-56 h-72 bg-emerald-400 text-gray-800">
+                  <div className="flex flex-row justify-center">
+                    <FontAwesomeIcon icon={faComment} classNameName=' m-10 w-20 h-20 ' />
                   </div>
                 </div>
-                <div class="absolute bg-black -bottom-24 w-56 p-3 flex flex-col gap-1 group-hover:-bottom-0 group-hover:duration-600 duration-500">
-                  <span class="text-white font-bold text-xs">CONNECT</span>
-                  <span class="text-white font-bold text-3xl">With patiant.</span>
-                  <p class="text-white">Click I accept to connect with patient</p>
+                <div className="absolute bg-black -bottom-24 w-56 p-3 flex flex-col gap-1 group-hover:-bottom-0 group-hover:duration-600 duration-500">
+                  <span className="text-white font-bold text-xs">CONNECT</span>
+                  <span className="text-white font-bold text-3xl">With patiant.</span>
+                  <p className="text-white">Click I accept to connect with patient</p>
                 </div>
               </div>
             </div>

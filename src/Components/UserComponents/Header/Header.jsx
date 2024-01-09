@@ -86,38 +86,38 @@ const Header = () => {
             <div className='hidden lg:flex'>
               <Link to='/notifications'>
                 <button
-                  class="overflow-hidden me-10 mt-1  w-32 p-2 h-10 bg-black text-white border-none rounded-2xl font-bold cursor-pointer relative z-10 group"
+                  className="overflow-hidden me-10 mt-1  w-32 p-2 h-10 bg-black text-white border-none rounded-2xl font-bold cursor-pointer relative z-10 group"
                 >
                   Notifications
                   <span
-                    class="absolute w-36 h-32 -top-8 -left-2 bg-sky-200 rotate-12 transform scale-x-0 group-hover:scale-x-100 transition-transform group-hover:duration-500 duration-1000 origin-right"
+                    className="absolute w-36 h-32 -top-8 -left-2 bg-sky-200 rotate-12 transform scale-x-0 group-hover:scale-x-100 transition-transform group-hover:duration-500 duration-1000 origin-right"
                   ></span>
                   <span
-                    class="absolute w-36 h-32 -top-8 -left-2 bg-sky-400 rotate-12 transform scale-x-0 group-hover:scale-x-100 transition-transform group-hover:duration-700 duration-700 origin-right"
+                    className="absolute w-36 h-32 -top-8 -left-2 bg-sky-400 rotate-12 transform scale-x-0 group-hover:scale-x-100 transition-transform group-hover:duration-700 duration-700 origin-right"
                   ></span>
                   <span
-                    class="absolute w-36 h-32 -top-8 -left-2 bg-sky-600 rotate-12 transform scale-x-0 group-hover:scale-x-100 transition-transform group-hover:duration-1000 duration-500 origin-right"
+                    className="absolute w-36 h-32 -top-8 -left-2 bg-sky-600 rotate-12 transform scale-x-0 group-hover:scale-x-100 transition-transform group-hover:duration-1000 duration-500 origin-right"
                   ></span>
                   <span
-                    class="group-hover:opacity-100 group-hover:duration-1000  duration-100 opacity-0 absolute top-2.5 left-6 z-10"
+                    className="group-hover:opacity-100 group-hover:duration-1000  duration-100 opacity-0 absolute top-2.5 left-6 z-10"
                   ><FontAwesomeIcon className='mx-8' icon={faBell} />
                   </span>
 
                 </button>
               </Link>
               <Link to='/chatuser' className='me-5 text-sm'  >
-                <div class="group relative">
+                <div className="group relative">
                   <button>
                     <svg
-                      stroke-linejoin="round"
-                      stroke-linecap="round"
+                      strokeLinejoin="round"
+                      strokeLinecap="round"
                       stroke="currentColor"
-                      stroke-width="2"
+                      strokeWidth="2"
                       viewBox="0 0 24 24"
                       height="44"
                       width="44"
                       xmlns="http://www.w3.org/2000/svg"
-                      class="w-8 hover:scale-125 duration-200 hover:stroke-blue-500"
+                      className="w-8 hover:scale-125 duration-200 hover:stroke-blue-500"
                       fill="none"
                     >
                       <path fill="none" d="M0 0h24v24H0z" stroke="none"></path>
@@ -142,7 +142,7 @@ const Header = () => {
                 <li><a onClick={handleLogout}>Logout</a></li>
               </ul>
             </div>
-          </div>
+          </div >
         ) : (
           <div className='navbar-end'>
             <div className='dropdown dropdown-end'>

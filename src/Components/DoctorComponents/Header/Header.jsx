@@ -84,18 +84,18 @@ const Header = () => {
 
           {!isMobile && (
             <Link to='/doctor/chatpagedoctor' className='me-5 text-sm'>
-              <div class="group relative">
+              <div className="group relative">
                 <button>
                   <svg
-                    stroke-linejoin="round"
-                    stroke-linecap="round"
+                    strokeLinejoin="round"
+                    strokeLinecap="round"
                     stroke="currentColor"
-                    stroke-width="2"
+                    strokeWidth="2"
                     viewBox="0 0 24 24"
                     height="44"
                     width="44"
                     xmlns="http://www.w3.org/2000/svg"
-                    class="w-8 hover:scale-125 duration-200 hover:stroke-blue-500"
+                    className="w-8 hover:scale-125 duration-200 hover:stroke-blue-500"
                     fill="none"
                   >
                     <path fill="none" d="M0 0h24v24H0z" stroke="none"></path>
@@ -110,13 +110,13 @@ const Header = () => {
             </Link>
 
           )}
-          <button onClick={handleLogout} class="cursor-pointer relative group overflow-hidden border-2 rounded-full px-8 py-2 border-green-500">
-            <span class="font-bold text-white text-xl relative z-10 group-hover:text-green-500 duration-500">Log Out</span>
-            <span class="absolute top-0 left-0 w-full bg-green-500 duration-500 group-hover:-translate-x-full h-full"></span>
-            <span class="absolute top-0 left-0 w-full bg-green-500 duration-500 group-hover:translate-x-full h-full"></span>
+          <button onClick={handleLogout} className="cursor-pointer relative group overflow-hidden border-2 rounded-full px-8 py-2 border-green-500">
+            <span className="font-bold text-white text-xl relative z-10 group-hover:text-green-500 duration-500">Log Out</span>
+            <span className="absolute top-0 left-0 w-full bg-green-500 duration-500 group-hover:-translate-x-full h-full"></span>
+            <span className="absolute top-0 left-0 w-full bg-green-500 duration-500 group-hover:translate-x-full h-full"></span>
 
-            <span class="absolute top-0 left-0 w-full bg-green-500 duration-500 delay-300 group-hover:-translate-y-full h-full"></span>
-            <span class="absolute delay-300 top-0 left-0 w-full bg-green-500 duration-500 group-hover:translate-y-full h-full"></span>
+            <span className="absolute top-0 left-0 w-full bg-green-500 duration-500 delay-300 group-hover:-translate-y-full h-full"></span>
+            <span className="absolute delay-300 top-0 left-0 w-full bg-green-500 duration-500 group-hover:translate-y-full h-full"></span>
           </button>
 
         </div>
