@@ -36,7 +36,8 @@ const Body = () => {
                   <h2 className='card-title text-white'>2 . Choose the doctor</h2>
                   <h2 className='card-title text-white'>3 . Book a slot</h2>
                   <h2 className='card-title text-white'>4 . Make payment</h2>
-                  <h2 className='card-title text-white'>5 . Be present in the consult room on HEALTH GOODY at the time of consult</h2>
+                  <h2 className='card-title text-white'>5 . Be present on HEALTH GOODY at the time of the consultation. </h2>
+
                   <br />
                   {
                     token ? (

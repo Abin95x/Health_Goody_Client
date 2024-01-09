@@ -29,9 +29,7 @@ const AppointmentList = () => {
   const [review, setReview] = useState()
   const [rating, setRating] = useState(3);
   const [loading, setLoading] = useState(false);
-
   const limit = 5;
-
 
   useEffect(() => {
     setLoading(true)
@@ -46,8 +44,6 @@ const AppointmentList = () => {
         console.log(error.message);
       });
   }, [id, currentPage, limit, render]);
-
-
 
   const handleCancel = async (id) => {
     try {
@@ -78,7 +74,6 @@ const AppointmentList = () => {
       console.log(error.message);
     }
   };
-
 
 
   const handleAccept = async () => {
@@ -258,46 +253,48 @@ const AppointmentList = () => {
                       </tr>
                     </thead>
                     <tbody>
-                      {appo.length === 0 ? (
-                        <tr>
-                          <td colSpan="8" className="text-center p-5 text-gray-500">
-                            No appointments available
-                          </td>
-                        </tr>
-                      ) : (
-                        appo.map((appointment, index) => (
-                          <tr key={appointment.id}>
-                            <th>{index + 1}</th>
-                            <td>
-                              <Link to={`/doctordetails/${appointment.doctorDetails._id}`} className="">
-                                {appointment.doctorDetails.name}
-                              </Link>
-                            </td>
-                            <td className="text-blue-600">{appointment.consultationDate}</td>
-                            <td>{appointment.createdAt}</td>
-                            <td>299</td>
-                            <td className="text-blue-600">
-                              {appointment.start} - {appointment.end}
-                            </td>
-                            <td className={`${appointment.status === 'Pending' ? 'text-yellow-300' :
-                              appointment.status === 'Done' ? 'text-green-500' :
-                                appointment.status === 'Cancelled' || appointment.status === 'CancelledByDoctor' ? 'text-red-500' :
-                                  ''}`}>
-                              {appointment.status}
-                            </td>
-                            <td
-                              className="hover:cursor-pointer text-sky-600"
-                              onClick={() => {
-                                setOpenModal(true);
-                                setData(appointment);
-                                setDrId(appointment.doctorDetails._id);
-                              }}
-                            >
-                              More
+                      {
+                        appo?.length === 0 ? (
+                          < tr >
+                            <td colSpan="8" className="text-center p-5 text-gray-500">
+                              No appointments available
                             </td>
                           </tr>
-                        ))
-                      )}
+                        ) : (
+                          appo.map((appointment, index) => (
+                            <tr key={appointment.id}>
+                              <th>{index + 1}</th>
+                              <td>
+                                <Link to={`/doctordetails/${appointment.doctorDetails._id}`} className="">
+                                  {appointment.doctorDetails.name}
+                                </Link>
+                              </td>
+                              <td className="text-blue-600">{appointment.consultationDate}</td>
+                              <td>{appointment.createdAt}</td>
+                              <td>299</td>
+                              <td className="text-blue-600">
+                                {appointment.start} - {appointment.end}
+                              </td>
+                              <td className={`${appointment.status === 'Pending' ? 'text-yellow-300' :
+                                appointment.status === 'Done' ? 'text-green-500' :
+                                  appointment.status === 'Cancelled' || appointment.status === 'CancelledByDoctor' ? 'text-red-500' :
+                                    ''}`}>
+                                {appointment.status}
+                              </td>
+                              <td
+                                className="hover:cursor-pointer text-sky-600"
+                                onClick={() => {
+                                  setOpenModal(true);
+                                  setData(appointment);
+                                  setDrId(appointment.doctorDetails._id);
+                                }}
+                              >
+                                More
+                              </td>
+                            </tr>
+                          ))
+                        )
+                      }
                     </tbody>
                     <tfoot>
 
@@ -427,6 +424,7 @@ const AppointmentList = () => {
                         {btn ? (
                           <div className="flex justify-center">
                             <Button
+                              color="yellow"
                               className=" btn-primary w-40"
                               onClick={() => handleNavigate()}
                             >
@@ -434,17 +432,17 @@ const AppointmentList = () => {
                             </Button>
                           </div>
                         ) : (
-                          <div className="flex justify-center w-40">
-                            <Button className=" " onClick={() => setOpenModalx(true)}>
+                          <div className="flex justify-center">
+                            <Button color="yellow" className="w-40" onClick={() => setOpenModalx(true)}>
                               Connect doctor
                             </Button>
                           </div>
                         )}
                         <div className="flex justify-center">
-                          <Button onClick={() => { handlePrescription() }}>Download prescription</Button>
+                          <Button color="green" className="w-40" onClick={() => { handlePrescription() }}> Prescription</Button>
                         </div>
                         <div className="flex justify-center">
-                          <Button onClick={() => { handleReport() }}>Download medical report</Button>
+                          <Button color="red" className="w-40" onClick={() => { handleReport() }}> Medical report</Button>
                         </div>
                       </>
                     )}
@@ -453,6 +451,7 @@ const AppointmentList = () => {
                         {btn ? (
                           <div className="flex justify-center">
                             <Button
+                              color="yellow"
                               className=" btn-primary w-40"
                               onClick={() => handleNavigate()}
                             >
@@ -460,17 +459,17 @@ const AppointmentList = () => {
                             </Button>
                           </div>
                         ) : (
-                          <div className="flex justify-center w-40">
-                            <Button className=" " onClick={() => setOpenModalx(true)}>
+                          <div className="flex justify-center ">
+                            <Button color="yellow" className="w-40 " onClick={() => setOpenModalx(true)}>
                               Connect doctor
                             </Button>
                           </div>
                         )}
-                        <div className="flex justify-center w-40">
-                          <Button onClick={() => { handlePrescription() }}>Prescription</Button>
+                        <div className="flex justify-center ">
+                          <Button color="green" className="w-40" onClick={() => { handlePrescription() }}>Prescription</Button>
                         </div>
-                        <div className="flex justify-center w-40">
-                          <Button onClick={() => { handleReport() }}> Medical report</Button>
+                        <div className="flex justify-center">
+                          <Button color="red" className="w-40" onClick={() => { handleReport() }}> Medical report</Button>
                         </div>
 
                       </>

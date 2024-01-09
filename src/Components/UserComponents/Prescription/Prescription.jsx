@@ -70,6 +70,8 @@ const Prescription = () => {
                         <div className='bg-emerald-500 h-32 w-full '>
                             <h1 className='text-3xl text-white font-bold text-center p-10'>
                                 HEALTH GOODY ONLINE  <FontAwesomeIcon icon={faStethoscope} />
+                                <p className='text-lg underline'>Prescription</p>
+
                             </h1>
                         </div>
                         <br />

@@ -72,6 +72,7 @@ const MedicalReport = () => {
                             <div className='bg-emerald-500 h-32 w-full'>
                                 <h1 className='text-3xl text-white font-bold text-center p-10'>
                                     HEALTH GOODY ONLINE <FontAwesomeIcon icon={faStethoscope} />
+                                    <p className='text-lg underline'>Medical Report</p>
                                 </h1>
                             </div>
                             <h1 className=' p-5 bg-white text-blue-700'>Date : {report.date}</h1>
