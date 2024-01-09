@@ -10,21 +10,14 @@ const LoginPage = () => {
 
   const onSubmit = async () => {
     try {
-      console.log(values);
       const response = await adminLogin(values);
       localStorage.setItem('admintoken', response.data.admintoken);
-      console.log(response);
 
       const Toast = Swal.mixin({
         toast: true,
         position: 'top',
         showConfirmButton: false,
         timer: 3000,
-        // timerProgressBar: true,
-        // didOpen: (toast) => {
-        //     toast.onmouseenter = Swal.stopTimer;
-        //     toast.onmouseleave = Swal.resumeTimer;
-        // },
       });
 
       Toast.fire({
@@ -42,11 +35,6 @@ const LoginPage = () => {
         position: 'top',
         showConfirmButton: false,
         timer: 3000,
-        // timerProgressBar: true,
-        // didOpen: (toast) => {
-        //   toast.onmouseenter = Swal.stopTimer;
-        //   toast.onmouseleave = Swal.resumeTimer;
-        // },
       });
 
       Toast.fire({

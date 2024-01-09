@@ -22,12 +22,14 @@ const Profile = () => {
   const [openModalEdit, setOpenModalEdit] = useState(false);
   const [img, setImg] = useState(null)
   const [render, setRender] = useState(false)
+  const [change, setChange] = useState(false)
+
 
   const onSubmit = async () => {
     try {
       setOpenModalEdit(false)
       const response = await setDetails({ ...values, _id, img });
-      setUserData(response.data.user);
+      setUserData(response?.data?.user);
       const Toast = Swal.mixin({
         toast: true,
         position: "top",
@@ -38,14 +40,13 @@ const Profile = () => {
       });
       Toast.fire({
         icon: "success",
-        title: response.data.message
+        title: response?.data?.message
       });
 
       closeModal();
     } catch (error) {
       console.log(error.message);
     }
-
   };
 
   useEffect(() => {
@@ -85,20 +86,46 @@ const Profile = () => {
     reader.readAsDataURL(file);
     reader.onloadend = () => {
       setImg(reader.result);
+      setChange(true)
     };
   };
 
-  if (img) {
-    const x = async (img) => {
-      try {
-        await editPhoto({ img, _id });
-        setRender(true);
-      } catch (error) {
-        console.error("Error editing photo:", error);
-      }
+  useEffect(() => {
+    let debounceTimer;
+
+    if (change) {
+      // Debounce time set to 500 milliseconds (adjust as needed)
+      debounceTimer = setTimeout(() => {
+        async function edit() {
+          const res = await editPhoto({ img, _id });
+          const Toast = Swal.mixin({
+            toast: true,
+            position: "top",
+            showConfirmButton: false,
+            timer: 3000,
+            didOpen: (toast) => { }
+          });
+          Toast.fire({
+            icon: "success",
+            title: res?.data?.message
+          });
+          if (render) {
+            setRender(false);
+          } else {
+            setRender(true);
+          }
+        }
+        edit();
+      }, 500);
+    }
+
+    // Cleanup the timer when the component unmounts or when change is false
+    return () => {
+      clearTimeout(debounceTimer);
     };
-    x(img);
-  }
+  }, [change, img, _id]);
+
+
 
 
   return (

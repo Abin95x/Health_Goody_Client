@@ -8,10 +8,6 @@ import { doctorSignup } from '../../../Api/doctorApi';
 import { specialityName } from '../../../Api/doctorApi';
 import Loading from "../../../Components/Loading/Loading";
 
-
-
-
-
 const SignupPage = () => {
     const navigate = useNavigate();
     const [photo, setPhoto] = useState(null);
@@ -19,15 +15,14 @@ const SignupPage = () => {
     const [speciality, setSpeciality] = useState();
     const [loading, setLoading] = useState(false);
 
-
     const onSubmit = async () => {
         try {
             setLoading(true);
             const response = await doctorSignup({ ...values, photo, certificates });
             setLoading(false);
 
-            const { doctorData, otpId } = response.data;
-            if (response.data.status) {
+            const { doctorData, otpId } = response?.data;
+            if (response?.data?.status) {
                 const Toast = Swal.mixin({
                     toast: true,
                     position: 'top',
@@ -97,7 +92,7 @@ const SignupPage = () => {
 
     useEffect(() => {
         specialityName().then((res) => {
-            setSpeciality(res.data.data);
+            setSpeciality(res?.data?.data);
         }).catch((error) => {
             console.log(error.message);
         });

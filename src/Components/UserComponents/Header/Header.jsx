@@ -84,26 +84,27 @@ const Header = () => {
         token ? (
           <div className='navbar-end '>
             <div className='hidden lg:flex'>
+              <Link to='/notifications'>
+                <button
+                  class="overflow-hidden me-10 mt-1  w-32 p-2 h-10 bg-black text-white border-none rounded-2xl font-bold cursor-pointer relative z-10 group"
+                >
+                  Notifications
+                  <span
+                    class="absolute w-36 h-32 -top-8 -left-2 bg-sky-200 rotate-12 transform scale-x-0 group-hover:scale-x-100 transition-transform group-hover:duration-500 duration-1000 origin-right"
+                  ></span>
+                  <span
+                    class="absolute w-36 h-32 -top-8 -left-2 bg-sky-400 rotate-12 transform scale-x-0 group-hover:scale-x-100 transition-transform group-hover:duration-700 duration-700 origin-right"
+                  ></span>
+                  <span
+                    class="absolute w-36 h-32 -top-8 -left-2 bg-sky-600 rotate-12 transform scale-x-0 group-hover:scale-x-100 transition-transform group-hover:duration-1000 duration-500 origin-right"
+                  ></span>
+                  <span
+                    class="group-hover:opacity-100 group-hover:duration-1000  duration-100 opacity-0 absolute top-2.5 left-6 z-10"
+                  ><FontAwesomeIcon className='mx-8' icon={faBell} />
+                  </span>
 
-              <button
-                class="overflow-hidden me-10 mt-1  w-32 p-2 h-10 bg-black text-white border-none rounded-2xl font-bold cursor-pointer relative z-10 group"
-              >
-                Notifications
-                <span
-                  class="absolute w-36 h-32 -top-8 -left-2 bg-sky-200 rotate-12 transform scale-x-0 group-hover:scale-x-100 transition-transform group-hover:duration-500 duration-1000 origin-right"
-                ></span>
-                <span
-                  class="absolute w-36 h-32 -top-8 -left-2 bg-sky-400 rotate-12 transform scale-x-0 group-hover:scale-x-100 transition-transform group-hover:duration-700 duration-700 origin-right"
-                ></span>
-                <span
-                  class="absolute w-36 h-32 -top-8 -left-2 bg-sky-600 rotate-12 transform scale-x-0 group-hover:scale-x-100 transition-transform group-hover:duration-1000 duration-500 origin-right"
-                ></span>
-                <span
-                  class="group-hover:opacity-100 group-hover:duration-1000  duration-100 opacity-0 absolute top-2.5 left-6 z-10"
-                ><FontAwesomeIcon className='mx-8' icon={faBell} />
-                </span>
-
-              </button>
+                </button>
+              </Link>
               <Link to='/chatuser' className='me-5 text-sm'  >
                 <div class="group relative">
                   <button>
@@ -127,17 +128,13 @@ const Header = () => {
                       ></path>
                     </svg>
                   </button>
-                  <span
-                    class="absolute -top-14 left-[50%] -translate-x-[50%] z-20 origin-left scale-0 px-3 rounded-lg border border-gray-300 bg-white py-2 text-sm font-bold shadow-md transition-all duration-300 ease-in-out group-hover:scale-100"
-                  >Comment <span> </span
-                  ></span>
                 </div>
               </Link>
             </div>
             <div className='dropdown dropdown-end'>
               <label tabIndex={0} className='btn btn-ghost btn-circle avatar'>
                 <div className="w-24  rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
-                  <img src={photo} alt="" />
+                  <img src={photo} alt="profile" />
                 </div>
               </label>
               <ul tabIndex={0} className='mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-white rounded-box w-52'>

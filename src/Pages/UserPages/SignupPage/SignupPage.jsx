@@ -9,21 +9,17 @@ import Swal from 'sweetalert2';
 import backgroundImage from '../../../Assets/image/loginImg.jpg';
 import Loading from "../../../Components/Loading/Loading";
 
-
 const SignupPage = () => {
   const [loading, setLoading] = useState(false);
   const [photo, setPhoto] = useState(null);
   const navigate = useNavigate();
-
-
   async function onSubmit() {
     try {
       setLoading(true);
       const response = await userSignup({ ...values, photo });
       setLoading(false);
-      console.log(response.data.otpId);
-      const { userData, otpId } = response.data;
-      if (response.data.status) {
+      const { userData, otpId } = response?.data;
+      if (response?.data?.status) {
         const Toast = Swal.mixin({
           toast: true,
           position: 'top',
@@ -36,7 +32,7 @@ const SignupPage = () => {
           title: 'Enter the OTP',
         });
         navigate('/userotp', {
-          state: { userId: userData._id, otpId: otpId }
+          state: { userId: userData?._id, otpId: otpId }
         });
       } else {
         const Toast = Swal.mixin({
@@ -69,7 +65,6 @@ const SignupPage = () => {
       setPhoto(reader.result);
     };
   };
-  // console.log(photo)
 
 
   const { values, errors, touched, handleChange, handleBlur, handleSubmit } = useFormik({

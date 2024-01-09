@@ -22,7 +22,7 @@ const Dashboard = () => {
         setLoading(true);
         chartDetails(_id).then((res) => {
             setLoading(false);
-            setPieData(res.data.obj)
+            setPieData(res?.data?.obj)
         }).catch((error) => {
             setLoading(false);
             console.log(error.message);
@@ -33,7 +33,7 @@ const Dashboard = () => {
         const getCount = async () => {
             try {
                 const res = await counts(_id)
-                setData(res.data)
+                setData(res?.data)
             } catch (error) {
                 console.log(error.message);
             }

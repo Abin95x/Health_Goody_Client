@@ -21,10 +21,10 @@ const ForgotPassword = () => {
 
   const onSubmit = async () => {
     try {
-      const res = await userForgetPassword(values.email);
-      if (res.status === 200) {
+      const res = await userForgetPassword(values?.email);
+      if (res?.status === 200) {
         Swal.fire({
-          title: res.data.message,
+          title: res?.data?.message,
           showClass: {
             popup: `
               animate__animated
@@ -44,7 +44,6 @@ const ForgotPassword = () => {
       }
     } catch (error) {
       console.log(error.message);
-      // toast.error(error.response?.data?.message);
     }
   };
 

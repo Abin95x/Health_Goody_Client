@@ -92,11 +92,6 @@ const Priscription = () => {
                     position: "top",
                     showConfirmButton: false,
                     timer: 3000,
-                    // timerProgressBar: true,
-                    // didOpen: (toast) => {
-                    //     toast.onmouseenter = Swal.stopTimer;
-                    //     toast.onmouseleave = Swal.resumeTimer;
-                    // }
                 });
 
                 Toast.fire({
@@ -118,7 +113,7 @@ const Priscription = () => {
                 userId,
                 appoId,
             });
-            console.log(response);
+
 
             if (response.status === 200) {
                 const Toast = Swal.mixin({
@@ -141,8 +136,6 @@ const Priscription = () => {
             }
         } catch (error) {
             e.preventDefault();
-            console.log(note);
-            console.log(medicines);
 
             const response = await priscription({
                 medicines,
@@ -153,18 +146,11 @@ const Priscription = () => {
                 end,
                 userId
             });
-            console.log(response);
-
             const Toast = Swal.mixin({
                 toast: true,
                 position: "top",
                 showConfirmButton: false,
                 timer: 3000,
-                // timerProgressBar: true,
-                // didOpen: (toast) => {
-                //     toast.onmouseenter = Swal.stopTimer;
-                //     toast.onmouseleave = Swal.resumeTimer;
-                // }
             });
 
             Toast.fire({

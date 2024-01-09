@@ -4,8 +4,6 @@ import SideNav from '../../../Components/AdminComponents/SideNav/SideNav';
 import Footer from '../../../Components/AdminComponents/Footer/Footer';
 import VerifyList from '../../../Components/AdminComponents/VerifyList/VerifyList';
 
-
-
 const VerifyDoctor = () => {
 
     return (
@@ -14,10 +12,10 @@ const VerifyDoctor = () => {
             <div className='flex'>
                 <SideNav />
                 <div className='flex-grow ' >
-                    <VerifyList/>
+                    <VerifyList />
                 </div>
             </div>
-            <Footer/>
+            <Footer />
         </>
     );
 };

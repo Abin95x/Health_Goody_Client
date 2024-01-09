@@ -20,7 +20,7 @@ const Slots = () => {
     const loadSlots = () => {
         slotList(id)
             .then((response) => {
-                setSlots(response.data.data);
+                setSlots(response?.data?.data);
             })
             .catch((error) => {
                 console.log(error);

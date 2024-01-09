@@ -38,8 +38,8 @@ const AppointmentList = () => {
     appointmentList(id, currentPage, limit)
       .then((res) => {
         setLoading(false)
-        setAppo(res.data.data);
-        setPagination(res.data.pagination);
+        setAppo(res?.data?.data);
+        setPagination(res?.data?.pagination);
       })
       .catch((error) => {
         setLoading(false)
@@ -47,9 +47,10 @@ const AppointmentList = () => {
       });
   }, [id, currentPage, limit, render]);
 
+
+
   const handleCancel = async (id) => {
     try {
-
       Swal.fire({
         title: "Are you sure?",
         text: "You won't be able to revert this!",
@@ -60,7 +61,7 @@ const AppointmentList = () => {
         confirmButtonText: "Yes, cancel it!",
       }).then(async (result) => {
         if (result.isConfirmed) {
-          await cancelAppointment({ id, userId: _id, paymentId: data.paymentId });
+          await cancelAppointment({ id, userId: userData._id, paymentId: data.paymentId });
           Swal.fire({
             title: "Cancelled!",
             text: "Your appointment has been cancelled.",
@@ -78,11 +79,13 @@ const AppointmentList = () => {
     }
   };
 
+
+
   const handleAccept = async () => {
     try {
-      const response = await createChat({ userid: _id, doctorid: drId });
+      const response = await createChat({ userid: id, doctorid: drId });
       setBtn(true);
-      Swal.fire(response.data.message);
+      Swal.fire(response?.data?.message);
     } catch (error) {
       console.log(error.message);
     }
@@ -188,7 +191,6 @@ const AppointmentList = () => {
           icon: "error",
           title: 'Rating and/or review cannot be empty'
         });
-        console.log("Rating and/or review cannot be empty.");
         return;
       }
       const res = await addReview({ userId: id, drId, review, rating })
@@ -205,6 +207,19 @@ const AppointmentList = () => {
           title: res.data.message
         });
       }
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
+
+  const consultationReport = () => {
+    try {
+      navigate("/consultation", {
+        state: {
+          data: data
+        }
+      })
+
     } catch (error) {
       console.log(error.message);
     }
@@ -316,44 +331,52 @@ const AppointmentList = () => {
                   <Modal.Header>More Info</Modal.Header>
                   <Modal.Body>
                     {data.status === "Done" ? (
-                      <form onSubmit={handleSubmit} onChange={handleChange} className="h-800">
-                        <h1 className="text-3xl flex justify-center text-blue-500 pt">Consultation Completed</h1>
+                      <div className="">
+                        <form onSubmit={handleSubmit} onChange={handleChange} className="h-800">
+                          <h1 className="text-3xl flex justify-center text-blue-500 pt">Consultation Completed</h1>
 
-                        <div className="flex justify-center m-5">
-                          <label htmlFor="reviewText" className="sr-only">
-                            Add Your Review
-                          </label>
-                          <textarea
-                            id="reviewText"
-                            name="reviewText"
-                            value={review}
-                            onChange={handleChange}
-                            className="w-full h-32 rounded-lg"
-                            placeholder="Enter your review"
-                            required
-                          ></textarea>
-                        </div>
+                          <div className="flex justify-center m-5">
+                            <label htmlFor="reviewText" className="sr-only">
+                              Add Your Review
+                            </label>
+                            <textarea
+                              id="reviewText"
+                              name="reviewText"
+                              value={review}
+                              onChange={handleChange}
+                              className="w-full h-32 rounded-lg"
+                              placeholder="Enter your review"
+                              required
+                            ></textarea>
+                          </div>
 
-                        <div className="rating flex justify-center">
-                          {[1, 2, 3, 4, 5].map((value) => (
-                            <input
-                              key={value}
-                              type="radio"
-                              id={`rating-${value}`}
-                              name="rating"
-                              value={value}
-                              checked={rating === value}
-                              className="mask mask-star-2 bg-green-500"
-                            />
-                          ))}
-                        </div>
+                          <div className="rating flex justify-center">
+                            {[1, 2, 3, 4, 5].map((value) => (
+                              <input
+                                key={value}
+                                type="radio"
+                                id={`rating-${value}`}
+                                name="rating"
+                                value={value}
+                                checked={rating === value}
+                                className="mask mask-star-2 bg-green-500"
+                              />
+                            ))}
+                          </div>
 
-                        <div className="flex justify-center m-5">
-                          <button type="submit" className="btn btn-outline">
-                            Add Your Review
+                          <div className="flex justify-center m-5">
+                            <button type="submit" className="btn btn-outline btn-warning w-60">
+                              Add Your Review
+                            </button>
+                          </div>
+                        </form>
+                        <div className="flex justify-center ">
+                          <button onClick={consultationReport} className="btn btn-outline btn-success w-60">
+                            Consultation report
                           </button>
                         </div>
-                      </form>
+                      </div>
+
                     ) : data.status === "Cancelled" ? (
                       <h1 className="text-red-500">Your appointment has been cancelled</h1>
                     ) : data.status === "CancelledByDoctor" ? (
@@ -404,14 +427,14 @@ const AppointmentList = () => {
                         {btn ? (
                           <div className="flex justify-center">
                             <Button
-                              className=" btn-primary"
+                              className=" btn-primary w-40"
                               onClick={() => handleNavigate()}
                             >
                               Chat with doctor
                             </Button>
                           </div>
                         ) : (
-                          <div className="flex justify-center">
+                          <div className="flex justify-center w-40">
                             <Button className=" " onClick={() => setOpenModalx(true)}>
                               Connect doctor
                             </Button>
@@ -427,20 +450,29 @@ const AppointmentList = () => {
                     )}
                     {data.status === "Done" && (
                       <>
-                        <div className="flex justify-center">
-                          <Button
-                            className=" btn-primary"
-                            onClick={() => handleNavigate()}
-                          >
-                            Chat with doctor
-                          </Button>
+                        {btn ? (
+                          <div className="flex justify-center">
+                            <Button
+                              className=" btn-primary w-40"
+                              onClick={() => handleNavigate()}
+                            >
+                              Chat with doctor
+                            </Button>
+                          </div>
+                        ) : (
+                          <div className="flex justify-center w-40">
+                            <Button className=" " onClick={() => setOpenModalx(true)}>
+                              Connect doctor
+                            </Button>
+                          </div>
+                        )}
+                        <div className="flex justify-center w-40">
+                          <Button onClick={() => { handlePrescription() }}>Prescription</Button>
                         </div>
-                        <div className="flex justify-center">
-                          <Button onClick={() => { handlePrescription() }}>Download prescription</Button>
+                        <div className="flex justify-center w-40">
+                          <Button onClick={() => { handleReport() }}> Medical report</Button>
                         </div>
-                        <div className="flex justify-center">
-                          <Button onClick={() => { handleReport() }}>Download medical report</Button>
-                        </div>
+
                       </>
                     )}
                     {data.status === "Cancelled" && (
@@ -476,8 +508,8 @@ const AppointmentList = () => {
                 <Button
                   color="gray"
                   onClick={() => {
-                    setOpenModalx(false);
                     handleAccept();
+                    setOpenModalx(false);
                   }}
                 >
                   I accept

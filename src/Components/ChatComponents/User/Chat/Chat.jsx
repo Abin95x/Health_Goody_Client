@@ -79,7 +79,7 @@ const Chat = () => {
             <div className='overflow-y-auto h-screen md:h-screen'>
               {conversations.length === 0 ? (
                 <div className='text-xl text-gray-600 text-center'>
-                <p className='m-20'>No chats</p>
+                  <p className='m-20'>No chats</p>
 
                 </div>
               ) : (
@@ -92,8 +92,8 @@ const Chat = () => {
                     }}
                   >
                     <ChatList data={chat}
-                     currentUserId={userId}  
-                     online={checkOnlineStatus(chat)} 
+                      currentUserId={userId}
+                      online={checkOnlineStatus(chat)}
                     />
                   </div>
                 ))

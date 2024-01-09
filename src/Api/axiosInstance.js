@@ -58,7 +58,6 @@ doctorAxiosInstance.interceptors.response.use(
 
 const handleAxiosError = (error, role) => {
     if (error.response) {
-        console.log(error.response);
         if (error.response.status === 404) {
             const Toast = Swal.mixin({
                 toast: true,
@@ -70,11 +69,11 @@ const handleAxiosError = (error, role) => {
                 icon: 'error',
                 title: error.response.data.message,
             });
-            // if (role === "user") {
-            //     window.location.href = `/pageNotFound`;
-            // } else {
-            //     window.location.href = `/${role}/pageNotFound`;
-            // }
+            if (role === "user") {
+                window.location.href = `/pageNotFound`;
+            } else {
+                window.location.href = `/${role}/pageNotFound`;
+            }
 
         } else if (error.response.status === 401) {
 

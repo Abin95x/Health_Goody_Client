@@ -53,9 +53,9 @@ const AppointmentList = () => {
     appointmentList(id, currentPage, limit)
       .then((res) => {
         setAppo(res.data.data);
-        setPagination(res.data.pagination);
-        setCurrentDate(res.data.currentDate);
-        setCurrentTime(res.data.currentTime);
+        setPagination(res?.data?.pagination);
+        setCurrentDate(res?.data?.currentDate);
+        setCurrentTime(res?.data?.currentTime);
       })
       .catch((error) => {
         console.log(error.message);
@@ -82,7 +82,7 @@ const AppointmentList = () => {
     try {
       const response = await createChat({ userid: userId, doctorid: id });
       setBtn(true);
-      Swal.fire(response.data.message);
+      Swal.fire(response?.data?.message);
     } catch (error) {
       console.log(error.message);
     }
@@ -119,7 +119,7 @@ const AppointmentList = () => {
   const handleReport = () => {
     navigate(`/doctor/medicalreport`, {
       state: {
-        userName: appoName, date: appDate, appoId: appoId
+        userName: appoName, date: appDate, appoId: appoId, userId: userId
       }
     })
   }
@@ -137,7 +137,7 @@ const AppointmentList = () => {
       });
 
       if (result.isConfirmed) {
-        const res = await markasDone(appoId);
+        const res = await markasDone(appoId, userId);
         if (res.status === 200) {
           if (render === true) {
             setRender(false)
@@ -166,8 +166,7 @@ const AppointmentList = () => {
   const onSubmit = async (values) => {
     try {
       const { date, startTime, endTime } = values;
-      const res = await appoReschedule({ date, startTime, endTime, appoId });
-      console.log(res);
+      const res = await appoReschedule({ date, startTime, endTime, appoId, userId });
 
       if (res.status === 200) {
         if (render === true) {

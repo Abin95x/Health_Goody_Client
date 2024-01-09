@@ -150,8 +150,8 @@ const ChatBox = ({ chat, currentDoctor, setMessages, messages, socket }) => {
         </>
       ) : (
         <div
-          className="flex-1 p-2 sm:p-6 justify-center flex items-center text-gray-300"
-          style={{ maxHeight: "90vh", fontSize: "50px" }}
+          className="flex-1 p-2 sm:p-6 justify-center flex items-center text-green-500"
+          style={{ maxHeight: "90vh", fontSize: "30px" }}
         >
           Open a chat to start a conversation
         </div>

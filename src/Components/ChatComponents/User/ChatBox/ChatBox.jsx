@@ -120,7 +120,6 @@ const ChatBox = ({ chat, currentUser, setMessages, messages, socket }) => {
                         className="text-green-500 text-2xl cursor-pointer"
                         onClick={() => window.open(message.text, '_blank')}
                       >
-
                         <button className='btn btn-outline btn-accent' >Click here to join the video call <FontAwesomeIcon icon={faVideo} /> </button>
                       </span>
                     </div>
@@ -161,10 +160,10 @@ const ChatBox = ({ chat, currentUser, setMessages, messages, socket }) => {
         </>
       ) : (
         <div
-          className="flex-1 p-2 sm:p-6 justify-center flex items-center text-gray-300"
-          style={{ maxHeight: '90vh', fontSize: '50px' }}
+          className="flex-1 p-2 sm:p-6 justify-center flex items-center text-green-500"
+          style={{ maxHeight: '90vh', fontSize: '30px' }}
         >
-          Open a chat to start a conversation
+          Open a chat to start conversation
         </div>
       )
       }

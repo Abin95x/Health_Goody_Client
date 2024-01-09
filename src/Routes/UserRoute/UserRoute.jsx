@@ -17,6 +17,8 @@ import PrescriptionPage from '../../Pages/UserPages/PrescriptionPage/Prescriptio
 import MedicalReportPage from '../../Pages/UserPages/MedicalReportPage/MedicalReportPage';
 import Error404 from '../../Components/Error/404'
 import Error500 from '../../Components/Error/500'
+import NotificationPage from '../../Pages/UserPages/NotificationPage/NotificationPage';
+import ConsultationReportPage from '../../Pages/UserPages/ConsultationReportPage/ConsultationReportPage';
 
 import UserPublic from './UserPublic';
 import UserProtect from './UserProtect';
@@ -44,6 +46,10 @@ const userRoute = () => {
       <Route path="*" element={<Error404 />} />
       <Route path="/pageNotFound" element={<Error404 />} />
       <Route path="/internalError" element={<Error500 />} />
+      <Route path='/notifications' element={<UserProtect><NotificationPage /></UserProtect>} />
+      <Route path='/consultation' element={<UserProtect><ConsultationReportPage /></UserProtect>} />
+
+
 
 
 

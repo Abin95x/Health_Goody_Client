@@ -69,20 +69,15 @@ const SpecialityList = () => {
                     position: 'top',
                     showConfirmButton: false,
                     timer: 3000,
-                    // timerProgressBar: true,
-                    // didOpen: (toast) => {
-                    //     toast.onmouseenter = Swal.stopTimer;
-                    //     toast.onmouseleave = Swal.resumeTimer;
-                    // },
                 });
                 setRerender(!rerender);
                 Toast.fire({
                     icon: 'success',
-                    title: response.data.message,
+                    title: response?.data?.message,
                 });
             }
         } catch (error) {
-            console.log(error);
+            console.log(error.message);
         }
     };
 
@@ -99,19 +94,18 @@ const SpecialityList = () => {
             setRerender(!rerender);
             Toast.fire({
                 icon: 'success',
-                title: response.data.message,
+                title: response?.data?.message,
             });
         } catch (error) {
-            console.log(error);
+            console.log(error.message);
         }
     };
 
     useEffect(() => {
         specialityList(currentPage, limit, search)
             .then((response) => {
-                console.log(response);
-                setSlist(response.data.data);
-                setPagination(response.data.pagination);
+                setSlist(response?.data?.data);
+                setPagination(response?.data?.pagination);
             })
             .catch((error) => {
                 console.log(error.message);

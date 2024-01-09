@@ -7,8 +7,8 @@ const Error500 = () => {
     let role;
     const pathname = location.pathname;
     if (pathname) {
-        if (pathname.startsWith("/partner")) {
-            role = "partner";
+        if (pathname.startsWith("/doctor")) {
+            role = "doctor";
         } else if (pathname.startsWith("/admin")) {
             role = "admin";
         } else if (pathname.startsWith("/")) {
@@ -20,8 +20,8 @@ const Error500 = () => {
         switch (role) {
             case "user":
                 return "/";
-            case "partner":
-                return "/partner";
+            case "doctor":
+                return "/doctor";
             case "admin":
                 return "/admin/dashboard";
             default:

@@ -11,12 +11,13 @@ const Reviews = () => {
     const [itemsPerPage, setItemsPerPage] = useState(6);
     const [pagination, setPagination] = useState({});
 
+
     useEffect(() => {
         setLoading(true);
         getReviews(_id, currentPage, itemsPerPage)
             .then((res) => {
-                setReviews(res.data.data);
-                setPagination(res.data.pagination);
+                setReviews(res?.data?.data);
+                setPagination(res?.data?.pagination);
                 setLoading(false);
             })
             .catch((error) => {

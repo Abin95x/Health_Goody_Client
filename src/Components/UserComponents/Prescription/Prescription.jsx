@@ -18,13 +18,10 @@ const Prescription = () => {
     const date = new Date();
     const formattedDate = date.toLocaleDateString('en-GB', { day: '2-digit', month: '2-digit', year: 'numeric' });
 
-    console.log(formattedDate);
-
 
     const downloadPdf = () => {
         try {
             const input = pdfRef.current;
-            console.log(input, "xxxxxxxxxxxxx");
             html2canvas(input).then((canvas) => {
                 const imageData = canvas.toDataURL('image/png');
                 const pdf = new jsPDF('p', 'mm', 'a4', true);
@@ -57,8 +54,7 @@ const Prescription = () => {
 
     useEffect(() => {
         medicineDetails(data._id).then((res) => {
-            console.log(res, "kkkkkkkkkkkkkkkiiii");
-            setMedicine(res.data.result)
+            setMedicine(res?.data?.result)
         }).catch((error) => {
             console.log(error);
         })

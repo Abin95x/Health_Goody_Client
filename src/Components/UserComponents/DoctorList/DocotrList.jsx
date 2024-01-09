@@ -22,13 +22,12 @@ const DoctorList = () => {
         doctorList(select, searchQuery, currentPage, noOfDoctors, sort)
             .then((response) => {
                 setLoading(false);
-
-                setDoctors(response.data.doctors);
-                setTotalCount(response.data.totalCount); // Assuming you have a state variable for totalCount
+                setDoctors(response?.data?.doctors);
+                setTotalCount(response?.data?.totalCount); // Assuming you have a state variable for totalCount
             })
             .catch((error) => {
                 setLoading(false);
-                console.log(error);
+                console.log(error.message);
             });
     }, [select, searchQuery, currentPage, sort]);
 
@@ -46,7 +45,7 @@ const DoctorList = () => {
     useEffect(() => {
         specialityName()
             .then((res) => {
-                setSpeciality(res.data.data);
+                setSpeciality(res?.data?.data);
             })
             .catch((error) => {
                 console.log(error.message);
@@ -63,7 +62,6 @@ const DoctorList = () => {
     return (
 
         <>
-
             <div className='bg-blue-50 min-h-screen'>
                 <div className='flex justify-center space-x-4 p-4'>
                     {speciality && (

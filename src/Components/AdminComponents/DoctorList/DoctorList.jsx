@@ -13,11 +13,11 @@ const DoctorList = () => {
     useEffect(() => {
         doctorList(currentPage, itemsPerPage)
             .then((response) => {
-                setDoctors(response.data.doctors);
-                setPagination(response.data.pagination);
+                setDoctors(response?.data?.doctors);
+                setPagination(response?.data?.pagination);
             })
             .catch((error) => {
-                console.log(error);
+                console.log(error.message);
             });
     }, [currentPage, itemsPerPage]);
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 import banner from '../../../Assets/image/home.jpeg';
 import Speciality from '../../../Components/UserComponents/Speciality/Speciality';
 import { Link } from 'react-router-dom';
@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 
 const Body = () => {
 
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   let token = localStorage.getItem('usertoken');
 
 

@@ -13,9 +13,8 @@ export const UserList = () => {
   useEffect(() => {
     userList(currentPage, itemsPerPage)
       .then((response) => {
-        console.log(response);
-        setUsers(response.data.users);
-        setPagination(response.data.pagination);
+        setUsers(response?.data?.users);
+        setPagination(response?.data?.pagination);
 
       })
       .catch((error) => {
@@ -26,7 +25,7 @@ export const UserList = () => {
   const handleClick = async (id) => {
     try {
       const response = await userDetails(id);
-      const data = response.data.details;
+      const data = response?.data?.details;
       setUserData(data);
     } catch (error) {
       console.log(error.message);

@@ -24,8 +24,7 @@ const ResetPassword = () => {
     const onSubmit = async () => {
         try {
             const res = await doctorResetPassword(id, token, values.password);
-            console.log(res);
-            if (res.status === 200) {
+            if (res?.status === 200) {
                 Swal.fire({
                     title: res?.data?.message,
                     showClass: {
@@ -47,9 +46,8 @@ const ResetPassword = () => {
             }
         } catch (error) {
             console.log(error.message);
-            // toast.error(error.response?.data?.status);
             Swal.fire({
-                title: error.response?.data?.status,
+                title: error?.response?.data?.status,
                 showClass: {
                     popup: `
             animate__animated

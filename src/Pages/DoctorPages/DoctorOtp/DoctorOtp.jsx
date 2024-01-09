@@ -14,7 +14,6 @@ const DoctorOtp = () => {
   const onSubmit = async () => {
     try {
       const combinedOTP = Object.values(values).join('');
-
       const response = await otpVerify(combinedOTP, otpId, doctorId);
 
       if (response?.data?.status) {
@@ -23,7 +22,6 @@ const DoctorOtp = () => {
           position: 'top',
           showConfirmButton: false,
           timer: 5000,
-
         });
 
         Toast.fire({
@@ -42,7 +40,6 @@ const DoctorOtp = () => {
           timer: 5000,
 
         });
-
         Toast.fire({
           icon: 'error',
           title: 'Error',
@@ -56,7 +53,7 @@ const DoctorOtp = () => {
   const resendOtp = async () => {
     try {
       const response = await otpResend(doctorId);
-      if (response.status === 200) {
+      if (response?.status === 200) {
         const Toast = Swal.mixin({
           toast: true,
           position: 'top',

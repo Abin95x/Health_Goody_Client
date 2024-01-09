@@ -6,8 +6,6 @@ import { Line } from 'react-chartjs-2';
 ChartJS.register(LinearScale, CategoryScale, LineController, PointElement, LineElement, Title, Tooltip, Legend);
 
 const LineChart = ({ usersByYear, doctorsByYear }) => {
-    console.log(usersByYear);
-    console.log();
     const options = {
         responsive: true,
         plugins: {

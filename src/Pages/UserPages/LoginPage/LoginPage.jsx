@@ -19,8 +19,8 @@ const LoginPage = () => {
     try {
       const response = await userLogin(values);
       if (response?.status === 200) {
-        localStorage.setItem('usertoken', response.data.usertoken);
-        const userData = response.data.userData;
+        localStorage.setItem('usertoken', response?.data?.usertoken);
+        const userData = response?.data?.userData;
         dispatch(
           setUser({
             user: userData,

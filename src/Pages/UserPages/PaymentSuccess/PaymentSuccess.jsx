@@ -7,32 +7,22 @@ import Swal from 'sweetalert2';
 const PaymentSuccess = () => {
   const { search } = useLocation();
   const queryParams = new URLSearchParams(search);
-
-  // Retrieve the query parameters
   const _id = queryParams.get('_id');
   const date = queryParams.get('date');
   const select = queryParams.get('select');
   const drId = queryParams.get('drId');
-  // const [render, setRender] = useState(false)
   const success = queryParams.get('status');
-  console.log(success, 'sucesssss');
 
   const appointment = async () => {
     try {
       if (success === 'true') {
-        const response = await makeAppointment({ drId, select, date, _id });
-        console.log(response);
+        await makeAppointment({ drId, select, date, _id });
 
         const Toast = Swal.mixin({
           toast: true,
           position: 'top',
           showConfirmButton: false,
           timer: 3000,
-          // timerProgressBar: true,
-          // didOpen: (toast) => {
-          //   toast.onmouseenter = Swal.stopTimer;
-          //   toast.onmouseleave = Swal.resumeTimer;
-          // },
         });
 
         Toast.fire({
@@ -40,19 +30,12 @@ const PaymentSuccess = () => {
           title: 'Payment successful',
         });
 
-
       } else {
-
         const Toast = Swal.mixin({
           toast: true,
           position: 'top',
           showConfirmButton: false,
           timer: 3000,
-          // timerProgressBar: true,
-          // didOpen: (toast) => {
-          //   toast.onmouseenter = Swal.stopTimer;
-          //   toast.onmouseleave = Swal.resumeTimer;
-          // },
         });
 
         Toast.fire({

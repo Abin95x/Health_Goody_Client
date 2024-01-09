@@ -85,6 +85,7 @@ export async function counts() {
 
 export async function appointmentList(currentPage, itemsPerPage) {
     const data = await adminAxiosInstance.get(`/appointmentList?page=${currentPage}&limit=${itemsPerPage}`);
+    console.log(data);
     return data;
 }
 

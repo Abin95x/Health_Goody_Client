@@ -11,18 +11,15 @@ import { setDoctor } from '../../../Redux/DoctorSlice/DoctorSlice';
 
 const LoginPage = () => {
 
-
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const onSubmit = async (values) => {
     try {
-
       const response = await doctorLogin(values);
-
       if (response?.status === 200) {
         localStorage.setItem('doctortoken', response?.data?.doctortoken);
-        const doctorData = response.data.doctorData;
+        const doctorData = response?.data?.doctorData;
 
         dispatch(
           setDoctor({
@@ -35,11 +32,6 @@ const LoginPage = () => {
           position: 'top',
           showConfirmButton: false,
           timer: 3000,
-          // timerProgressBar: true,
-          // didOpen: (toast) => {
-          //   toast.onmouseenter = Swal.stopTimer;
-          //   toast.onmouseleave = Swal.resumeTimer;
-          // },
         });
 
         Toast.fire({

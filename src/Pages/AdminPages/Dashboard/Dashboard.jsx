@@ -10,13 +10,11 @@ const Dashboard = () => {
   const [data, setData] = useState(null);
   const [reportData, setReportData] = useState({});
 
-  console.log(reportData);
   useEffect(() => {
     const getCount = async () => {
       try {
         const res = await counts()
-        console.log(res);
-        setData(res.data)
+        setData(res?.data)
       } catch (error) {
         console.log(error.message);
       }
@@ -25,7 +23,6 @@ const Dashboard = () => {
     const getReport = async () => {
       try {
         const report = await adminReport()
-        console.log(report);
         setReportData(report?.data);
 
       } catch (error) {

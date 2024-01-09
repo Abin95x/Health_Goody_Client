@@ -9,13 +9,12 @@ const AppointmentList = () => {
     const [pagination, setPagination] = useState({});
 
 
-
     useEffect(() => {
         const fetchAppointments = async () => {
             try {
                 const response = await appointmentList(currentPage, itemsPerPage);
-                setAppointments(response.data.reviews);
-                setPagination(response.data.pagination); // Update pagination state
+                setAppointments(response?.data?.data);
+                setPagination(response?.data?.pagination); // Update pagination state
             } catch (error) {
                 console.error(error.message);
             }

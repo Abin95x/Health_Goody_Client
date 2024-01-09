@@ -78,8 +78,8 @@ export async function priscription(values) {
     return data
 }
 
-export async function markasDone(id) {
-    const data = await doctorAxiosInstance.patch(`/markAsDone?id=${id}`)
+export async function markasDone(id, userId) {
+    const data = await doctorAxiosInstance.patch(`/markAsDone?id=${id}&userId=${userId}`)
     return data
 }
 

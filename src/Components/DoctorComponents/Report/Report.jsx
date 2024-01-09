@@ -11,13 +11,12 @@ import { useSelector } from 'react-redux';
 const Report = () => {
     const location = useLocation();
     const navigate = useNavigate()
-    const { date, userName, appoId } = location.state || {}
-    const { name, mobile, email } = useSelector((state) => state.reducer.doctorReducer.doctor);
+    const { date, userName, appoId, userId } = location.state || {}
+    const { name } = useSelector((state) => state.reducer.doctorReducer.doctor);
 
     const onSubmit = async () => {
         try {
-            const response = await addMedicalReport({ values, drName: name, userName, mobile, email, appoDate: date, appoId })
-            console.log(response);
+            const response = await addMedicalReport({ values, drName: name, userName, userId, appoDate: date, appoId })
             const Toast = Swal.mixin({
                 toast: true,
                 position: 'top',

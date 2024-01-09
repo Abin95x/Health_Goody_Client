@@ -47,8 +47,8 @@ const DoctorDetails = () => {
     useEffect(() => {
         doctorDetails(id)
             .then(response => {
-                setDoctor(response.data.details);
-                setDrId(response.data.details._id);
+                setDoctor(response?.data?.details);
+                setDrId(response?.data?.details?._id);
             })
             .catch(error => {
                 console.log(error);
@@ -75,21 +75,19 @@ const DoctorDetails = () => {
             setDate(date);
             const response = await slotList(drId, date);
 
-            const availableSlots = response.data.availableSlots;
+            const availableSlots = response?.data?.availableSlots;
 
             if (availableSlots && availableSlots.length > 0) {
                 let allAvailableSlots = [];
                 availableSlots.forEach(slot => {
-                    slot.timeSlots.forEach(timeSlot => {
+                    slot?.timeSlots?.forEach(timeSlot => {
                         if (timeSlot.booked === false) {
                             allAvailableSlots.push(timeSlot);
                         }
                     });
                 });
-
                 setSlots(allAvailableSlots);
             } else {
-                console.log('No available slots for the given date.');
                 setSlots([]);
             }
 
@@ -116,7 +114,7 @@ const DoctorDetails = () => {
             if (select) {
                 const response = await makePayment({ price, drId, select, date, _id });
                 if (response.status === 200) {
-                    window.location.href = response.data.session.url;
+                    window.location.href = response?.data?.session.url;
                 }
             }
         } catch (error) {
@@ -181,7 +179,7 @@ const DoctorDetails = () => {
     useEffect(() => {
         if (doctor) {
             getReview(drId).then((res) => {
-                setReview(res.data.reviews)
+                setReview(res?.data?.reviews)
             }).catch((error) => {
                 console.log(error);
             })
@@ -189,7 +187,6 @@ const DoctorDetails = () => {
 
     }, [doctor])
 
-    console.log(review, "hhhhh");
 
 
 

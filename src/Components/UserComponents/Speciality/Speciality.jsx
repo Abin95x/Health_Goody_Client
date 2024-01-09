@@ -10,18 +10,16 @@ const Speciality = () => {
     useEffect(() => {
         userSpecialityList()
             .then((res) => {
-                setSlist(res.data.data);
+                setSlist(res?.data?.data);
             })
             .catch((error) => {
-                console.log(error);
+                console.log(error.message);
             });
     }, []);
 
-    console.log(slist);
     const handleClick = async (id) => {
         try {
-            console.log(id);
-            //api call
+
         } catch (error) {
             console.log(error.message);
         }

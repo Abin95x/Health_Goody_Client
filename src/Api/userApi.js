@@ -118,7 +118,11 @@ export async function addReview(values) {
 }
 
 export async function getReview(drId) {
-    console.log(drId);
     const data = await userAxiosInstance.get(`/getReview?id=${drId}`)
+    return data
+}
+
+export async function getNotification(id, page) {
+    const data = await userAxiosInstance.get(`/getNotification?id=${id}&page=${page}`)
     return data
 }

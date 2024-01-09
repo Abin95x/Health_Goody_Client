@@ -22,9 +22,9 @@ const ForgotPassword = () => {
     const onSubmit = async () => {
         try {
             const res = await doctorForgetPassword(values.email);
-            if (res.status === 200) {
+            if (res?.status === 200) {
                 Swal.fire({
-                    title: res.data.message,
+                    title: res?.data?.message,
                     showClass: {
                         popup: `
               animate__animated

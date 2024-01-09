@@ -19,7 +19,6 @@ const MedicalReport = () => {
     const downloadPdf = () => {
         try {
             const input = pdfRef.current;
-            console.log(input, "111111111111111");
             html2canvas(input).then((canvas) => {
                 const imageData = canvas.toDataURL('image/png');
                 const pdf = new jsPDF('p', 'mm', 'a4', true);
@@ -52,12 +51,10 @@ const MedicalReport = () => {
 
 
 
-    console.log(report);
 
     useEffect(() => {
-        reportDetails(data._id).then((res) => {
-            console.log(res.data, "ghjghhgghgjhg");
-            setReport(res.data.result)
+        reportDetails(data?._id).then((res) => {
+            setReport(res?.data?.result)
         }).catch((error) => {
             console.log(error);
         })
