@@ -1,18 +1,18 @@
 import axios from 'axios';
-const baseURL = 'http://localhost:3001/';
-const chatInstance = axios.create({baseURL:baseURL});
+const baseURL = 'https://www.healthgoody.online/';
+const chatInstance = axios.create({ baseURL: baseURL });
 
-export async function userData(id){
+export async function userData(id) {
     const data = await chatInstance.get(`/chat/userData/${id}`);
     return data;
 }
 
-export async function fetchDoctorDetails(id){
+export async function fetchDoctorDetails(id) {
     const data = await chatInstance.get(`/chat/doctorData/${id}`);
     return data;
 }
 
-export async function chatData(id){
+export async function chatData(id) {
     const data = await chatInstance.get(`/chat/chat/${id}`);
     return data;
 }
