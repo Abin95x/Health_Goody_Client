@@ -1,7 +1,7 @@
 import axios from 'axios';
 import Swal from 'sweetalert2';
 
-const baseURL = 'http://localhost:3001/';
+const baseURL = 'https://www.healthgoody.online/';
 const userBaseURL = baseURL;
 const doctorBaseURL = `${baseURL}doctor`;
 const adminBaseURL = `${baseURL}admin`;
