@@ -1,9 +1,7 @@
 import { doctorAxiosInstance } from './axiosInstance';
 
 export async function doctorSignup(signupData) {
-    console.log(signupData);
     const data = await doctorAxiosInstance.post('/doctorSignup', signupData);
-    console.log(data);
     return data;
 }
 
@@ -28,7 +26,6 @@ export async function doctorForgetPassword(email) {
 }
 
 export async function doctorResetPassword(id, token, password) {
-    console.log(id, token, password);
     const data = await doctorAxiosInstance.patch(`/resetPassword?id=${id}&token=${token}&password=${password}`)
     return data
 }
@@ -39,7 +36,6 @@ export async function specialityName() {
 }
 
 export async function slotDetails(slotData) {
-    console.log(slotData, 'dsdsdsdsdsdsdsdapiiiiii');
     const data = await doctorAxiosInstance.post('/slotDetails', slotData);
     return data;
 }

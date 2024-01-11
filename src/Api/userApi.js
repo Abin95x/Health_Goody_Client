@@ -26,7 +26,6 @@ export async function userForgetPassword(email) {
 }
 
 export async function userResetPassword(id, token, password) {
-    console.log(id, token, password);
     const data = await userAxiosInstance.patch(`/resetPassword?id=${id}&token=${token}&password=${password}`)
     return data
 }
@@ -41,7 +40,6 @@ export async function setDetails(values) {
     return data;
 }
 export async function editPhoto(values) {
-    console.log(values);
     const data = await userAxiosInstance.patch('/editPhoto', values);
     return data;
 }
@@ -111,7 +109,6 @@ export async function PaymentWallet(values) {
 }
 
 export async function addReview(values) {
-    console.log(values);
     const data = await userAxiosInstance.post('/addReview', values)
     return data
 }

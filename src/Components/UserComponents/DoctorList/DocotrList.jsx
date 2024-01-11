@@ -23,7 +23,7 @@ const DoctorList = () => {
             .then((response) => {
                 setLoading(false);
                 setDoctors(response?.data?.doctors);
-                setTotalCount(response?.data?.totalCount); // Assuming you have a state variable for totalCount
+                setTotalCount(response?.data?.totalCount);
             })
             .catch((error) => {
                 setLoading(false);
@@ -163,16 +163,10 @@ const DoctorList = () => {
                                 ))}
                             </div>
                         </div>
-
-
                     )
-
                 }
             </div >
-
-
         </>
-
     );
 };
 
