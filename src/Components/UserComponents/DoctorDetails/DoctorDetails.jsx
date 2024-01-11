@@ -317,7 +317,6 @@ const DoctorDetails = () => {
                             </button>
                             <button className="btn btn-outline btn-warning mx-5" onClick={walletPay}>WALLET PAY</button>
                         </div>
-
                     )}
                 </Modal.Footer>
             </Modal>
