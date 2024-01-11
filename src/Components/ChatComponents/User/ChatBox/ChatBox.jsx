@@ -114,7 +114,7 @@ const ChatBox = ({ chat, currentUser, setMessages, messages, socket }) => {
               {messages.map((message) => (
                 <div ref={scroll} key={message._id}>
                   {/* Check if the message is a video call link */}
-                  {message.text.includes('http://localhost:3000/doctor/video?roomID=') ? (
+                  {message.text.includes('https://healthgoody.vercel.app/doctor/video?userId=') ? (
                     <div className='flex justify-center'>
                       <span
                         className="text-green-500 text-2xl cursor-pointer"
@@ -156,7 +156,7 @@ const ChatBox = ({ chat, currentUser, setMessages, messages, socket }) => {
                 </button>
               </div>
             </div>
-          </div>
+          </div >
         </>
       ) : (
         <div
