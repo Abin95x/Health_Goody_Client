@@ -351,7 +351,7 @@ const AppointmentList = () => {
               {currDate === appDate && currentTime >= appoStart && currentTime <= appoEnd && appoStatus === "Pending" ? (
                 <React.Fragment>
                   <p className='text-xl text-green-500 '>
-                    You can now join the call
+                    Now you can start the video call
                   </p>
                   <Link to={'/doctor/video'} className='btn btn-secondary w-full' onClick={handleLinkClick}>
                     Start Video Call<FontAwesomeIcon icon={faVideo} />
@@ -389,7 +389,7 @@ const AppointmentList = () => {
                   <br />
                 </React.Fragment>
               )}
-              {appoStatus === "Pending" ? (
+              {currDate === appDate && currentTime >= appoStart && appoStatus === "Pending" ? (
                 <button className='btn btn-warning w-full' onClick={markAsDone}>
                   Mark As Done<FontAwesomeIcon icon={faCheck} />
                 </button>
@@ -501,7 +501,7 @@ const AppointmentList = () => {
               <div className="relative group cursor-pointer group overflow-hidden  text-gray-50 h-72 w-56  rounded-2xl hover:duration-700 duration-700">
                 <div className="w-56 h-72 bg-emerald-400 text-gray-800">
                   <div className="flex flex-row justify-center">
-                    <FontAwesomeIcon icon={faComment} classNameName=' m-10 w-20 h-20 ' />
+                    <FontAwesomeIcon icon={faComment} className=' m-10 w-20 h-20 ' />
                   </div>
                 </div>
                 <div className="absolute bg-black -bottom-24 w-56 p-3 flex flex-col gap-1 group-hover:-bottom-0 group-hover:duration-600 duration-500">
