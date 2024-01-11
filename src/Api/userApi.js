@@ -86,7 +86,6 @@ export async function appointmentList(id, page, limit) {
 }
 
 export async function cancelAppointment({ id, userId, paymentId }) {
-    console.log(paymentId, "pppppppppppppppayyyyyyyyyyyyyy");
     const data = await userAxiosInstance.patch(`/cancelAppointment?id=${id}&userId=${userId}&paymentId=${paymentId}`);
     return data;
 }

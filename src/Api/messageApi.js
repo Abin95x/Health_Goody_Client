@@ -1,18 +1,15 @@
 import axios from 'axios';
-const baseURL = 'http://localhost:3001/';
-const messageInstance = axios.create({baseURL:baseURL});
+const baseURL = 'https://healthgoody.online';
+const messageInstance = axios.create({ baseURL: baseURL });
 
-// export const getMessages = (id) => messageInstance.get(`/message/${id}`);
 
-// export const addMessage = (data) => messageInstance.post('/message',data);
-
-export async function getMessages (id){
+export async function getMessages(id) {
     const data = await messageInstance.get(`/message/getMsg/${id}`)
-   
+
     return data
 }
 
-export async function addMessage (data){
-    const datas = await messageInstance.post('/message/addMsg',data)
+export async function addMessage(data) {
+    const datas = await messageInstance.post('/message/addMsg', data)
     return datas
 }
