@@ -5,7 +5,7 @@ import ChatList from '../../User/ChatList/ChatList';
 import ChatBox from '../../User/ChatBox/ChatBox';
 import { io } from 'socket.io-client';
 
-const END_POINT = 'https://healthgoody.vercel.app';
+const END_POINT = 'https://www.healthgoody.online/';
 let socket;
 
 const Chat = () => {
