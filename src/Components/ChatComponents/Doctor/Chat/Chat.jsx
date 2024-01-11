@@ -5,7 +5,7 @@ import ChatList from '../../Doctor/ChatList/ChatList';
 import ChatBox from '../../Doctor/ChatBox/ChatBox';
 import { io } from 'socket.io-client';
 
-const END_POINT = 'http://localhost:3001';
+const END_POINT = 'https://healthgoody.vercel.app';
 let socket
 
 const Chat = () => {
@@ -14,7 +14,7 @@ const Chat = () => {
   const [currentChat, setCurrentChat] = useState(null);
   const [messages, setMessages] = useState([]);
   const { _id } = useSelector((state) => state.reducer.doctorReducer.doctor);
-  
+
   useEffect(() => {
     chatData(_id)
       .then((res) => {
