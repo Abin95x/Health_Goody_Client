@@ -151,6 +151,10 @@ const Header = () => {
                   <img src='icon.jpg' />
                 </div>
               </label>
+              <ul tabIndex={0} className='mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-white rounded-box w-52'>
+                <li><Link to='/'>Home<FontAwesomeIcon icon={faHouse} /></Link></li>
+                <li><Link to='/login'>Login <FontAwesomeIcon icon={faRightToBracket} /></Link></li>
+              </ul>
             </div>
           </div>
         )

@@ -340,7 +340,7 @@ const AppointmentList = () => {
         </div>
       )}
       <Modal show={openModal} onClose={() => setOpenModal(false)}>
-        <Modal.Header>Terms of Service</Modal.Header>
+        <Modal.Header>More info</Modal.Header>
         <Modal.Body>
           {appoStatus === "CancelledByDoctor" ? (
             <div className='text-red-500 p-5'>
