@@ -6,9 +6,9 @@ export const editSchema = yup.object().shape({
     name: yup
         .string()
         .min(2, 'Name must be at least 2 characters')
-        .max(20, 'Name must not exceed 20 characters')
-        .matches(/^[a-zA-Z]+$/, 'Only alphabets are allowed')
-        .required('Name is required'),
+        .max(20)
+        .matches(/^[a-zA-Z]+(\s[a-zA-Z]+)?$/, 'Only alphabets and one space are allowed')
+        .required('Required'),
 
     mobile: yup
         .string()

@@ -1,7 +1,12 @@
 import * as yup from 'yup';
 
 export const drEditSchema = yup.object().shape({
-    name: yup.string().required('Name is required'),
+    name: yup
+        .string()
+        .min(2, 'Name must be at least 2 characters')
+        .max(20)
+        .matches(/^[a-zA-Z]+(\s[a-zA-Z]+)?$/, 'Only alphabets and one space are allowed')
+        .required('Required'),
     mobile: yup
         .string()
         .matches(/^\d{10}$/, 'Mobile number must be 10 digits')
