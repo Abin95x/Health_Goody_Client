@@ -37,7 +37,7 @@ const Notifications = () => {
     return (
         <div className='bg-gray-100 min-h-screen p-4'>
             <div className='text-center m-10'>
-                <h1 className='text-2xl font-bold text-gray-800'>Notifications</h1>
+                {/* <h1 className='text-2xl font-bold text-gray-800'>Notifications</h1> */}
             </div>
             <div className='flex justify-center'>
                 <div className='w-full lg:w-3/4 xl:w-2/3 bg-white shadow-lg rounded-lg p-6'>
