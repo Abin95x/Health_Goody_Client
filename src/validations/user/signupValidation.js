@@ -7,7 +7,7 @@ export const userSchema = yup.object().shape({
         .string()
         .min(2, 'Name must be at least 2 characters')
         .max(20)
-        .matches(/^[a-zA-Z\s]+$/, 'Only alphabets and spaces are allowed')
+        .matches(/^[a-zA-Z]+(\s[a-zA-Z]+)?$/, 'Only alphabets and one space are allowed')
         .required('Required'),
 
     email: yup.string()
