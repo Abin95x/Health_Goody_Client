@@ -276,7 +276,7 @@ const DoctorDetails = () => {
                                     const currentDate = new Date();
                                     let isSlotDisabled = false;
 
-                                    if (date < currentDate) {
+                                    if (date <= currentDate) {
                                         if (slotStartTime < currentTime) {
                                             isSlotDisabled = true;
                                             console.log(isSlotDisabled);
