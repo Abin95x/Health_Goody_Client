@@ -275,16 +275,10 @@ const DoctorDetails = () => {
                                     const slotStartTime = slot.start;
                                     const currentDate = new Date();
                                     let isSlotDisabled = false;
-                                    console.log(date, 'date');
-                                    console.log(currentDate, 'currrrrrrr');
 
                                     if (date < currentDate) {
-                                        console.log(slotStartTime, 'ssssssssssssstaerrrr');
-                                        console.log(currentTime);
                                         if (slotStartTime < currentTime) {
-
                                             isSlotDisabled = true;
-                                            console.log(isSlotDisabled);
                                         }
                                     }
 
