@@ -7,7 +7,7 @@ import { getUserDetails, setDetails } from '../../../Api/userApi';
 import { useFormik } from 'formik';
 import { editSchema } from '../../../validations/user/editValidaton';
 import Swal from 'sweetalert2';
-import { Button, Modal, SidebarItemGroup } from 'flowbite-react';
+import { Button, Modal } from 'flowbite-react';
 import './Profile.css'
 import Loading from "../../../Components/Loading/Loading";
 import { editPhoto } from '../../../Api/userApi';
