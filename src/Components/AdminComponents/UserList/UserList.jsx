@@ -4,6 +4,7 @@ import { userDetails, userBlockUnblock } from '../../../Api/adminApi';
 
 
 export const UserList = () => {
+  const [loading,setLoading] = useState(false)
   const [users, setUsers] = useState([]);
   const [userData, setUserData] = useState();
   const [currentPage, setCurrentPage] = useState(1);
@@ -11,13 +12,15 @@ export const UserList = () => {
   const [pagination, setPagination] = useState({});
 
   useEffect(() => {
+    setLoading(true)
     userList(currentPage, itemsPerPage)
       .then((response) => {
         setUsers(response?.data?.users);
         setPagination(response?.data?.pagination);
-
+        setLoading(false)
       })
       .catch((error) => {
+        setLoading(false)
         console.log(error.message);
       });
   }, [currentPage, itemsPerPage]);
@@ -46,61 +49,71 @@ export const UserList = () => {
 
   return (
     <>
-      <div className="text-sm breadcrumbs">
-        <ul>
-          <li><a href="/">DASHBOARD</a></li>
-          <li><a>USER LIST</a></li>
-        </ul>
-      </div>
-
-      {users.length === 0 ? (
-        <div className='flex justify-center text-2xl text-yellow-200'>
-          <p> No Users Found.</p>
+   {loading ? (
+        <div className=" flex justify-center min-h-screen ">
+          <span className="loading loading-ring loading-lg"></span>
         </div>
+      ) : (
+        <div>
+          <div className="text-sm breadcrumbs">
+            <ul>
+              <li><a href="/">DASHBOARD</a></li>
+              <li><a>USER LIST</a></li>
+            </ul>
+          </div>
+          <div>
+            {users.length === 0 ? (
+              <div className='flex justify-center text-2xl text-yellow-200'>
+                <p>No Users Found.</p>
+              </div>
+            ) : (
+              <div className="overflow-x-auto">
+                <table className="table">
+                  <thead>
+                    <tr>
+                      <th>No</th>
+                      <th>Name</th>
+                      <th>Email</th>
+                      <th>Mobile</th>
+                      <th>More</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {users.map((user, index) => (
+                      <tr key={index} className="hover">
+                        <th>{index + 1}</th>
+                        <td>{user.name}</td>
+                        <td>{user.email}</td>
+                        <td>{user.mobile}</td>
+                        <td>
+                          <button type='button' onClick={() => { document.getElementById('my_modal_3').showModal(); handleClick(user._id); }}>
+                            More Info
+                          </button>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            )}
+          </div>
 
-      ) : (< div className="overflow-x-auto">
-        <table className="table">
-          <thead>
-            <tr>
-              <th>No</th>
-              <th>Name</th>
-              <th>Email</th>
-              <th>Mobile</th>
-              <th>More</th>
-            </tr>
-          </thead>
-          <tbody>
-            {users.map((user, index) => (
-              <tr key={index} className="hover">
-                <th>{index + 1}</th>
-                <td>{user.name}</td>
-                <td>{user.email}</td>
-                <td>{user.mobile}</td>
-                <td>
-                  {/* <button type='button' onClick={() => { document.getElementById('my_modal_5').showModal(); handleClick(user._id); }}> */}
-                  <button type='button' onClick={() => { document.getElementById('my_modal_3').showModal(); handleClick(user._id); }}>
-                    More Info
-                  </button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div >)}
-
-      {pagination && pagination.totalPages && users.length > 0 && (
-        <div className="flex justify-center mt-4 ">
-          {Array.from({ length: pagination.totalPages }, (_, index) => (
-            <button
-              key={index + 1}
-              onClick={() => setCurrentPage(index + 1)}
-              className={`pagination-btn border w-10 ${index + 1 === currentPage ? "border-green-400" : "border-black"}`}
-            >
-              {index + 1}
-            </button>
-          ))}
+          {pagination && pagination.totalPages && users.length > 0 && (
+            <div className="flex justify-center mt-4">
+              {Array.from({ length: pagination.totalPages }, (_, index) => (
+                <button
+                  key={index + 1}
+                  onClick={() => setCurrentPage(index + 1)}
+                  className={`pagination-btn border w-10 ${index + 1 === currentPage ? "border-green-400" : "border-black"}`}
+                >
+                  {index + 1}
+                </button>
+              ))}
+            </div>
+          )}
         </div>
       )}
+     
 
 
       {/* You can open the modal using document.getElementById('ID').showModal() method */}
