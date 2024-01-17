@@ -21,7 +21,7 @@ const Error500 = () => {
             case "user":
                 return "/";
             case "doctor":
-                return "/doctor";
+                return "/doctor/dashboard";
             case "admin":
                 return "/admin/dashboard";
             default:
