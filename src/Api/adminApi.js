@@ -92,5 +92,3 @@ export async function adminReport() {
     const data = await adminAxiosInstance.get('/adminReport')
     return data
 }
-
-

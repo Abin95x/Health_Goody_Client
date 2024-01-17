@@ -6,6 +6,7 @@ import ChatBox from '../../Doctor/ChatBox/ChatBox';
 import { io } from 'socket.io-client';
 
 const END_POINT = 'https://www.healthgoody.online/';
+// const END_POINT = 'http://localhost:3001/';
 let socket
 
 const Chat = () => {

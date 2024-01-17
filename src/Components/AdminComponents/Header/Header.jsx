@@ -15,7 +15,7 @@ const Header = () => {
     return (
         <div>
 
-            <div className='navbar bg-primary text-primary-content'>
+            <div className='navbar bg-primary text-primary-content '>
                 <div className='navbar-start'>
                     <div>
                         <a className='btn btn-ghost text-xl'>HEALTH GOODY </a>

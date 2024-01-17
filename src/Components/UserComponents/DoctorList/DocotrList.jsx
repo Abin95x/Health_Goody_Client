@@ -27,7 +27,7 @@ const DoctorList = () => {
             })
             .catch((error) => {
                 setLoading(false);
-                console.log(error.message);
+                console.log(error);
             });
     }, [select, searchQuery, currentPage, sort]);
 

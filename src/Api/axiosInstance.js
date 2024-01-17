@@ -2,6 +2,8 @@ import axios from 'axios';
 import Swal from 'sweetalert2';
 
 const baseURL = 'https://www.healthgoody.online/';
+// const baseURL = 'http://localhost:3001/';
+
 const userBaseURL = baseURL;
 const doctorBaseURL = `${baseURL}doctor`;
 const adminBaseURL = `${baseURL}admin`;
@@ -43,20 +45,22 @@ adminAxiosInstance.interceptors.request.use(async (req) => {
 
 userAxiosInstance.interceptors.response.use(
     (response) => response,
-    (error) => handleAxiosError(error),
+    (error) => handleAxiosError(error,'user'),
 );
 
 adminAxiosInstance.interceptors.response.use(
     (response) => response,
-    (error) => handleAxiosError(error),
+    (error) => handleAxiosError(error,'admin'),
 );
 
 doctorAxiosInstance.interceptors.response.use(
     (response) => response,
-    (error) => handleAxiosError(error),
+    (error) => handleAxiosError(error,'doctor'),
 );
 
 const handleAxiosError = (error, role) => {
+    console.log(error)
+
     if (error.response) {
         if (error.response.status === 404) {
             const Toast = Swal.mixin({
@@ -90,13 +94,11 @@ const handleAxiosError = (error, role) => {
             });
         }
         else if (error.response.status === 400) {
-
             const Toast = Swal.mixin({
                 toast: true,
                 position: 'top',
                 showConfirmButton: false,
                 timer: 3000,
-
             });
             Toast.fire({
                 icon: 'error',

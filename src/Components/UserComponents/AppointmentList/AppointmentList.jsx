@@ -261,7 +261,7 @@ const AppointmentList = () => {
                             </td>
                           </tr>
                         ) : (
-                          appo.map((appointment, index) => (
+                          appo?.map((appointment, index) => (
                             <tr key={appointment.id}>
                               <th>{index + 1}</th>
                               <td>
