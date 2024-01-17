@@ -4,7 +4,7 @@ function DoctorProtect(props){
     if(localStorage.getItem('doctortoken')){
         return props.children;
     }else{
-        return <Navigate to='/doctor/dashboard' />;
+        return <Navigate to='/doctor/login' />;
     }
 }
 
