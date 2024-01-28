@@ -106,7 +106,7 @@ const SignupPage = () => {
                         name='name'
                         type='text'
                         placeholder='Type name'
-                        className='block  rounded-md border-0 py-1.5 text-white  shadow-sm ring-1 ring-inset ring-black placeholder:text-white focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 input input-bordered w-full'
+                        className='w-full rounded-xl text-black'
                         value={values.name}
                         onChange={handleChange}
                         onBlur={handleBlur}
@@ -123,7 +123,7 @@ const SignupPage = () => {
                         name='mobile'
                         type='text'
                         placeholder='Type number'
-                        className='block  rounded-md border-0 py-1.5 text-white  shadow-sm ring-1 ring-inset  ring-black placeholder:text-white focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 input input-bordered w-full'
+                        className='w-full  text-black rounded-xl'
                         value={values.mobile}
                         onChange={handleChange}
                         onBlur={handleBlur}
@@ -140,7 +140,7 @@ const SignupPage = () => {
                         name='email'
                         type='email'
                         placeholder='Type email'
-                        className='block  rounded-md border-0 py-1.5 text-white  shadow-sm ring-1 ring-inset  ring-black placeholder:text-white focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 input input-bordered w-full'
+                        className='w-full  text-black rounded-xl'
                         value={values.email}
                         onChange={handleChange}
                         onBlur={handleBlur}
@@ -158,7 +158,7 @@ const SignupPage = () => {
                         name='password1'
                         type='password'
                         placeholder='Type password'
-                        className='block  rounded-md border-0 py-1.5 text-white  shadow-sm ring-1 ring-inset  ring-black placeholder:text-white focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 input input-bordered w-full'
+                        className='w-full  text-black rounded-xl'
                         value={values.password1}
                         onChange={handleChange}
                         onBlur={handleBlur}
@@ -176,7 +176,7 @@ const SignupPage = () => {
                         name='password2'
                         type='password'
                         placeholder='Retype password'
-                        className='block  rounded-md border-0 py-1.5 text-white  shadow-sm ring-1 ring-inset  ring-black placeholder:text-white focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 input input-bordered w-full'
+                        className='w-full  text-black rounded-xl'
                         value={values.password2}
                         onChange={handleChange}
                         onBlur={handleBlur}
@@ -193,7 +193,7 @@ const SignupPage = () => {
                       </label>
                       <input
                         type='file'
-                        className='file-input file-input-bordered file-input-primary w-full '
+                        className='file-input file-input-bordered rounded-xl file-input-primary w-full '
                         onChange={handlePhotoChange}
                         accept='image/*'
                       // required
