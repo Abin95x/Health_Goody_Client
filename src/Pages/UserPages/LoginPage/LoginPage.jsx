@@ -75,7 +75,7 @@ const LoginPage = () => {
                   name='email'
                   type='email'
                   placeholder='Type email'
-                  className='block  rounded-md border-0 py-1.5 text-white  shadow-sm ring-1 ring-inset ring-black placeholder:text-white focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 input input-bordered w-full'
+                  className='w-full text-black rounded-xl'
                   value={values.email}
                   onChange={handleChange}
                   onBlur={handleBlur}
@@ -92,7 +92,7 @@ const LoginPage = () => {
                   name='password'
                   type='password'
                   placeholder='Type password'
-                  className='block  rounded-md  border-0 py-1.5 text-white  shadow-sm ring-1 ring-inset ring-black placeholder:text-white focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 input input-bordered w-full '
+                  className='w-full  text-black rounded-xl '
                   value={values.password}
                   onChange={handleChange}
                   onBlur={handleBlur}
