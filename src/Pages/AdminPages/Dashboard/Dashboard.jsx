@@ -37,7 +37,7 @@ const Dashboard = () => {
   return (
     <>
       <Header />
-      <div className="flex">
+      <div className="flex bg-base-100">
         <SideNav />
         {loading ? (
           <div className="flex justify-center w-full min-h-screen">
@@ -48,20 +48,20 @@ const Dashboard = () => {
             {data && (
               <div className="flex flex-col">
                 <div className="flex flex-row justify-center">
-                  <div className="w-64 h-20 m-10 rounded-md bg-gradient-to-r from-blue-500 to-green-500 text-white text-center text-2xl">
+                  <div className="w-64 h-20 m-10 rounded-md bg-blue-500 text-white text-center text-2xl">
                     Doctors Count:
                     <div>{data.doctor}</div>
                   </div>
-                  <div className="w-64 h-20 m-10 rounded-md bg-gradient-to-r from-blue-500 to-green-500 text-white text-center text-2xl">
+                  <div className="w-64 h-20 m-10 rounded-md bg-blue-500 text-white text-center text-2xl">
                     Users Count:
                     <div>{data.user}</div>
                   </div>
 
-                  <div className="w-64 h-20 m-10 rounded-md bg-gradient-to-r from-blue-500 to-green-500 text-white text-center text-2xl">
+                  <div className="w-64 h-20 m-10 rounded-md bg-blue-500 text-white text-center text-2xl">
                     Admin Revenue:
                     <div>{data.thirtyPercent}</div>
                   </div>
-                  <div className="w-64 h-20 m-10 rounded-md bg-gradient-to-r from-blue-500 to-green-500 text-white text-center text-2xl">
+                  <div className="w-64 h-20 m-10 rounded-md bg-blue-500 text-white text-center text-2xl">
                     Total Revenue:
                     <div>{data.total}</div>
                   </div>
@@ -69,7 +69,7 @@ const Dashboard = () => {
               </div>
             )}
             {reportData && (
-              <div className="w-full min-h-screen">
+              <div className="w-full bg-base-100 h-[600px]">
                 <LineChart
                   usersByYear={reportData?.usersData}
                   doctorsByYear={reportData?.doctorsData}
