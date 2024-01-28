@@ -145,8 +145,8 @@ const Profile = () => {
               <div className='min-h-screen bg-blue-50 flex items-center justify-center'>
                 <div className='bg-white p-8 rounded-lg shadow-2xl w-full md:w-[700px]'>
                   <div className="button-borders">
-                    <div className="primary-button">
-                      <h1 className='text-center'>
+                    <div className="primary-button border border-black h-12">
+                      <h1 className='text-center text-black p-3'>
                         PROFILE
                       </h1>
                     </div>
