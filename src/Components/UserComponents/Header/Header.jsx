@@ -50,7 +50,7 @@ const Header = () => {
                   <li><Link to='/appointments'>APPOINTMENTS <FontAwesomeIcon icon={faCalendarCheck} /></Link></li>
                   <li><Link to='/chatuser'>CHATS<FontAwesomeIcon icon={faComment} /></Link></li>
                 </ul>) : (
-                <ul tabIndex={0} className='menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52'>
+                <ul tabIndex={0} className='menu bg-white menu-sm dropdown-content mt-3 z-[1] p-2 shadow rounded-box w-52'>
                   <li><Link to='/'>HOME<FontAwesomeIcon icon={faHouse} /></Link></li>
                   <li><Link to='/login'>LOGIN <FontAwesomeIcon icon={faRightToBracket} /></Link></li>
                 </ul>
@@ -72,8 +72,8 @@ const Header = () => {
           </ul>
         </div>
 
-      ) : (<div className='navbar-center hidden lg:flex'>
-        <ul className='menu menu-horizontal px-1'>
+      ) : (<div className='navbar-center  hidden lg:flex'>
+        <ul className='menu menu-horizontal  px-1'>
           <li><Link to='/'>HOME<FontAwesomeIcon icon={faHouse} /></Link></li>
           <li><Link to='/login'>LOGIN <FontAwesomeIcon icon={faRightToBracket} /></Link></li>
         </ul>
