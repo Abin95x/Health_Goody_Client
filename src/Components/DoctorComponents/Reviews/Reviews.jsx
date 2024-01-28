@@ -70,7 +70,7 @@ const Reviews = () => {
                         </div>
                     </div>
                 ) : (
-                    <div className="text-center text-3xl p-6 underline text-black">
+                    <div className="text-center text-xl p-80  text-black">
                         <p>No reviews available</p>
                     </div>
                 )}
