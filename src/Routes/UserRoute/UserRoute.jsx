@@ -48,12 +48,6 @@ const userRoute = () => {
       <Route path="/internalError" element={<Error500 />} />
       <Route path='/notifications' element={<UserProtect><NotificationPage /></UserProtect>} />
       <Route path='/consultation' element={<UserProtect><ConsultationReportPage /></UserProtect>} />
-
-
-
-
-
-
     </Routes>
   );
 };
