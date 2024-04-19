@@ -59,25 +59,24 @@ const Header = () => {
               <svg xmlns='http://www.w3.org/2000/svg' className='h-5 w-5' fill='none' viewBox='0 0 24 24' stroke='currentColor'><path strokeLinecap='round' strokeLinejoin='round' strokeWidth='2' d='M4 6h16M4 12h8m-8 6h16' /></svg>
             </label>
             <ul tabIndex={0} className='menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52'>
-              <li><Link to='/doctor/dashboard'>DASHBOARD <FontAwesomeIcon icon={faChartSimple} /></Link></li>
-              <li><Link to='/doctor/doctorprofile'>PROFILE <FontAwesomeIcon icon={faUser} /></Link></li>
-              <li><Link to='/doctor/slots'>SLOTS<FontAwesomeIcon icon={faCheckToSlot} /></Link></li>
-              <li><Link to='/doctor/chatpagedoctor'>CHATS <FontAwesomeIcon icon={faComments} /></Link></li>
-              <li><Link to='/doctor/appointment'>APPOINTMENTS <FontAwesomeIcon icon={faCalendarCheck} /></Link></li>
-              <li><Link to='/doctor/reviews'>REVIEWS <FontAwesomeIcon icon={faStar} /></Link></li>
+              <li><Link className='text-white' to='/doctor/dashboard'>DASHBOARD <FontAwesomeIcon icon={faChartSimple} /></Link></li>
+              <li><Link className='text-white' to='/doctor/doctorprofile'>PROFILE <FontAwesomeIcon icon={faUser} /></Link></li>
+              <li><Link className='text-white' to='/doctor/slots'>SLOTS<FontAwesomeIcon icon={faCheckToSlot} /></Link></li>
+              <li><Link className='text-white' to='/doctor/chatpagedoctor'>CHATS <FontAwesomeIcon icon={faComments} /></Link></li>
+              <li><Link className='text-white' to='/doctor/appointment'>APPOINTMENTS <FontAwesomeIcon icon={faCalendarCheck} /></Link></li>
+              <li><Link className='text-white' to='/doctor/reviews'>REVIEWS <FontAwesomeIcon icon={faStar} /></Link></li>
 
             </ul>
           </div>
-          <Link to={'/doctor/dashboard'} className='btn btn-ghost normal-case text-xl'>HEALTH GOODY <FontAwesomeIcon icon={faStethoscope} /></Link>
+          <Link to={'/doctor/dashboard'} className='btn btn-ghost normal-case text-xl text-white'>HEALTH GOODY <FontAwesomeIcon icon={faStethoscope} /></Link>
         </div>
         <div className='navbar-center hidden lg:flex'>
           <ul className='menu menu-horizontal px-1'>
-            <li><Link to='/doctor/dashboard'>DASHBOARD <FontAwesomeIcon icon={faChartSimple} /></Link></li>
-            <li><Link to='/doctor/doctorprofile'>PROFILE<FontAwesomeIcon icon={faUser} /></Link></li>
-            <li><Link to='/doctor/slots'>SLOTS <FontAwesomeIcon icon={faCheckToSlot} /></Link></li>
-            <li><Link to='/doctor/appointment'>APPOINTMENTS <FontAwesomeIcon icon={faCalendarCheck} /></Link></li>
-            <li><Link to='/doctor/reviews'>REVIEWS <FontAwesomeIcon icon={faStar} /></Link></li>
-
+            <li><Link className='text-white' to='/doctor/dashboard'>DASHBOARD <FontAwesomeIcon icon={faChartSimple} /></Link></li>
+            <li><Link className='text-white' to='/doctor/doctorprofile'>PROFILE<FontAwesomeIcon icon={faUser} /></Link></li>
+            <li><Link className='text-white' to='/doctor/slots'>SLOTS <FontAwesomeIcon icon={faCheckToSlot} /></Link></li>
+            <li><Link className='text-white' to='/doctor/appointment'>APPOINTMENTS <FontAwesomeIcon icon={faCalendarCheck} /></Link></li>
+            <li><Link className='text-white' to='/doctor/reviews'>REVIEWS <FontAwesomeIcon icon={faStar} /></Link></li>
           </ul>
         </div>
         <div className='navbar-end'>
@@ -108,16 +107,16 @@ const Header = () => {
                 </button>
               </div>
             </Link>
-
           )}
-          <button onClick={handleLogout} className="cursor-pointer relative group overflow-hidden border-2 rounded-full px-8 py-2 border-green-500">
-            <span className="font-bold text-white text-xl relative z-10 group-hover:text-green-500 duration-500">Log Out</span>
+
+         <button onClick={handleLogout} className="cursor-pointer relative group overflow-hidden border-2 rounded-full px-8 py-2 border-green-500 sm:px-6 sm:py-1 md:px-4 md:py-1">
+            <span className="font-bold text-white text-xl relative z-10 group-hover:text-green-500 duration-500">Logout</span>
             <span className="absolute top-0 left-0 w-full bg-green-500 duration-500 group-hover:-translate-x-full h-full"></span>
             <span className="absolute top-0 left-0 w-full bg-green-500 duration-500 group-hover:translate-x-full h-full"></span>
-
             <span className="absolute top-0 left-0 w-full bg-green-500 duration-500 delay-300 group-hover:-translate-y-full h-full"></span>
             <span className="absolute delay-300 top-0 left-0 w-full bg-green-500 duration-500 group-hover:translate-y-full h-full"></span>
           </button>
+
 
         </div>
       </div>
