@@ -66,7 +66,7 @@ const LoginPage = () => {
         <div className='card flex-shrink-0 w-full max-w-md shadow-2xl bg-transparent'>
           <div className='card-body'>
             <div className='text-center lg:text-left'>
-              <h1 className='text-2xl font-bold'>Login now!</h1>
+              <h1 className='text-2xl text-black font-bold'>Login now!</h1>
             </div>
             <br />
             <form onSubmit={handleSubmit} >
@@ -121,6 +121,12 @@ const LoginPage = () => {
               <Link to={'/signup'} className='font-medium text-orange-900'>Sign Up</Link>
 
             </form>
+
+            <div>
+                <h3 className="text-center text-black">Demo user</h3>
+                <h2 className="text-center text-black">Email : user@gmail.com</h2>
+                <h2 className="text-center text-black">Password : User123</h2>
+              </div>
 
           </div>
         </div>
