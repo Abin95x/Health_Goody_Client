@@ -1,6 +1,6 @@
 import axios from 'axios';
-// const baseURL = 'https://www.healthgoody.online';
-const baseURL = 'http://localhost:3001/';
+const baseURL = 'https://health-goody-server.onrender.com';
+// const baseURL = 'http://localhost:3001/';
 
 
 const chatInstance = axios.create({ baseURL: baseURL });

@@ -1,4 +1,4 @@
-import { userAxiosInstance } from './axiosInstance';
+loimport { userAxiosInstance } from './axiosInstance';
 
 export async function userSignup(signupData) {
     const data = await userAxiosInstance.post('/userSignup', signupData);
