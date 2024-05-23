@@ -82,7 +82,9 @@ const AppointmentList = () => {
     try {
       const response = await createChat({ userid: userId, doctorid: id });
       setBtn(true);
-      Swal.fire(response?.data?.message);
+      Swal.fire(response?.data?.message).then((result)=>{
+        navigate('/doctor/chatpagedoctor');
+      })
     } catch (error) {
       console.log(error.message);
     }
