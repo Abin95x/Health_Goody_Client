@@ -35,7 +35,7 @@ const DoctorRoute = () => {
             <Route path='/slots' element={<DoctorProtect><DoctorSlotsPage /></DoctorProtect>} />
             <Route path='/appointment' element={<DoctorProtect><AppointmentPage /></DoctorProtect>} />
             <Route path='/chatpagedoctor' element={<DoctorProtect><ChatPage /></DoctorProtect>} />
-            <Route path='/video' element={<DoctorProtect><VideoPage /></DoctorProtect>} />
+            {/* <Route path='/video' element={<DoctorProtect><VideoPage /></DoctorProtect>} /> */}
             <Route path='/priscription' element={<DoctorProtect><PrescriptionPage /></DoctorProtect>} />
             <Route path='/medicalreport' element={<DoctorProtect><MedicalReport /></DoctorProtect>} />
             <Route path="*" element={<Error404 />} />

@@ -16,6 +16,7 @@ const Speciality = () => {
                 console.log(error.message);
             });
     }, []);
+    console.log(slist);
 
     const handleClick = async (id) => {
         try {

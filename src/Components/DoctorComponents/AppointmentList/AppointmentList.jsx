@@ -101,7 +101,7 @@ const AppointmentList = () => {
   const handleLinkClick = (event) => {
     event.preventDefault();
 
-    const baseUrl = '/doctor/video';
+    const baseUrl = '/video/video';
 
     // Append the userId as a query parameter
     const urlToOpen = `${baseUrl}?userId=${userId}`;

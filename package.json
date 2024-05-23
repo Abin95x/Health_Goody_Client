@@ -23,6 +23,7 @@
     "html2canvas": "^1.4.1",
     "javascript-time-ago": "^2.5.9",
     "jspdf": "^2.5.1",
+    "lodash": "^4.17.21",
     "prop-types": "^15.8.1",
     "react": "^18.2.0",
     "react-apexcharts": "^1.4.1",

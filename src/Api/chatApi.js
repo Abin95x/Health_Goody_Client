@@ -1,5 +1,8 @@
 import axios from 'axios';
-const baseURL = 'https://www.healthgoody.online';
+// const baseURL = 'https://www.healthgoody.online';
+const baseURL = 'http://localhost:3001/';
+
+
 const chatInstance = axios.create({ baseURL: baseURL });
 
 export async function userData(id) {
