@@ -106,7 +106,6 @@ const ChatBox = ({ chat, currentUser, setMessages, messages, socket }) => {
               <hr className='m-5 border' />
             </div>
 
-
             <div
               id="messages"
               className="flex flex-col space-y-4 p-3 overflow-y-auto scrollbar-thumb-blue scrollbar-thumb-rounded scrollbar-track-blue-lighter scrollbar-w-1 h-screen scrolling-touch"
@@ -114,7 +113,7 @@ const ChatBox = ({ chat, currentUser, setMessages, messages, socket }) => {
               {messages.map((message) => (
                 <div ref={scroll} key={message._id}>
                   {/* Check if the message is a video call link */}
-                  {message.text.includes('https://healthgoody.vercel.app/doctor/video?roomID=') ? (
+                  {message.text.includes('https://healthgoody.vercel.app/video/video?roomID=') ? (
                     <div className='flex justify-center'>
                       <span
                         className="text-green-500 text-2xl cursor-pointer"
