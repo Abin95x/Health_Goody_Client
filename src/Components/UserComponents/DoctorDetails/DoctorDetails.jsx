@@ -254,7 +254,7 @@ const DoctorDetails = () => {
                                 ))
                             )}
                         </div>
-                    </div > >
+                    </div>
 
                 )
             }
