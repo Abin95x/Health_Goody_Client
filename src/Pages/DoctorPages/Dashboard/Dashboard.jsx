@@ -67,31 +67,46 @@ const Dashboard = () => {
                             </div>
                         </div>
                     ) : (
-                        <div>
-                            <div className=' bg-blue-50 text-3xl p-6 underline text-black text-center '>
-                                <h1>Dashboard</h1>
+                        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+                            <div className='mb-10 text-center'>
+                                <h1 className="text-4xl font-extrabold text-gray-900 tracking-tight">
+                                    Doctor <span className="text-blue-600">Dashboard</span>
+                                </h1>
+                                <div className="mt-2 h-1 w-20 bg-blue-600 mx-auto rounded-full"></div>
                             </div>
-                                    <div className='flex justify-center'>
-                                        <div className='max-w-screen-lg w-full'>
-                                            <DashboardData data={data} />
-                                        </div>
-                                    </div>
 
-                                    <div className='flex flex-col lg:flex-row items-center justify-center gap-10 mt-10 px-4'>
-                                        <div className='w-full lg:w-2/3 bg-white p-6 rounded-2xl shadow-xl border border-gray-100'>
-                                            <h2 className="text-xl font-bold text-gray-800 mb-6 border-b pb-2">Appointment Trends</h2>
-                                            <LineChart appointmentsByYear={reportData} />
-                                        </div>
-                                        <div className='w-full lg:w-1/3 bg-white p-6 rounded-2xl shadow-xl border border-gray-100'>
-                                            <h2 className="text-xl font-bold text-gray-800 mb-6 border-b pb-2 text-center">Status Overview</h2>
-                                            <div className="max-w-[250px] mx-auto">
-                                                <PieChart count={pieData} />
-                                            </div>
-                                            <h1 className='text-center text-lg font-bold text-sky-600 mt-8 uppercase tracking-wide'>
-                                                Appointment Statistics
-                                            </h1>
+                            <div className='mb-10'>
+                                <DashboardData data={data} />
+                            </div>
+
+                            <div className='grid grid-cols-1 lg:grid-cols-3 gap-8'>
+                                <div className='lg:col-span-2 bg-white p-6 rounded-3xl shadow-sm border border-gray-100 transition-all hover:shadow-md'>
+                                    <div className="flex items-center justify-between mb-6 border-b pb-4">
+                                        <h2 className="text-xl font-bold text-gray-800">Appointment Trends</h2>
+                                        <span className="text-xs font-medium px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 uppercase">Monthly View</span>
+                                    </div>
+                                    <div className="h-[300px] sm:h-[400px]">
+                                        <LineChart appointmentsByYear={reportData} />
+                                    </div>
+                                </div>
+
+                                <div className='bg-white p-6 rounded-3xl shadow-sm border border-gray-100 flex flex-col transition-all hover:shadow-md'>
+                                    <div className="text-center mb-6 border-b pb-4">
+                                        <h2 className="text-xl font-bold text-gray-800">Status Overview</h2>
+                                    </div>
+                                    <div className="flex-grow flex items-center justify-center py-4">
+                                        <div className="w-full max-w-[280px]">
+                                            <PieChart count={pieData} />
                                         </div>
                                     </div>
+                                    <div className="mt-6 pt-6 border-t text-center">
+                                        <h3 className='text-sm font-bold text-blue-600 uppercase tracking-widest'>
+                                            Appointment Statistics
+                                        </h3>
+                                        <p className="text-xs text-gray-500 mt-1">Live data from recent consultations</p>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
 
                     )
