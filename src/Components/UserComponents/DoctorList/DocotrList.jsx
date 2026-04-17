@@ -133,7 +133,7 @@ const DoctorList = () => {
                                     ) : (
                                         doctors.map((doctor) => (
                                             <Link to={`/doctordetails/${doctor._id}`} key={doctor._id}>
-                                                <div className='bg-white shadow-lg border h-96 rounded-lg overflow-hidden transition-transform transform hover:scale-105'>
+                                                <div className='bg-white shadow-lg border min-h-[24rem] h-auto rounded-lg overflow-hidden transition-transform transform hover:scale-105'>
                                                     <div className='p-4 text-gray-900'>
                                                         <img
                                                             src={doctor.photo}

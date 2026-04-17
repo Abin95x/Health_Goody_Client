@@ -34,7 +34,7 @@ const Speciality = () => {
                 </div>
                 <div className="bg-blue-50 flex items-center justify-center px-4">
                     <span className='hidden sm:block m-2 sm:m-5 text-sm'><FontAwesomeIcon icon={faArrowLeft} /></span>
-                    <div className="w-full max-w-[1300px] flex flex-row border bg-white shadow-2xl rounded-xl overflow-x-auto">
+                    <div className="w-full max-w-[1300px] flex flex-row border bg-white shadow-2xl rounded-xl overflow-x-auto scrollbar-hide">
                         <div className="flex flex-row p-4">
                             {slist && slist.map((speciality) => (
                                 <div key={speciality._id} className="flex-shrink-0 cursor-pointer hover:scale-105 duration-300" onClick={() => handleClick(speciality._id)}>
