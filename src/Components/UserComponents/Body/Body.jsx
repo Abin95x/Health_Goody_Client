@@ -14,7 +14,7 @@ const Body = () => {
   return (
     <div >
       {/* Banner */}
-      <div className='banner relative w-full h-screen bg-white'>
+      <div className='banner relative w-full min-h-[500px] md:h-screen bg-white'>
         <img
           src={banner}
           alt='Banner'
@@ -22,40 +22,51 @@ const Body = () => {
         />
 
         <div
-          className='text-white text-3xl md:text-4xl lg:text-5xl absolute top-0 left-0 w-full h-full flex items-center justify-center'
+          className='text-white absolute top-0 left-0 w-full h-full flex items-center justify-center p-4'
           style={{ backgroundColor: 'rgba(0, 0, 0, 0.4)' }}
         >
-          <div className='row'>
-            <div className='col-md-6'>
-              <div className='card ' style={{ alignSelf: 'flex-end', justifyContent: 'flex-end' }}>
-                <div className='card-body'>
-                  <h2 className='text-yellow-200'>How Doctor Consultation Works ?</h2>
+          <div className='max-w-6xl w-full flex flex-col md:flex-row items-center md:items-end justify-center md:justify-start px-4'>
+            <div className='w-full md:w-1/2 lg:w-5/12'>
+              <div className='card bg-black bg-opacity-40 backdrop-blur-sm border border-white border-opacity-20 shadow-xl'>
+                <div className='card-body p-6 sm:p-8'>
+                  <h2 className='text-yellow-200 text-2xl md:text-3xl font-bold mb-4'>How Doctor Consultation Works?</h2>
+                  
+                  <div className='space-y-3 mb-6'>
+                    <h2 className='text-lg md:text-xl text-white font-semibold flex items-start gap-3'>
+                      <span className='bg-sky-500 rounded-full w-7 h-7 flex items-center justify-center text-sm shrink-0'>1</span>
+                      Select the speciality
+                    </h2>
+                    <h2 className='text-lg md:text-xl text-white font-semibold flex items-start gap-3'>
+                      <span className='bg-sky-500 rounded-full w-7 h-7 flex items-center justify-center text-sm shrink-0'>2</span>
+                      Choose the doctor
+                    </h2>
+                    <h2 className='text-lg md:text-xl text-white font-semibold flex items-start gap-3'>
+                      <span className='bg-sky-500 rounded-full w-7 h-7 flex items-center justify-center text-sm shrink-0'>3</span>
+                      Book a slot
+                    </h2>
+                    <h2 className='text-lg md:text-xl text-white font-semibold flex items-start gap-3'>
+                      <span className='bg-sky-500 rounded-full w-7 h-7 flex items-center justify-center text-sm shrink-0'>4</span>
+                      Make payment
+                    </h2>
+                    <h2 className='text-lg md:text-xl text-white font-semibold flex items-start gap-3'>
+                      <span className='bg-sky-500 rounded-full w-7 h-7 flex items-center justify-center text-sm shrink-0'>5</span>
+                      Be present on HEALTH GOODY at the time of the consultation.
+                    </h2>
+                  </div>
 
-                  {/* <h2 className='card-title text-green-500'>HOW TO CONSULT A DOCTOR ONLINE VIA TEXT/VIDEO?</h2> */}
-                  <h2 className='card-title text-white'>1 . Select the speciality</h2>
-                  <h2 className='card-title text-white'>2 . Choose the doctor</h2>
-                  <h2 className='card-title text-white'>3 . Book a slot</h2>
-                  <h2 className='card-title text-white'>4 . Make payment</h2>
-                  <h2 className='card-title text-white'>5 . Be present on HEALTH GOODY at the time of the consultation. </h2>
-
-                  <br />
                   {
                     token ? (
                       <Link to={'/doctorlist'}>
-
-                        <button className="group w-full group-hover:before:duration-500 group-hover:after:duration-1000 after:duration-500 hover:border-sky-300  duration-500 before:duration-500 hover:duration-500 underline underline-offset-2    hover:after:-right-2 hover:before:top-8 hover:before:right-16 hover:after:scale-150 hover:after:blur-none hover:before:-bottom-8 hover:before:blur-none hover:bg-sky-300 hover:underline hover:underline-offset-4  origin-left hover:decoration-2 hover:text-sky-900 relative bg-sky-800 h-16  border text-left p-3 text-gray-50 text-base font-bold rounded-lg  overflow-hidden  before:absolute before:w-12 before:h-12 before:content[''] before:right-1 before:top-1 before:z-10 before:bg-sky-400 before:rounded-full before:blur-lg  after:absolute after:z-10 after:w-20 after:h-20 after:content['']  after:bg-cyan-600 after:right-8 after:top-3 after:rounded-full after:blur">
-                          <p >Book Consultation Now</p>
+                        <button className="btn btn-primary w-full h-16 text-lg font-bold">
+                          Book Consultation Now
                         </button>
                       </Link>
-
                     ) : (
                       <Link to={'/login'}>
-
-                        <button className="group w-full group-hover:before:duration-500 group-hover:after:duration-1000 after:duration-500 hover:border-sky-300  duration-500 before:duration-500 hover:duration-500 underline underline-offset-2    hover:after:-right-2 hover:before:top-8 hover:before:right-16 hover:after:scale-150 hover:after:blur-none hover:before:-bottom-8 hover:before:blur-none hover:bg-sky-300 hover:underline hover:underline-offset-4  origin-left hover:decoration-2 hover:text-sky-900 relative bg-sky-800 h-16  border text-left p-3 text-gray-50 text-base font-bold rounded-lg  overflow-hidden  before:absolute before:w-12 before:h-12 before:content[''] before:right-1 before:top-1 before:z-10 before:bg-sky-400 before:rounded-full before:blur-lg  after:absolute after:z-10 after:w-20 after:h-20 after:content['']  after:bg-cyan-600 after:right-8 after:top-3 after:rounded-full after:blur">
-                          <p >Book Consultation Now</p>
+                        <button className="btn btn-primary w-full h-16 text-lg font-bold">
+                          Book Consultation Now
                         </button>
                       </Link>
-
                     )
                   }
                 </div>

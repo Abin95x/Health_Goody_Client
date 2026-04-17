@@ -63,44 +63,48 @@ const DoctorList = () => {
 
         <>
             <div className='bg-blue-50 min-h-screen'>
-                <div className='flex justify-center space-x-4 p-4'>
-                    {speciality && (
+                <div className='flex flex-col sm:flex-row items-center justify-center gap-4 p-4'>
+                    <div className='flex flex-wrap justify-center gap-4 w-full sm:w-auto'>
+                        {speciality && (
+                            <div className='text-black'>
+                                <select
+                                    name="speciality"
+                                    onChange={handleSelectChange}
+                                    className="select select-bordered bg-white border rounded-2xl w-full max-w-xs"
+                                >
+                                    <option value="">
+                                        Select a speciality
+                                    </option>
+                                    {speciality.map((speciality) => (
+                                        <option key={speciality.id} value={speciality.id}>
+                                            {speciality.speciality}
+                                        </option>
+                                    ))}
+                                </select>
+                            </div>
+                        )}
+
                         <div className='text-black'>
                             <select
-                                name="speciality"
-                                onChange={handleSelectChange}
-                                className="input input-bordered bg-white border rounded-2xl"
+                                name="sort"
+                                onChange={handleSortChange}
+                                className="select select-bordered bg-white border rounded-2xl w-full max-w-xs"
                             >
-                                <option value="">
-                                    Select a speciality
-                                </option>
-                                {speciality.map((speciality) => (
-                                    <option key={speciality.id} value={speciality.id}>
-                                        {speciality.speciality}
-                                    </option>
-                                ))}
+                                <option value="">Sort by</option>
+                                <option value="experience">Experience</option>
                             </select>
                         </div>
-                    )}
-
-                    <div className='text-black'>
-                        <select
-                            name="sort"
-                            onChange={handleSortChange}
-                            className="input input-bordered bg-white border rounded-2xl"
-                        >
-                            <option value="">Sort by</option>
-                            <option value="experience">Experience</option>
-                        </select>
                     </div>
 
-                    <input
-                        type='text'
-                        placeholder='Search'
-                        value={searchQuery}
-                        onChange={handleSearchChange}
-                        className='input input-bordered w-full md:w-64 bg-white border text-black rounded-2xl'
-                    />
+                    <div className='w-full sm:w-auto'>
+                        <input
+                            type='text'
+                            placeholder='Search'
+                            value={searchQuery}
+                            onChange={handleSearchChange}
+                            className='input input-bordered w-full sm:w-64 bg-white border text-black rounded-2xl'
+                        />
+                    </div>
                 </div>
 
                 {

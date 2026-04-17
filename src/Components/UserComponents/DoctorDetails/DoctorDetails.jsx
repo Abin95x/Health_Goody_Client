@@ -195,48 +195,52 @@ const DoctorDetails = () => {
         <>
             {
                 doctor && (
-                    <div className="min-h-screen bg-blue-50 flex justify-center">
-                        <div className='bg-white w-full md:w-[60%] lg:w-[60%] xl:w-[60%] 2xl:w-[40%] rounded-xl shadow-2xl p-8 h-[550px] m-10 mt-20 '>
+                    <div className="min-h-screen bg-blue-50 flex flex-col lg:flex-row items-center lg:items-start justify-center p-4 lg:p-10 gap-8">
+                        <div className='bg-white w-full lg:w-[60%] xl:w-5/12 rounded-xl shadow-2xl p-6 sm:p-8 min-h-[500px] mt-10 lg:mt-20'>
                             <div className='flex justify-center'>
                                 <img
-                                    className="mx-auto mb-4 h-40 w-40 rounded-full shadow-2xl"
+                                    className="mx-auto mb-6 h-40 w-40 rounded-full shadow-2xl object-cover border-4 border-white"
                                     src={doctor.photo}
                                     alt={`Doctor ${doctor.name}`}
 
                                 />
                             </div>
-                            <h2 className='text-3xl text-center text-black'>{`Dr. ${doctor.name}`}</h2>
+                            <h2 className='text-3xl text-center text-black font-bold'>{`Dr. ${doctor.name}`}</h2>
                             <br />
-                            <p className='text-base text-center mb-4'> {doctor.bio ? doctor.bio : 'Bio not added'}</p>
+                            <p className='text-base text-center mb-6 text-gray-600'> {doctor.bio ? doctor.bio : 'Bio not added'}</p>
 
-                            <hr className='my-6 border-t border-gray-300' />
-                            <div className='text-gray-700 text-xl'>
-                                <p className='mb-4'>Price: ₹299</p>
-                                <p className='text-base mb-4'>{`Speciality: ${doctor.speciality}`}</p>
-                                <p className='text-base mb-4'>{`Experience: ${doctor.experience}`}</p>
+                            <hr className='my-6 border-t border-gray-200' />
+                            <div className='text-gray-700 text-lg sm:text-xl space-y-3'>
+                                <p className='font-semibold'>Price: <span className='text-green-600'>₹299</span></p>
+                                <p className='text-base'><span className='font-semibold'>Speciality:</span> {doctor.speciality}</p>
+                                <p className='text-base'><span className='font-semibold'>Experience:</span> {doctor.experience}</p>
 
                             </div>
-                            <div className="flex justify-center">
-                                <Button onClick={() => setOpenModal(true)}>View Slots</Button>
+                            <div className="flex justify-center mt-8">
+                                <Button className='w-full sm:w-auto' onClick={() => setOpenModal(true)}>View Slots</Button>
                             </div>
-                            <br />
                         </div>
-                        <div className='bg-white h-[550px] w-96 m-10 mt-20 rounded-xl shadow-2xl p-6 overflow-y-auto'>
+                        
+                        <div className='bg-white h-auto lg:h-[550px] w-full lg:w-96 mt-4 lg:mt-20 rounded-xl shadow-2xl p-6 overflow-y-auto'>
+                            <h3 className='text-xl font-bold mb-4 text-black border-b pb-2'>Patient Reviews</h3>
                             {review.length === 0 ? (
-                                <p className="text-center text-gray-500">No reviews yet</p>
+                                <p className="text-center text-gray-500 py-10">No reviews yet</p>
                             ) : (
                                 review.map((rev) => (
-                                    <div key={rev._id} className="mb-4 border p-5" >
+                                    <div key={rev._id} className="mb-4 border-b last:border-0 pb-4 pt-2" >
                                         <div className="flex items-center mb-2">
-                                            <img src={rev.postedBy.photo} alt="User" className="h-8 w-8 rounded-full mr-2" />
-                                            <p className="text-gray-700 mb-2">Posted by: {rev.postedBy.name}</p>
+                                            <img src={rev.postedBy.photo} alt="User" className="h-10 w-10 rounded-full mr-3 border" />
+                                            <div>
+                                                <p className="text-sm font-semibold text-gray-800">{rev.postedBy.name}</p>
+                                                <p className="text-xs text-gray-500">{new Date(rev.postedDate).toLocaleDateString()}</p>
+                                            </div>
                                         </div>
-                                        <p className="text-xl font-semibold mb-2"> {rev.text}</p>
+                                        <p className="text-gray-700 mb-3 italic">"{rev.text}"</p>
                                         <div className="flex items-center mb-1 space-x-1 rtl:space-x-reverse">
-                                            {Array.from({ length: rev?.star }, (_, index) => (
+                                            {Array.from({ length: 5 }, (_, index) => (
                                                 <svg
                                                     key={index}
-                                                    className="w-4 h-4 text-yellow-300"
+                                                    className={`w-4 h-4 ${index < rev?.star ? 'text-yellow-300' : 'text-gray-300'}`}
                                                     aria-hidden="true"
                                                     xmlns="http://www.w3.org/2000/svg"
                                                     fill="currentColor"
@@ -246,16 +250,11 @@ const DoctorDetails = () => {
                                                 </svg>
                                             ))}
                                         </div>
-                                        <p className="text-gray-500">Posted Date: {new Date(rev.postedDate).toLocaleString()}</p>
                                     </div>
                                 ))
                             )}
                         </div>
-
-
-
-
-                    </div >
+                    </div > >
 
                 )
             }

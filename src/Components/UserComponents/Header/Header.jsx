@@ -62,7 +62,7 @@ const Header = () => {
 
         </div>
 
-        <Link to={'/'} className='btn btn-ghost normal-case text-xl'>HEALTH GOODY <FontAwesomeIcon icon={faStethoscope} /></Link>
+        <Link to={'/'} className='btn btn-ghost normal-case text-lg sm:text-xl'>HEALTH GOODY <FontAwesomeIcon icon={faStethoscope} /></Link>
 
       </div>
 
@@ -136,7 +136,7 @@ const Header = () => {
             </div>
             <div className='dropdown dropdown-end'>
               <label tabIndex={0} className='btn btn-ghost btn-circle avatar'>
-                <div className="w-24  rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
+                <div className="w-10 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
                   <img src={photo} alt="profile" />
                 </div>
               </label>
