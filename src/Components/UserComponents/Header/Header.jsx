@@ -37,7 +37,7 @@ const Header = () => {
   };
 
   return (
-    <div className='navbar bg-white text-black  ' >
+    <div className='navbar bg-white text-black sticky top-0 z-50 shadow-md' >
       <div className='navbar-start'>
         <div className='dropdown'>
           <label tabIndex={0} className='btn btn-ghost lg:hidden'>
@@ -47,13 +47,13 @@ const Header = () => {
           {
             token ?
               (
-                <ul tabIndex={0} className='menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-white rounded-box w-52'>
+                <ul tabIndex={0} className='menu menu-sm dropdown-content mt-3 z-50 p-2 shadow bg-white rounded-box w-52'>
                   <li><Link to='/'>HOME <FontAwesomeIcon icon={faHouse} /></Link></li>
                   <li><Link to='/doctorlist'>DOCTORS <FontAwesomeIcon icon={faUserDoctor} /></Link></li>
                   <li><Link to='/appointments'>APPOINTMENTS <FontAwesomeIcon icon={faCalendarCheck} /></Link></li>
                   <li><Link to='/chatuser'>CHATS<FontAwesomeIcon icon={faComment} /></Link></li>
                 </ul>) : (
-                <ul tabIndex={0} className='menu bg-white menu-sm dropdown-content mt-3 z-[1] p-2 shadow rounded-box w-52'>
+                <ul tabIndex={0} className='menu bg-white menu-sm dropdown-content mt-3 z-50 p-2 shadow rounded-box w-52'>
                   <li><Link to='/'>HOME<FontAwesomeIcon icon={faHouse} /></Link></li>
                   <li><Link to='/login'>LOGIN <FontAwesomeIcon icon={faRightToBracket} /></Link></li>
                 </ul>
@@ -140,7 +140,7 @@ const Header = () => {
                   <img src={photo} alt="profile" />
                 </div>
               </label>
-              <ul tabIndex={0} className='mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-white rounded-box w-52'>
+              <ul tabIndex={0} className='mt-3 z-50 p-2 shadow menu menu-sm dropdown-content bg-white rounded-box w-52'>
                 <li><Link to='/profile'>Profile</Link></li>
                 <li><a onClick={handleLogout}>Logout</a></li>
               </ul>
@@ -154,7 +154,7 @@ const Header = () => {
                   <img src='icon.jpg' />
                 </div>
               </label>
-              <ul tabIndex={0} className='mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-white rounded-box w-52'>
+              <ul tabIndex={0} className='mt-3 z-50 p-2 shadow menu menu-sm dropdown-content bg-white rounded-box w-52'>
                 <li><Link to='/'>Home<FontAwesomeIcon icon={faHouse} /></Link></li>
                 <li><Link to='/login'>Login <FontAwesomeIcon icon={faRightToBracket} /></Link></li>
               </ul>
