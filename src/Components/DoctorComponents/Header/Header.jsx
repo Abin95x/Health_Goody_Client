@@ -109,8 +109,8 @@ const Header = () => {
             </Link>
           )}
 
-         <button onClick={handleLogout} className="cursor-pointer relative group overflow-hidden border-2 rounded-full px-8 py-2 border-green-500 sm:px-6 sm:py-1 md:px-4 md:py-1">
-            <span className="font-bold text-white text-xl relative z-10 group-hover:text-green-500 duration-500">Logout</span>
+         <button onClick={handleLogout} className="cursor-pointer relative group overflow-hidden border-2 rounded-full px-4 py-1.5 sm:px-8 sm:py-2 border-green-500">
+            <span className="font-bold text-white text-base sm:text-xl relative z-10 group-hover:text-green-500 duration-500">Logout</span>
             <span className="absolute top-0 left-0 w-full bg-green-500 duration-500 group-hover:-translate-x-full h-full"></span>
             <span className="absolute top-0 left-0 w-full bg-green-500 duration-500 group-hover:translate-x-full h-full"></span>
             <span className="absolute top-0 left-0 w-full bg-green-500 duration-500 delay-300 group-hover:-translate-y-full h-full"></span>

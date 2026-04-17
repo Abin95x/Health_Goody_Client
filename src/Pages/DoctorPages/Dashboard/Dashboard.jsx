@@ -71,27 +71,27 @@ const Dashboard = () => {
                             <div className=' bg-blue-50 text-3xl p-6 underline text-black text-center '>
                                 <h1>Dashboard</h1>
                             </div>
-                            <div className='m-5'>
-                                <div className=''>
                                     <div className='flex justify-center'>
                                         <div className='max-w-screen-lg w-full'>
                                             <DashboardData data={data} />
                                         </div>
                                     </div>
 
-                                    <div className='lg:flex justify-center '>
-                                        <div className='lg:w-2/3 '>
+                                    <div className='flex flex-col lg:flex-row items-center justify-center gap-10 mt-10 px-4'>
+                                        <div className='w-full lg:w-2/3 bg-white p-6 rounded-2xl shadow-xl border border-gray-100'>
+                                            <h2 className="text-xl font-bold text-gray-800 mb-6 border-b pb-2">Appointment Trends</h2>
                                             <LineChart appointmentsByYear={reportData} />
                                         </div>
-                                        <div className='lg:w-1/3 xl:w-1/4'>
-                                            <PieChart count={pieData} />
-                                            <h1 className='text-center text-2xl text-blue-500 m-10'>
-                                                PIE CHART OF STATUS
+                                        <div className='w-full lg:w-1/3 bg-white p-6 rounded-2xl shadow-xl border border-gray-100'>
+                                            <h2 className="text-xl font-bold text-gray-800 mb-6 border-b pb-2 text-center">Status Overview</h2>
+                                            <div className="max-w-[250px] mx-auto">
+                                                <PieChart count={pieData} />
+                                            </div>
+                                            <h1 className='text-center text-lg font-bold text-sky-600 mt-8 uppercase tracking-wide'>
+                                                Appointment Statistics
                                             </h1>
                                         </div>
                                     </div>
-                                </div>
-                            </div>
                         </div>
 
                     )

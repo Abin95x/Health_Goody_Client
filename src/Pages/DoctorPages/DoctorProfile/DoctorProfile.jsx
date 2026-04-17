@@ -204,74 +204,85 @@ const DoctorProfile = () => {
           ) : (
             <div>
               {doc && (
-                <div className='min-h-screen bg-blue-50'>
-                  <div className='flex flex-col items-center'>
-                    <div className='text-2xl underline text-black mt-10'>
+                <div className='min-h-screen bg-blue-50 py-10 px-4'>
+                  <div className='flex flex-col items-center max-w-5xl mx-auto'>
+                    <div className='text-3xl font-bold text-black mb-10'>
                       <h1>Doctor Profile</h1>
                     </div>
-                    <div className='flex flex-col md:flex-row bg-blue-50'>
-                      <div className='bg-white w-full md:w-96 h-96 rounded-xl m-2 md:m-10 mx-auto md:mx-6 shadow-2xl border text-center'>
-                        <div>
-                          <label htmlFor='fileInput'>
+                    <div className='flex flex-col lg:flex-row w-full gap-8 mb-10'>
+                      {/* Avatar Card */}
+                      <div className='bg-white w-full lg:w-1/3 rounded-2xl p-8 shadow-xl border border-gray-100 flex flex-col items-center'>
+                        <label htmlFor='fileInput' className="cursor-pointer group relative">
+                          <img
+                            src={doc.photo || 'placeholder_image_url'}
+                            alt='Doctor Profile'
+                            className='rounded-full h-40 w-40 object-cover shadow-lg border-4 border-white transition-transform group-hover:scale-105'
+                          />
+                          <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-0 group-hover:bg-opacity-20 rounded-full transition-all">
+                             <FontAwesomeIcon icon={faPenToSquare} className="text-white opacity-0 group-hover:opacity-100" />
+                          </div>
+                          <input
+                            type='file'
+                            id='fileInput'
+                            accept='image/*'
+                            style={{ display: 'none' }}
+                            onChange={handlePhotoChange}
+                          />
+                        </label>
 
-                            <img
-                              src={doc.photo || 'placeholder_image_url'}
-                              alt='Doctor Profile'
-                              className='rounded-lg h-36 w-36 mx-auto m-10'
-                            />
-                            <input
-                              type='file'
-                              id='fileInput'
-                              accept='image/*'
-                              style={{ display: 'none' }}
-                              onChange={handlePhotoChange}
-                            />
-                          </label>
-
-                          <p className='text-lg font-semibold'>
-                            <span className='font-semibold'>Name:</span> {doc.name || 'Not added'}
-                          </p>
-                          <p className='text-black'>
-                            <span className='font-semibold'>Speciality:</span> {doc.speciality || 'Not added'}
-                          </p>
-                          <p>
-                            Experience : <span className='text-black m-5'>{doc.experience || 'Not added'}</span>
-                          </p>
-
+                        <div className="mt-6 text-center">
+                          <h2 className='text-2xl font-bold text-gray-800'>{doc.name || 'Not added'}</h2>
+                          <p className='text-sky-600 font-medium mb-2'>{doc.speciality || 'Not added'}</p>
+                          <div className='inline-block bg-sky-50 px-4 py-1 rounded-full text-sm font-semibold text-sky-700'>
+                            {doc.experience || '0'} Years Experience
+                          </div>
                         </div>
                       </div>
 
-                      <div className='bg-white w-full md:w-[600px] h-96 m-2 md:m-10 mx-auto md:mx-2 p-4 md:p-24 rounded-xl shadow-2xl border flex flex-col justify-center'>
-                        <div>
-                          <span>Name</span>
-                          <div className='border border-zinc-500 rounded h-10 md:w-96 mx-auto'>
-                            <span className='text-black m-2'>{doc.name || 'Not added'}</span>
+                      {/* Info Card */}
+                      <div className='bg-white w-full lg:w-2/3 rounded-2xl p-6 sm:p-10 shadow-xl border border-gray-100'>
+                        <div className="space-y-6">
+                          <div className="group">
+                            <span className="text-xs font-bold text-gray-400 uppercase tracking-wider">Full Name</span>
+                            <div className='border-b-2 border-gray-100 py-2 group-focus-within:border-sky-500 transition-colors'>
+                              <span className='text-lg text-gray-800'>{doc.name || 'Not added'}</span>
+                            </div>
                           </div>
 
-                          <span>Email</span>
-                          <div className='border border-zinc-500 rounded h-10 md:w-96 mx-auto'>
-                            <span className='text-black m-2'>{doc.email || 'Not added'}</span>
+                          <div className="group">
+                            <span className="text-xs font-bold text-gray-400 uppercase tracking-wider">Email Address</span>
+                            <div className='border-b-2 border-gray-100 py-2 group-focus-within:border-sky-500 transition-colors'>
+                              <span className='text-lg text-gray-800'>{doc.email || 'Not added'}</span>
+                            </div>
                           </div>
 
-                          <span>Mobile</span>
-                          <div className='border border-zinc-500 rounded h-10 md:w-96 mx-auto'>
-                            <span className='text-black m-2'>{doc.mobile || 'Not added'}</span>
+                          <div className="group">
+                            <span className="text-xs font-bold text-gray-400 uppercase tracking-wider">Mobile Number</span>
+                            <div className='border-b-2 border-gray-100 py-2 group-focus-within:border-sky-500 transition-colors'>
+                              <span className='text-lg text-gray-800'>{doc.mobile || 'Not added'}</span>
+                            </div>
                           </div>
 
-                          <span>Bio</span>
-                          <div className='border border-zinc-500 rounded h-28 md:w-96 mx-auto'>
-                            <span className='text-black m-2'>{doc.bio || 'Not added'}</span>
+                          <div className="group">
+                            <span className="text-xs font-bold text-gray-400 uppercase tracking-wider">Professional Bio</span>
+                            <div className='bg-gray-50 rounded-xl p-4 mt-2'>
+                              <p className='text-gray-700 leading-relaxed'>{doc.bio || 'Not added'}</p>
+                            </div>
                           </div>
                         </div>
                       </div>
                     </div>
-                    <br />
-                    <div className='flex flex-col md:flex-row justify-center  md:space-x-5'>
-                      <button className='btn btn-primary w-40' onClick={() => setOpenModal2(true)}>Edit <FontAwesomeIcon icon={faPenToSquare} /></button>
-                      <button className='btn btn-success w040'>
-                        <Link to='/doctor/appointment'>Appointments <FontAwesomeIcon icon={faCalendarCheck} /></Link>
+
+                    <div className='flex flex-wrap justify-center gap-4 w-full'>
+                      <button className='btn btn-primary px-8 h-12 rounded-xl flex items-center gap-2' onClick={() => setOpenModal2(true)}>
+                        Edit Profile <FontAwesomeIcon icon={faPenToSquare} />
                       </button>
-                      <button className='btn btn-warning w-40' onClick={() => setOpenModal(true)}>Create Slots <FontAwesomeIcon icon={faPlus} /></button>
+                      <Link to='/doctor/appointment' className='btn btn-success px-8 h-12 rounded-xl text-white flex items-center gap-2'>
+                        Appointments <FontAwesomeIcon icon={faCalendarCheck} />
+                      </Link>
+                      <button className='btn btn-warning px-8 h-12 rounded-xl text-white flex items-center gap-2' onClick={() => setOpenModal(true)}>
+                        Create Slots <FontAwesomeIcon icon={faPlus} />
+                      </button>
                     </div>
                   </div>
                 </div>
